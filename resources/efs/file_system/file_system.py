@@ -1,5 +1,5 @@
 from typing import List
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
+from resources.shared import BaseCloudFormationResourceModel
 from resources.efs.file_system.efs_tag import ElasticFileSystemTag
 from resources.efs.file_system.lifecycle_policy import LifecyclePolicy
 

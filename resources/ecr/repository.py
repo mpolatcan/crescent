@@ -1,7 +1,7 @@
 from typing import List
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
-from resources.shared.tag import Tag
-from resources.ecr.lifecycle_policy import LifecyclePolicy
+from resources.shared import BaseCloudFormationResourceModel
+from resources.shared import Tag
+from resources.ecr import LifecyclePolicy
 
 
 class Repository(BaseCloudFormationResourceModel):

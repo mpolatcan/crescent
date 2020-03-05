@@ -1,4 +1,4 @@
-from resources.shared.tag import Tag
+from resources.shared import Tag
 
 
 class ElasticFileSystemTag(Tag):

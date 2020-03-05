@@ -1,4 +1,4 @@
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
+from resources.shared import BaseCloudFormationResourceModel
 
 
 class AccessKey(BaseCloudFormationResourceModel):
@@ -18,4 +18,3 @@ class AccessKey(BaseCloudFormationResourceModel):
 
     def username(self, value: str):
         return self._add_property_field(self.__PROPERTY_USERNAME, value)
-

@@ -1,5 +1,5 @@
 from typing import List
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
+from resources.shared import BaseCloudFormationResourceModel
 
 
 class MountTarget(BaseCloudFormationResourceModel):
