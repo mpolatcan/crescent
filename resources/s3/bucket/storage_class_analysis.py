@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.data_export import DataExport
+from resources.shared import BaseModel
+from resources.s3.bucket import DataExport
 
 
 class StorageClassAnalysis(BaseModel):

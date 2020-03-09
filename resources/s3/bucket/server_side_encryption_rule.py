@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.server_side_encryption_by_default import ServerSideEncryptionByDefault
+from resources.shared import BaseModel
+from resources.s3.bucket import ServerSideEncryptionByDefault
 
 
 class ServerSideEncryptionRule(BaseModel):

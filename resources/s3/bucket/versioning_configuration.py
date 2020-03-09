@@ -1,4 +1,4 @@
-from resources.shared.base_model import BaseModel
+from resources.shared import BaseModel
 
 
 class VersioningConfiguration(BaseModel):

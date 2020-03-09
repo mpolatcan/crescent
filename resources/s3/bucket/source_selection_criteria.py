@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.sse_kms_encrypted_objects import SseKmsEncryptedObjects
+from resources.shared import BaseModel
+from resources.s3.bucket import SseKmsEncryptedObjects
 
 
 class SourceSelectionCriteria(BaseModel):

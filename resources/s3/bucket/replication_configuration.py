@@ -1,6 +1,6 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.replication_rule import ReplicationRule
+from resources.shared import BaseModel
+from resources.s3.bucket import ReplicationRule
 
 
 class ReplicationConfiguration(BaseModel):

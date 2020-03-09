@@ -1,6 +1,8 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.replication_destination import ReplicationDestination
-from resources.s3.bucket.source_selection_criteria import SourceSelectionCriteria
+from resources.shared import BaseModel
+from resources.s3.bucket import (
+    ReplicationDestination,
+    SourceSelectionCriteria
+)
 
 
 class ReplicationRule(BaseModel):

@@ -1,6 +1,6 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.filter_rule import FilterRule
+from resources.shared import BaseModel
+from resources.s3.bucket import FilterRule
 
 
 class S3KeyFilter(BaseModel):

@@ -1,7 +1,9 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.redirect_all_request_to import RedirectAllRequestTo
-from resources.s3.bucket.routing_rule import RoutingRule
+from resources.shared import BaseModel
+from resources.s3.bucket import (
+    RedirectAllRequestTo,
+    RoutingRule
+)
 
 
 class WebsiteConfiguration(BaseModel):

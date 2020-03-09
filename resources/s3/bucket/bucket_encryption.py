@@ -1,6 +1,6 @@
 from typing import List
-from resources.shared.base_cf_resource_model import BaseModel
-from resources.s3.bucket.server_side_encryption_rule import ServerSideEncryptionRule
+from resources.shared import BaseModel
+from resources.s3.bucket import ServerSideEncryptionRule
 
 
 class BucketEncryption(BaseModel):

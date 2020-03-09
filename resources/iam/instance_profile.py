@@ -1,5 +1,5 @@
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
 from typing import List
+from resources.shared import BaseCloudFormationResourceModel
 
 
 class InstanceProfile(BaseCloudFormationResourceModel):

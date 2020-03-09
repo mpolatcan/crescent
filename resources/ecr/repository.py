@@ -1,6 +1,5 @@
 from typing import List
-from resources.shared import BaseCloudFormationResourceModel
-from resources.shared import Tag
+from resources.shared import BaseCloudFormationResourceModel, Tag
 from resources.ecr import LifecyclePolicy
 
 

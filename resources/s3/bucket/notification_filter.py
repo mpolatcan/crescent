@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.s3_key_filter import S3KeyFilter
+from resources.shared import BaseModel
+from resources.s3.bucket import S3KeyFilter
 
 
 class NotificationFilter(BaseModel):

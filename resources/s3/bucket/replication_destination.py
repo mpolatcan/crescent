@@ -1,6 +1,8 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.access_control_translation import AccessControlTranslation
-from resources.s3.bucket.encryption_configuration import EncryptionConfiguration
+from resources.shared import BaseModel
+from resources.s3.bucket import (
+    AccessControlTranslation,
+    EncryptionConfiguration
+)
 
 
 class ReplicationDestination(BaseModel):

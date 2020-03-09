@@ -1,7 +1,7 @@
 from typing import List
 from resources.shared import BaseCloudFormationResourceModel
-from resources.efs.file_system.efs_tag import ElasticFileSystemTag
-from resources.efs.file_system.lifecycle_policy import LifecyclePolicy
+from resources.efs.file_system import ElasticFileSystemTag
+from resources.efs.file_system import LifecyclePolicy
 
 
 class FileSystem(BaseCloudFormationResourceModel):

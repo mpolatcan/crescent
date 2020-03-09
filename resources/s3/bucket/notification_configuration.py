@@ -1,8 +1,10 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.lambda_configuration import LambdaConfiguration
-from resources.s3.bucket.queue_configuration import QueueConfiguration
-from resources.s3.bucket.topic_configuration import TopicConfiguration
+from resources.shared import BaseModel
+from resources.s3.bucket import (
+    LambdaConfiguration,
+    QueueConfiguration,
+    TopicConfiguration
+)
 
 
 class NotificationConfiguration(BaseModel):

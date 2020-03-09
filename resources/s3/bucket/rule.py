@@ -1,9 +1,12 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.abort_incomplete_multipart_upload import AbortIncompleteMultipartUpload
-from resources.s3.bucket.noncurrent_version_transition import NoncurrentVersionTransition
-from resources.s3.bucket.tag_filter import TagFilter
-from resources.s3.bucket.transition import Transition
+from resources.shared import BaseModel
+from resources.s3.bucket import (
+    AbortIncompleteMultipartUpload,
+    NoncurrentVersionTransition,
+    TagFilter,
+    Transition
+)
+
 
 class Rule(BaseModel):
     __PROPERTY_ABORT_INCOMPLETE_MULTIPART_UPLOAD = "AbortIncompleteMultipartUpload"

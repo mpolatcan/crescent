@@ -1,18 +1,19 @@
 from typing import List
-from resources.shared.tag import Tag
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
-from resources.s3.bucket.accelerate_configuration import AccelerateConfiguration
-from resources.s3.bucket.analytics_configuration import AnalyticsConfiguration
-from resources.s3.bucket.bucket_encryption import BucketEncryption
-from resources.s3.bucket.cors_configuration import CorsConfiguration
-from resources.s3.bucket.inventory_configuration import InventoryConfiguration
-from resources.s3.bucket.lifecycle_configuration import LifecycleConfiguration
-from resources.s3.bucket.logging_configuration import LoggingConfiguration
-from resources.s3.bucket.metrics_configuration import MetricsConfiguration
-from resources.s3.bucket.notification_configuration import NotificationConfiguration
-from resources.s3.bucket.object_lock_configuration import ObjectLockConfiguration
-from resources.s3.bucket.public_access_block_configuration import PublicAccessBlockConfiguration
-from resources.s3.bucket.replication_configuration import ReplicationConfiguration
+from resources.shared import BaseCloudFormationResourceModel, Tag
+from resources.s3.bucket import (
+    AccelerateConfiguration,
+    AnalyticsConfiguration,
+    BucketEncryption,
+    CorsConfiguration,
+    InventoryConfiguration,
+    LifecycleConfiguration,
+    LoggingConfiguration,
+    MetricsConfiguration,
+    NotificationConfiguration,
+    ObjectLockConfiguration,
+    PublicAccessBlockConfiguration,
+    ReplicationConfiguration
+)
 
 
 class Bucket(BaseCloudFormationResourceModel):

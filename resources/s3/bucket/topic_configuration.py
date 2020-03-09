@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.notification_filter import NotificationFilter
+from resources.shared import BaseModel
+from resources.s3.bucket import NotificationFilter
 
 
 class TopicConfiguration(BaseModel):

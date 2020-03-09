@@ -1,6 +1,6 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.tag_filter import TagFilter
+from resources.shared import BaseModel
+from resources.s3.bucket import TagFilter
 
 
 class MetricsConfiguration(BaseModel):

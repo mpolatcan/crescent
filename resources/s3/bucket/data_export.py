@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.destination import Destination
+from resources.shared import BaseModel
+from resources.s3.bucket import Destination
 
 
 class DataExport(BaseModel):

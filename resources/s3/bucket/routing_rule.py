@@ -1,6 +1,8 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.redirect_rule import RedirectRule
-from resources.s3.bucket.routing_rule_condition import RoutingRuleCondition
+from resources.shared import BaseModel
+from resources.s3.bucket import (
+    RedirectRule,
+    RoutingRuleCondition
+)
 
 
 class RoutingRule(BaseModel):

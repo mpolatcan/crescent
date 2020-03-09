@@ -1,7 +1,6 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.storage_class_analysis import StorageClassAnalysis
-from resources.s3.bucket.tag_filter import TagFilter
+from resources.shared import BaseModel
+from resources.s3.bucket import StorageClassAnalysis, TagFilter
 
 
 class AnalyticsConfiguration(BaseModel):

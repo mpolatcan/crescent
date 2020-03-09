@@ -1,8 +1,7 @@
 from typing import List
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
-from resources.shared.tag import Tag
-from resources.rds.db_cluster.db_cluster_role import DBClusterRole
-from resources.rds.db_cluster.scaling_configuration import ScalingConfiguration
+from resources.shared import BaseCloudFormationResourceModel, Tag
+from resources.rds.db_cluster import DBClusterRole
+from resources.rds.db_cluster import ScalingConfiguration
 
 
 class DBCluster(BaseCloudFormationResourceModel):

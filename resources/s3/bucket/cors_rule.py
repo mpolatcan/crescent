@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
 from typing import List
+from resources.shared import BaseModel
 
 
 class CorsRule(BaseModel):

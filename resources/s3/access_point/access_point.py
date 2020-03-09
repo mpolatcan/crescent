@@ -1,6 +1,6 @@
-from resources.shared.base_cf_resource_model import BaseCloudFormationResourceModel
-from resources.s3.bucket.public_access_block_configuration import PublicAccessBlockConfiguration
-from resources.s3.access_point.vpc_configuration import VpcConfiguration
+from resources.shared import BaseCloudFormationResourceModel
+from resources.s3.bucket import PublicAccessBlockConfiguration
+from resources.s3.access_point import VpcConfiguration
 
 
 class AccessPoint(BaseCloudFormationResourceModel):

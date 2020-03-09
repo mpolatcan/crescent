@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.object_lock_rule import ObjectLockRule
+from resources.shared import BaseModel
+from resources.s3.bucket import ObjectLockRule
 
 
 class ObjectLockConfiguration(BaseModel):

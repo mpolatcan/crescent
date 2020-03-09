@@ -1,6 +1,6 @@
 from typing import List
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.cors_rule import CorsRule
+from resources.shared import BaseModel
+from resources.s3.bucket import CorsRule
 
 
 class CorsConfiguration(BaseModel):

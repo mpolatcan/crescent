@@ -1,5 +1,5 @@
-from resources.shared.base_model import BaseModel
-from resources.s3.bucket.default_retention import DefaultRetention
+from resources.shared import BaseModel
+from resources.s3.bucket import DefaultRetention
 
 
 class ObjectLockRule(BaseModel):
