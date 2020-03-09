@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 from resources.rds.db_instance import DBInstanceRole, ProcessorFeature
 
@@ -67,9 +66,9 @@ class DBInstance(BaseCloudFormationResourceModel):
     def allow_major_version_upgrade(self, value: bool):
         return self._add_property_field(self.__PROPERTY_ALLOW_MAJOR_VERSION_UPGRADE, value)
 
-    def associated_roles(self, value: List[DBInstanceRole]):
+    def associated_roles(self, *value: DBInstanceRole):
         return self._add_property_field(self.__PROPERTY_ASSOCIATED_ROLES, [
-            db_instance_role.create() for db_instance_role in value
+            db_instance_role.create() for db_instance_role in list(value)
         ])
 
     def auto_minor_version_upgrade(self, value: bool):
@@ -105,8 +104,8 @@ class DBInstance(BaseCloudFormationResourceModel):
     def db_parameter_group_name(self, value: str):
         return self._add_property_field(self.__PROPERTY_DB_PARAMETER_GROUP_NAME, value)
 
-    def db_security_groups(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_DB_SECURITY_GROUPS, value)
+    def db_security_groups(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_DB_SECURITY_GROUPS, list(value))
 
     def db_snapshot_identifier(self, value: str):
         return self._add_property_field(self.__PROPERTY_DB_SNAPSHOT_IDENTIFIER, value)
@@ -126,8 +125,8 @@ class DBInstance(BaseCloudFormationResourceModel):
     def domain_iam_role_name(self, value: str):
         return self._add_property_field(self.__PROPERTY_DOMAIN_IAM_ROLE_NAME, value)
 
-    def enable_cloudwatch_logs_exports(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_ENABLE_CLOUDWATCH_LOGS_EXPORTS, value)
+    def enable_cloudwatch_logs_exports(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_ENABLE_CLOUDWATCH_LOGS_EXPORTS, list(value))
 
     def enable_iam_database_authentication(self, value: bool):
         return self._add_property_field(self.__PROPERTY_ENABLE_IAM_DATABASE_AUTHENTICATION, value)
@@ -186,9 +185,9 @@ class DBInstance(BaseCloudFormationResourceModel):
     def preferred_maintenance_window(self, value: str):
         return self._add_property_field(self.__PROPERTY_PREFERRED_MAINTENANCE_WINDOW, value)
 
-    def processor_features(self, value: List[ProcessorFeature]):
+    def processor_features(self, *value: ProcessorFeature):
         return self._add_property_field(self.__PROPERTY_PROCESSOR_FEATURES, [
-            processor_feature.create() for processor_feature in value
+            processor_feature.create() for processor_feature in list(value)
         ])
 
     def promotion_tier(self, value: int):
@@ -209,9 +208,9 @@ class DBInstance(BaseCloudFormationResourceModel):
     def storage_type(self, value: str):
         return self._add_property_field(self.__PROPERTY_STORAGE_TYPE, value)
 
-    def tags(self, value: List[Tag]):
+    def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in value
+            tag.create() for tag in list(value)
         ])
 
     def timezone(self, value: str):
@@ -220,5 +219,5 @@ class DBInstance(BaseCloudFormationResourceModel):
     def use_default_processor_features(self, value: bool):
         return self._add_property_field(self.__PROPERTY_USE_DEFAULT_PROCESSOR_FEATURES, value)
 
-    def vpc_security_groups(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_VPC_SECURITY_GROUPS, value)
+    def vpc_security_groups(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_VPC_SECURITY_GROUPS, list(value))

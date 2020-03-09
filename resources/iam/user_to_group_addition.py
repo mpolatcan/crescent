@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel
 
 
@@ -13,5 +12,5 @@ class UserToGroupAddition(BaseCloudFormationResourceModel):
     def group_name(self, value: str):
         return self._add_property_field(self.__PROPERTY_GROUP_NAME, value)
 
-    def users(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_USERS, value)
+    def users(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_USERS, list(value))

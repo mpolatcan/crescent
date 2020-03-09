@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 from resources.s3.bucket import (
     AccelerateConfiguration,
@@ -46,8 +45,8 @@ class Bucket(BaseCloudFormationResourceModel):
     def access_control(self, value: str):
         return self._add_property_field(self.__PROPERTY_ACCESS_CONTROL, value)
 
-    def analytics_configurations(self, value: List[AnalyticsConfiguration]):
-        return self._add_property_field(self.__PROPERTY_ANALYTICS_CONFIGURATIONS, [conf.create() for conf in value])
+    def analytics_configurations(self, *value: AnalyticsConfiguration):
+        return self._add_property_field(self.__PROPERTY_ANALYTICS_CONFIGURATIONS, [conf.create() for conf in list(value)])
 
     def bucket_encryption(self, value: BucketEncryption):
         return self._add_property_field(self.__PROPERTY_BUCKET_ENCRYPTION, value.create())
@@ -58,8 +57,8 @@ class Bucket(BaseCloudFormationResourceModel):
     def cors_configuration(self, value: CorsConfiguration):
         return self._add_property_field(self.__PROPERTY_CORS_CONFIGURATION, value.create())
 
-    def inventory_configurations(self, value: List[InventoryConfiguration]):
-        return self._add_property_field(self.__PROPERTY_INVENTORY_CONFIGURATIONS, [conf.create() for conf in value])
+    def inventory_configurations(self, *value: InventoryConfiguration):
+        return self._add_property_field(self.__PROPERTY_INVENTORY_CONFIGURATIONS, [conf.create() for conf in list(value)])
 
     def lifecycle_configuration(self, value: LifecycleConfiguration):
         return self._add_property_field(self.__PROPERTY_LIFECYCLE_CONFIGURATION, value.create())
@@ -67,8 +66,8 @@ class Bucket(BaseCloudFormationResourceModel):
     def logging_configuration(self, value: LoggingConfiguration):
         return self._add_property_field(self.__PROPERTY_LOGGING_CONFIGURATION, value.create())
 
-    def metrics_configurations(self, value: List[MetricsConfiguration]):
-        return self._add_property_field(self.__PROPERTY_METRICS_CONFIGURATIONS, [conf.create() for conf in value])
+    def metrics_configurations(self, *value: MetricsConfiguration):
+        return self._add_property_field(self.__PROPERTY_METRICS_CONFIGURATIONS, [conf.create() for conf in list(value)])
 
     def notification_configuration(self, value: NotificationConfiguration):
         return self._add_property_field(self.__PROPERTY_NOTIFICATION_CONFIGURATION, value.create())
@@ -85,5 +84,5 @@ class Bucket(BaseCloudFormationResourceModel):
     def replication_configuration(self, value: ReplicationConfiguration):
         return self._add_property_field(self.__PROPERTY_REPLICATION_CONFIGURATION, value.create())
 
-    def tags(self, value: List[Tag]):
-        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in value])
+    def tags(self, *value: Tag):
+        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in list(value)])

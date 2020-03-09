@@ -13,8 +13,8 @@ class Policy(BaseCloudFormationResourceModel):
     def __init__(self):
         super(Policy, self).__init__(type=self.__TYPE)
 
-    def groups(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_GROUPS, value)
+    def groups(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_GROUPS, list(value))
 
     def policy_document(self, value: dict):
         return self._add_property_field(self.__PROPERTY_POLICY_DOCUMENT, value)
@@ -22,8 +22,8 @@ class Policy(BaseCloudFormationResourceModel):
     def policy_name(self, value: str):
         return self._add_property_field(self.__PROPERTY_POLICY_NAME, value)
 
-    def roles(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_ROLES, value)
+    def roles(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_ROLES, list(value))
 
-    def users(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_USERS, value)
+    def users(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_USERS, list(value))

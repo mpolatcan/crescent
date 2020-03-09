@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseModel
 from resources.s3.bucket import Destination
 
@@ -24,8 +23,8 @@ class InventoryConfiguration(BaseModel):
     def included_object_versions(self, value: str):
         return self._add_field(self.__PROPERTY_INCLUDED_OBJECT_VERSIONS, value)
 
-    def optional_fields(self, value: List[str]):
-        return self._add_field(self.__PROPERTY_OPTIONAL_FIELDS, value)
+    def optional_fields(self, *value: str):
+        return self._add_field(self.__PROPERTY_OPTIONAL_FIELDS, list(value))
 
     def prefix(self, value: str):
         return self._add_field(self.__PROPERTY_PREFIX, value)

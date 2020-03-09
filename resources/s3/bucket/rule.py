@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseModel
 from resources.s3.bucket import (
     AbortIncompleteMultipartUpload,
@@ -40,9 +39,9 @@ class Rule(BaseModel):
     def noncurrent_version_transition(self, value: NoncurrentVersionTransition):
         return self._add_field(self.__PROPERTY_NONCURRENT_VERSION_TRANSITION, value.create())
 
-    def noncurrent_version_transitions(self, value: List[NoncurrentVersionTransition]):
+    def noncurrent_version_transitions(self, *value: NoncurrentVersionTransition):
         return self._add_field(self.__PROPERTY_NONCURRENT_VERSION_TRANSITIONS, [
-            noncurrent_v_transition.create() for noncurrent_v_transition in value
+            noncurrent_v_transition.create() for noncurrent_v_transition in list(value)
         ])
 
     def prefix(self, value: str):
@@ -51,15 +50,15 @@ class Rule(BaseModel):
     def status(self, value: str):
         return self._add_field(self.__PROPERTY_STATUS, value)
 
-    def tag_filters(self, value: List[TagFilter]):
+    def tag_filters(self, *value: TagFilter):
         return self._add_field(self.__PROPERTY_TAG_FILTERS, [
-            tag_filter.create() for tag_filter in value
+            tag_filter.create() for tag_filter in list(value)
         ])
 
     def transition(self, value: Transition):
         return self._add_field(self.__PROPERTY_TRANSITION, value.create())
 
-    def transitions(self, value: List[Transition]):
+    def transitions(self, *value: Transition):
         return self._add_field(self.__PROPERTY_TRANSITIONS, [
-            transition.create() for transition in value
+            transition.create() for transition in list(value)
         ])

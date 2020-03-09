@@ -15,8 +15,8 @@ class MountTarget(BaseCloudFormationResourceModel):
     def ip_address(self, value: str):
         return self._add_property_field(self.__PROPERTY_IP_ADDRESS, value)
 
-    def security_groups(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_SECURITY_GROUPS, value)
+    def security_groups(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_SECURITY_GROUPS, list(value))
 
     def subnet_id(self, value: str):
         return self._add_property_field(self.__PROPERTY_SUBNET_ID, value)

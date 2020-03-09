@@ -18,5 +18,5 @@ class AnalyticsConfiguration(BaseModel):
     def storage_class_analysis(self, value: StorageClassAnalysis):
         return self._add_field(self.__PROPERTY_STORAGE_CLASS_ANALYSIS, value)
 
-    def tag_filters(self, value: List[TagFilter]):
-        return self._add_field(self.__PROPERTY_TAG_FILTERS, [tag_filter.create() for tag_filter in value])
+    def tag_filters(self, *value: TagFilter):
+        return self._add_field(self.__PROPERTY_TAG_FILTERS, [tag_filter.create() for tag_filter in list(value)])

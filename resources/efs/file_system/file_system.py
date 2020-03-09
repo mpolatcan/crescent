@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel
 from resources.efs.file_system import ElasticFileSystemTag
 from resources.efs.file_system import LifecyclePolicy
@@ -17,9 +16,9 @@ class FileSystem(BaseCloudFormationResourceModel):
     def encrypted(self, value: bool):
         return self._add_property_field(self.__PROPERTY_ENCRYPTED, value)
 
-    def file_system_tags(self, value: List[ElasticFileSystemTag]):
+    def file_system_tags(self, *value: ElasticFileSystemTag):
         return self._add_property_field(self.__PROPERTY_FILE_SYSTEM_TAGS, [
-            efs_tag.create() for efs_tag in value
+            efs_tag.create() for efs_tag in list(value)
         ])
 
     def kms_key_id(self, value: str):

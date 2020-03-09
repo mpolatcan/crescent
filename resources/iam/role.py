@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 
 
@@ -43,8 +42,8 @@ class Role(BaseCloudFormationResourceModel):
     def description(self, value: str):
         return self._add_property_field(self.__PROPERTY_DESCRIPTION, value)
 
-    def managed_policy_arns(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, value)
+    def managed_policy_arns(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, list(value))
 
     def max_session_duration(self, value: int):
         return self._add_property_field(self.__PROPERTY_MAX_SESSION_DURATION, value)
@@ -55,11 +54,11 @@ class Role(BaseCloudFormationResourceModel):
     def permission_boundary(self, value: str):
         return self._add_property_field(self.__PROPERTY_PERMISSION_BOUNDARY, value)
 
-    def policies(self, value: List[Policy]):
-        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in value])
+    def policies(self, *value: Policy):
+        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in list(value)])
 
     def role_name(self, value: str):
         return self._add_property_field(self.__PROPERTY_ROLE_NAME, value)
 
-    def tags(self, value: List[Tag]):
-        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in value])
+    def tags(self, *value: Tag):
+        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in list(value)])

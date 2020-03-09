@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 
 
@@ -56,14 +55,14 @@ class User(BaseCloudFormationResourceModel):
     def __init__(self):
         super(User, self).__init__(type=self.__TYPE)
 
-    def groups(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_GROUPS, value)
+    def groups(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_GROUPS, list(value))
 
     def login_profile(self, value: LoginProfile):
         return self._add_property_field(self.__PROPERTY_LOGIN_PROFILE, value.create())
 
-    def managed_policy_arns(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, value)
+    def managed_policy_arns(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, list(value))
 
     def path(self, value: str):
         return self._add_property_field(self.__PROPERTY_PATH, value)
@@ -71,11 +70,11 @@ class User(BaseCloudFormationResourceModel):
     def permission_boundary(self, value: str):
         return self._add_property_field(self.__PROPERTY_PERMISSION_BOUNDARY, value)
 
-    def policies(self, value: List[Policy]):
-        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in value])
+    def policies(self, *value: Policy):
+        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in list(value)])
 
-    def tags(self, value: List[Tag]):
-        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in value])
+    def tags(self, *value: Tag):
+        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in list(value)])
 
     def username(self, value: str):
         return self._add_property_field(self.__PROPERTY_USER_NAME, value)

@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel
 
 
@@ -16,14 +15,14 @@ class EventSubscription(BaseCloudFormationResourceModel):
     def enabled(self, value: bool):
         return self._add_property_field(self.__PROPERTY_ENABLED, value)
 
-    def event_categories(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_EVENT_CATEGORIES, value)
+    def event_categories(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_EVENT_CATEGORIES, list(value))
 
     def sns_topic_arn(self, value: str):
         return self._add_property_field(self.__PROPERTY_SNS_TOPIC_ARN, value)
 
-    def source_ids(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_SOURCE_IDS, value)
+    def source_ids(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_SOURCE_IDS, list(value))
 
     def source_type(self, value: str):
         return self._add_property_field(self.__PROPERTY_SOURCE_TYPE, value)

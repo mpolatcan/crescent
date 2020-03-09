@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseModel
 from resources.s3.bucket import TagFilter
 
@@ -14,7 +13,7 @@ class MetricsConfiguration(BaseModel):
     def prefix(self, value: str):
         return self._add_field(self.__PROPERTY_PREFIX, value)
 
-    def tag_filters(self, value: List[TagFilter]):
+    def tag_filters(self, *value: TagFilter):
         return self._add_field(self.__PROPERTY_TAG_FILTERS, [
-            tag_filter.create() for tag_filter in value
+            tag_filter.create() for tag_filter in list(value)
         ])

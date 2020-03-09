@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 
 
@@ -21,7 +20,7 @@ class DBClusterParameterGroup(BaseCloudFormationResourceModel):
     def parameters(self, value: dict):
         return self._add_property_field(self.__PROPERTY_PARAMETERS, value)
 
-    def tags(self, value: List[Tag]):
+    def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in value
+            tag.create() for tag in list(value)
         ])

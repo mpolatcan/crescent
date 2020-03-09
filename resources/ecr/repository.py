@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 from resources.ecr import LifecyclePolicy
 
@@ -22,7 +21,7 @@ class Repository(BaseCloudFormationResourceModel):
     def repository_policy_text(self, value: dict):
         return self._add_property_field(self.__PROPERTY_REPOSITORY_POLICY_TEXT, value)
 
-    def tags(self, value: List[Tag]):
+    def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in value
+            tag.create() for tag in list(value)
         ])

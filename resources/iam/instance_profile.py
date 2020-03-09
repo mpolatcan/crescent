@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel
 
 
@@ -17,5 +16,5 @@ class InstanceProfile(BaseCloudFormationResourceModel):
     def path(self, value: str):
         return self._add_property_field(self.__PROPERTY_PATH, value)
 
-    def roles(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_ROLES, value)
+    def roles(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_ROLES, list(value))

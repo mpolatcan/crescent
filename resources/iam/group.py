@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel
 
 
@@ -35,12 +34,12 @@ class Group(BaseCloudFormationResourceModel):
     def group_name(self, value: str):
         return self._add_property_field(self.__PROPERTY_GROUP_NAME, value)
 
-    def managed_policy_arns(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, value)
+    def managed_policy_arns(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, list(value))
 
     def path(self, value: str):
         return self._add_property_field(self.__PROPERTY_PATH, value)
 
-    def policies(self, value: List[Policy]):
-        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in value])
+    def policies(self, *value: Policy):
+        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in list(value)])
 

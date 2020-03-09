@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 from resources.rds.db_security_group import Ingress
 
@@ -13,9 +12,9 @@ class DBSecurityGroup(BaseCloudFormationResourceModel):
     def __init__(self):
         super(DBSecurityGroup, self).__init__(type=self.__TYPE)
 
-    def db_security_group_ingress(self, value: List[Ingress]):
+    def db_security_group_ingress(self, *value: Ingress):
         return self._add_property_field(self.__PROPERTY_DB_SECURITY_GROUP_INGRESS, [
-            ingress.create() for ingress in value
+            ingress.create() for ingress in list(value)
         ])
 
     def ec2_vpc_id(self, value: str):
@@ -24,7 +23,7 @@ class DBSecurityGroup(BaseCloudFormationResourceModel):
     def group_description(self, value: str):
         return self._add_property_field(self.__PROPERTY_GROUP_DESCRIPTION, value)
 
-    def tags(self, value: List[Tag]):
+    def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in value
+            tag.create() for tag in list(value)
         ])

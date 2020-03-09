@@ -1,4 +1,3 @@
-from typing import List
 from resources.shared import BaseCloudFormationResourceModel, Tag
 from resources.rds.db_cluster import DBClusterRole
 from resources.rds.db_cluster import ScalingConfiguration
@@ -41,13 +40,13 @@ class DBCluster(BaseCloudFormationResourceModel):
     def __init__(self):
         super(DBCluster, self).__init__(type=self.__TYPE)
 
-    def associated_roles(self, value: List[DBClusterRole]):
+    def associated_roles(self, *value: DBClusterRole):
         return self._add_property_field(self.__PROPERTY_ASSOCIATED_ROLES, [
-            dbc_role.create() for dbc_role in value.create()
+            dbc_role.create() for dbc_role in list(value)
         ])
 
-    def availability_zones(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_AVAILABILITY_ZONES, value)
+    def availability_zones(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_AVAILABILITY_ZONES, list(value))
 
     def backtrack_window(self, value: int):
         return self._add_property_field(self.__PROPERTY_BACKTRACK_WINDOW, value)
@@ -70,8 +69,8 @@ class DBCluster(BaseCloudFormationResourceModel):
     def deletion_protection(self, value: bool):
         return self._add_property_field(self.__PROPERTY_DELETION_PROTECTION, value)
 
-    def enable_cloudwatch_logs_exports(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_ENABLE_CLOUDWATCH_LOGS_EXPORTS, value)
+    def enable_cloudwatch_logs_exports(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_ENABLE_CLOUDWATCH_LOGS_EXPORTS, list(value))
 
     def enable_http_endpoint(self, value: bool):
         return self._add_property_field(self.__PROPERTY_ENABLE_HTTP_ENDPOINT, value)
@@ -127,13 +126,13 @@ class DBCluster(BaseCloudFormationResourceModel):
     def storage_encrypted(self, value: bool):
         return self._add_property_field(self.__PROPERTY_STORAGE_ENCRYPTED, value)
 
-    def tags(self, value: List[Tag]):
+    def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in value
+            tag.create() for tag in list(value)
         ])
 
     def use_latest_restorable_time(self, value: bool):
         return self._add_property_field(self.__PROPERTY_USE_LATEST_RESTORABLE_TIME, value)
 
-    def vpc_security_group_ids(self, value: List[str]):
-        return self._add_property_field(self.__PROPERTY_VPC_SECURITY_GROUP_IDS, value)
+    def vpc_security_group_ids(self, *value: str):
+        return self._add_property_field(self.__PROPERTY_VPC_SECURITY_GROUP_IDS, list(value))
