@@ -1,4 +1,4 @@
-from resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
 
 
 class DBParameterGroup(BaseCloudFormationResourceModel):

@@ -1,5 +1,5 @@
-from resources.shared import BaseCloudFormationResourceModel, Tag
-from resources.rds.option_group import OptionConfiguration
+from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation.resources.rds.option_group import OptionConfiguration
 
 
 class OptionGroup(BaseCloudFormationResourceModel):

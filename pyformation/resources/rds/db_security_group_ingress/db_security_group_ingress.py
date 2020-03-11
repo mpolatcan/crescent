@@ -1,4 +1,4 @@
-from resources.shared import BaseCloudFormationResourceModel
+from pyformation.resources.shared import BaseCloudFormationResourceModel
 
 
 class DBSecurityGroupIngress(BaseCloudFormationResourceModel):

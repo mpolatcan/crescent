@@ -1,5 +1,5 @@
-from resources.shared import BaseCloudFormationResourceModel, Tag
-from resources.rds.db_security_group import Ingress
+from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation.resources.rds.db_security_group import Ingress
 
 
 class DBSecurityGroup(BaseCloudFormationResourceModel):

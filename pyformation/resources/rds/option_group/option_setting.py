@@ -1,4 +1,4 @@
-from resources.shared import BaseModel
+from pyformation.resources.shared import BaseModel
 
 
 class OptionSetting(BaseModel):

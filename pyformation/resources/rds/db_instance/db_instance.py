@@ -1,5 +1,5 @@
-from resources.shared import BaseCloudFormationResourceModel, Tag
-from resources.rds.db_instance import DBInstanceRole, ProcessorFeature
+from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation.resources.rds.db_instance import DBInstanceRole, ProcessorFeature
 
 
 class DBInstance(BaseCloudFormationResourceModel):

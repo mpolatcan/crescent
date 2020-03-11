@@ -1,5 +1,5 @@
-from resources.shared import BaseModel
-from resources.rds.option_group import OptionSetting
+from pyformation.resources.shared import BaseModel
+from pyformation.resources.rds.option_group import OptionSetting
 
 
 class OptionConfiguration(BaseModel):

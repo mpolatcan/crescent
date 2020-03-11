@@ -1,6 +1,5 @@
-from resources.shared import BaseCloudFormationResourceModel, Tag
-from resources.rds.db_cluster import DBClusterRole
-from resources.rds.db_cluster import ScalingConfiguration
+from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation.resources.rds.db_cluster import DBClusterRole, ScalingConfiguration
 
 
 class DBCluster(BaseCloudFormationResourceModel):
