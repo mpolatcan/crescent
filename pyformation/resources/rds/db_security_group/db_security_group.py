@@ -14,7 +14,7 @@ class DBSecurityGroup(BaseCloudFormationResourceModel):
 
     def db_security_group_ingress(self, *value: Ingress):
         return self._add_property_field(self.__PROPERTY_DB_SECURITY_GROUP_INGRESS, [
-            ingress.create() for ingress in list(value)
+            ingress for ingress in list(value)
         ])
 
     def ec2_vpc_id(self, value: str):
@@ -25,5 +25,5 @@ class DBSecurityGroup(BaseCloudFormationResourceModel):
 
     def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in list(value)
+            tag for tag in list(value)
         ])

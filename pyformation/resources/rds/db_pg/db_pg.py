@@ -22,5 +22,5 @@ class DBParameterGroup(BaseCloudFormationResourceModel):
 
     def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in list(value)
+            tag for tag in list(value)
         ])

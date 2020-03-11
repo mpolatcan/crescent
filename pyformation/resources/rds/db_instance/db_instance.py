@@ -68,7 +68,7 @@ class DBInstance(BaseCloudFormationResourceModel):
 
     def associated_roles(self, *value: DBInstanceRole):
         return self._add_property_field(self.__PROPERTY_ASSOCIATED_ROLES, [
-            db_instance_role.create() for db_instance_role in list(value)
+            db_instance_role for db_instance_role in list(value)
         ])
 
     def auto_minor_version_upgrade(self, value: bool):
@@ -187,7 +187,7 @@ class DBInstance(BaseCloudFormationResourceModel):
 
     def processor_features(self, *value: ProcessorFeature):
         return self._add_property_field(self.__PROPERTY_PROCESSOR_FEATURES, [
-            processor_feature.create() for processor_feature in list(value)
+            processor_feature for processor_feature in list(value)
         ])
 
     def promotion_tier(self, value: int):
@@ -210,7 +210,7 @@ class DBInstance(BaseCloudFormationResourceModel):
 
     def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in list(value)
+            tag for tag in list(value)
         ])
 
     def timezone(self, value: str):

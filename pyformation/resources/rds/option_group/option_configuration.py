@@ -18,7 +18,7 @@ class OptionConfiguration(BaseModel):
 
     def option_settings(self, *value: OptionSetting):
         return self._add_field(self.__PROPERTY_OPTION_SETTINGS, [
-            option_setting.create() for option_setting in list(value)
+            option_setting for option_setting in list(value)
         ])
 
     def option_version(self, value: str):

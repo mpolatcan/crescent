@@ -41,7 +41,7 @@ class DBCluster(BaseCloudFormationResourceModel):
 
     def associated_roles(self, *value: DBClusterRole):
         return self._add_property_field(self.__PROPERTY_ASSOCIATED_ROLES, [
-            dbc_role.create() for dbc_role in list(value)
+            dbc_role for dbc_role in list(value)
         ])
 
     def availability_zones(self, *value: str):
@@ -111,7 +111,7 @@ class DBCluster(BaseCloudFormationResourceModel):
         return self._add_property_field(self.__PROPERTY_RESTORE_TYPE, value)
 
     def scaling_configuration(self, value: ScalingConfiguration):
-        return self._add_property_field(self.__PROPERTY_SCALING_CONFIGURATION, value.create())
+        return self._add_property_field(self.__PROPERTY_SCALING_CONFIGURATION, value)
 
     def snapshot_identifier(self, value: str):
         return self._add_property_field(self.__PROPERTY_SNAPSHOT_IDENTIFIER, value)
@@ -127,7 +127,7 @@ class DBCluster(BaseCloudFormationResourceModel):
 
     def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in list(value)
+            tag for tag in list(value)
         ])
 
     def use_latest_restorable_time(self, value: bool):

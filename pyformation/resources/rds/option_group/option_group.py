@@ -21,7 +21,7 @@ class OptionGroup(BaseCloudFormationResourceModel):
 
     def option_configurations(self, *value: OptionConfiguration):
         return self._add_property_field(self.__PROPERTY_OPTION_CONFIGURATIONS, [
-            option_group_conf.create() for option_group_conf in list(value)
+            option_group_conf for option_group_conf in list(value)
         ])
 
     def option_group_description(self, value: str):
@@ -29,5 +29,5 @@ class OptionGroup(BaseCloudFormationResourceModel):
 
     def tags(self, *value: Tag):
         return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag.create() for tag in list(value)
+            tag for tag in list(value)
         ])
