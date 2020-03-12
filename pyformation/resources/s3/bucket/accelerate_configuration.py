@@ -1,8 +1,6 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class AccelerateConfiguration(BaseModel):
-    __PROPERTY_ACCELERATION_STATUS = "AccelerationStatus"
-
-    def acceleration_status(self, value: str):
-        return self._add_field(self.__PROPERTY_ACCELERATION_STATUS, value)
+class AccelerateConfiguration(PyformationModel):
+    def AccelerationStatus(self, value: str):
+        return self._set_field(self.AccelerationStatus.__name__, value)

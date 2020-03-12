@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class StreamEncryption(BaseModel):
-    __PROPERTY_ENCRYPTION_TYPE = "EncryptionType"
-    __PROPERTY_KEY_ID = "KeyId"
+class StreamEncryption(PyformationModel):
+    def EncryptionType(self, value: str):
+        return self._set_field(self.EncryptionType.__name__, value)
 
-    def encryption_type(self, value: str):
-        return self._add_field(self.__PROPERTY_ENCRYPTION_TYPE, value)
-
-    def key_id(self, value: str):
-        return self._add_field(self.__PROPERTY_KEY_ID, value)
+    def KeyId(self, value: str):
+        return self._set_field(self.KeyId.__name__, value)

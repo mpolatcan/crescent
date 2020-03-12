@@ -1,34 +1,26 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import Destination
+from pyformation import PyformationModel
+from .destination import Destination
 
 
-class InventoryConfiguration(BaseModel):
-    __PROPERTY_DESTINATION = "Destination"
-    __PROPERTY_ENABLED = "Enabled"
-    __PROPERTY_ID = "Id"
-    __PROPERTY_INCLUDED_OBJECT_VERSIONS = "IncludedObjectVersions"
-    __PROPERTY_OPTIONAL_FIELDS = "OptionalFields"
-    __PROPERTY_PREFIX = "Prefix"
-    __PROPERTY_SCHEDULE_FREQUENCY = "ScheduleFrequency"
+class InventoryConfiguration(PyformationModel):
+    def Destination(self, value: Destination):
+        return self._set_field(self.Destination.__name__, value.__to_dict__())
 
-    def destination(self, value: Destination):
-        return self._add_field(self.__PROPERTY_DESTINATION, value)
+    def Enabled(self, value: bool):
+        return self._set_field(self.Enabled, value)
 
-    def enabled(self, value: bool):
-        return self._add_field(self.__PROPERTY_ENABLED, value)
+    def Id(self, value: str):
+        return self._set_field(self.Id.__name__, value)
 
-    def id(self, value: str):
-        return self._add_field(self.__PROPERTY_ID, value)
+    def IncludedObjectVersions(self, value: str):
+        return self._set_field(self.IncludedObjectVersions.__name__, value)
 
-    def included_object_versions(self, value: str):
-        return self._add_field(self.__PROPERTY_INCLUDED_OBJECT_VERSIONS, value)
+    def OptionalFields(self, *value: str):
+        return self._set_field(self.OptionalFields.__name__, list(value))
 
-    def optional_fields(self, *value: str):
-        return self._add_field(self.__PROPERTY_OPTIONAL_FIELDS, list(value))
+    def Prefix(self, value: str):
+        return self._set_field(self.Prefix.__name__, value)
 
-    def prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_PREFIX, value)
-
-    def schedule_frequency(self, value: str):
-        return self._add_field(self.__PROPERTY_SCHEDULE_FREQUENCY, value)
+    def ScheduleFrequency(self, value: str):
+        return self._set_field(self.ScheduleFrequency.__name__, value)
 

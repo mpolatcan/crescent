@@ -1,9 +1,9 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import DataExport
+from pyformation import PyformationModel
+from .data_export import DataExport
 
 
-class StorageClassAnalysis(BaseModel):
+class StorageClassAnalysis(PyformationModel):
     __PROPERTY_DATA_EXPORT = "DataExport"
 
-    def data_export(self, value: DataExport):
-        return self._add_field(self.__PROPERTY_DATA_EXPORT, value)
+    def DataExport(self, value: DataExport):
+        return self._set_field(self.DataExport.__name__, value.__to_dict__())

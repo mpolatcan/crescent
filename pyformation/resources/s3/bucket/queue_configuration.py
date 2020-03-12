@@ -1,17 +1,13 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import NotificationFilter
+from pyformation import PyformationModel
+from .notification_filter import NotificationFilter
 
 
-class QueueConfiguration(BaseModel):
-    __PROPERTY_EVENT = "Event"
-    __PROPERTY_FILTER = "Filter"
-    __PROPERTY_QUEUE = "Queue"
+class QueueConfiguration(PyformationModel):
+    def Event(self, value: str):
+        return self._set_field(self.Event.__name__, value)
 
-    def event(self, value: str):
-        return self._add_field(self.__PROPERTY_EVENT, value)
+    def Filter(self, value: NotificationFilter):
+        return self._set_field(self.Filter.__name__, value.__to_dict__())
 
-    def filter(self, value: NotificationFilter):
-        return self._add_field(self.__PROPERTY_FILTER, value)
-
-    def queue(self, value: str):
-        return self._add_field(self.__PROPERTY_QUEUE, value)
+    def Queue(self, value: str):
+        return self._set_field(self.Queue.__name__, value)

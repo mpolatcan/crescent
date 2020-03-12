@@ -1,4 +1,4 @@
-from pyformation.resources.firehose import BufferingHints
+from .buffering_hints import BufferingHints
 
 
 class ElasticsearchBufferingHints(BufferingHints):

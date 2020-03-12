@@ -1,88 +1,76 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
-from pyformation.resources.s3.bucket import (
-    AccelerateConfiguration,
-    AnalyticsConfiguration,
-    BucketEncryption,
-    CorsConfiguration,
-    InventoryConfiguration,
-    LifecycleConfiguration,
-    LoggingConfiguration,
-    MetricsConfiguration,
-    NotificationConfiguration,
-    ObjectLockConfiguration,
-    PublicAccessBlockConfiguration,
-    ReplicationConfiguration
-)
+from pyformation import PyformationResource, Tag
+from .accelerate_configuration import AccelerateConfiguration
+from .analytics_configuration import AnalyticsConfiguration
+from .bucket_encryption import BucketEncryption
+from .cors_configuration import CorsConfiguration
+from .inventory_configuration import InventoryConfiguration
+from .lifecycle_configuration import LifecycleConfiguration
+from .logging_configuration import LoggingConfiguration
+from .metrics_configuration import MetricsConfiguration
+from .notification_configuration import NotificationConfiguration
+from .object_lock_configuration import ObjectLockConfiguration
+from .public_access_block_configuration import PublicAccessBlockConfiguration
+from .replication_configuration import ReplicationConfiguration
+from .versioning_configuration import VersioningConfiguration
+from .website_configuration import WebsiteConfiguration
 
 
-class Bucket(BaseCloudFormationResourceModel):
+class Bucket(PyformationResource):
     __TYPE = "AWS::S3::Bucket"
-    __PROPERTY_ACCELERATE_CONFIGURATION = "AccelerateConfiguration"
-    __PROPERTY_ACCESS_CONTROL = "AccessControl"
-    __PROPERTY_ANALYTICS_CONFIGURATIONS = "AnalyticsConfigurations"
-    __PROPERTY_BUCKET_ENCRYPTION = "BucketEncryption"
-    __PROPERTY_BUCKET_NAME = "BucketName"
-    __PROPERTY_CORS_CONFIGURATION = "CorsConfiguration"
-    __PROPERTY_INVENTORY_CONFIGURATIONS = "InventoryConfigurations"
-    __PROPERTY_LIFECYCLE_CONFIGURATION = "LifecycleConfiguration"
-    __PROPERTY_LOGGING_CONFIGURATION = "LoggingConfiguration"
-    __PROPERTY_METRICS_CONFIGURATIONS = "MetricsConfigurations"
-    __PROPERTY_NOTIFICATION_CONFIGURATION = "NotificationConfiguration"
-    __PROPERTY_OBJECT_LOCK_CONFIGURATION = "ObjectLockConfiguration"
-    __PROPERTY_OBJECT_LOCK_ENABLED = "ObjectLockEnabled"
-    __PROPERTY_PUBLIC_ACCESS_BLOCK_CONFIGURATION = "PublicAccessBlockConfiguration"
-    __PROPERTY_REPLICATION_CONFIGURATION = "ReplicationConfiguration"
-    __PROPERTY_TAGS = "Tags"
-    __PROPERTY_VERSIONING_CONFIGURATION = "VersioningConfiguration"
-    __PROPERTY_WEBSITE_CONFIGURATION = "WebsiteConfiguration"
 
-    def __init__(self):
-        super(Bucket, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(Bucket, self).__init__(id, self.__TYPE)
 
-    def accelerate_configuration(self, value: AccelerateConfiguration):
-        return self._add_property_field(self.__PROPERTY_ACCELERATE_CONFIGURATION, value)
+    def AccelerateConfiguration(self, value: AccelerateConfiguration):
+        return self._set_property(self.AccelerateConfiguration.__name__, value.__to_dict__())
 
-    def access_control(self, value: str):
-        return self._add_property_field(self.__PROPERTY_ACCESS_CONTROL, value)
+    def AccessControl(self, value: str):
+        return self._set_property(self.AccessControl.__name__, value)
 
-    def analytics_configurations(self, *value: AnalyticsConfiguration):
-        return self._add_property_field(self.__PROPERTY_ANALYTICS_CONFIGURATIONS, [conf for conf in list(value)])
+    def AnalyticsConfigurations(self, *value: AnalyticsConfiguration):
+        return self._set_property(self.AnalyticsConfigurations.__name__, [ac.__to_dict__() for ac in list(value)])
 
-    def bucket_encryption(self, value: BucketEncryption):
-        return self._add_property_field(self.__PROPERTY_BUCKET_ENCRYPTION, value)
+    def BucketEncryption(self, value: BucketEncryption):
+        return self._set_property(self.BucketEncryption.__name__, value.__to_dict__())
 
-    def bucket_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_BUCKET_NAME, value)
+    def BucketName(self, value: str):
+        return self._set_property(self.BucketName.__name__, value)
 
-    def cors_configuration(self, value: CorsConfiguration):
-        return self._add_property_field(self.__PROPERTY_CORS_CONFIGURATION, value)
+    def CorsConfiguration(self, value: CorsConfiguration):
+        return self._set_property(self.CorsConfiguration.__name__, value.__to_dict__())
 
-    def inventory_configurations(self, *value: InventoryConfiguration):
-        return self._add_property_field(self.__PROPERTY_INVENTORY_CONFIGURATIONS, [conf for conf in list(value)])
+    def InventoryConfigurations(self, *value: InventoryConfiguration):
+        return self._set_property(self.InventoryConfigurations.__name__, [ic.__to_dict__() for ic in list(value)])
 
-    def lifecycle_configuration(self, value: LifecycleConfiguration):
-        return self._add_property_field(self.__PROPERTY_LIFECYCLE_CONFIGURATION, value)
+    def LifecycleConfiguration(self, value: LifecycleConfiguration):
+        return self._set_property(self.LifecycleConfiguration.__name__, value.__to_dict__())
 
-    def logging_configuration(self, value: LoggingConfiguration):
-        return self._add_property_field(self.__PROPERTY_LOGGING_CONFIGURATION, value)
+    def LoggingConfiguration(self, value: LoggingConfiguration):
+        return self._set_property(self.LoggingConfiguration.__name__, value.__to_dict__())
 
-    def metrics_configurations(self, *value: MetricsConfiguration):
-        return self._add_property_field(self.__PROPERTY_METRICS_CONFIGURATIONS, [conf for conf in list(value)])
+    def MetricsConfigurations(self, *value: MetricsConfiguration):
+        return self._set_property(self.MetricsConfigurations.__name__, [mc.__to_dict__() for mc in list(value)])
 
-    def notification_configuration(self, value: NotificationConfiguration):
-        return self._add_property_field(self.__PROPERTY_NOTIFICATION_CONFIGURATION, value)
+    def NotificationConfiguration(self, value: NotificationConfiguration):
+        return self._set_property(self.NotificationConfiguration.__name__, value.__to_dict__())
 
-    def object_lock_configuration(self, value: ObjectLockConfiguration):
-        return self._add_property_field(self.__PROPERTY_OBJECT_LOCK_CONFIGURATION, value)
+    def ObjectLockConfiguration(self, value: ObjectLockConfiguration):
+        return self._set_property(self.ObjectLockConfiguration.__name__, value.__to_dict__())
 
-    def object_lock_enabled(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_OBJECT_LOCK_ENABLED, value)
+    def ObjectLockEnabled(self, value: bool):
+        return self._set_property(self.ObjectLockEnabled.__name__, value)
 
-    def public_access_block_configuration(self, value: PublicAccessBlockConfiguration):
-        return self._add_property_field(self.__PROPERTY_PUBLIC_ACCESS_BLOCK_CONFIGURATION, value)
+    def PublicAccessBlockConfiguration(self, value: PublicAccessBlockConfiguration):
+        return self._set_property(self.PublicAccessBlockConfiguration.__name__, value.__to_dict__())
 
-    def replication_configuration(self, value: ReplicationConfiguration):
-        return self._add_property_field(self.__PROPERTY_REPLICATION_CONFIGURATION, value)
+    def ReplicationConfiguration(self, value: ReplicationConfiguration):
+        return self._set_property(self.ReplicationConfiguration.__name__, value.__to_dict__())
 
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [tag for tag in list(value)])
+    def VersioningConfiguration(self, value: VersioningConfiguration):
+        return self._set_property(self.VersioningConfiguration.__name__, value.__to_dict__())
+
+    def WebsiteConfiguration(self, value: WebsiteConfiguration):
+        return self._set_property(self.WebsiteConfiguration.__name__, value.__to_dict__())
+
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))

@@ -1,24 +1,18 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class RedirectRule(BaseModel):
-    __PROPERTY_HOST_NAME = "HostName"
-    __PROPERTY_HTTP_REDIRECT_CODE = "HttpRedirectCode"
-    __PROPERTY_PROTOCOL = "Protocol"
-    __PROPERTY_REPLACE_KEY_PREFIX_WITH = "ReplaceKeyPrefixWith"
-    __PROPERTY_REPLACE_KEY_WITH = "ReplaceKeyWith"
+class RedirectRule(PyformationModel):
+    def HostName(self, value: str):
+        return self._set_field(self.HostName.__name__, value)
 
-    def hostname(self, value: str):
-        return self._add_field(self.__PROPERTY_HOST_NAME, value)
+    def HttpRedirectCode(self, value: str):
+        return self._set_field(self.HttpRedirectCode.__name__, value)
 
-    def http_redirect_code(self, value: str):
-        return self._add_field(self.__PROPERTY_HTTP_REDIRECT_CODE, value)
+    def Protocol(self, value: str):
+        return self._set_field(self.Protocol.__name__, value)
 
-    def protocol(self, value: str):
-        return self._add_field(self.__PROPERTY_PROTOCOL, value)
+    def ReplaceKeyPrefixWith(self, value: str):
+        return self._set_field(self.ReplaceKeyPrefixWith.__name__, value)
 
-    def replace_key_prefix_with(self, value: str):
-        return self._add_field(self.__PROPERTY_REPLACE_KEY_PREFIX_WITH, value)
-
-    def replace_key_with(self, value: str):
-        return self._add_field(self.__PROPERTY_REPLACE_KEY_WITH, value)
+    def ReplaceKeyWith(self, value: str):
+        return self._set_field(self.ReplaceKeyWith.__name__, value)

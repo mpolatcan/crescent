@@ -1,28 +1,23 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class Policy(BaseCloudFormationResourceModel):
+class Policy(PyformationResource):
     __TYPE = "AWS::IAM::Policy"
-    __PROPERTY_GROUPS = "Groups"
-    __PROPERTY_POLICY_DOCUMENT = "PolicyDocument"
-    __PROPERTY_POLICY_NAME = "PolicyName"
-    __PROPERTY_ROLES = "Roles"
-    __PROPERTY_USERS = "Users"
 
-    def __init__(self):
-        super(Policy, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(Policy, self).__init__(id, self.__TYPE)
 
-    def groups(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_GROUPS, list(value))
+    def Groups(self, *value: str):
+        return self._set_property(self.Groups.__name__, list(value))
 
-    def policy_document(self, value: dict):
-        return self._add_property_field(self.__PROPERTY_POLICY_DOCUMENT, value)
+    def PolicyDocument(self, value: dict):
+        return self._set_property(self.PolicyDocument.__name__, value)
 
-    def policy_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_POLICY_NAME, value)
+    def PolicyName(self, value: str):
+        return self._set_property(self.PolicyName.__name__, value)
 
-    def roles(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_ROLES, list(value))
+    def Roles(self, *value: str):
+        return self._set_property(self.Roles.__name__, list(value))
 
-    def users(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_USERS, list(value))
+    def Users(self, *value: str):
+        return self._set_property(self.Users.__name__, list(value))

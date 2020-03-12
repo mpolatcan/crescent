@@ -1,33 +1,26 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class ManagedPolicy(BaseCloudFormationResourceModel):
+class ManagedPolicy(PyformationResource):
     __TYPE = "AWS::IAM::ManagedPolicy"
-    __PROPERTY_DESCRIPTION = "Description"
-    __PROPERTY_GROUPS = "Groups"
-    __PROPERTY_MANAGED_POLICY_NAME = "ManagedPolicyName"
-    __PROPERTY_PATH = "Path"
-    __PROPERTY_POLICY_DOCUMENT = "PolicyDocument"
-    __PROPERTY_ROLES = "Roles"
-    __PROPERTY_USERS = "Users"
 
-    def __init__(self):
-        super(ManagedPolicy, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(ManagedPolicy, self).__init__(id, self.__TYPE)
 
-    def description(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DESCRIPTION, value)
+    def Description(self, value: str):
+        return self._set_property(self.Description.__name__, value)
 
-    def groups(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_GROUPS, list(value))
+    def Groups(self, *value: str):
+        return self._set_property(self.Groups.__name__, list(value))
 
-    def managed_policy_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_NAME, value)
+    def ManagedPolicyName(self, value: str):
+        return self._set_property(self.ManagedPolicyName.__name__, value)
 
-    def path(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PATH, value)
+    def Path(self, value: str):
+        return self._set_property(self.Path.__name__, value)
 
-    def roles(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_ROLES, list(value))
+    def Roles(self, *value: str):
+        return self._set_property(self.Roles.__name__, list(value))
 
-    def users(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_USERS, list(value))
+    def Users(self, *value: str):
+        return self._set_property(self.Users.__name__, list(value))

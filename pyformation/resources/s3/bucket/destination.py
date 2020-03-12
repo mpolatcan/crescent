@@ -1,20 +1,15 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class Destination(BaseModel):
-    __PROPERTY_BUCKET_ACCOUNT_ID = "BucketAccountId"
-    __PROPERTY_BUCKET_ARN = "BucketArn"
-    __PROPERTY_FORMAT = "Format"
-    __PROPERTY_PREFIX = "Prefix"
+class Destination(PyformationModel):
+    def BucketAccountId(self, value: str):
+        return self._set_field(self.BucketAccountId.__name__, value)
 
-    def bucket_account_id(self, value: str):
-        return self._add_field(self.__PROPERTY_BUCKET_ACCOUNT_ID, value)
+    def BucketArn(self, value: str):
+        return self._set_field(self.BucketArn.__name__, value)
 
-    def bucket_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_BUCKET_ARN, value)
+    def Format(self, value: str):
+        return self._set_field(self.Format.__name__, value)
 
-    def format(self, value: str):
-        return self._add_field(self.__PROPERTY_FORMAT, value)
-
-    def prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_PREFIX, value)
+    def Prefix(self, value: str):
+        return self._set_field(self.Prefix.__name__, value)

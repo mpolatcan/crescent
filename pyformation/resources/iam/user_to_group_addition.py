@@ -1,16 +1,14 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class UserToGroupAddition(BaseCloudFormationResourceModel):
+class UserToGroupAddition(PyformationResource):
     __TYPE = "AWS::IAM::UserToGroupAddition"
-    __PROPERTY_GROUP_NAME = "GroupName"
-    __PROPERTY_USERS = "Users"
 
-    def __init__(self):
-        super(UserToGroupAddition, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(UserToGroupAddition, self).__init__(id, self.__TYPE)
 
-    def group_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_GROUP_NAME, value)
+    def GroupName(self, value: str):
+        return self._set_property(self.GroupName.__name__, value)
 
-    def users(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_USERS, list(value))
+    def Users(self, *value: str):
+        return self._set_property(self.Users.__name__, list(value))

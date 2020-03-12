@@ -1,42 +1,31 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import (
-    CloudwatchLoggingOptions,
-    CopyCommand,
-    ProcessingConfiguration,
-    S3DestinationConfiguration
-)
+from pyformation import PyformationModel
+from .cloudwatch_logging_options import CloudwatchLoggingOptions
+from .copy_command import CopyCommand
+from .processing_configuration import ProcessingConfiguration
+from .s3_destination_configuration import S3DestinationConfiguration
 
 
-class RedshiftDestinationConfiguration(BaseModel):
-    __PROPERTY_CLOUDWATCH_LOGGING_OPTIONS = "CloudwatchLoggingOptions"
-    __PROPERTY_CLUSTER_JDBC_URL = "ClusterJDBCURL"
-    __PROPERTY_COPY_COMMAND = "CopyCommand"
-    __PROPERTY_PASSWORD = "Password"
-    __PROPERTY_PROCESSING_CONFIGURATION = "ProcessingConfiguration"
-    __PROPERTY_ROLE_ARN = "RoleARN"
-    __PROPERTY_S3_CONFIGURATION = "S3Configuration"
-    __PROPERTY_USERNAME = "Username"
+class RedshiftDestinationConfiguration(PyformationModel):
+    def CloudwatchLoggingOptions(self, value: CloudwatchLoggingOptions):
+        return self._set_field(self.CloudwatchLoggingOptions.__name__, value.__to_dict__())
 
-    def cloudwatch_logging_options(self, value: CloudwatchLoggingOptions):
-        return self._add_field(self.__PROPERTY_CLOUDWATCH_LOGGING_OPTIONS, value)
+    def ClusterJDBCURL(self, value: str):
+        return self._set_field(self.ClusterJDBCURL.__name__, value)
 
-    def cluster_jdbc_url(self, value: str):
-        return self._add_field(self.__PROPERTY_CLUSTER_JDBC_URL, value)
+    def CopyCommand(self, value: CopyCommand):
+        return self._set_field(self.CopyCommand.__name__, value.__to_dict__())
 
-    def copy_command(self, value: CopyCommand):
-        return self._add_field(self.__PROPERTY_COPY_COMMAND, value)
+    def Password(self, value: str):
+        return self._set_field(self.Password.__name__, value)
 
-    def password(self, value: str):
-        return self._add_field(self.__PROPERTY_PASSWORD, value)
+    def ProcessingConfiguration(self, value: ProcessingConfiguration):
+        return self._set_field(self.ProcessingConfiguration.__name__, value.__to_dict__())
 
-    def processing_configuration(self, value: ProcessingConfiguration):
-        return self._add_field(self.__PROPERTY_PROCESSING_CONFIGURATION, value)
+    def RoleARN(self, value: str):
+        return self._set_field(self.RoleARN.__name__, value)
 
-    def role_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
+    def S3Configuration(self, value: S3DestinationConfiguration):
+        return self._set_field(self.S3Configuration.__name__, value.__to_dict__())
 
-    def s3_configuration(self, value: S3DestinationConfiguration):
-        return self._add_field(self.__PROPERTY_S3_CONFIGURATION, value)
-
-    def username(self, value: str):
-        return self._add_field(self.__PROPERTY_USERNAME, value)
+    def Username(self, value: str):
+        return self._set_field(self.Username.__name__, value)

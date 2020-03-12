@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class KinesisStreamSourceConfiguration(BaseModel):
-    __PROPERTY_KINESIS_STREAM_ARN = "KinesisStreamARN"
-    __PROPERTY_ROLE_ARN = "RoleARN"
+class KinesisStreamSourceConfiguration(PyformationModel):
+    def KinesisStreamARN(self, value: str):
+        return self._set_field(self.KinesisStreamARN.__name__, value)
 
-    def kinesis_stream_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_KINESIS_STREAM_ARN, value)
-
-    def role_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
+    def RoleARN(self, value: str):
+        return self._set_field(self.RoleARN.__name__, value)

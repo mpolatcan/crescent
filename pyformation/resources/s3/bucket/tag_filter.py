@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class TagFilter(BaseModel):
-    __PROPERTY_KEY = "Key"
-    __PROPERTY_VALUE = "Value"
+class TagFilter(PyformationModel):
+    def Key(self, value: str):
+        return self._set_field(self.Key.__name__, value)
 
-    def key(self, value: str):
-        return self._add_field(self.__PROPERTY_KEY, value)
-
-    def value(self, value: str):
-        return self._add_field(self.__PROPERTY_VALUE, value)
+    def Value(self, value: str):
+        return self._set_field(self.Value.__name__, value)

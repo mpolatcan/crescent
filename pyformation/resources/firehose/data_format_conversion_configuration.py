@@ -1,21 +1,18 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import InputFormatConfiguration, OutputFormatConfiguration, SchemaConfiguration
+from pyformation import PyformationModel
+from .input_format_configuration import InputFormatConfiguration
+from .output_format_configuration import OutputFormatConfiguration
+from .schema_configuration import SchemaConfiguration
 
 
-class DataFormatConversionConfiguration(BaseModel):
-    __PROPERTY_ENABLED = "Enabled"
-    __PROPERTY_INPUT_FORMAT_CONFIGURATION = "InputFormatConfiguration"
-    __PROPERTY_OUTPUT_FORMAT_CONFIGURATION = "OutputFormatConfiguration"
-    __PROPERTY_SCHEMA_CONFIGURATION = "SchemaConfiguration"
+class DataFormatConversionConfiguration(PyformationModel):
+    def Enabled(self, value: bool):
+        return self._set_field(self.Enabled.__name__, value)
 
-    def enabled(self, value: bool):
-        return self._add_field(self.__PROPERTY_ENABLED, value)
+    def InputFormatConfiguration(self, value: InputFormatConfiguration):
+        return self._set_field(self.InputFormatConfiguration.__name__, value.__to_dict__())
 
-    def input_format_configuration(self, value: InputFormatConfiguration):
-        return self._add_field(self.__PROPERTY_INPUT_FORMAT_CONFIGURATION, value)
+    def OutputFormatConfiguration(self, value: OutputFormatConfiguration):
+        return self._set_field(self.OutputFormatConfiguration.__name__, value.__to_dict__())
 
-    def output_format_configuration(self, value: OutputFormatConfiguration):
-        return self._add_field(self.__PROPERTY_OUTPUT_FORMAT_CONFIGURATION, value)
-
-    def schema_configuration(self, value: SchemaConfiguration):
-        return self._add_field(self.__PROPERTY_SCHEMA_CONFIGURATION, value)
+    def SchemaConfiguration(self, value: SchemaConfiguration):
+        return self._set_field(self.SchemaConfiguration.__name__, value.__to_dict__())

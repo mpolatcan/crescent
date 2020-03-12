@@ -1,16 +1,14 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class BucketPolicy(BaseCloudFormationResourceModel):
+class BucketPolicy(PyformationResource):
     __TYPE = "AWS::S3::BucketPolicy"
-    __PROPERTY_BUCKET = "Bucket"
-    __PROPERTY_POLICY_DOCUMENT = "PolicyDocument"
 
-    def __init__(self):
-        super(BucketPolicy, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(BucketPolicy, self).__init__(id, self.__TYPE)
 
-    def bucket(self, value: str):
-        return self._add_property_field(self.__PROPERTY_BUCKET, value)
+    def Bucket(self, value: str):
+        return self._set_property(self.Bucket.__name__, value)
 
-    def policy_document(self, value: dict):
-        return self._add_property_field(self.__PROPERTY_POLICY_DOCUMENT, value)
+    def PolicyDocument(self, value: dict):
+        return self._set_property(self.PolicyDocument, value)

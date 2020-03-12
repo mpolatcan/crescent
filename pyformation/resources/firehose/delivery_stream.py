@@ -1,48 +1,38 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
-from pyformation.resources.firehose import (
-    ElasticsearchDestinationConfiguration,
-    ExtendedS3DestinationConfiguration,
-    KinesisStreamSourceConfiguration,
-    RedshiftDestinationConfiguration,
-    S3DestinationConfiguration,
-    SplunkDestinationConfiguration
-)
+from pyformation import PyformationResource
+from .elasticsearch_destination_configuration import ElasticsearchDestinationConfiguration
+from .extended_s3_destination_configuration import ExtendedS3DestinationConfiguration
+from .kinesis_stream_source_configuration import KinesisStreamSourceConfiguration
+from .redshift_destination_configuration import RedshiftDestinationConfiguration
+from .s3_destination_configuration import S3DestinationConfiguration
+from .splunk_destination_configuration import SplunkDestinationConfiguration
 
 
-class DeliveryStream(BaseCloudFormationResourceModel):
+class DeliveryStream(PyformationResource):
     __TYPE = "AWS::KinesisFirehose::DeliveryStream"
-    __PROPERTY_DELIVERY_STREAM_NAME = "DeliveryStreamName"
-    __PROPERTY_DELIVERY_STREAM_TYPE = "DeliveryStreamType"
-    __PROPERTY_ELASTICSEARCH_DESTINATION_CONFIGURATION = "ElasticsearchDestinationConfiguration"
-    __PROPERTY_EXTENDED_S3_DESTINATION_CONFIGURATION = "ExtendedS3DestinationConfiguration"
-    __PROPERTY_KINESIS_STREAM_SOURCE_CONFIGURATION = "KinesisStreamSourceConfiguration"
-    __PROPERTY_REDSHIFT_DESTINATION_CONFIGURATION = "RedshiftDestinationConfiguration"
-    __PROPERTY_S3_DESTINATON_CONFIGURATION = "S3DestinationConfiguration"
-    __PROPERTY_SPLUNK_DESTINATION_CONFIGURATION = "SplunkDestinationConfiguration"
 
-    def __init__(self):
-        super(DeliveryStream, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(DeliveryStream, self).__init__(id, self.__TYPE)
 
-    def delivery_stream_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DELIVERY_STREAM_NAME, value)
+    def DeliveryStreamName(self, value: str):
+        return self._set_property(self.DeliveryStreamName.__name__, value)
 
-    def delivery_stream_type(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DELIVERY_STREAM_TYPE, value)
+    def DeliveryStreamType(self, value: str):
+        return self._set_property(self.DeliveryStreamType.__name__, value)
 
-    def elasticsearch_destination_configuration(self, value: ElasticsearchDestinationConfiguration):
-        return self._add_property_field(self.__PROPERTY_ELASTICSEARCH_DESTINATION_CONFIGURATION, value)
+    def ElasticsearchDestinationConfiguration(self, value: ElasticsearchDestinationConfiguration):
+        return self._set_property(self.ElasticsearchDestinationConfiguration.__name__, value.__to_dict__())
 
-    def extended_s3_destination_configuration(self, value: ExtendedS3DestinationConfiguration):
-        return self._add_property_field(self.__PROPERTY_EXTENDED_S3_DESTINATION_CONFIGURATION, value)
+    def ExtendedS3DestinationConfiguration(self, value: ExtendedS3DestinationConfiguration):
+        return self._set_property(self.ExtendedS3DestinationConfiguration.__name__, value.__to_dict__())
 
-    def kinesis_stream_source_configuration(self, value: KinesisStreamSourceConfiguration):
-        return self._add_property_field(self.__PROPERTY_KINESIS_STREAM_SOURCE_CONFIGURATION, value)
+    def KinesisStreamSourceConfiguration(self, value: KinesisStreamSourceConfiguration):
+        return self._set_property(self.KinesisStreamSourceConfiguration.__name__, value.__to_dict__())
 
-    def redshift_destination_configuration(self, value: RedshiftDestinationConfiguration):
-        return self._add_property_field(self.__PROPERTY_REDSHIFT_DESTINATION_CONFIGURATION, value)
+    def RedshiftDestinationConfiguration(self, value: RedshiftDestinationConfiguration):
+        return self._set_property(self.RedshiftDestinationConfiguration.__name__, value.__to_dict__())
 
-    def s3_destination_configuration(self, value: S3DestinationConfiguration):
-        return self._add_property_field(self.__PROPERTY_S3_DESTINATON_CONFIGURATION, value)
+    def S3DestinationConfiguration(self, value: S3DestinationConfiguration):
+        return self._set_property(self.S3DestinationConfiguration.__name__, value.__to_dict__())
 
-    def splunk_destination_configuration(self, value: SplunkDestinationConfiguration):
-        return self._add_property_field(self.__PROPERTY_SPLUNK_DESTINATION_CONFIGURATION, value)
+    def SplunkDestinationConfiguration(self, value: SplunkDestinationConfiguration):
+        return self._set_property(self.SplunkDestinationConfiguration.__name__, value.__to_dict__())

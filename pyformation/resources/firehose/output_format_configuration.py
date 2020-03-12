@@ -1,9 +1,7 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import Serializer
+from pyformation import PyformationModel
+from .serializer import Serializer
 
 
-class OutputFormatConfiguration(BaseModel):
-    __PROPERTY_SERIALIZER = "Serializer"
-
-    def serializer(self, value: Serializer):
-        return self._add_field(self.__PROPERTY_SERIALIZER, value)
+class OutputFormatConfiguration(PyformationModel):
+    def Serializer(self, value: Serializer):
+        return self._set_field(self.Serializer.__name__, value.__to_dict__())

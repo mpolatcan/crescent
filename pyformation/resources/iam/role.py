@@ -1,64 +1,36 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation import PyformationResource, Tag
+from .policy_model import PolicyModel
 
 
-class Role(BaseCloudFormationResourceModel):
+class Role(PyformationResource):
     __TYPE = "AWS::IAM:Role"
-    __PROPERTY_ASSUME_ROLE_POLICY_DOCUMENT = "AssumeRolePolicyDocument"
-    __PROPERTY_DESCRIPTION = "Description"
-    __PROPERTY_MANAGED_POLICY_ARNS = "ManagedPolicyArns"
-    __PROPERTY_MAX_SESSION_DURATION = "MaxSessionDuration"
-    __PROPERTY_PATH = "Path"
-    __PROPERTY_PERMISSION_BOUNDARY = "PermissionBoundary"
-    __PROPERTY_POLICIES = "Policies"
-    __PROPERTY_ROLE_NAME = "RoleName"
-    __PROPERTY_TAGS = "Tags"
 
-    class Policy:
-        __PROPERTY_POLICY_DOCUMENT = "PolicyDocument"
-        __PROPERTY_POLICY_NAME = "PolicyName"
+    def __init__(self, id: str):
+        super(Role, self).__init__(id, self.__TYPE)
 
-        def __init__(self):
-            self.__policy_def = {}
+    def AssumeRolePolicyDocument(self, value: dict):
+        return self._set_property(self.AssumeRolePolicyDocument.__name__, value)
 
-        def create(self):
-            return self.__policy_def
+    def Description(self, value: str):
+        return self._set_property(self.Description.__name__, value)
 
-        def policy_document(self, value: dict):
-            self.__policy_def[self.__PROPERTY_POLICY_NAME] = value
+    def ManagedPolicyArns(self, *value: str):
+        return self._set_property(self.ManagedPolicyArns.__name__, list(value))
 
-            return self
+    def MaxSessionDuration(self, value: int):
+        return self._set_property(self.MaxSessionDuration.__name__, value)
 
-        def policy_name(self, value: str):
-            self.__policy_def[self.__PROPERTY_POLICY_NAME] = value
+    def Path(self, value: str):
+        return self._set_property(self.Path.__name__, value)
 
-            return self
+    def PermissionBoundary(self, value: str):
+        return self._set_property(self.PermissionBoundary.__name__, value)
 
-    def __init__(self):
-        super(Role, self).__init__(type=self.__TYPE)
+    def Policies(self, *value: PolicyModel):
+        return self._set_property(self.Policies.__name__, [pm.__to_dict__() for pm in list(value)])
 
-    def assume_role_policy_document(self, value: dict):
-        return self._add_property_field(self.__PROPERTY_ASSUME_ROLE_POLICY_DOCUMENT, value)
+    def RoleName(self, value: str):
+        return self._set_property(self.RoleName.__name__, value)
 
-    def description(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DESCRIPTION, value)
-
-    def managed_policy_arns(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, list(value))
-
-    def max_session_duration(self, value: int):
-        return self._add_property_field(self.__PROPERTY_MAX_SESSION_DURATION, value)
-
-    def path(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PATH, value)
-
-    def permission_boundary(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PERMISSION_BOUNDARY, value)
-
-    def policies(self, *value: Policy):
-        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in list(value)])
-
-    def role_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_ROLE_NAME, value)
-
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in list(value)])
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))

@@ -26,3 +26,122 @@ from .schema_configuration import SchemaConfiguration
 from .serializer import Serializer
 from .splunk_destination_configuration import SplunkDestinationConfiguration
 from .splunk_retry_options import SplunkRetryOptions
+
+
+class FirehoseFactory:
+    @staticmethod
+    def DeliveryStream(id: str):
+        return DeliveryStream(id)
+
+    @staticmethod
+    def BufferingHints():
+        return BufferingHints()
+
+    @staticmethod
+    def CloudwatchLoggingOptions():
+        return CloudwatchLoggingOptions()
+
+    @staticmethod
+    def CopyCommand():
+        return CopyCommand()
+
+    @staticmethod
+    def DataFormatConversionConfiguration():
+        return DataFormatConversionConfiguration()
+
+    @staticmethod
+    def Deserializer():
+        return Deserializer()
+
+    @staticmethod
+    def ElasticsearchBufferingHints():
+        return ElasticsearchBufferingHints()
+
+    @staticmethod
+    def ElasticsearchDestinationConfiguration():
+        return ElasticsearchDestinationConfiguration()
+
+    @staticmethod
+    def ElasticsearchRetryOptions():
+        return ElasticsearchRetryOptions()
+
+    @staticmethod
+    def EncryptionConfiguration():
+        return EncryptionConfiguration()
+
+    @staticmethod
+    def ExtendedS3DestinationConfiguration():
+        return ExtendedS3DestinationConfiguration()
+
+    @staticmethod
+    def HiveJsonSerDe():
+        return HiveJsonSerDe()
+
+    @staticmethod
+    def InputFormatConfiguration():
+        return InputFormatConfiguration()
+
+    @staticmethod
+    def KinesisStreamSourceConfiguration():
+        return KinesisStreamSourceConfiguration()
+
+    @staticmethod
+    def KMSEncryptionConfig():
+        return KMSEncryptionConfig()
+
+    @staticmethod
+    def OpenXJsonSerDe():
+        return OpenXJsonSerDe()
+
+    @staticmethod
+    def OrcSerDe():
+        return OrcSerDe()
+
+    @staticmethod
+    def OutputFormatConfiguration():
+        return OutputFormatConfiguration()
+
+    @staticmethod
+    def ParquetSerDe():
+        return ParquetSerDe()
+
+    @staticmethod
+    def ProcessingConfiguration():
+        return ProcessingConfiguration()
+
+    @staticmethod
+    def Processor():
+        return Processor()
+
+    @staticmethod
+    def ProcessorParameter():
+        return ProcessorParameter()
+
+    @staticmethod
+    def RedshiftDestinationConfiguration():
+        return RedshiftDestinationConfiguration()
+
+    @staticmethod
+    def S3DestinationConfiguration():
+        return S3DestinationConfiguration()
+
+    @staticmethod
+    def SchemaConfiguration():
+        return SchemaConfiguration()
+
+    @staticmethod
+    def Serializer():
+        return Serializer()
+
+    @staticmethod
+    def SplunkDestinationConfiguration():
+        return SplunkDestinationConfiguration()
+
+    @staticmethod
+    def SplunkRetryOptions():
+        return SplunkRetryOptions()
+
+
+__all__ = [
+    "FirehoseFactory"
+]

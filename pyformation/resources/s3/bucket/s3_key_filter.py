@@ -1,11 +1,7 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import FilterRule
+from pyformation import PyformationModel
+from .filter_rule import FilterRule
 
 
-class S3KeyFilter(BaseModel):
-    __PROPERTY_RULES = "Rules"
-
-    def rules(self, *value: FilterRule):
-        return self._add_field(self.__PROPERTY_RULES, [
-            filter_rule for filter_rule in list(value)
-        ])
+class S3KeyFilter(PyformationModel):
+    def Rules(self, *value: FilterRule):
+        return self._set_field(self.Rules, [fr.__to_dict__() for fr in list(value)])

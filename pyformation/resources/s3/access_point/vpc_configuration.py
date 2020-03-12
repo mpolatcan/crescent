@@ -1,8 +1,6 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class VpcConfiguration(BaseModel):
-    __PROPERTY_VPC_ID = "VpcId"
-
-    def vpc_id(self, value: str):
-        return self._add_field(self.__PROPERTY_VPC_ID, value)
+class VpcConfiguration(PyformationModel):
+    def VpcId(self, value: str):
+        return self._set_field(self.VpcId.__name__, value)

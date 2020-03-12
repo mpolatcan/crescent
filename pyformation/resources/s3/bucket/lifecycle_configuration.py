@@ -1,9 +1,7 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import Rule
+from pyformation import PyformationModel
+from .rule import Rule
 
 
-class LifecycleConfiguration(BaseModel):
-    __PROPERTY_RULES = "Rules"
-
-    def rules(self, *value: Rule):
-        return self._add_field(self.__PROPERTY_RULES, [rule for rule in list(value)])
+class LifecycleConfiguration(PyformationModel):
+    def Rules(self, *value: Rule):
+        return self._set_field(self.Rules.__name__, [rule.__to_dict__() for rule in list(value)])

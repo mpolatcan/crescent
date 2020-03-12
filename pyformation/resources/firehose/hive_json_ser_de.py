@@ -1,8 +1,8 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class HiveJsonSerDe(BaseModel):
+class HiveJsonSerDe(PyformationModel):
     __PROPERTY_TIMESTAMP_FORMATS = "TimestampFormats"
 
-    def timestamp_formats(self, *value: str):
-        return self._add_field(self.__PROPERTY_TIMESTAMP_FORMATS, list(value))
+    def TimestampFormats(self, *value: str):
+        return self._set_field(self.TimestampFormats.__name__, list(value))

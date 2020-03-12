@@ -1,8 +1,8 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class LifecyclePolicy(BaseModel):
+class LifecyclePolicy(PyformationModel):
     __PROPERTY_TRANSITION_TO_IA = "TransitionToIA"
 
-    def transition_to_ia(self, value: str):
-        return self._add_field(self.__PROPERTY_TRANSITION_TO_IA, value)
+    def TransitionToIA(self, value: str):
+        return self._set_field(self.TransitionToIA.__name__, value)

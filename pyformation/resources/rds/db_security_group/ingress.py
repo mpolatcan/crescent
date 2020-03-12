@@ -1,20 +1,15 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class Ingress(BaseModel):
-    __PROPERTY_CIDRIP = "CIDRIP"
-    __PROPERTY_EC2_SECURITY_GROUP_ID = "EC2SecurityGroupId"
-    __PROPERTY_EC2_SECURITY_GROUP_NAME = "EC2SecurityGroupName"
-    __PROPERTY_EC2_SECURITY_GROUP_OWNER_ID = "EC2SecurityGroupOwnerId"
+class Ingress(PyformationModel):
+    def CIDRIP(self, value: str):
+        return self._set_field(self.CIDRIP.__name__, value)
 
-    def cidrip(self, value: str):
-        return self._add_field(self.__PROPERTY_CIDRIP, value)
+    def EC2SecurityGroupId(self, value: str):
+        return self._set_field(self.EC2SecurityGroupId.__name__, value)
 
-    def ec2_security_group_id(self, value: str):
-        return self._add_field(self.__PROPERTY_EC2_SECURITY_GROUP_ID , value)
+    def EC2SecurityGroupName(self, value: str):
+        return self._set_field(self.EC2SecurityGroupName.__name__, value)
 
-    def ec2_security_group_name(self, value: str):
-        return self._add_field(self.__PROPERTY_EC2_SECURITY_GROUP_NAME, value)
-
-    def ec2_security_group_owner_id(self, value: str):
-        return self._add_field(self.__PROPERTY_EC2_SECURITY_GROUP_OWNER_ID, value)
+    def EC2SecurityGroupOwnerId(self, value: str):
+        return self._set_field(self.EC2SecurityGroupOwnerId.__name__, value)

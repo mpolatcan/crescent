@@ -1,16 +1,12 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class CloudwatchLoggingOptions(BaseModel):
-    __PROPERTY_ENABLED = "Enabled"
-    __PROPERTY_LOG_GROUP_NAME = "LogGroupName"
-    __PROPERTY_LOG_STREAM_NAME = "LogStreamName"
+class CloudwatchLoggingOptions(PyformationModel):
+    def Enabled(self, value: bool):
+        return self._set_field(self.Enabled.__name__, value)
 
-    def enabled(self, value: bool):
-        return self._add_field(self.__PROPERTY_ENABLED, value)
+    def LogGroupName(self, value: str):
+        return self._set_field(self.LogGroupName.__name__, value)
 
-    def log_group_name(self, value: str):
-        return self._add_field(self.__PROPERTY_LOG_GROUP_NAME, value)
-
-    def log_stream_name(self, value: str):
-        return self._add_field(self.__PROPERTY_LOG_STREAM_NAME, value)
+    def LogStreamName(self, value: str):
+        return self._set_field(self.LogStreamName.__name__, value)

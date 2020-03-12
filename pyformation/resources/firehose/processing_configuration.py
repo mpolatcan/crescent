@@ -1,15 +1,10 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import Processor
+from pyformation import PyformationModel
+from .processor import Processor
 
 
-class ProcessingConfiguration(BaseModel):
-    __PROPERTY_ENABLED = "Enabled"
-    __PROPERTY_PROCESSORS = "Processors"
+class ProcessingConfiguration(PyformationModel):
+    def Enabled(self, value: bool):
+        return self._set_field(self.Enabled.__name__, value)
 
-    def enabled(self, value: bool):
-        return self._add_field(self.__PROPERTY_ENABLED, value)
-
-    def processors(self, *value: Processor):
-        return self._add_field(self.__PROPERTY_PROCESSORS, [
-            processor for processor in list(value)
-        ])
+    def Processors(self, *value: Processor):
+        return self._set_field(self.Processors.__name__, [proc.__to_dict__() for proc in list(value)])

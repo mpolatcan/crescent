@@ -1,28 +1,21 @@
-from resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class SchemaConfiguration(BaseModel):
-    __PROPERTY_CATALOG_ID = "CatalogId"
-    __PROPERTY_DATABASE_NAME = "DatabaseName"
-    __PROPERTY_REGION = "Region"
-    __PROPERTY_ROLE_ARN = "RoleARN"
-    __PROPERTY_TABLE_NAME = "TableName"
-    __PROPERTY_VERSION_ID = "VersionId"
+class SchemaConfiguration(PyformationModel):
+    def CatalogId(self, value: str):
+        return self._set_field(self.CatalogId.__name__, value)
 
-    def catalog_id(self, value: str):
-        return self._add_field(self.__PROPERTY_CATALOG_ID, value)
+    def DatabaseName(self, value: str):
+        return self._set_field(self.DatabaseName.__name__, value)
 
-    def database_name(self, value: str):
-        return self._add_field(self.__PROPERTY_DATABASE_NAME, value)
+    def Region(self, value: str):
+        return self._set_field(self.Region.__name__, value)
 
-    def region(self, value: str):
-        return self._add_field(self.__PROPERTY_REGION, value)
+    def RoleARN(self, value: str):
+        return self._set_field(self.RoleARN.__name__, value)
 
-    def role_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
+    def TableName(self, value: str):
+        return self._set_field(self.TableName.__name__, value)
 
-    def table_name(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
-
-    def version_id(self, value: str):
-        return self._add_field(self.__PROPERTY_VERSION_ID, value)
+    def VersionId(self, value: str):
+        return self._set_field(self.VersionId.__name__, value)

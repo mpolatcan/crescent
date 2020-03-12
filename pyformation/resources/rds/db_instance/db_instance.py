@@ -1,223 +1,167 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
-from pyformation.resources.rds.db_instance import DBInstanceRole, ProcessorFeature
+from pyformation import PyformationResource, Tag
+from .db_instance_role import DBInstanceRole
+from .processor_feature import ProcessorFeature
 
 
-class DBInstance(BaseCloudFormationResourceModel):
+class DBInstance(PyformationResource):
     __TYPE = "AWS::RDS::DBInstance"
-    __PROPERTY_ALLOCATED_STORAGE = "AllocatedStorage"
-    __PROPERTY_ALLOW_MAJOR_VERSION_UPGRADE = "AllowMajorVersionUpgrade"
-    __PROPERTY_ASSOCIATED_ROLES = "AssociatedRoles"
-    __PROPERTY_AUTO_MINOR_VERSION_UPGRADE = "AutoMinorVersionUpgrade"
-    __PROPERTY_AVAILABILITY_ZONE = "AvailabilityZone"
-    __PROPERTY_BACKUP_RETENTION_PERIOD = "BackupRetentionPeriod"
-    __PROPERTY_CA_CERTIFICATE_IDENTIFIER = "CACertificateIdentifier"
-    __PROPERTY_CHARACTER_SET_NAME = "CharacterSetName"
-    __PROPERTY_COPY_TAGS_TO_SNAPSHOT = "CopyTagsToSnapshot"
-    __PROPERTY_DB_CLUSTER_IDENTIFIER = "DBClusterIdentifier"
-    __PROPERTY_DB_INSTANCE_CLASS = "DBInstanceClass"
-    __PROPERTY_DB_INSTANCE_IDENTIFIER = "DBInstanceIdentifier"
-    __PROPERTY_DB_NAME = "DBName"
-    __PROPERTY_DB_PARAMETER_GROUP_NAME = "DBParameterGroupName"
-    __PROPERTY_DB_SECURITY_GROUPS = "DBSecurityGroups"
-    __PROPERTY_DB_SNAPSHOT_IDENTIFIER = "DBSnapshotIdentifier"
-    __PROPERTY_DB_SUBNET_GROUP_NAME = "DBSubnetGroupName"
-    __PROPERTY_DELETE_AUTOMATED_BACKUPS = "DeleteAutomatedBackups"
-    __PROPERTY_DELETION_PROTECTION = "DeletionProtection"
-    __PROPERTY_DOMAIN = "Domain"
-    __PROPERTY_DOMAIN_IAM_ROLE_NAME = "DomainIAMRoleName"
-    __PROPERTY_ENABLE_CLOUDWATCH_LOGS_EXPORTS = "EnableCloudwatchLogsExports"
-    __PROPERTY_ENABLE_IAM_DATABASE_AUTHENTICATION = "EnableIAMDatabaseAuthentication"
-    __PROPERTY_ENABLE_PERFORMANCE_INSIGHTS = "EnablePerformanceInsights"
-    __PROPERTY_ENGINE = "Engine"
-    __PROPERTY_ENGINE_VERSION = "EngineVersion"
-    __PROPERTY_IOPS = "Iops"
-    __PROPERTY_KMS_KEY_ID = "KmsKeyId"
-    __PROPERTY_LICENSE_MODEL = "LicenseModel"
-    __PROPERTY_MASTER_USERNAME = "MasterUsername"
-    __PROPERTY_MASTER_USER_PASSWORD = "MasterUserPassword"
-    __PROPERTY_MAX_ALLOCATED_STORAGE = "MaxAllocatedStorage"
-    __PROPERTY_MONITORING_INTERVAL = "MonitoringInterval"
-    __PROPERTY_MONITORING_ROLE_ARN = "MonitoringRoleArn"
-    __PROPERTY_MULTI_AZ = "MultiAz"
-    __PROPERTY_OPTION_GROUP_NAME = "OptionGroupName"
-    __PROPERTY_PERFORMANCE_INSIGHTS_KMS_KEY_ID = "PerformanceInsightsKMSKeyId"
-    __PROPERTY_PERFORMANCE_INSIGHTS_RETENTION_PERIOD = "PerformanceInsightsRetentionPeriod"
-    __PROPERTY_PORT = "Port"
-    __PROPERTY_PREFERRED_BACKUP_WINDOW = "PreferredBackupWindow"
-    __PROPERTY_PREFERRED_MAINTENANCE_WINDOW = "PreferredMaintenanceWindow"
-    __PROPERTY_PROCESSOR_FEATURES = "ProcessorFeatures"
-    __PROPERTY_PROMOTION_TIER = "PromotionTier"
-    __PROPERTY_PUBLICLY_ACCESSIBLE = "PubliclyAccessible"
-    __PROPERTY_SOURCE_DB_INSTANCE_IDENTIFIER = "SourceDBInstanceIdentifier"
-    __PROPERTY_SOURCE_REGION = "SourceRegion"
-    __PROPERTY_STORAGE_ENCRYPTED = "StorageEncrypted"
-    __PROPERTY_STORAGE_TYPE = "StorageType"
-    __PROPERTY_TAGS = "Tags"
-    __PROPERTY_TIMEZONE = "Timezone"
-    __PROPERTY_USE_DEFAULT_PROCESSOR_FEATURES = "UseDefaultProcessorFeatures"
-    __PROPERTY_VPC_SECURITY_GROUPS = "VPCSecurityGroups"
 
-    def __init__(self):
-        super(DBInstance, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(DBInstance, self).__init__(id, self.__TYPE)
 
-    def allocated_storage(self, value: str):
-        return self._add_property_field(self.__PROPERTY_ALLOCATED_STORAGE, value)
+    def AllocatedStorage(self, value: str):
+        return self._set_property(self.AllocatedStorage.__name__, value)
 
-    def allow_major_version_upgrade(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_ALLOW_MAJOR_VERSION_UPGRADE, value)
+    def AllowMajorVersionUpgrade(self, value: bool):
+        return self._set_property(self.AllowMajorVersionUpgrade.__name__, value)
 
-    def associated_roles(self, *value: DBInstanceRole):
-        return self._add_property_field(self.__PROPERTY_ASSOCIATED_ROLES, [
-            db_instance_role for db_instance_role in list(value)
-        ])
+    def AssociatedRoles(self, *value: DBInstanceRole):
+        return self._set_property(self.AssociatedRoles.__name__, [db_inst_role.__to_dict__() for db_inst_role in list(value)])
 
-    def auto_minor_version_upgrade(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_AUTO_MINOR_VERSION_UPGRADE, value)
+    def AutoMinorVersionUpgrade(self, value: bool):
+        return self._set_property(self.AutoMinorVersionUpgrade.__name__, value)
 
-    def availability_zone(self, value: str):
-        return self._add_property_field(self.__PROPERTY_AVAILABILITY_ZONE, value)
+    def AvailabilityZone(self, value: str):
+        return self._set_property(self.AvailabilityZone.__name__, value)
 
-    def backup_retention_period(self, value: int):
-        return self._add_property_field(self.__PROPERTY_BACKUP_RETENTION_PERIOD, value)
+    def BackupRetentionPeriod(self, value: int):
+        return self._set_property(self.BackupRetentionPeriod.__name__, value)
 
-    def ca_certificate_identifier(self, value: str):
-        return self._add_property_field(self.__PROPERTY_CA_CERTIFICATE_IDENTIFIER, value)
+    def CACertificateIdentifier(self, value: str):
+        return self._set_property(self.CACertificateIdentifier.__name__, value)
 
-    def character_set_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_CHARACTER_SET_NAME, value)
+    def CharacterSetName(self, value: str):
+        return self._set_property(self.CharacterSetName.__name__, value)
 
-    def copy_tags_to_snapshot(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_COPY_TAGS_TO_SNAPSHOT, value)
+    def CopyTagsToSnapshot(self, value: bool):
+        return self._set_property(self.CopyTagsToSnapshot.__name__, value)
 
-    def db_cluster_identifier(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_CLUSTER_IDENTIFIER, value)
+    def DBClusterIdentifier(self, value: str):
+        return self._set_property(self.DBClusterIdentifier.__name__, value)
 
-    def db_instance_class(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_INSTANCE_CLASS, value)
+    def DBInstanceClass(self, value: str):
+        return self._set_property(self.DBInstanceClass.__name__, value)
 
-    def db_instance_class_identifier(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_INSTANCE_CLASS, value)
+    def DBInstanceIdentifier(self, value: str):
+        return self._set_property(self.DBInstanceIdentifier.__name__, value)
 
-    def db_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_NAME, value)
+    def DBName(self, value: str):
+        return self._set_property(self.DBName.__name__, value)
 
-    def db_parameter_group_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_PARAMETER_GROUP_NAME, value)
+    def DBParameterGroupName(self, value: str):
+        return self._set_property(self.DBParameterGroupName.__name__, value)
 
-    def db_security_groups(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_DB_SECURITY_GROUPS, list(value))
+    def DBSecurityGroups(self, *value: str):
+        return self._set_property(self.DBSecurityGroups.__name__, list(value))
 
-    def db_snapshot_identifier(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_SNAPSHOT_IDENTIFIER, value)
+    def DBSnapshotIdentifier(self, value: str):
+        return self._set_property(self.DBSnapshotIdentifier.__name__, value)
 
-    def db_subnet_group_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_SUBNET_GROUP_NAME, value)
+    def DBSubnetGroupName(self, value: str):
+        return self._set_property(self.DBSubnetGroupName.__name__, value)
 
-    def delete_automated_backups(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_DELETE_AUTOMATED_BACKUPS, value)
+    def DeleteAutomatedBackups(self, value: bool):
+        return self._set_property(self.DeleteAutomatedBackups.__name__, value)
 
-    def deletion_protection(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_DELETION_PROTECTION, value)
+    def DeletionProtection(self, value: bool):
+        return self._set_property(self.DeletionProtection.__name__, value)
 
-    def domain(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DOMAIN, value)
+    def Domain(self, value: str):
+        return self._set_property(self.Domain.__name__, value)
 
-    def domain_iam_role_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DOMAIN_IAM_ROLE_NAME, value)
+    def DomainIAMRoleName(self, value: str):
+        return self._set_property(self.DomainIAMRoleName.__name__, value)
 
-    def enable_cloudwatch_logs_exports(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_ENABLE_CLOUDWATCH_LOGS_EXPORTS, list(value))
+    def EnableCloudwatchLogsExports(self, *value: str):
+        return self._set_property(self.EnableCloudwatchLogsExports.__name__, list(value))
 
-    def enable_iam_database_authentication(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_ENABLE_IAM_DATABASE_AUTHENTICATION, value)
+    def EnableIAMDatabaseAuthentication(self, value: bool):
+        return self._set_property(self.EnableIAMDatabaseAuthentication.__name__, value)
 
-    def enable_performance_insights(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_ENABLE_PERFORMANCE_INSIGHTS, value)
+    def EnablePerformanceInsights(self, value: bool):
+        return self._set_property(self.EnablePerformanceInsights.__name__, value)
 
-    def engine(self, value: str):
-        return self._add_property_field(self.__PROPERTY_ENGINE, value)
+    def Engine(self, value: str):
+        return self._set_property(self.Engine.__name__, value)
 
-    def engine_version(self, value: str):
-        return self._add_property_field(self.__PROPERTY_ENGINE_VERSION, value)
+    def EngineVersion(self, value: str):
+        return self._set_property(self.EngineVersion.__name__, value)
 
-    def iops(self, value: int):
-        return self._add_property_field(self.__PROPERTY_IOPS, value)
+    def Iops(self, value: int):
+        return self._set_property(self.Iops.__name__, value)
 
-    def kms_key_id(self, value: str):
-        return self._add_property_field(self.__PROPERTY_KMS_KEY_ID, value)
+    def KmsKeyId(self, value: str):
+        return self._set_property(self.KmsKeyId.__name__, value)
 
-    def license_model(self, value: str):
-        return self._add_property_field(self.__PROPERTY_LICENSE_MODEL, value)
+    def LicenseModel(self, value: str):
+        return self._set_property(self.LicenseModel.__name__, value)
 
-    def master_username(self, value: str):
-        return self._add_property_field(self.__PROPERTY_MASTER_USERNAME, value)
+    def MasterUsername(self, value: str):
+        return self._set_property(self.MasterUsername.__name__, value)
 
-    def master_user_password(self, value: str):
-        return self._add_property_field(self.__PROPERTY_MASTER_USER_PASSWORD, value)
+    def MasterUserPassword(self, value: str):
+        return self._set_property(self.MasterUserPassword.__name__, value)
 
-    def max_allocated_storage(self, value: int):
-        return self._add_property_field(self.__PROPERTY_MAX_ALLOCATED_STORAGE, value)
+    def MaxAllocatedStorage(self, value: int):
+        return self._set_property(self.MaxAllocatedStorage.__name__, value)
 
-    def monitoring_interval(self, value: int):
-        return self._add_property_field(self.__PROPERTY_MONITORING_INTERVAL, value)
+    def MonitoringInterval(self, value: int):
+        return self._set_property(self.MonitoringInterval.__name__, value)
 
-    def monitoring_role_arn(self, value: str):
-        return self._add_property_field(self.__PROPERTY_MONITORING_ROLE_ARN, value)
+    def MonitoringRoleArn(self, value: str):
+        return self._set_property(self.MonitoringRoleArn.__name__, value)
 
-    def multi_az(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_MULTI_AZ, value)
+    def MultiAz(self, value: bool):
+        return self._set_property(self.MultiAz.__name__, value)
 
-    def option_group_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_OPTION_GROUP_NAME, value)
+    def OptionGroupName(self, value: str):
+        return self._set_property(self.OptionGroupName.__name__, value)
 
-    def performance_insights_kms_key_id(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PERFORMANCE_INSIGHTS_KMS_KEY_ID, value)
+    def PerformanceInsightsKMSKeyId(self, value: str):
+        return self._set_property(self.PerformanceInsightsKMSKeyId.__name__, value)
 
-    def performance_insights_retention_period(self, value: int):
-        return self._add_property_field(self.__PROPERTY_PERFORMANCE_INSIGHTS_RETENTION_PERIOD, value)
+    def PerformanceInsightsRetentionPeriod(self, value: int):
+        return self._set_property(self.PerformanceInsightsRetentionPeriod.__name__, value)
 
-    def port(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PORT, value)
+    def Port(self, value: str):
+        return self._set_property(self.Port.__name__, value)
 
-    def preferred_backup_window(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PREFERRED_BACKUP_WINDOW, value)
+    def PreferredBackupWindow(self, value: str):
+        return self._set_property(self.PreferredBackupWindow.__name__, value)
 
-    def preferred_maintenance_window(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PREFERRED_MAINTENANCE_WINDOW, value)
+    def PreferredMaintenanceWindow(self, value: str):
+        return self._set_property(self.PreferredMaintenanceWindow.__name__, value)
 
-    def processor_features(self, *value: ProcessorFeature):
-        return self._add_property_field(self.__PROPERTY_PROCESSOR_FEATURES, [
-            processor_feature for processor_feature in list(value)
-        ])
+    def ProcessorFeatures(self, *value: ProcessorFeature):
+        return self._set_property(self.ProcessorFeatures.__name__, [pf.__to_dict__() for pf in list(value)])
 
-    def promotion_tier(self, value: int):
-        return self._add_property_field(self.__PROPERTY_PROMOTION_TIER, value)
+    def PromotionTier(self, value: int):
+        return self._set_property(self.PromotionTier.__name__, value)
 
-    def publicly_accessible(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_PUBLICLY_ACCESSIBLE, value)
+    def PubliclyAccessible(self, value: bool):
+        return self._set_property(self.PubliclyAccessible.__name__, value)
 
-    def source_db_instance_identifier(self, value: str):
-        return self._add_property_field(self.__PROPERTY_SOURCE_DB_INSTANCE_IDENTIFIER, value)
+    def SourceDBInstanceIdentifier(self, value: str):
+        return self._set_property(self.SourceDBInstanceIdentifier.__name__, value)
 
-    def source_region(self, value: str):
-        return self._add_property_field(self.__PROPERTY_SOURCE_REGION, value)
+    def SourceRegion(self, value: str):
+        return self._set_property(self.SourceRegion.__name__, value)
 
-    def storage_encrypted(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_STORAGE_ENCRYPTED, value)
+    def StorageEncrypted(self, value: bool):
+        return self._set_property(self.StorageEncrypted.__name__, value)
 
-    def storage_type(self, value: str):
-        return self._add_property_field(self.__PROPERTY_STORAGE_TYPE, value)
+    def StorageType(self, value: str):
+        return self._set_property(self.StorageType.__name__, value)
 
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag for tag in list(value)
-        ])
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))
 
-    def timezone(self, value: str):
-        return self._add_property_field(self.__PROPERTY_TIMEZONE, value)
+    def Timezone(self, value: str):
+        return self._set_property(self.Timezone.__name__, value)
 
-    def use_default_processor_features(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_USE_DEFAULT_PROCESSOR_FEATURES, value)
+    def UseDefaultProcessorFeatures(self, value: bool):
+        return self._set_property(self.UseDefaultProcessorFeatures.__name__, value)
 
-    def vpc_security_groups(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_VPC_SECURITY_GROUPS, list(value))
+    def VPCSecurityGroups(self, *value: str):
+        return self._set_property(self.VPCSecurityGroups.__name__, list(value))
+

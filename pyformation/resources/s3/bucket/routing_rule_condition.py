@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class RoutingRuleCondition(BaseModel):
-    __PROPERTY_HTTP_ERROR_CODE_RETURNED_EQUALS = "HttpErrorCodeReturnedEquals"
-    __PROPERTY_KEY_PREFIX_EQUALS = "KeyPrefixEquals"
+class RoutingRuleCondition(PyformationModel):
+    def HttpErrorCodeReturnedEquals(self, value: str):
+        return self._set_field(self.HttpErrorCodeReturnedEquals.__name__, value)
 
-    def http_error_code_returned_equals(self, value: str):
-        return self._add_field(self.__PROPERTY_HTTP_ERROR_CODE_RETURNED_EQUALS, value)
-
-    def key_prefix_equals(self, value: str):
-        return self._add_field(self.__PROPERTY_KEY_PREFIX_EQUALS, value)
+    def KeyPrefixEquals(self, value: str):
+        return self._set_field(self.KeyPrefixEquals.__name__, value)

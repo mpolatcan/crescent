@@ -1,25 +1,20 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import AccessControlTranslation, EncryptionConfiguration
+from pyformation import PyformationModel
+from .access_control_translation import AccessControlTranslation
+from .encryption_configuration import EncryptionConfiguration
 
 
-class ReplicationDestination(BaseModel):
-    __PROPERTY_ACCESS_CONTROL_TRANSLATION = "AccessControlTranslation"
-    __PROPERTY_ACCOUNT = "Account"
-    __PROPERTY_BUCKET = "Bucket"
-    __PROPERTY_ENCRYPTION_CONFIGURATION = "EncryptionConfiguration"
-    __PROPERTY_STORAGE_CLASS = "StorageClass"
+class ReplicationDestination(PyformationModel):
+    def AccessControlTranslation(self, value: AccessControlTranslation):
+        return self._set_field(self.AccessControlTranslation.__name__, value.__to_dict__())
 
-    def access_control_translation(self, value: AccessControlTranslation):
-        return self._add_field(self.__PROPERTY_ACCESS_CONTROL_TRANSLATION, value)
+    def Account(self, value: str):
+        return self._set_field(self.Account.__name__, value)
 
-    def account(self, value: str):
-        return self._add_field(self.__PROPERTY_ACCOUNT, value)
+    def Bucket(self, value: str):
+        return self._set_field(self.Bucket.__name__, value)
 
-    def bucket(self, value: str):
-        return self._add_field(self.__PROPERTY_BUCKET, value)
+    def EncryptionConfiguration(self, value: EncryptionConfiguration):
+        return self._set_field(self.EncryptionConfiguration.__name__, value.__to_dict__())
 
-    def encryption_configuration(self, value: EncryptionConfiguration):
-        return self._add_field(self.__PROPERTY_ENCRYPTION_CONFIGURATION, value)
-
-    def storage_class(self, value: str):
-        return self._add_field(self.__PROPERTY_STORAGE_CLASS, value)
+    def StorageClass(self, value: str):
+        return self._set_field(self.StorageClass.__name__, value)

@@ -1,13 +1,10 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import KMSEncryptionConfig
+from pyformation import PyformationModel
+from .kms_encryption_config import KMSEncryptionConfig
 
 
-class EncryptionConfiguration(BaseModel):
-    __PROPERTY_KMS_ENCRYPTION_CONFIG = "KMSEncryptionConfig"
-    __PROPERTY_NO_ENCRYPTION_CONFIG = "NoEncryptionConfig"
+class EncryptionConfiguration(PyformationModel):
+    def KMSEncryptionConfig(self, value: KMSEncryptionConfig):
+        return self._set_field(self.KMSEncryptionConfig.__name__, value.__to_dict__())
 
-    def kms_encryption_config(self, value: KMSEncryptionConfig):
-        return self._add_field(self.__PROPERTY_KMS_ENCRYPTION_CONFIG, value)
-
-    def no_encryption_config(self, value: str):
-        return self._add_field(self.__PROPERTY_NO_ENCRYPTION_CONFIG, value)
+    def NoEncryptionConfig(self, value: str):
+        return self._set_field(self.NoEncryptionConfig.__name__, value)

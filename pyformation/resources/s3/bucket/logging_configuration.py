@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class LoggingConfiguration(BaseModel):
-    __PROPERTY_DESTINATION_BUCKET_NAME = "DestinationBucketName"
-    __PROPERTY_LOG_FILE_PREFIX = "LogFilePrefix"
+class LoggingConfiguration(PyformationModel):
+    def DestinationBucketName(self, value: str):
+        return self._set_field(self.DestinationBucketName.__name__, value)
 
-    def destination_bucket_name(self, value: str):
-        return self._add_field(self.__PROPERTY_DESTINATION_BUCKET_NAME, value)
-
-    def log_file_prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_LOG_FILE_PREFIX, value)
+    def LogFilePrefix(self, value: str):
+        return self._set_field(self.LogFilePrefix.__name__, value)

@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class ServerSideEncryptionByDefault(BaseModel):
-    __PROPERTY_KMS_MASTER_KEY_ID = "KMSMasterKeyId"
-    __PROPERTY_SSE_ALGORITHM = "SSEAlgorithm"
+class ServerSideEncryptionByDefault(PyformationModel):
+    def KMSMasterKeyId(self, value: str):
+        return self._set_field(self.KMSMasterKeyId.__name__, value)
 
-    def kms_master_key_id(self, value: str):
-        return self._add_field(self.__PROPERTY_KMS_MASTER_KEY_ID, value)
-
-    def sse_algorithm(self, value: str):
-        return self._add_field(self.__PROPERTY_SSE_ALGORITHM, value)
+    def SSEAlgorithm(self, value: str):
+        return self._set_field(self.SSEAlgorithm.__name__, value)

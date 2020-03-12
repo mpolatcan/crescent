@@ -1,42 +1,34 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
-from pyformation.resources.s3.bucket import PublicAccessBlockConfiguration
-from pyformation.resources.s3.access_point import VpcConfiguration
+from pyformation import PyformationResource
+from .public_access_block_configuration import PublicAccessBlockConfiguration
+from .vpc_configuration import VpcConfiguration
 
 
-class AccessPoint(BaseCloudFormationResourceModel):
+class AccessPoint(PyformationResource):
     __TYPE = "AWS::S3::AccessPoint"
-    __PROPERTY_BUCKET = "Bucket"
-    __PROPERTY_CREATION_DATE = "CreationDate"
-    __PROPERTY_NAME = "Name"
-    __PROPERTY_NETWORK_ORIGIN = "NetworkOrigin"
-    __PROPERTY_POLICY = "Policy"
-    __PROPERTY_POLICY_STATUS = "PolicyStatus"
-    __PROPERTY_PUBLIC_ACCESS_BLOCK_CONFIGURATION = "PublicAccessBlockConfiguration"
-    __PROPERTY_VPC_CONFIGURATION = "VpcConfiguration"
 
-    def __init__(self):
-        super(AccessPoint, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(AccessPoint, self).__init__(id, self.__TYPE)
 
-    def bucket(self, value: str):
-        return self._add_property_field(self.__PROPERTY_BUCKET, value)
+    def Bucket(self, value: str):
+        return self._set_property(self.Bucket.__name__, value)
 
-    def creation_date(self, value: str):
-        return self._add_property_field(self.__PROPERTY_CREATION_DATE, value)
+    def CreationDate(self, value: str):
+        return self._set_property(self.CreationDate.__name__, value)
 
-    def name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_NAME, value)
+    def Name(self, value: str):
+        return self._set_property(self.Name.__name__, value)
 
-    def network_origin(self, value: str):
-        return self._add_property_field(self.__PROPERTY_NETWORK_ORIGIN, value)
+    def NetworkOrigin(self, value: str):
+        return self._set_property(self.NetworkOrigin.__name__, value)
 
-    def policy(self, value: dict):
-        return self._add_property_field(self.__PROPERTY_POLICY, value)
+    def Policy(self, value: dict):
+        return self._set_property(self.Policy.__name__, value)
 
-    def policy_status(self, value: dict):
-        return self._add_property_field(self.__PROPERTY_POLICY_STATUS, value)
+    def PolicyStatus(self, value: dict):
+        return self._set_property(self.PolicyStatus, value)
 
-    def public_access_block_configuration(self, value: PublicAccessBlockConfiguration):
-        return self._add_property_field(self.__PROPERTY_PUBLIC_ACCESS_BLOCK_CONFIGURATION, value.create())
+    def PublicAccessBlockConfiguration(self, value: PublicAccessBlockConfiguration):
+        return self._set_property(self.PublicAccessBlockConfiguration.__name__, value.__to_dict__())
 
-    def vpc_configuration(self, value: VpcConfiguration):
-        return self._add_property_field(self.__PROPERTY_VPC_CONFIGURATION, value.create())
+    def VpcConfiguration(self, value: VpcConfiguration):
+        return self._set_property(self.VpcConfiguration.__name__, value.__to_dict__())

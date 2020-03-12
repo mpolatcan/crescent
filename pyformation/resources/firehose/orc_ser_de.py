@@ -1,44 +1,33 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class OrcSerDe(BaseModel):
-    __PROPERTY_BLOCK_SIZE_BYTES = "BlockSizeBytes"
-    __PROPERTY_BLOOM_FILTER_COLUMNS = "BloomFilterColumns"
-    __PROPERTY_BLOOM_FILTER_FALSE_POSITIVE_PROBABILITY = "BloomFilterFalsePositiveProbability"
-    __PROPERTY_COMPRESSION = "Compression"
-    __PROPERTY_DICTIONARY_KEY_THRESHOLD = "DictionaryKeyThreshold"
-    __PROPERTY_ENABLE_PADDING = "EnablePadding"
-    __PROPERTY_FORMAT_VERSION = "FormatVersion"
-    __PROPERTY_PADDING_TOLERANCE = "PaddingTolerance"
-    __PROPERTY_ROW_INDEX_STRIDE = "RowIndexStride"
-    __PROPERTY_STRIPE_SIZE_BYTES = "StripeSizeBytes"
+class OrcSerDe(PyformationModel):
+    def BlockSizeBytes(self, value: int):
+        return self._set_field(self.BlockSizeBytes.__name__, value)
 
-    def block_size_bytes(self, value: int):
-        return self._add_field(self.__PROPERTY_BLOCK_SIZE_BYTES, value)
+    def BloomFilterColumns(self, *value: str):
+        return self._set_field(self.BloomFilterColumns.__name__, list(value))
 
-    def bloom_filter_columns(self, *value: str):
-        return self._add_field(self.__PROPERTY_BLOOM_FILTER_COLUMNS, list(value))
+    def BloomFilterFalsePositiveProbability(self, value: float):
+        return self._set_field(self.BloomFilterFalsePositiveProbability.__name__, value)
 
-    def bloom_filter_false_positive_probability(self, value: float):
-        return self._add_field(self.__PROPERTY_BLOOM_FILTER_FALSE_POSITIVE_PROBABILITY, value)
+    def Compression(self, value: str):
+        return self._set_field(self.Compression.__name__, value)
 
-    def compression(self, value: str):
-        return self._add_field(self.__PROPERTY_COMPRESSION, value)
+    def DictionaryKeyThreshold(self, value: float):
+        return self._set_field(self.DictionaryKeyThreshold.__name__, value)
 
-    def dictionary_key_threshold(self, value: float):
-        return self._add_field(self.__PROPERTY_DICTIONARY_KEY_THRESHOLD, value)
+    def EnablePadding(self, value: bool):
+        return self._set_field(self.EnablePadding.__name__, value)
 
-    def enable_padding(self, value: bool):
-        return self._add_field(self.__PROPERTY_ENABLE_PADDING, value)
+    def FormatVersion(self, value: str):
+        return self._set_field(self.FormatVersion.__name__, value)
 
-    def format_version(self, value: str):
-        return self._add_field(self.__PROPERTY_FORMAT_VERSION, value)
+    def PaddingTolerance(self, value: float):
+        return self._set_field(self.PaddingTolerance.__name__, value)
 
-    def padding_tolerance(self, value: float):
-        return self._add_field(self.__PROPERTY_PADDING_TOLERANCE, value)
+    def RowIndexStride(self, value: int):
+        return self._set_field(self.RowIndexStride.__name__, value)
 
-    def row_index_stride(self, value: int):
-        return self._add_field(self.__PROPERTY_ROW_INDEX_STRIDE, value)
-
-    def stripe_size_bytes(self, value: int):
-        return self._add_field(self.__PROPERTY_STRIPE_SIZE_BYTES, value)
+    def StripeSizeBytes(self, value: int):
+        return self._set_field(self.StripeSizeBytes.__name__, value)

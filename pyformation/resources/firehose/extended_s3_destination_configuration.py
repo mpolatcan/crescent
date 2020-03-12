@@ -1,60 +1,45 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import (
-    BufferingHints,
-    CloudwatchLoggingOptions,
-    DataFormatConversionConfiguration,
-    EncryptionConfiguration,
-    ProcessingConfiguration,
-    S3DestinationConfiguration
-)
+from pyformation import PyformationModel
+from .buffering_hints import BufferingHints
+from .cloudwatch_logging_options import CloudwatchLoggingOptions
+from .data_format_conversion_configuration import DataFormatConversionConfiguration
+from .encryption_configuration import EncryptionConfiguration
+from .processing_configuration import ProcessingConfiguration
+from .s3_destination_configuration import S3DestinationConfiguration
 
 
-class ExtendedS3DestinationConfiguration(BaseModel):
-    __PROPERTY_BUCKET_ARN = "BucketARN"
-    __PROPERTY_BUFFERING_HINTS = "BufferingHints"
-    __PROPERTY_CLOUDWATCH_LOGGING_OPTIONS = "CloudwatchLoggingOptions"
-    __PROPERTY_COMPRESSION_FORMAT = "CompressionFormat"
-    __PROPERTY_DATA_FORMAT_CONVERSION_CONFIGURATION = "DataFormatConversionConfiguration"
-    __PROPERTY_ENCRYPTION_CONFIGURATION = "EncryptionConfiguration"
-    __PROPERTY_ERROR_OUTPUT_PREFIX = "ErrorOutputPrefix"
-    __PROPERTY_PREFIX = "Prefix"
-    __PROPERTY_PROCESSING_CONFIGURATION = "ProcessingConfiguration"
-    __PROPERTY_ROLE_ARN = "RoleARN"
-    __PROPERTY_S3_BACKUP_CONFIGURATION = "S3BackupConfiguration"
-    __PROPERTY_S3_BACKUP_MODE = "S3BackupMode"
+class ExtendedS3DestinationConfiguration(PyformationModel):
+    def BucketARN(self, value: str):
+        return self._set_field(self.BucketARN.__name__, value)
 
-    def bucket_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_BUCKET_ARN, value)
+    def BufferingHints(self, value: BufferingHints):
+        return self._set_field(self.BufferingHints.__name__, value.__to_dict__())
 
-    def buffering_hints(self, value: BufferingHints):
-        return self._add_field(self.__PROPERTY_BUFFERING_HINTS, value)
+    def CloudwatchLoggingOptions(self, value: CloudwatchLoggingOptions):
+        return self._set_field(self.CloudwatchLoggingOptions.__name__, value.__to_dict__())
 
-    def cloudwatch_logging_options(self, value: CloudwatchLoggingOptions):
-        return self._add_field(self.__PROPERTY_CLOUDWATCH_LOGGING_OPTIONS, value)
+    def CompressionFormat(self, value: str):
+        return self._set_field(self.CompressionFormat.__name__, value)
 
-    def compression_format(self, value: str):
-        return self._add_field(self.__PROPERTY_COMPRESSION_FORMAT, value)
+    def DataFormatConversionConfiguration(self, value: DataFormatConversionConfiguration):
+        return self._set_field(self.DataFormatConversionConfiguration.__name__, value.__to_dict__())
 
-    def data_format_conversion_configuration(self, value: DataFormatConversionConfiguration):
-        return self._add_field(self.__PROPERTY_DATA_FORMAT_CONVERSION_CONFIGURATION, value)
+    def EncryptionConfiguration(self, value: EncryptionConfiguration):
+        return self._set_field(self.EncryptionConfiguration.__name__, value.__to_dict__())
 
-    def encryption_configuration(self, value: EncryptionConfiguration):
-        return self._add_field(self.__PROPERTY_ENCRYPTION_CONFIGURATION, value)
+    def ErrorOutputPrefix(self, value: str):
+        return self._set_field(self.ErrorOutputPrefix.__name__, value)
 
-    def error_output_prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_ERROR_OUTPUT_PREFIX, value)
+    def Prefix(self, value: str):
+        return self._set_field(self.Prefix.__name__, value)
 
-    def prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_PREFIX, value)
+    def ProcessingConfiguration(self, value: ProcessingConfiguration):
+        return self._set_field(self.ProcessingConfiguration.__name__, value.__to_dict__())
 
-    def processing_configuration(self, value: ProcessingConfiguration):
-        return self._add_field(self.__PROPERTY_PROCESSING_CONFIGURATION, value)
+    def RoleARN(self, value: str):
+        return self._set_field(self.RoleARN.__name__, value)
 
-    def role_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
+    def S3BackupConfiguration(self, value: S3DestinationConfiguration):
+        return self._set_field(self.S3BackupConfiguration.__name__, value.__to_dict__())
 
-    def s3_backup_configuration(self, value: S3DestinationConfiguration):
-        return self._add_field(self.__PROPERTY_S3_BACKUP_CONFIGURATION, value)
-
-    def s3_backup_mode(self, value: str):
-        return self._add_field(self.__PROPERTY_S3_BACKUP_MODE, value)
+    def S3BackupMode(self, value: str):
+        return self._set_field(self.S3BackupMode.__name__, value)

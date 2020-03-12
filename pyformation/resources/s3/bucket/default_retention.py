@@ -1,16 +1,12 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class DefaultRetention(BaseModel):
-    __PROPERTY_DAYS = "Days"
-    __PROPERTY_MODE = "Mode"
-    __PROPERTY_YEARS = "Years"
+class DefaultRetention(PyformationModel):
+    def Days(self, value: int):
+        return self._set_field(self.Days.__name__, value)
 
-    def days(self, value: int):
-        return self._add_field(self.__PROPERTY_DAYS, value)
+    def Mode(self, value: str):
+        return self._set_field(self.Mode.__name__, value)
 
-    def mode(self, value: str):
-        return self._add_field(self.__PROPERTY_MODE, value)
-
-    def years(self, value: int):
-        return self._add_field(self.__PROPERTY_YEARS, value)
+    def Years(self, value: int):
+        return self._set_field(self.Years.__name__, value)

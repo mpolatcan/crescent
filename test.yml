@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: ''
+Resources:
+  EcrTest:
+    Properties:
+      LifecyclePolicy: {}
+      RepositoryName: ecr-test
+    Type: AWS::ECR::Repository
+  FirehoseTest:
+    Properties:
+      S3DestinationConfiguration: {}
+    Type: AWS::KinesisFirehose::DeliveryStream

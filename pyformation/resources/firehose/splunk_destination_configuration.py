@@ -1,46 +1,36 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import (
-    CloudwatchLoggingOptions,
-    ProcessingConfiguration,
-    S3DestinationConfiguration,
-    SplunkRetryOptions
-)
+from pyformation import PyformationModel
+from .cloudwatch_logging_options import CloudwatchLoggingOptions
+from .processing_configuration import ProcessingConfiguration
+from .s3_destination_configuration import S3DestinationConfiguration
+from .splunk_retry_options import SplunkRetryOptions
 
 
-class SplunkDestinationConfiguration(BaseModel):
-    __PROPERTY_CLOUDWATCH_LOGGING_OPTIONS = "CloudwatchLoggingOptions"
-    __PROPERTY_HEC_ACKNOWLEDGMENT_TIMEOUT_IN_SECONDS = "HECAcknowledgmentTimeoutInSeconds"
-    __PROPERTY_HEC_ENDPOINT = "HECEndpoint"
-    __PROPERTY_HEC_ENDPOINT_TYPE = "HECEndpointType"
-    __PROPERTY_HEC_TOKEN = "HECToken"
-    __PROPERTY_PROCESSING_CONFIGURATION = "ProcessingConfiguration"
-    __PROPERTY_RETRY_OPTIONS = "RetryOptions"
-    __PROPERTY_S3_BACKUP_MODE = "S3BackupMode"
+class SplunkDestinationConfiguration(PyformationModel):
     __PROPERTY_S3_CONFIGURATION = "S3Configuration"
 
-    def cloudwatch_logging_options(self, value: CloudwatchLoggingOptions):
-        return self._add_field(self.__PROPERTY_CLOUDWATCH_LOGGING_OPTIONS, value)
+    def CloudwatchLoggingOptions(self, value: CloudwatchLoggingOptions):
+        return self._set_field(self.CloudwatchLoggingOptions.__name__, value.__to_dict__())
 
-    def hec_acknowledgment_timeout_in_seconds(self, value: int):
-        return self._add_field(self.__PROPERTY_HEC_ACKNOWLEDGMENT_TIMEOUT_IN_SECONDS, value)
+    def HECAcknowledgmentTimeoutInSeconds(self, value: int):
+        return self._set_field(self.HECAcknowledgmentTimeoutInSeconds.__name__, value)
 
-    def hec_endpoint(self, value: str):
-        return self._add_field(self.__PROPERTY_HEC_ENDPOINT, value)
+    def HECEndpoint(self, value: str):
+        return self._set_field(self.HECEndpoint.__name__, value)
 
-    def hec_endpoint_type(self, value: str):
-        return self._add_field(self.__PROPERTY_HEC_ENDPOINT_TYPE, value)
+    def HECEndpointType(self, value: str):
+        return self._set_field(self.HECEndpointType.__name__, value)
 
-    def hec_token(self, value: str):
-        return self._add_field(self.__PROPERTY_HEC_TOKEN, value)
+    def HECToken(self, value: str):
+        return self._set_field(self.HECToken.__name__, value)
 
-    def processing_configuration(self, value: ProcessingConfiguration):
-        return self._add_field(self.__PROPERTY_PROCESSING_CONFIGURATION, value)
+    def ProcessingConfiguration(self, value: ProcessingConfiguration):
+        return self._set_field(self.ProcessingConfiguration.__name__, value.__to_dict__())
 
-    def retry_options(self, value: SplunkRetryOptions):
-        return self._add_field(self.__PROPERTY_RETRY_OPTIONS, value)
+    def RetryOptions(self, value: SplunkRetryOptions):
+        return self._set_field(self.RetryOptions.__name__, value.__to_dict__())
 
-    def s3_backup_mode(self, value: str):
-        return self._add_field(self.__PROPERTY_S3_BACKUP_MODE, value)
+    def S3BackupMode(self, value: str):
+        return self._set_field(self.S3BackupMode.__name__, value)
 
-    def s3_configuration(self, value: S3DestinationConfiguration):
-        return self._add_field(self.__PROPERTY_S3_CONFIGURATION, value)
+    def S3Configuration(self, value: S3DestinationConfiguration):
+        return self._set_field(self.S3Configuration.__name__, value.__to_dict__())

@@ -1,26 +1,20 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation import PyformationResource, Tag
 
 
-class DBSubnetGroup(BaseCloudFormationResourceModel):
+class DBSubnetGroup(PyformationResource):
     __TYPE = "AWS::RDS::DBSubnetGroup"
-    __PROPERTY_DB_SUBNET_GROUP_DESCRIPTION = "DBSubnetGroupDescription"
-    __PROPERTY_DB_SUBNET_GROUP_NAME = "DBSubnetGroupName"
-    __PROPERTY_SUBNET_IDS = "SubnetIds"
-    __PROPERTY_TAGS = "Tags"
 
-    def __init__(self):
-        super(DBSubnetGroup, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(DBSubnetGroup, self).__init__(id, self.__TYPE)
 
-    def db_subnet_group_description(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_SUBNET_GROUP_DESCRIPTION, value)
+    def DBSubnetGroupDescription(self, value: str):
+        return self._set_property(self.DBSubnetGroupDescription.__name__, value)
 
-    def db_subnet_group_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DB_SUBNET_GROUP_NAME, value)
+    def DBSubnetGroupName(self, value: str):
+        return self._set_property(self.DBSubnetGroupName.__name__, value)
 
-    def subnet_ids(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_SUBNET_IDS, list(value))
+    def SubnetIds(self, *value: str):
+        return self._set_property(self.SubnetIds.__name__, list(value))
 
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag for tag in list(value)
-        ])
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))

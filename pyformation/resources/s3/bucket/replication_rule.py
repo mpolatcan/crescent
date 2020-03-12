@@ -1,25 +1,20 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import ReplicationDestination, SourceSelectionCriteria
+from pyformation import PyformationModel
+from .replication_destination import ReplicationDestination
+from .source_selection_criteria import SourceSelectionCriteria
 
 
-class ReplicationRule(BaseModel):
-    __PROPERTY_DESTINATION = "Destination"
-    __PROPERTY_ID = "Id"
-    __PROPERTY_PREFIX = "Prefix"
-    __PROPERTY_SOURCE_SELECTION_CRITERIA = "SourceSelectionCriteria"
-    __PROPERTY_STATUS = "Status"
+class ReplicationRule(PyformationModel):
+    def Destination(self, value: ReplicationDestination):
+        return self._set_field(self.Destination.__name__, value.__to_dict__())
 
-    def destination(self, value: ReplicationDestination):
-        return self._add_field(self.__PROPERTY_DESTINATION, value)
+    def Id(self, value: str):
+        return self._set_field(self.Id.__name__, value)
 
-    def id(self, value: str):
-        return self._add_field(self.__PROPERTY_ID, value)
+    def Prefix(self, value: str):
+        return self._set_field(self.Prefix.__name__, value)
 
-    def prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_PREFIX, value)
+    def SourceSelectionCriteria(self, value: SourceSelectionCriteria):
+        return self._set_field(self.SourceSelectionCriteria.__name__, value.__to_dict__())
 
-    def source_selection_criteria(self, value: SourceSelectionCriteria):
-        return self._add_field(self.__PROPERTY_SOURCE_SELECTION_CRITERIA, value)
-
-    def status(self, value: str):
-        return self._add_field(self.__PROPERTY_STATUS, value)
+    def Status(self, value: str):
+        return self._set_field(self.Status.__name__, value)

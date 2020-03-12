@@ -1,28 +1,21 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class CorsRule(BaseModel):
-    __PROPERTY_ALLOWED_HEADERS = "AllowedHeaders"
-    __PROPERTY_ALLOWED_METHODS = "AllowedMethods"
-    __PROPERTY_ALLOWED_ORIGINS = "AllowedOrigins"
-    __PROPERTY_EXPOSED_HEADERS = "ExposedHeaders"
-    __PROPERTY_ID = "Id"
-    __PROPERTY_MAX_AGE = "MaxAge"
+class CorsRule(PyformationModel):
+    def AllowedHeaders(self, *value: str):
+        return self._set_field(self.AllowedHeaders.__name__, list(value))
 
-    def allowed_headers(self, *value: str):
-        return self._add_field(self.__PROPERTY_ALLOWED_HEADERS, list(value))
+    def AllowedMethods(self, *value: str):
+        return self._set_field(self.AllowedMethods.__name__, list(value))
 
-    def allowed_methods(self, *value: str):
-        return self._add_field(self.__PROPERTY_ALLOWED_METHODS, list(value))
+    def AllowedOrigins(self, *value: str):
+        return self._set_field(self.AllowedOrigins.__name__, list(value))
 
-    def allowed_origins(self, *value: str):
-        return self._add_field(self.__PROPERTY_ALLOWED_ORIGINS, list(value))
+    def ExposedHeaders(self, *value: str):
+        return self._set_field(self.ExposedHeaders.__name__, list(value))
 
-    def exposed_headers(self, *value: str):
-        return self._add_field(self.__PROPERTY_EXPOSED_HEADERS, list(value))
+    def Id(self, value: str):
+        return self._set_field(self.Id.__name__, value)
 
-    def id(self, value: str):
-        return self._add_field(self.__PROPERTY_ID, value)
-
-    def max_age(self, value: int):
-        return self._add_field(self.__PROPERTY_MAX_AGE, value)
+    def MaxAge(self, value: int):
+        return self._set_field(self.MaxAge.__name__, value)

@@ -1,13 +1,10 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import Destination
+from pyformation import PyformationModel
+from .destination import Destination
 
 
-class DataExport(BaseModel):
-    __PROPERTY_DESTINATION = "Destination"
-    __PROPERTY_OUTPUT_SCHEMA_VERSION = "OutputSchemaVersion"
+class DataExport(PyformationModel):
+    def Destination(self, value: Destination):
+        return self._set_field(self.Destination.__name__, value.__to_dict__())
 
-    def destination(self, value: Destination):
-        return self._add_field(self.__PROPERTY_DESTINATION, value)
-
-    def output_schema_version(self, value: str):
-        return self._add_field(self.__PROPERTY_OUTPUT_SCHEMA_VERSION, value)
+    def OutputSchemaVersion(self, value: str):
+        return self._set_field(self.OutputSchemaVersion.__name__, value)

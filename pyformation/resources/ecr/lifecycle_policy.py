@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class LifecyclePolicy(BaseModel):
-    __PROPERTY_LIFECYCLE_POLICY_TEXT = "LifecyclePolicyText"
-    __PROPERTY_REGISTRY_ID = "RegistryId"
+class LifecyclePolicy(PyformationModel):
+    def LifecyclePolicyText(self, value: str):
+        return self._set_field(self.LifecyclePolicyText.__name__, value)
 
-    def lifecycle_policy_text(self, value: str):
-        return self._add_field(self.__PROPERTY_LIFECYCLE_POLICY_TEXT, value)
-
-    def registry_id(self, value):
-        return self._add_field(self.__PROPERTY_REGISTRY_ID, value)
+    def RegistryId(self, value: str):
+        return self._set_field(self.RegistryId.__name__, value)

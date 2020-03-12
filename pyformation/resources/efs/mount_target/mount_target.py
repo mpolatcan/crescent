@@ -1,21 +1,20 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class MountTarget(BaseCloudFormationResourceModel):
+class MountTarget(PyformationResource):
     __TYPE = "AWS::EFS::MountTarget"
-    __PROPERTY_FILE_SYSTEM_ID = "FileSystemId"
-    __PROPERTY_IP_ADDRESS = "IpAddress"
-    __PROPERTY_SECURITY_GROUPS = "SecurityGroups"
-    __PROPERTY_SUBNET_ID = "SubnetId"
 
-    def file_system_id(self, value: str):
-        return self._add_property_field(self.__PROPERTY_FILE_SYSTEM_ID, value)
+    def __init__(self, id: str):
+        super(MountTarget, self).__init__(id, self.__TYPE)
 
-    def ip_address(self, value: str):
-        return self._add_property_field(self.__PROPERTY_IP_ADDRESS, value)
+    def FileSystemId(self, value: str):
+        return self._set_property(self.FileSystemId.__name__, value)
 
-    def security_groups(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_SECURITY_GROUPS, list(value))
+    def IpAddress(self, value: str):
+        return self._set_property(self.IpAddress.__name__, value)
 
-    def subnet_id(self, value: str):
-        return self._add_property_field(self.__PROPERTY_SUBNET_ID, value)
+    def SecurityGroups(self, *value: str):
+        return self._set_property(self.SecurityGroups.__name__, list(value))
+
+    def SubnetId(self, value: str):
+        return self._set_property(self.SubnetId.__name__, value)

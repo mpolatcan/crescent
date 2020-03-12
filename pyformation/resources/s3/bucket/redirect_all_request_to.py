@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class RedirectAllRequestTo(BaseModel):
-    __PROPERTY_HOST_NAME = "HostName"
-    __PROPERTY_PROTOCOL = "Protocol"
+class RedirectAllRequestTo(PyformationModel):
+    def HostName(self, value: str):
+        return self._set_field(self.HostName.__name__, value)
 
-    def hostname(self, value: str):
-        return self._add_field(self.__PROPERTY_HOST_NAME, value)
-
-    def protocol(self, value: str):
-        return self._add_field(self.__PROPERTY_PROTOCOL, value)
+    def Protocol(self, value: str):
+        return self._set_field(self.Protocol.__name__, value)

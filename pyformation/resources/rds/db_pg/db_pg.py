@@ -1,26 +1,20 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
+from pyformation import PyformationResource, Tag
 
 
-class DBParameterGroup(BaseCloudFormationResourceModel):
+class DBParameterGroup(PyformationResource):
     __TYPE = "AWS::RDS::DBParameterGroup"
-    __PROPERTY_DESCRIPTION = "Description"
-    __PROPERTY_FAMILY = "Family"
-    __PROPERTY_PARAMETERS = "Parameters"
-    __PROPERTY_TAGS = "Tags"
 
-    def __init__(self):
-        super(DBParameterGroup, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(DBParameterGroup, self).__init__(id, self.__TYPE)
 
-    def description(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DESCRIPTION, value)
+    def Description(self, value: str):
+        return self._set_property(self.Description.__name__, value)
 
-    def family(self, value: str):
-        return self._add_property_field(self.__PROPERTY_FAMILY, value)
+    def Family(self, value: str):
+        return self._set_property(self.Family.__name__, value)
 
-    def parameters(self, value: dict):
-        return self._add_property_field(self.__PROPERTY_PARAMETERS, value)
+    def Parameters(self, value: dict):
+        return self._set_property(self.Parameters.__name__, value)
 
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag for tag in list(value)
-        ])
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))

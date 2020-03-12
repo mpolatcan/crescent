@@ -1,28 +1,23 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class EventSubscription(BaseCloudFormationResourceModel):
+class EventSubscription(PyformationResource):
     __TYPE = "AWS::RDS::EventSubscription"
-    __PROPERTY_ENABLED = "Enabled"
-    __PROPERTY_EVENT_CATEGORIES = "EventCategories"
-    __PROPERTY_SNS_TOPIC_ARN = "SnsTopicArn"
-    __PROPERTY_SOURCE_IDS = "SourceIds"
-    __PROPERTY_SOURCE_TYPE = "SourceType"
 
-    def __init__(self):
-        super(EventSubscription, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(EventSubscription, self).__init__(id, self.__TYPE)
 
-    def enabled(self, value: bool):
-        return self._add_property_field(self.__PROPERTY_ENABLED, value)
+    def Enabled(self, value: bool):
+        return self._set_property(self.Enabled.__name__, value)
 
-    def event_categories(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_EVENT_CATEGORIES, list(value))
+    def EventCategories(self, *value: str):
+        return self._set_property(self.EventCategories.__name__, list(value))
 
-    def sns_topic_arn(self, value: str):
-        return self._add_property_field(self.__PROPERTY_SNS_TOPIC_ARN, value)
+    def SnsTopicArn(self, value: str):
+        return self._set_property(self.SnsTopicArn.__name__, value)
 
-    def source_ids(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_SOURCE_IDS, list(value))
+    def SourceIds(self, *value: str):
+        return self._set_property(self.SourceIds.__name__, list(value))
 
-    def source_type(self, value: str):
-        return self._add_property_field(self.__PROPERTY_SOURCE_TYPE, value)
+    def SourceType(self, value: str):
+        return self._set_property(self.SourceType.__name__, value)

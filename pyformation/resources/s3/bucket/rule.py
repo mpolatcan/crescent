@@ -1,64 +1,43 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import (
-    AbortIncompleteMultipartUpload,
-    NoncurrentVersionTransition,
-    TagFilter,
-    Transition
-)
+from pyformation import PyformationModel
+from .abort_incomplete_multipart_upload import AbortIncompleteMultipartUpload
+from .noncurrent_version_transition import NoncurrentVersionTransition
+from .tag_filter import TagFilter
+from .transition import Transition
 
 
-class Rule(BaseModel):
-    __PROPERTY_ABORT_INCOMPLETE_MULTIPART_UPLOAD = "AbortIncompleteMultipartUpload"
-    __PROPERTY_EXPIRATION_DATE = "ExpirationDate"
-    __PROPERTY_EXPIRATION_IN_DAYS = "ExpirationInDays"
-    __PROPERTY_ID = "Id"
-    __PROPERTY_NONCURRENT_VERSION_EXPIRATION_IN_DAYS = "NoncurrentVersionExpirationInDays"
-    __PROPERTY_NONCURRENT_VERSION_TRANSITION = "NoncurrentVersionTransition"
-    __PROPERTY_NONCURRENT_VERSION_TRANSITIONS = "NoncurrentVersionTransitions"
-    __PROPERTY_PREFIX = "Prefix"
-    __PROPERTY_STATUS = "Status"
-    __PROPERTY_TAG_FILTERS = "TagFilters"
-    __PROPERTY_TRANSITION = "Transition"
-    __PROPERTY_TRANSITIONS = "Transitions"
+class Rule(PyformationModel):
+    def AbortIncompleteMultipartUpload(self, value: AbortIncompleteMultipartUpload):
+        return self._set_field(self.AbortIncompleteMultipartUpload.__name__, value.__to_dict__())
 
-    def abort_incomplete_multipart_upload(self, value: AbortIncompleteMultipartUpload):
-        return self._add_field(self.__PROPERTY_ABORT_INCOMPLETE_MULTIPART_UPLOAD, value)
+    def ExpirationDate(self, value: str):
+        return self._set_field(self.ExpirationDate.__name__, value)
 
-    def expiration_date(self, value: str):
-        return self._add_field(self.__PROPERTY_EXPIRATION_DATE, value)
+    def ExpirationInDays(self, value: int):
+        return self._set_field(self.ExpirationInDays.__name__, value)
 
-    def expiration_in_days(self, value: int):
-        return self._add_field(self.__PROPERTY_EXPIRATION_IN_DAYS, value)
+    def Id(self, value: str):
+        return self._set_field(self.Id.__name__, value)
 
-    def id(self, value: str):
-        return self._add_field(self.__PROPERTY_ID, value)
+    def NoncurrentVersionExpirationInDays(self, value: int):
+        return self._set_field(self.NoncurrentVersionExpirationInDays.__name__, value)
 
-    def noncurrent_version_expiration_in_days(self, value: int):
-        return self._add_field(self.__PROPERTY_NONCURRENT_VERSION_EXPIRATION_IN_DAYS, value)
+    def NoncurrentVersionTransition(self, value: NoncurrentVersionTransition):
+        return self._set_field(self.NoncurrentVersionTransition.__name__, value.__to_dict__())
 
-    def noncurrent_version_transition(self, value: NoncurrentVersionTransition):
-        return self._add_field(self.__PROPERTY_NONCURRENT_VERSION_TRANSITION, value)
+    def NoncurrentVersionTransitions(self, *value: NoncurrentVersionTransition):
+        return self._set_field(self.NoncurrentVersionTransitions.__name__, [nvt.__to_dict__() for nvt in list(value)])
 
-    def noncurrent_version_transitions(self, *value: NoncurrentVersionTransition):
-        return self._add_field(self.__PROPERTY_NONCURRENT_VERSION_TRANSITIONS, [
-            noncurrent_v_transition for noncurrent_v_transition in list(value)
-        ])
+    def Prefix(self, value: str):
+        return self._set_field(self.Prefix.__name__, value)
 
-    def prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_PREFIX, value)
+    def Status(self, value: str):
+        return self._set_field(self.Status.__name__, value)
 
-    def status(self, value: str):
-        return self._add_field(self.__PROPERTY_STATUS, value)
+    def TagFilters(self, *value: TagFilter):
+        return self._set_field(self.TagFilters.__name__, [tf.__to_dict__() for tf in list(value)])
 
-    def tag_filters(self, *value: TagFilter):
-        return self._add_field(self.__PROPERTY_TAG_FILTERS, [
-            tag_filter for tag_filter in list(value)
-        ])
+    def Transition(self, value: Transition):
+        return self._set_field(self.Transition.__name__, value.__to_dict__())
 
-    def transition(self, value: Transition):
-        return self._add_field(self.__PROPERTY_TRANSITION, value)
-
-    def transitions(self, *value: Transition):
-        return self._add_field(self.__PROPERTY_TRANSITIONS, [
-            transition for transition in list(value)
-        ])
+    def Transitions(self, *value: Transition):
+        return self._set_field(self.Transitions.__name__, [t.__to_dict__() for t in list(value)])

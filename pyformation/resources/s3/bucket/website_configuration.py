@@ -1,23 +1,17 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import RedirectAllRequestTo, RoutingRule
+from pyformation import PyformationModel
+from .redirect_all_request_to import RedirectAllRequestTo
+from .routing_rule import RoutingRule
 
 
-class WebsiteConfiguration(BaseModel):
-    __PROPERTY_ERROR_DOCUMENT = "ErrorDocument"
-    __PROPERTY_INDEX_DOCUMENT = "IndexDocument"
-    __PROPERTY_REDIRECT_ALL_REQUEST_TO = "RedirectAllRequestTo"
-    __PROPERTY_ROUTING_RULES = "RoutingRule"
+class WebsiteConfiguration(PyformationModel):
+    def ErrorDocument(self, value: str):
+        return self._set_field(self.ErrorDocument.__name__, value)
 
-    def error_document(self, value: str):
-        return self._add_field(self.__PROPERTY_ERROR_DOCUMENT, value)
+    def IndexDocument(self, value: str):
+        return self._set_field(self.IndexDocument.__name__, value)
 
-    def index_document(self, value: str):
-        return self._add_field(self.__PROPERTY_INDEX_DOCUMENT, value)
+    def RedirectAllRequestTo(self, value: RedirectAllRequestTo):
+        return self._set_field(self.RedirectAllRequestTo.__name__, value.__to_dict__())
 
-    def redirect_all_request_to(self, value: RedirectAllRequestTo):
-        return self._add_field(self.__PROPERTY_REDIRECT_ALL_REQUEST_TO, value)
-
-    def routing_rules(self, *value: RoutingRule):
-        return self._add_field(self.__PROPERTY_ROUTING_RULES, [
-            routing_rule for routing_rule in list(value)
-        ])
+    def RoutingRules(self, *value: RoutingRule):
+        return self._set_field(self.RoutingRules.__name__, [rr.__to_dict__() for rr in list(value)])

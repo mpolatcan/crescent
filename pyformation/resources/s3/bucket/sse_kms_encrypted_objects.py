@@ -1,8 +1,6 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class SseKmsEncryptedObjects(BaseModel):
-    __PROPERTY_STATUS = "Status"
-
-    def status(self, value: str):
-        return self._add_field(self.__PROPERTY_STATUS, value)
+class SseKmsEncryptedObjects(PyformationModel):
+    def Status(self, value: str):
+        return self._set_field(self.Status.__name__, value)

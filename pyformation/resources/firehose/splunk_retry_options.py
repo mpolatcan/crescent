@@ -1,8 +1,6 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class SplunkRetryOptions(BaseModel):
-    __PROPERTY_DURATION_IN_SECONDS = "DurationInSeconds"
-
-    def duration_in_seconds(self, value: int):
-        return self._add_field(self.__PROPERTY_DURATION_IN_SECONDS, value)
+class SplunkRetryOptions(PyformationModel):
+    def DurationInSeconds(self, value: int):
+        return self._set_field(self.DurationInSeconds.__name__, value)

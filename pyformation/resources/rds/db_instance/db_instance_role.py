@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class DBInstanceRole(BaseModel):
-    __PROPERTY_FEATURE_NAME = "FeatureName"
-    __PROPERTY_ROLE_ARN = "RoleArn"
+class DBInstanceRole(PyformationModel):
+    def FeatureName(self, value: str):
+        return self._set_field(self.FeatureName.__name__, value)
 
-    def feature_name(self, value: str):
-        return self._add_field(self.__PROPERTY_FEATURE_NAME, value)
-
-    def role_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
+    def RoleArn(self, value: str):
+        return self._set_field(self.RoleArn.__name__, value)

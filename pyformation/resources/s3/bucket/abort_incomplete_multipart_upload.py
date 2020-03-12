@@ -1,8 +1,6 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class AbortIncompleteMultipartUpload(BaseModel):
-    __PROPERTY_DAYS_AFTER_INITIATION = "DaysAfterInitiation"
-
-    def days_after_initiation(self, value: int):
-        return self._add_field(self.__PROPERTY_DAYS_AFTER_INITIATION, value)
+class AbortIncompleteMultipartUpload(PyformationModel):
+    def DaysAfterInitiation(self, value: int):
+        return self._set_field(self.DaysAfterInitiation.__name__, value)

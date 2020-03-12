@@ -1,15 +1,10 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import ProcessorParameter
+from pyformation import PyformationModel
+from .processor_parameter import ProcessorParameter
 
 
-class Processor(BaseModel):
-    __PROPERTY_PARAMETERS = "Parameters"
-    __PROPERTY_TYPE = "Type"
+class Processor(PyformationModel):
+    def Parameters(self, *value: ProcessorParameter):
+        return self._set_field(self.Parameters.__name__, [proc_param.__to_dict__() for proc_param in list(value)])
 
-    def parameters(self, *value: ProcessorParameter):
-        return self._add_field(self.__PROPERTY_PARAMETERS, [
-            proc_parameter for proc_parameter in list(value)
-        ])
-
-    def type(self, value: str):
-        return self._add_field(self.__PROPERTY_TYPE, value)
+    def Type(self, value: str):
+        return self._set_field(self.Type.__name__, value)

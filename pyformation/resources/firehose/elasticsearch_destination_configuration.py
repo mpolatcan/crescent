@@ -1,55 +1,41 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import (
-    ElasticsearchBufferingHints,
-    CloudwatchLoggingOptions,
-    ProcessingConfiguration,
-    ElasticsearchRetryOptions,
-    S3DestinationConfiguration
-)
+from pyformation import PyformationModel
+from .elasticsearch_buffering_hints import ElasticsearchBufferingHints
+from .cloudwatch_logging_options import CloudwatchLoggingOptions
+from .processing_configuration import ProcessingConfiguration
+from .elasticsearch_retry_options import ElasticsearchRetryOptions
+from .s3_destination_configuration import S3DestinationConfiguration
 
 
-class ElasticsearchDestinationConfiguration(BaseModel):
-    __PROPERTY_BUFFERING_HINTS = "BufferingHints"
-    __PROPERTY_CLOUDWATCH_LOGGING_OPTIONS = "CloudwatchLoggingOptions"
-    __PROPERTY_DOMAIN_ARN = "DomainARN"
-    __PROPERTY_INDEX_NAME = "IndexName"
-    __PROPERTY_INDEX_ROTATION_PERIOD = "IndexRotationPeriod"
-    __PROPERTY_PROCESSING_CONFIGURATION = "ProcessingConfiguration"
-    __PROPERTY_RETRY_OPTIONS = "RetryOptions"
-    __PROPERTY_ROLE_ARN = "RoleARN"
-    __PROPERTY_S3_BACKUP_MODE = "S3BackupMode"
-    __PROPERTY_S3_CONFIGURATION = "S3Configuration"
-    __PROPERTY_TYPE_NAME = "TypeName"
+class ElasticsearchDestinationConfiguration(PyformationModel):
+    def BufferingHints(self, value: ElasticsearchBufferingHints):
+        return self._set_field(self.BufferingHints.__name__, value.__to_dict__())
 
-    def buffering_hints(self, value: ElasticsearchBufferingHints):
-        return self._add_field(self.__PROPERTY_BUFFERING_HINTS, value)
+    def CloudwatchLoggingOptions(self, value: CloudwatchLoggingOptions):
+        return self._set_field(self.CloudwatchLoggingOptions.__name__, value.__to_dict__())
 
-    def cloudwatch_logging_options(self, value: CloudwatchLoggingOptions):
-        return self._add_field(self.__PROPERTY_CLOUDWATCH_LOGGING_OPTIONS, value)
+    def DomainARN(self, value: str):
+        return self._set_field(self.DomainARN.__name__, value)
 
-    def domain_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_DOMAIN_ARN, value)
+    def IndexName(self, value: str):
+        return self._set_field(self.IndexName.__name__, value)
 
-    def index_name(self, value: str):
-        return self._add_field(self.__PROPERTY_INDEX_NAME, value)
+    def IndexRotationPeriod(self, value: str):
+        return self._set_field(self.IndexRotationPeriod.__name__, value)
 
-    def index_rotation_period(self, value: str):
-        return self._add_field(self.__PROPERTY_INDEX_ROTATION_PERIOD, value)
+    def ProcessingConfiguration(self, value: ProcessingConfiguration):
+        return self._set_field(self.ProcessingConfiguration.__name__, value.__to_dict__())
 
-    def processing_configuration(self, value: ProcessingConfiguration):
-        return self._add_field(self.__PROPERTY_PROCESSING_CONFIGURATION, value)
+    def RetryOptions(self, value: ElasticsearchRetryOptions):
+        return self._set_field(self.RetryOptions.__name__, value.__to_dict__())
 
-    def retry_options(self, value: ElasticsearchRetryOptions):
-        return self._add_field(self.__PROPERTY_RETRY_OPTIONS, value)
+    def RoleARN(self, value: str):
+        return self._set_field(self.RoleARN.__name__, value)
 
-    def role_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
+    def S3BackupMode(self, value: str):
+        return self._set_field(self.S3BackupMode.__name__, value)
 
-    def s3_backup_mode(self, value: str):
-        return self._add_field(self.__PROPERTY_S3_BACKUP_MODE, value)
+    def S3Configuration(self, value: S3DestinationConfiguration):
+        return self._set_field(self.S3Configuration.__name__, value.__to_dict__())
 
-    def s3_configuration(self, value: S3DestinationConfiguration):
-        return self._add_field(self.__PROPERTY_S3_CONFIGURATION, value)
-
-    def type_name(self, value: str):
-        return self._add_field(self.__PROPERTY_TYPE_NAME, value)
+    def TypeName(self, value: str):
+        return self._set_field(self.TypeName.__name__, value)

@@ -1,19 +1,13 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import TagFilter
+from pyformation import PyformationModel
+from .tag_filter import TagFilter
 
 
-class MetricsConfiguration(BaseModel):
-    __PROPERTY_ID = "Id"
-    __PROPERTY_PREFIX = "Prefix"
-    __PROPERTY_TAG_FILTERS = "TagFilters"
+class MetricsConfiguration(PyformationModel):
+    def Id(self, value: str):
+        return self._set_field(self.Id.__name__, value)
 
-    def id(self, value: str):
-        return self._add_field(self.__PROPERTY_ID, value)
+    def Prefix(self, value: str):
+        return self._set_field(self.Prefix.__name__, value)
 
-    def prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_PREFIX, value)
-
-    def tag_filters(self, *value: TagFilter):
-        return self._add_field(self.__PROPERTY_TAG_FILTERS, [
-            tag_filter for tag_filter in list(value)
-        ])
+    def TagFilters(self, *value: TagFilter):
+        return self._set_field(self.TagFilters.__name__, [tf.__to_dict__() for tf in list(value)])

@@ -1,17 +1,15 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class StreamConsumer(BaseCloudFormationResourceModel):
+class StreamConsumer(PyformationResource):
     __TYPE = "AWS::Kinesis::StreamConsumer"
-    __PROPERTY_CONSUMER_NAME = "ConsumerName"
-    __PROPERTY_STREAM_ARN = "StreamARN"
 
-    def __init__(self):
-        super(StreamConsumer, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(StreamConsumer, self).__init__(id, self.__TYPE)
 
-    def consumer_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_CONSUMER_NAME, value)
+    def ConsumerName(self, value: str):
+        return self._set_property(self.ConsumerName.__name__, value)
 
-    def stream_arn(self, value: str):
-        return self._add_property_field(self.__PROPERTY_STREAM_ARN, value)
+    def StreamARN(self, value: str):
+        return self._set_property(self.StreamARN.__name__, value)
 

@@ -1,37 +1,30 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import BufferingHints, CloudwatchLoggingOptions, EncryptionConfiguration
+from pyformation import PyformationModel
+from .buffering_hints import BufferingHints
+from .cloudwatch_logging_options import CloudwatchLoggingOptions
+from .encryption_configuration import EncryptionConfiguration
 
 
-class S3DestinationConfiguration(BaseModel):
-    __PROPERTY_BUCKET_ARN = "BucketARN"
-    __PROPERTY_BUFFERING_HINTS = "BufferingHints"
-    __PROPERTY_CLOUDWATCH_LOGGING_OPTIONS = "CloudwatchLoggingOptions"
-    __PROPERTY_COMPRESSION_FORMAT = "CompressionFormat"
-    __PROPERTY_ENCRYPTION_CONFIGURATION = "EncryptionConfiguration"
-    __PROPERTY_ERROR_OUTPUT_PREFIX = "ErrorOutputPrefix"
-    __PROPERTY_PREFIX = "Prefix"
-    __PROPERTY_ROLE_ARN = "RoleARN"
+class S3DestinationConfiguration(PyformationModel):
+    def BucketARN(self, value: str):
+        return self._set_field(self.BucketARN.__name__, value)
 
-    def bucket_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_BUCKET_ARN, value)
+    def BufferingHints(self, value: BufferingHints):
+        return self._set_field(self.BufferingHints.__name__, value.__to_dict__())
 
-    def buffering_hints(self, value: BufferingHints):
-        return self._add_field(self.__PROPERTY_BUFFERING_HINTS, value)
+    def CloudwatchLoggingOptions(self, value: CloudwatchLoggingOptions):
+        return self._set_field(self.CloudwatchLoggingOptions.__name__, value.__to_dict__())
 
-    def cloudwatch_logging_options(self, value: CloudwatchLoggingOptions):
-        return self._add_field(self.__PROPERTY_CLOUDWATCH_LOGGING_OPTIONS, value)
+    def CompressionFormat(self, value: str):
+        return self._set_field(self.CompressionFormat.__name__, value)
 
-    def compression_format(self, value: str):
-        return self._add_field(self.__PROPERTY_COMPRESSION_FORMAT, value)
+    def EncryptionConfiguration(self, value: EncryptionConfiguration):
+        return self._set_field(self.EncryptionConfiguration.__name__, value.__to_dict__())
 
-    def encryption_configuration(self, value: EncryptionConfiguration):
-        return self._add_field(self.__PROPERTY_ENCRYPTION_CONFIGURATION, value)
+    def ErrorOutputPrefix(self, value: str):
+        return self._set_field(self.ErrorOutputPrefix.__name__, value)
 
-    def error_output_prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_ERROR_OUTPUT_PREFIX, value)
+    def Prefix(self, value: str):
+        return self._set_field(self.Prefix.__name__, value)
 
-    def prefix(self, value: str):
-        return self._add_field(self.__PROPERTY_PREFIX, value)
-
-    def role_arn(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE_ARN, value)
+    def RoleARN(self, value: str):
+        return self._set_field(self.RoleARN.__name__, value)

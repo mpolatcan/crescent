@@ -1,9 +1,7 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import S3KeyFilter
+from pyformation import PyformationModel
+from .s3_key_filter import S3KeyFilter
 
 
-class NotificationFilter(BaseModel):
-    __PROPERTY_S3KEY = "S3Key"
-
-    def s3key(self, value: S3KeyFilter):
-        return self._add_field(self.__PROPERTY_S3KEY, value)
+class NotificationFilter(PyformationModel):
+    def S3Key(self, value: S3KeyFilter):
+        return self._set_field(self.S3Key.__name__, value.__to_dict__())

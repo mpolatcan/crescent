@@ -1,14 +1,12 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.firehose import OrcSerDe, ParquetSerDe
+from pyformation import PyformationModel
+from .orc_ser_de import OrcSerDe
+from .parquet_ser_de import ParquetSerDe
 
 
-class Serializer(BaseModel):
-    __PROPERTY_ORC_SER_DE = "OrcSerDe"
-    __PROPERTY_PARQUET_SER_DE = "ParquetSerDe"
+class Serializer(PyformationModel):
+    def OrcSerDe(self, value: OrcSerDe):
+        return self._set_field(self.OrcSerDe.__name__, value.__to_dict__())
 
-    def orc_ser_de(self, value: OrcSerDe):
-        return self._add_field(self.__PROPERTY_ORC_SER_DE, value)
-
-    def parquet_ser_de(self, value: ParquetSerDe):
-        return self._add_field(self.__PROPERTY_PARQUET_SER_DE, value)
+    def ParquetSerDe(self, value: ParquetSerDe):
+        return self._set_field(self.ParquetSerDe.__name__, value.__to_dict__())
 

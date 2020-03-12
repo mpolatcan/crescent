@@ -1,20 +1,17 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class AccessKey(BaseCloudFormationResourceModel):
+class AccessKey(PyformationResource):
     __TYPE = "AWS::IAM::AccessKey"
-    __PROPERTY_SERIAL = "Serial"
-    __PROPERTY_STATUS = "Status"
-    __PROPERTY_USERNAME = "UserName"
 
-    def __init__(self):
-        super(AccessKey, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(AccessKey, self).__init__(id, self.__TYPE)
 
-    def serial(self, value: int):
-        return self._add_property_field(self.__PROPERTY_SERIAL, value)
+    def Serial(self, value: int):
+        return self._set_property(self.Serial.__name__, value)
 
-    def status(self, value: str):
-        return self._add_property_field(self.__PROPERTY_STATUS, value)
+    def Status(self, value: str):
+        return self._set_property(self.Status.__name__, value)
 
-    def username(self, value: str):
-        return self._add_property_field(self.__PROPERTY_USERNAME, value)
+    def Username(self, value: str):
+        return self._set_property(self.Username.__name__, value)

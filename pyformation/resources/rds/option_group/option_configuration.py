@@ -1,31 +1,22 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.rds.option_group import OptionSetting
+from pyformation import PyformationModel
+from .option_setting import OptionSetting
 
 
-class OptionConfiguration(BaseModel):
-    __PROPERTY_DB_SECURITY_GROUP_MEMBERSHIPS = "DBSecurityGroupMemberships"
-    __PROPERTY_OPTION_NAME = "OptionName"
-    __PROPERTY_OPTION_SETTINGS = "OptionSettings"
-    __PROPERTY_OPTION_VERSION = "OptionVersion"
-    __PROPERTY_PORT = "Port"
-    __PROPERTY_VPC_SECURITY_GROUP_MEMBERSHIPS = "VpcSecurityGroupMemberships"
+class OptionConfiguration(PyformationModel):
+    def DBSecurityGroupMemberships(self, *value: str):
+        return self._set_field(self.DBSecurityGroupMemberships.__name__, list(value))
 
-    def db_security_group_memberships(self, *value: str):
-        return self._add_field(self.__PROPERTY_DB_SECURITY_GROUP_MEMBERSHIPS, list(value))
+    def OptionName(self, value: str):
+        return self._set_field(self.OptionName.__name__, value)
 
-    def option_name(self, value: str):
-        return self._add_field(self.__PROPERTY_OPTION_NAME, value)
+    def OptionSettings(self, *value: OptionSetting):
+        return self._set_field(self.OptionSettings.__name__, [os.__to_dict__() for os in list(value)])
 
-    def option_settings(self, *value: OptionSetting):
-        return self._add_field(self.__PROPERTY_OPTION_SETTINGS, [
-            option_setting for option_setting in list(value)
-        ])
+    def OptionVersion(self, value: str):
+        return self._set_field(self.OptionVersion.__name__, value)
 
-    def option_version(self, value: str):
-        return self._add_field(self.__PROPERTY_OPTION_VERSION, value)
+    def Port(self, value: int):
+        return self._set_field(self.Port.__name__, value)
 
-    def port(self, value: int):
-        return self._add_field(self.__PROPERTY_PORT, value)
-
-    def vpc_security_group_memberships(self, *value: str):
-        return self._add_field(self.__PROPERTY_VPC_SECURITY_GROUP_MEMBERSHIPS, list(value))
+    def VpcSecurityGroupMemberships(self, *value: str):
+        return self._set_field(self.VpcSecurityGroupMemberships.__name__, list(value))

@@ -1,13 +1,10 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import ObjectLockRule
+from pyformation import PyformationModel
+from .object_lock_rule import ObjectLockRule
 
 
-class ObjectLockConfiguration(BaseModel):
-    __PROPERTY_OBJECT_LOCK_ENABLED = "ObjectLockEnabled"
-    __PROPERTY_RULE = "Rule"
+class ObjectLockConfiguration(PyformationModel):
+    def ObjectLockEnabled(self, value: bool):
+        return self._set_field(self.ObjectLockEnabled.__name__, value)
 
-    def object_lock_enabled(self, value: bool):
-        return self._add_field(self.__PROPERTY_OBJECT_LOCK_ENABLED, value)
-
-    def rule(self, value: ObjectLockRule):
-        return self._add_field(self.__PROPERTY_RULE, value)
+    def Rule(self, value: ObjectLockRule):
+        return self._set_field(self.Rule.__name__, value.__to_dict__())

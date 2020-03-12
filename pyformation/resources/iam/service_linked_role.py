@@ -1,20 +1,17 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class ServiceLinkedRole(BaseCloudFormationResourceModel):
+class ServiceLinkedRole(PyformationResource):
     __TYPE = "AWS::IAM::ServiceLinkedRole"
-    __PROPERTY_AWS_SERVICE_NAME = "AWSServiceName"
-    __PROPERTY_CUSTOM_SUFFIX = "CustomSuffix"
-    __PROPERTY_DESCRIPTION = "Description"
 
-    def __init__(self):
-        super(ServiceLinkedRole, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(ServiceLinkedRole, self).__init__(id, self.__TYPE)
 
-    def aws_service_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_AWS_SERVICE_NAME, value)
+    def AWSServiceName(self, value: str):
+        return self._set_property(self.AWSServiceName.__name__, value)
 
-    def custom_suffix(self, value: str):
-        return self._add_property_field(self.__PROPERTY_CUSTOM_SUFFIX, value)
+    def CustomSuffix(self, value: str):
+        return self._set_property(self.CustomSuffix.__name__, value)
 
-    def description(self, value: str):
-        return self._add_property_field(self.__PROPERTY_DESCRIPTION, value)
+    def Description(self, value: str):
+        return self._set_property(self.Description.__name__, value)

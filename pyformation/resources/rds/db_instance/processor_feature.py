@@ -1,12 +1,9 @@
-from pyformation.resources.shared import BaseModel
+from pyformation import PyformationModel
 
 
-class ProcessorFeature(BaseModel):
-    __PROPERTY_NAME = "Name"
-    __PROPERTY_VALUE = "Value"
+class ProcessorFeature(PyformationModel):
+    def Name(self, value: str):
+        return self._set_field(self.Name.__name__, value)
 
-    def name(self, value: str):
-        return self._add_field(self.__PROPERTY_NAME, value)
-
-    def value(self, value: str):
-        return self._add_field(self.__PROPERTY_VALUE, value)
+    def Value(self, value: str):
+        return self._set_field(self.Value.__name__, value)

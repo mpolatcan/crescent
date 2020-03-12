@@ -1,29 +1,24 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
-from pyformation.resources.kinesis.stream import StreamEncryption
+from pyformation import PyformationResource, Tag
+from .stream_encryption import StreamEncryption
 
 
-class Stream(BaseCloudFormationResourceModel):
+class Stream(PyformationResource):
     __TYPE = "AWS::Kinesis::Stream"
-    __PROPERTY_NAME = "Name"
-    __PROPERTY_RETENTION_PERIOD_HOURS = "RetentionPeriodHours"
-    __PROPERTY_SHARD_COUNT = "ShardCount"
-    __PROPERTY_STREAM_ENCRYPTION = "StreamEncryption"
-    __PROPERTY_TAGS = "Tags"
 
-    def __init__(self):
-        super(Stream, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(Stream, self).__init__(id, self.__TYPE)
 
-    def name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_NAME, value)
+    def Name(self, value: str):
+        return self._set_property(self.Name.__name__, value)
 
-    def retention_period_hours(self, value: int):
-        return self._add_property_field(self.__PROPERTY_RETENTION_PERIOD_HOURS, value)
+    def RetentionPeriodHours(self, value: int):
+        return self._set_property(self.RetentionPeriodHours.__name__, value)
 
-    def shard_count(self, value: int):
-        return self._add_property_field(self.__PROPERTY_SHARD_COUNT, value)
+    def ShardCount(self, value: int):
+        return self._set_property(self.ShardCount.__name__, value)
 
-    def stream_encryption(self, value: StreamEncryption):
-        return self._add_property_field(self.__PROPERTY_STREAM_ENCRYPTION, value.create())
+    def StreamEncryption(self, value: StreamEncryption):
+        return self._set_property(self.StreamEncryption.__name__, value.__to_dict__())
 
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [tag.create() for tag in list(value)])
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))

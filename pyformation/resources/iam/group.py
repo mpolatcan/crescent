@@ -1,45 +1,22 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
+from .policy_model import PolicyModel
 
 
-class Group(BaseCloudFormationResourceModel):
+class Group(PyformationResource):
     __TYPE = "AWS::IAM::Group"
-    __PROPERTY_GROUP_NAME = "GroupName"
-    __PROPERTY_MANAGED_POLICY_ARNS = "ManagedPolicyArns"
-    __PROPERTY_PATH = "Path"
-    __PROPERTY_POLICIES = "Policies"
 
-    class Policy:
-        __PROPERTY_POLICY_DOCUMENT = "PolicyDocument"
-        __PROPERTY_POLICY_NAME = "PolicyName"
+    def __init__(self, id: str):
+        super(Group, self).__init__(id, self.__TYPE)
 
-        def __init__(self):
-            self.__policy_def = {}
+    def GroupName(self, value: str):
+        return self._set_property(self.GroupName.__name__, value)
 
-        def create(self):
-            return self.__policy_def
+    def ManagedPolicyArns(self, *value: str):
+        return self._set_property(self.ManagedPolicyArns.__name__, list(value))
 
-        def policy_document(self, value: dict):
-            self.__policy_def[self.__PROPERTY_POLICY_NAME] = value
+    def Path(self, value: str):
+        return self._set_property(self.Path.__name__, value)
 
-            return self
-
-        def policy_name(self, value: str):
-            self.__policy_def[self.__PROPERTY_POLICY_NAME] = value
-
-            return self
-
-    def __init__(self):
-        super(Group, self).__init__(type=self.__TYPE)
-
-    def group_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_GROUP_NAME, value)
-
-    def managed_policy_arns(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_MANAGED_POLICY_ARNS, list(value))
-
-    def path(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PATH, value)
-
-    def policies(self, *value: Policy):
-        return self._add_property_field(self.__PROPERTY_POLICIES, [policy.create() for policy in list(value)])
+    def Policies(self, *value: PolicyModel):
+        return self._set_property(self.Policies.__name__, [pm.__to_dict__() for pm in list(value)])
 

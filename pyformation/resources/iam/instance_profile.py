@@ -1,20 +1,17 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel
+from pyformation import PyformationResource
 
 
-class InstanceProfile(BaseCloudFormationResourceModel):
+class InstanceProfile(PyformationResource):
     __TYPE = "AWS::IAM::InstanceProfile"
-    __PROPERTY_INSTANCE_PROFILE_NAME = "InstanceProfileName"
-    __PROPERTY_PATH = "Path"
-    __PROPERTY_ROLES = "Roles"
 
-    def __init__(self):
-        super(InstanceProfile, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(InstanceProfile, self).__init__(id, self.__TYPE)
 
-    def instance_profile_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_INSTANCE_PROFILE_NAME, value)
+    def InstanceProfileName(self, value: str):
+        return self._set_property(self.InstanceProfileName.__name__, value)
 
-    def path(self, value: str):
-        return self._add_property_field(self.__PROPERTY_PATH, value)
+    def Path(self, value: str):
+        return self._set_property(self.Path.__name__, value)
 
-    def roles(self, *value: str):
-        return self._add_property_field(self.__PROPERTY_ROLES, list(value))
+    def Roles(self, *value: str):
+        return self._set_property(self.Roles.__name__, list(value))

@@ -1,15 +1,10 @@
-from pyformation.resources.shared import BaseModel
-from pyformation.resources.s3.bucket import ReplicationRule
+from pyformation import PyformationModel
+from .replication_rule import ReplicationRule
 
 
-class ReplicationConfiguration(BaseModel):
-    __PROPERTY_ROLE = "Role"
-    __PROPERTY_RULES = "Rules"
+class ReplicationConfiguration(PyformationModel):
+    def Role(self, value: str):
+        return self._set_field(self.Role.__name__, value)
 
-    def role(self, value: str):
-        return self._add_field(self.__PROPERTY_ROLE, value)
-
-    def rules(self, *value: ReplicationRule):
-        return self._add_field(self.__PROPERTY_RULES, [
-            replication_rule for replication_rule in list(value)
-        ])
+    def Rules(self, *value: ReplicationRule):
+        return self._set_field(self.Rules.__name__, [rr.__to_dict__() for rr in list(value)])

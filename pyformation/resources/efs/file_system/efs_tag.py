@@ -1,4 +1,4 @@
-from pyformation.resources.shared import Tag
+from pyformation import Tag
 
 
 class ElasticFileSystemTag(Tag):

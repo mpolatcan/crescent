@@ -1,33 +1,24 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
-from pyformation.resources.rds.option_group import OptionConfiguration
+from pyformation import PyformationResource, Tag
+from .option_configuration import OptionConfiguration
 
 
-class OptionGroup(BaseCloudFormationResourceModel):
+class OptionGroup(PyformationResource):
     __TYPE = "AWS::RDS::OptionGroup"
-    __PROPERTY_ENGINE_NAME = "EngineName"
-    __PROPERTY_MAJOR_ENGINE_VERSION = "MajorEngineVersion"
-    __PROPERTY_OPTION_CONFIGURATIONS = "OptionConfigurations"
-    __PROPERTY_OPTION_GROUP_DESCRIPTION = "OptionGroupDescription"
-    __PROPERTY_TAGS = "Tags"
 
-    def __init__(self):
-        super(OptionGroup, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(OptionGroup, self).__init__(id, self.__TYPE)
 
-    def engine_name(self, value: str):
-        return self._add_property_field(self.__PROPERTY_ENGINE_NAME, value)
+    def EngineName(self, value: str):
+        return self._set_property(self.EngineName.__name__, value)
 
-    def major_engine_version(self, value: str):
-        return self._add_property_field(self.__PROPERTY_MAJOR_ENGINE_VERSION, value)
+    def MajorEngineVersion(self, value: str):
+        return self._set_property(self.MajorEngineVersion.__name__, value)
 
-    def option_configurations(self, *value: OptionConfiguration):
-        return self._add_property_field(self.__PROPERTY_OPTION_CONFIGURATIONS, [
-            option_group_conf for option_group_conf in list(value)
-        ])
+    def OptionConfigurations(self, *value: OptionConfiguration):
+        return self._set_property(self.OptionConfigurations.__name__, [oc.__to_dict__() for oc in list(value)])
 
-    def option_group_description(self, value: str):
-        return self._add_property_field(self.__PROPERTY_OPTION_GROUP_DESCRIPTION, value)
+    def OptionGroupDescription(self, value: str):
+        return self._set_property(self.OptionGroupDescription.__name__, value)
 
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag for tag in list(value)
-        ])
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))

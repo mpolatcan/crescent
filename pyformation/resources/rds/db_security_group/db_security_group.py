@@ -1,29 +1,21 @@
-from pyformation.resources.shared import BaseCloudFormationResourceModel, Tag
-from pyformation.resources.rds.db_security_group import Ingress
+from pyformation import PyformationResource, Tag
+from .ingress import Ingress
 
 
-class DBSecurityGroup(BaseCloudFormationResourceModel):
+class DBSecurityGroup(PyformationResource):
     __TYPE = "AWS::RDS::DBSecurityGroup"
-    __PROPERTY_DB_SECURITY_GROUP_INGRESS = "DBSecurityGroupIngress"
-    __PROPERTY_EC2_VPC_ID = "EC2VpcId"
-    __PROPERTY_GROUP_DESCRIPTION = "GroupDescription"
-    __PROPERTY_TAGS = "Tags"
 
-    def __init__(self):
-        super(DBSecurityGroup, self).__init__(type=self.__TYPE)
+    def __init__(self, id: str):
+        super(DBSecurityGroup, self).__init__(id, self.__TYPE)
 
-    def db_security_group_ingress(self, *value: Ingress):
-        return self._add_property_field(self.__PROPERTY_DB_SECURITY_GROUP_INGRESS, [
-            ingress for ingress in list(value)
-        ])
+    def DBSecurityGroupIngress(self, *value: Ingress):
+        return self._set_property(self.DBSecurityGroupIngress.__name__, [ing.__to_dict__() for ing in list(value)])
 
-    def ec2_vpc_id(self, value: str):
-        return self._add_property_field(self.__PROPERTY_EC2_VPC_ID, value)
+    def EC2VpcId(self, value: str):
+        return self._set_property(self.EC2VpcId.__name__, value)
 
-    def group_description(self, value: str):
-        return self._add_property_field(self.__PROPERTY_GROUP_DESCRIPTION, value)
+    def GroupDescription(self, value: str):
+        return self._set_property(self.GroupDescription.__name__, value)
 
-    def tags(self, *value: Tag):
-        return self._add_property_field(self.__PROPERTY_TAGS, [
-            tag for tag in list(value)
-        ])
+    def Tags(self, *value: Tag):
+        return self._set_property(self.Tags.__name__, list(value))
