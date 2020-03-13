@@ -1,9 +1,11 @@
-from pyformation import PyformationModel
+from pyformation.core import Model, Validator
 
 
-class LifecyclePolicy(PyformationModel):
+class LifecyclePolicy(Model):
+    @Validator.validate(type=str)
     def LifecyclePolicyText(self, value: str):
         return self._set_field(self.LifecyclePolicyText.__name__, value)
 
+    @Validator.validate(type=str)
     def RegistryId(self, value: str):
         return self._set_field(self.RegistryId.__name__, value)

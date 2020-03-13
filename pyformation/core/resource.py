@@ -1,12 +1,12 @@
-from . import PyformationModel
+from .model import Model
 
 
-class PyformationResource(PyformationModel):
+class Resource(Model):
     __KEY_TYPE = "Type"
     __KEY_PROPERTIES = "Properties"
 
     def __init__(self, id: str, type: str):
-        super(PyformationResource, self).__init__()
+        super(Resource, self).__init__()
         self._data[id] = {
             self.__KEY_TYPE: type,
             self.__KEY_PROPERTIES: {}

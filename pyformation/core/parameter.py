@@ -1,11 +1,11 @@
-from . import PyformationModel
+from .model import Model
 
 
-class PyformationParameter(PyformationModel):
+class Parameter(Model):
     __KEY_TYPE = "Type"
 
     def __init__(self, id, data_type):
-        super(PyformationParameter, self).__init__()
+        super(Parameter, self).__init__()
         self[id] = {
             self.__KEY_TYPE: data_type
         }

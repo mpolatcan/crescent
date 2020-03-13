@@ -3,9 +3,9 @@ Resources:
   EcrTest:
     Properties:
       LifecyclePolicy: {}
-      RepositoryName: ecr-test
+      Tags:
+      - Key: test1
+        Value: test1
+      - Key: test2
+        Value: test2
     Type: AWS::ECR::Repository
-  FirehoseTest:
-    Properties:
-      S3DestinationConfiguration: {}
-    Type: AWS::KinesisFirehose::DeliveryStream

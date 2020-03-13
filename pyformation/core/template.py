@@ -1,11 +1,13 @@
-from . import PyformationModel, PyformationResource, PyformationParameter
+from .model import Model
+from .resource import Resource
+from .parameter import Parameter
 import json
 import yaml
 
 
-class PyformationTemplate(PyformationModel):
+class Template(Model):
     def __init__(self, version: str):
-        super(PyformationTemplate, self).__init__()
+        super(Template, self).__init__()
         self.AWSTemplateFormatVersion(version)
 
     def AWSTemplateFormatVersion(self, version: str):
@@ -14,7 +16,7 @@ class PyformationTemplate(PyformationModel):
     def Description(self, description: str):
         return self._set_field(self.Description.__name__, description)
 
-    def Parameters(self, *parameters: PyformationParameter):
+    def Parameters(self, *parameters: Parameter):
         if self._get_field(self.Parameters.__name__) is None:
             self._set_field(self.Parameters.__name__, {})
 
@@ -34,7 +36,7 @@ class PyformationTemplate(PyformationModel):
         return self
     '''
 
-    def Resources(self, *resources: PyformationResource):
+    def Resources(self, *resources: Resource):
         if self._get_field(self.Resources.__name__) is None:
             self._set_field(self.Resources.__name__, {})
 

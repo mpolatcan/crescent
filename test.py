@@ -1,10 +1,10 @@
 from pyformation import PyformationFactory as pf
 
 pf.Template("").Resources(
-    pf.ecr.Repository(id="EcrTest").RepositoryName("ecr-test").LifecyclePolicy(
+    pf.ecr.Repository(id="EcrTest").LifecyclePolicy(
         pf.ecr.LifecyclePolicy()
-    ),
-    pf.firehose.DeliveryStream(id="FirehoseTest").S3DestinationConfiguration(
-        pf.firehose.S3DestinationConfiguration()
+    ).Tags(
+        pf.Tag("test1", "test1"),
+        pf.Tag("test2", "test2")
     )
 ).YAML("test")

@@ -13,5 +13,5 @@ __all__ = [
     "IamFactory",
     "KinesisFactory",
     "S3Factory",
-    "RdsFactory"
+    "RdsFactory",
 ]

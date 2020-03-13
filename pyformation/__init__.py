@@ -1,8 +1,8 @@
-from .pyformation_model import PyformationModel
-from .pyformation_resource import PyformationResource
-from .pyformation_parameter import PyformationParameter
-from .pyformation_template import PyformationTemplate
-from .tag import Tag
+from .core import (
+    Template,
+    Parameter,
+    Tag
+)
 
 from .resources import (
     EcrFactory,
@@ -18,7 +18,7 @@ from .resources import (
 class PyformationFactory:
     ecr = EcrFactory()
     efs = EfsFactory()
-    firehose= FirehoseFactory()
+    firehose = FirehoseFactory()
     iam = IamFactory()
     kinesis = KinesisFactory()
     s3 = S3Factory()
@@ -26,11 +26,11 @@ class PyformationFactory:
 
     @staticmethod
     def Template(version: str):
-        return PyformationTemplate(version)
+        return Template(version)
 
     @staticmethod
     def Parameter(id: str, data_type: str):
-        return PyformationParameter(id, data_type)
+        return Parameter(id, data_type)
 
     @staticmethod
     def Tag(key: str, value: str):
@@ -38,10 +38,5 @@ class PyformationFactory:
 
 
 __all__ = [
-    "PyformationFactory",
-    "PyformationTemplate",
-    "PyformationResource",
-    "PyformationParameter",
-    "PyformationModel",
-    "Tag"
+    "PyformationFactory"
 ]
