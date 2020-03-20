@@ -17,7 +17,7 @@ class FileSystem(Resource):
     def FileSystemTags(self, *value: ElasticFileSystemTag):
         return self._set_property(self.FileSystemTags.__name__, list(value))
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, min_length=1, max_length=2048)
     def KmsKeyId(self, value: str):
         return self._set_property(self.KmsKeyId.__name__, value)
 
@@ -25,7 +25,7 @@ class FileSystem(Resource):
     def LifecyclePolicies(self, *value: LifecyclePolicy):
         return self._set_property(self.LifecyclePolicies.__name__, [lp.__to_dict__() for lp in list(value)])
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=["generalPurpose", "maxIO"])
     def PerformanceMode(self, value: str):
         return self._set_property(self.PerformanceMode.__name__, value)
 
@@ -33,6 +33,6 @@ class FileSystem(Resource):
     def ProvisionedThroughputInMibps(self, value: float):
         return self._set_property(self.ProvisionedThroughputInMibps.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=["bursting", "provisioned"])
     def ThroughputMode(self, value: str):
         return self._set_property(self.ThroughputMode.__name__, value)

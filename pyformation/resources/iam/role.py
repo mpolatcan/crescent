@@ -12,7 +12,7 @@ class Role(Resource):
     def AssumeRolePolicyDocument(self, value: dict):
         return self._set_property(self.AssumeRolePolicyDocument.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, max_length=1000, pattern="[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*")
     def Description(self, value: str):
         return self._set_property(self.Description.__name__, value)
 
@@ -20,11 +20,11 @@ class Role(Resource):
     def ManagedPolicyArns(self, *value: str):
         return self._set_property(self.ManagedPolicyArns.__name__, list(value))
 
-    @Validator.validate(type=int)
+    @Validator.validate(type=int, min_value=3600, maximum=43200)
     def MaxSessionDuration(self, value: int):
         return self._set_property(self.MaxSessionDuration.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern="(\u002F)|(\u002F[\u0021-\u007F]+\u002F)")
     def Path(self, value: str):
         return self._set_property(self.Path.__name__, value)
 
@@ -40,6 +40,6 @@ class Role(Resource):
     def RoleName(self, value: str):
         return self._set_property(self.RoleName.__name__, value)
 
-    @Validator.validate(type=Tag)
+    @Validator.validate(type=Tag, min_length=50)
     def Tags(self, *value: Tag):
         return self._set_property(self.Tags.__name__, list(value))

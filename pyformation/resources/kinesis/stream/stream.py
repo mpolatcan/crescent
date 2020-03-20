@@ -8,7 +8,7 @@ class Stream(Resource):
     def __init__(self, id: str):
         super(Stream, self).__init__(id, self.__TYPE)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, min_length=1, max_length=128, pattern="[a-zA-Z0-9_.-]+")
     def Name(self, value: str):
         return self._set_property(self.Name.__name__, value)
 
@@ -16,7 +16,7 @@ class Stream(Resource):
     def RetentionPeriodHours(self, value: int):
         return self._set_property(self.RetentionPeriodHours.__name__, value)
 
-    @Validator.validate(type=int)
+    @Validator.validate(type=int, min_value=1)
     def ShardCount(self, value: int):
         return self._set_property(self.ShardCount.__name__, value)
 

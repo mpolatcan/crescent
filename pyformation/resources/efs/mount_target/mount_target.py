@@ -15,7 +15,7 @@ class MountTarget(Resource):
     def IpAddress(self, value: str):
         return self._set_property(self.IpAddress.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, max_length=5)
     def SecurityGroups(self, *value: str):
         return self._set_property(self.SecurityGroups.__name__, list(value))
 

@@ -10,6 +10,6 @@ class CopyCommand(Model):
     def DataTableColumns(self, value: str):
         return self._set_field(self.DataTableColumns.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, min_length=1)
     def DataTableName(self, value: str):
         return self._set_field(self.DataTableName.__name__, value)

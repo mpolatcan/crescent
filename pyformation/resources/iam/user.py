@@ -21,7 +21,7 @@ class User(Resource):
     def ManagedPolicyArns(self, *value: str):
         return self._set_property(self.ManagedPolicyArns.__name__, list(value))
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern="(\u002F)|(\u002F[\u0021-\u007F]+\u002F)")
     def Path(self, value: str):
         return self._set_property(self.Path.__name__, value)
 
@@ -33,7 +33,7 @@ class User(Resource):
     def Policies(self, *value: PolicyModel):
         return self._set_property(self.Policies.__name__, [pm.__to_dict__() for pm in list(value)])
 
-    @Validator.validate(type=Tag)
+    @Validator.validate(type=Tag, max_length=50)
     def Tags(self, *value: Tag):
         return self._set_property(self.Tags.__name__, list(value))
 

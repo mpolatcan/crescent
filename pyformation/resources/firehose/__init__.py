@@ -1,6 +1,6 @@
 from .delivery_stream import DeliveryStream
 from .buffering_hints import BufferingHints
-from .cloudwatch_logging_options import CloudwatchLoggingOptions
+from .cloudwatch_logging_options import CloudWatchLoggingOptions
 from .copy_command import CopyCommand
 from .data_format_conversion_configuration import DataFormatConversionConfiguration
 from .deserializer import Deserializer
@@ -12,6 +12,7 @@ from .extended_s3_destination_configuration import ExtendedS3DestinationConfigur
 from .hive_json_ser_de import HiveJsonSerDe
 from .input_format_configuration import InputFormatConfiguration
 from .kinesis_stream_source_configuration import KinesisStreamSourceConfiguration
+from .lambda_processor import LambdaProcessor
 from .kms_encryption_config import KMSEncryptionConfig
 from .openx_json_ser_de import OpenXJsonSerDe
 from .orc_ser_de import OrcSerDe
@@ -26,120 +27,147 @@ from .schema_configuration import SchemaConfiguration
 from .serializer import Serializer
 from .splunk_destination_configuration import SplunkDestinationConfiguration
 from .splunk_retry_options import SplunkRetryOptions
+from .constants import (
+    DeliveryStreamType,
+    S3BackupMode,
+    CompressionFormat,
+    ProcessorParameterName,
+    ProcessorType,
+    OrcSerDeFormatVersion,
+    ParquetSerDeWriterVersion,
+    ElasticsearchDestinationIndexRotationPeriod,
+    SplunkDestinationHECEndpointType
+)
 
 
 class FirehoseFactory:
-    @staticmethod
-    def DeliveryStream(id: str):
-        return DeliveryStream(id)
+    class __DeliveryStreamFactory:
+        type = DeliveryStreamType
+        s3_backup_mode = S3BackupMode
+        compression = CompressionFormat
+        orc_version = OrcSerDeFormatVersion
+        parquet_version = ParquetSerDeWriterVersion
+        es_ir_period = ElasticsearchDestinationIndexRotationPeriod
+        processor_param = ProcessorParameterName
+        processor_type = ProcessorType
 
-    @staticmethod
-    def BufferingHints():
-        return BufferingHints()
+        @staticmethod
+        def DeliveryStream(id: str):
+            return DeliveryStream(id)
 
-    @staticmethod
-    def CloudwatchLoggingOptions():
-        return CloudwatchLoggingOptions()
+        @staticmethod
+        def BufferingHints():
+            return BufferingHints()
 
-    @staticmethod
-    def CopyCommand():
-        return CopyCommand()
+        @staticmethod
+        def CloudWatchLoggingOptions():
+            return CloudWatchLoggingOptions()
 
-    @staticmethod
-    def DataFormatConversionConfiguration():
-        return DataFormatConversionConfiguration()
+        @staticmethod
+        def CopyCommand():
+            return CopyCommand()
 
-    @staticmethod
-    def Deserializer():
-        return Deserializer()
+        @staticmethod
+        def DataFormatConversionConfiguration():
+            return DataFormatConversionConfiguration()
 
-    @staticmethod
-    def ElasticsearchBufferingHints():
-        return ElasticsearchBufferingHints()
+        @staticmethod
+        def Deserializer():
+            return Deserializer()
 
-    @staticmethod
-    def ElasticsearchDestinationConfiguration():
-        return ElasticsearchDestinationConfiguration()
+        @staticmethod
+        def ElasticsearchBufferingHints():
+            return ElasticsearchBufferingHints()
 
-    @staticmethod
-    def ElasticsearchRetryOptions():
-        return ElasticsearchRetryOptions()
+        @staticmethod
+        def ElasticsearchDestinationConfiguration():
+            return ElasticsearchDestinationConfiguration()
 
-    @staticmethod
-    def EncryptionConfiguration():
-        return EncryptionConfiguration()
+        @staticmethod
+        def ElasticsearchRetryOptions():
+            return ElasticsearchRetryOptions()
 
-    @staticmethod
-    def ExtendedS3DestinationConfiguration():
-        return ExtendedS3DestinationConfiguration()
+        @staticmethod
+        def EncryptionConfiguration():
+            return EncryptionConfiguration()
 
-    @staticmethod
-    def HiveJsonSerDe():
-        return HiveJsonSerDe()
+        @staticmethod
+        def ExtendedS3DestinationConfiguration():
+            return ExtendedS3DestinationConfiguration()
 
-    @staticmethod
-    def InputFormatConfiguration():
-        return InputFormatConfiguration()
+        @staticmethod
+        def HiveJsonSerDe():
+            return HiveJsonSerDe()
 
-    @staticmethod
-    def KinesisStreamSourceConfiguration():
-        return KinesisStreamSourceConfiguration()
+        @staticmethod
+        def InputFormatConfiguration():
+            return InputFormatConfiguration()
 
-    @staticmethod
-    def KMSEncryptionConfig():
-        return KMSEncryptionConfig()
+        @staticmethod
+        def KinesisStreamSourceConfiguration():
+            return KinesisStreamSourceConfiguration()
 
-    @staticmethod
-    def OpenXJsonSerDe():
-        return OpenXJsonSerDe()
+        @staticmethod
+        def KMSEncryptionConfig():
+            return KMSEncryptionConfig()
 
-    @staticmethod
-    def OrcSerDe():
-        return OrcSerDe()
+        @staticmethod
+        def OpenXJsonSerDe():
+            return OpenXJsonSerDe()
 
-    @staticmethod
-    def OutputFormatConfiguration():
-        return OutputFormatConfiguration()
+        @staticmethod
+        def OrcSerDe():
+            return OrcSerDe()
 
-    @staticmethod
-    def ParquetSerDe():
-        return ParquetSerDe()
+        @staticmethod
+        def OutputFormatConfiguration():
+            return OutputFormatConfiguration()
 
-    @staticmethod
-    def ProcessingConfiguration():
-        return ProcessingConfiguration()
+        @staticmethod
+        def ParquetSerDe():
+            return ParquetSerDe()
 
-    @staticmethod
-    def Processor():
-        return Processor()
+        @staticmethod
+        def ProcessingConfiguration():
+            return ProcessingConfiguration()
 
-    @staticmethod
-    def ProcessorParameter():
-        return ProcessorParameter()
+        @staticmethod
+        def Processor():
+            return Processor()
 
-    @staticmethod
-    def RedshiftDestinationConfiguration():
-        return RedshiftDestinationConfiguration()
+        @staticmethod
+        def LambdaProcessor():
+            return LambdaProcessor()
 
-    @staticmethod
-    def S3DestinationConfiguration():
-        return S3DestinationConfiguration()
+        @staticmethod
+        def ProcessorParameter():
+            return ProcessorParameter()
 
-    @staticmethod
-    def SchemaConfiguration():
-        return SchemaConfiguration()
+        @staticmethod
+        def RedshiftDestinationConfiguration():
+            return RedshiftDestinationConfiguration()
 
-    @staticmethod
-    def Serializer():
-        return Serializer()
+        @staticmethod
+        def S3DestinationConfiguration():
+            return S3DestinationConfiguration()
 
-    @staticmethod
-    def SplunkDestinationConfiguration():
-        return SplunkDestinationConfiguration()
+        @staticmethod
+        def SchemaConfiguration():
+            return SchemaConfiguration()
 
-    @staticmethod
-    def SplunkRetryOptions():
-        return SplunkRetryOptions()
+        @staticmethod
+        def Serializer():
+            return Serializer()
+
+        @staticmethod
+        def SplunkDestinationConfiguration():
+            return SplunkDestinationConfiguration()
+
+        @staticmethod
+        def SplunkRetryOptions():
+            return SplunkRetryOptions()
+
+    delivery_stream = __DeliveryStreamFactory
 
 
 __all__ = [

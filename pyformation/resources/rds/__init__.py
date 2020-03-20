@@ -1,4 +1,12 @@
-from .db_cluster import DBCluster, DBClusterRole, ScalingConfiguration
+from .db_cluster import (
+    DBCluster,
+    DBClusterRole,
+    ScalingConfiguration,
+    Engine,
+    EngineMode,
+    RestoreType,
+    Capacity
+)
 from .db_cluster_pg import DBClusterParameterGroup
 from .db_instance import DBInstance, DBInstanceRole, ProcessorFeature
 from .db_pg import DBParameterGroup
@@ -10,69 +18,87 @@ from .option_group import OptionGroup, OptionConfiguration, OptionSetting
 
 
 class RdsFactory:
-    @staticmethod
-    def DBCluster(id: str):
-        return DBCluster(id)
+    class __ClusterFactory:
+        engine = Engine
+        engine_mode = EngineMode
+        restore_type = RestoreType
+        capacity = Capacity
 
-    @staticmethod
-    def DBClusterRole():
-        return DBClusterRole()
+        @staticmethod
+        def DBCluster(id: str):
+            return DBCluster(id)
 
-    @staticmethod
-    def ScalingConfiguration():
-        return ScalingConfiguration()
+        @staticmethod
+        def DBClusterParameterGroup(id: str):
+            return DBClusterParameterGroup(id)
 
-    @staticmethod
-    def DBClusterParameterGroup(id: str):
-        return DBClusterParameterGroup(id)
+        @staticmethod
+        def DBClusterRole():
+            return DBClusterRole()
 
-    @staticmethod
-    def DBInstance(id: str):
-        return DBInstance(id)
+        @staticmethod
+        def ScalingConfiguration():
+            return ScalingConfiguration()
 
-    @staticmethod
-    def DBInstanceRole():
-        return DBInstanceRole()
+    class __InstanceFactory:
+        @staticmethod
+        def DBInstance(id: str):
+            return DBInstance(id)
 
-    @staticmethod
-    def ProcessorFeature():
-        return ProcessorFeature()
+        @staticmethod
+        def DBParameterGroup(id: str):
+            return DBParameterGroup(id)
 
-    @staticmethod
-    def DBParameterGroup(id: str):
-        return DBParameterGroup(id)
+        @staticmethod
+        def DBInstanceRole():
+            return DBInstanceRole()
 
-    @staticmethod
-    def DBSecurityGroup(id: str):
-        return DBSecurityGroup(id)
+        @staticmethod
+        def ProcessorFeature():
+            return ProcessorFeature()
 
-    @staticmethod
-    def Ingress():
-        return Ingress()
+    class __SecurityGroupFactory:
+        @staticmethod
+        def DBSecurityGroup(id: str):
+            return DBSecurityGroup(id)
 
-    @staticmethod
-    def DBSecurityGroupIngress(id: str):
-        return DBSecurityGroupIngress(id)
+        @staticmethod
+        def DBSecurityGroupIngress(id: str):
+            return DBSecurityGroupIngress(id)
 
-    @staticmethod
-    def DBSubnetGroup(id: str):
-        return DBSubnetGroup(id)
+        @staticmethod
+        def Ingress():
+            return Ingress()
 
-    @staticmethod
-    def EventSubscription(id: str):
-        return EventSubscription(id)
+    class __OptionGroupFactory:
+        @staticmethod
+        def OptionGroup(id: str):
+            return OptionGroup(id)
 
-    @staticmethod
-    def OptionGroup(id: str):
-        return OptionGroup(id)
+        @staticmethod
+        def OptionConfiguration():
+            return OptionConfiguration()
 
-    @staticmethod
-    def OptionConfiguration():
-        return OptionConfiguration()
+        @staticmethod
+        def OptionSetting():
+            return OptionSetting()
 
-    @staticmethod
-    def OptionSetting():
-        return OptionSetting()
+    class __SubnetGroupFactory:
+        @staticmethod
+        def DBSubnetGroup(id: str):
+            return DBSubnetGroup(id)
+
+    class __EventSubscriptionFactory:
+        @staticmethod
+        def EventSubscription(id: str):
+            return EventSubscription(id)
+
+    cluster = __ClusterFactory
+    instance = __InstanceFactory
+    security_group = __SecurityGroupFactory
+    option_group = __OptionGroupFactory
+    subnet_group = __SubnetGroupFactory
+    event_subscription = __EventSubscriptionFactory
 
 
 __all__ = [

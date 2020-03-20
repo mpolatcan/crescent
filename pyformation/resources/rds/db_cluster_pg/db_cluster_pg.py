@@ -15,7 +15,7 @@ class DBClusterParameterGroup(Resource):
     def Family(self, value: str):
         return self._set_property(self.Family.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=dict)
     def Parameters(self, value: dict):
         return self._set_property(self.Parameters.__name__, value)
 

@@ -25,7 +25,7 @@ class PyformationFactory:
     rds = RdsFactory()
 
     @staticmethod
-    def Template(version: str):
+    def Template(version: str = "2010-09-09"):
         return Template(version)
 
     @staticmethod

@@ -13,7 +13,7 @@ class KinesisFactory:
 
     @staticmethod
     def StreamConsumer(id: str):
-        return StreamConsumer()
+        return StreamConsumer(id)
 
 
 __all__ = [

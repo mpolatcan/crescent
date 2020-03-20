@@ -1,11 +1,25 @@
-AWSTemplateFormatVersion: ''
+AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  EcrTest:
+  test-stream:
     Properties:
-      LifecyclePolicy: {}
-      Tags:
-      - Key: test1
-        Value: test1
-      - Key: test2
-        Value: test2
-    Type: AWS::ECR::Repository
+      ExtendedS3DestinationConfiguration:
+        BucketARN: arn:aws:bucket-arn
+        BufferingHints:
+          IntervalInSeconds: 60
+          SizeInMBs: 128
+        CompressionFormat: Snappy
+        DataFormatConversionConfiguration:
+          Enabled: true
+          InputFormatConfiguration:
+            Deserializer: {}
+          OutputFormatConfiguration:
+            Serializer: {}
+          SchemaConfiguration:
+            CatalogId: test-catalog-id
+            DatabaseName: test-database-name
+            Region: test-region
+            RoleARN: test-role-arn
+            TableName: test-table-name
+            VersionId: test-version-id
+        RoleARN: arn:aws:role-arn
+    Type: AWS::KinesisFirehose::DeliveryStream

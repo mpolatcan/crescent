@@ -1,7 +1,7 @@
 from pyformation.core import Model, Validator
 
 
-class CloudwatchLoggingOptions(Model):
+class CloudWatchLoggingOptions(Model):
     @Validator.validate(type=bool)
     def Enabled(self, value: bool):
         return self._set_field(self.Enabled.__name__, value)

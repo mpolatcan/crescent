@@ -17,3 +17,6 @@ class Resource(Model):
         self._properties[property] = value
 
         return self
+
+    def __get_properties__(self):
+        return self._properties

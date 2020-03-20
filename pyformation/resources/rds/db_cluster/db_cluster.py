@@ -1,6 +1,7 @@
 from pyformation.core import Resource, Tag, Validator
 from .db_cluster_role import DBClusterRole
 from .scaling_configuration import ScalingConfiguration
+from .constants import Engine, EngineMode, RestoreType, Property, Conditions
 
 
 class DBCluster(Resource):
@@ -17,11 +18,11 @@ class DBCluster(Resource):
     def AvailabilityZones(self, *value: str):
         return self._set_property(self.AvailabilityZones.__name__, list(value))
 
-    @Validator.validate(type=int)
+    @Validator.validate(type=int, min_value=0, max_value=259200)
     def BacktrackWindow(self, value: int):
         return self._set_property(self.BacktrackWindow.__name__, value)
 
-    @Validator.validate(type=int)
+    @Validator.validate(type=int, min_value=1, max_value=35)
     def BackupRetentionPeriod(self, value: int):
         return self._set_property(self.BackupRetentionPeriod.__name__, value)
 
@@ -57,11 +58,17 @@ class DBCluster(Resource):
     def EnableIAMDatabaseAuthentication(self, value: bool):
         return self._set_property(self.EnableIAMDatabaseAuthentication.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=[Engine.AURORA,
+                                                  Engine.AURORA_MYSQL,
+                                                  Engine.AURORA_POSTGRESQL])
     def Engine(self, value: str):
         return self._set_property(self.Engine.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=[EngineMode.PROVISIONED,
+                                                  EngineMode.SERVERLESS,
+                                                  EngineMode.PARALLEL_QUERY,
+                                                  EngineMode.GLOBAL,
+                                                  EngineMode.MULTI_MASTER])
     def EngineMode(self, value: str):
         return self._set_property(self.EngineMode.__name__, value)
 
@@ -73,11 +80,12 @@ class DBCluster(Resource):
     def KmsKeyId(self, value: str):
         return self._set_property(self.KmsKeyId.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, not_specify_if_specified=[Property.SNAPSHOT_IDENTIFIER])
     def MasterUsername(self, value: str):
         return self._set_property(self.MasterUsername.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, not_specify_if_specified=[Property.SOURCE_DB_INSTANCE_IDENTIFIER,
+                                                            Property.SNAPSHOT_IDENTIFIER])
     def MasterUserPassword(self, value: str):
         return self._set_property(self.MasterUserPassword.__name__, value)
 
@@ -97,11 +105,11 @@ class DBCluster(Resource):
     def ReplicationSourceIdentifier(self, value: str):
         return self._set_property(self.ReplicationSourceIdentifier.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=[RestoreType.FULL_COPY, RestoreType.COPY_ON_WRITE])
     def RestoreType(self, value: str):
         return self._set_property(self.RestoreType.__name__, value)
 
-    @Validator.validate(type=ScalingConfiguration)
+    @Validator.validate(type=ScalingConfiguration, conditions=Conditions.SCALING_CONFIGURATION)
     def ScalingConfiguration(self, value: ScalingConfiguration):
         return self._set_property(self.ScalingConfiguration.__name__, value.__to_dict__())
 
@@ -117,7 +125,9 @@ class DBCluster(Resource):
     def SourceRegion(self, value: str):
         return self._set_property(self.SourceRegion.__name__, value)
 
-    @Validator.validate(type=bool)
+    @Validator.validate(type=bool, not_specify_if_specified=[Property.DB_CLUSTER_IDENTIFIER,
+                                                             Property.SNAPSHOT_IDENTIFIER,
+                                                             Property.SOURCE_DB_INSTANCE_IDENTIFIER])
     def StorageEncrypted(self, value: bool):
         return self._set_property(self.StorageEncrypted.__name__, value)
 

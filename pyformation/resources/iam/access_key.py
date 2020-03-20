@@ -11,10 +11,10 @@ class AccessKey(Resource):
     def Serial(self, value: int):
         return self._set_property(self.Serial.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=["Active", "Inactive"])
     def Status(self, value: str):
         return self._set_property(self.Status.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, min_length=1, max_length=128, pattern="[\w+=,.@-]+")
     def Username(self, value: str):
         return self._set_property(self.Username.__name__, value)
