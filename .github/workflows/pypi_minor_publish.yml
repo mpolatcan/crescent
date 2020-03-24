@@ -12,7 +12,10 @@ jobs:
     name: Zepyhrus minor version publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
       - run: pip install pyyaml twine
       - run: python version_updater.py minor
       - run: python setup.py bdist_wheel
