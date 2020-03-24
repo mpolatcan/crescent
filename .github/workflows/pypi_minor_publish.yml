@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-    tag:
+    tags:
       - minor
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - run: pip install pyyaml twine
+      - run: pip install wheel pyyaml twine
       - run: python version_updater.py minor
       - run: python setup.py bdist_wheel
       - run: twine upload dist/*
