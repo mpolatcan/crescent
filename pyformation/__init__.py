@@ -5,25 +5,31 @@ from .core import (
 )
 
 from .resources import (
-    EcrFactory,
-    EfsFactory,
-    FirehoseFactory,
-    IamFactory,
-    KinesisFactory,
-    S3Factory,
-    RdsFactory
+    ecr,
+    efs,
+    efs_file_system,
+    efs_mount_target,
+    firehose,
+    firehose_delivery_stream,
+    iam,
+    kinesis,
+    kinesis_stream,
+    kinesis_stream_consumer,
+    s3,
+    s3_access_point,
+    s3_bucket,
+    s3_bucket_policy,
+    rds,
+    rds_cluster,
+    rds_instance,
+    rds_security_group,
+    rds_option_group,
+    rds_subnet_group,
+    rds_event_subscription
 )
 
 
 class PyformationFactory:
-    ecr = EcrFactory()
-    efs = EfsFactory()
-    firehose = FirehoseFactory()
-    iam = IamFactory()
-    kinesis = KinesisFactory()
-    s3 = S3Factory()
-    rds = RdsFactory()
-
     @staticmethod
     def Template(version: str = "2010-09-09"):
         return Template(version)
@@ -38,5 +44,26 @@ class PyformationFactory:
 
 
 __all__ = [
-    "PyformationFactory"
+    "PyformationFactory",
+    "ecr",
+    "efs",
+    "efs_file_system",
+    "efs_mount_target",
+    "firehose",
+    "firehose_delivery_stream",
+    "iam",
+    "kinesis",
+    "kinesis_stream",
+    "kinesis_stream_consumer",
+    "s3",
+    "s3_access_point",
+    "s3_bucket",
+    "s3_bucket_policy",
+    "rds",
+    "rds_cluster",
+    "rds_instance",
+    "rds_security_group",
+    "rds_subnet_group",
+    "rds_option_group",
+    "rds_event_subscription"
 ]

@@ -2,6 +2,12 @@ from pyformation.core import Resource, Validator
 from .public_access_block_configuration import PublicAccessBlockConfiguration
 from .vpc_configuration import VpcConfiguration
 
+'''
+Required Properties
+-------------------
+- Bucket
+'''
+
 
 class AccessPoint(Resource):
     __TYPE = "AWS::S3::AccessPoint"

@@ -9,9 +9,12 @@ from .role import Role
 from .service_linked_role import ServiceLinkedRole
 from .user import User
 from .user_to_group_addition import UserToGroupAddition
+from .constants import AccessKeyStatus
 
 
 class IamFactory:
+    access_key_status = AccessKeyStatus
+
     @staticmethod
     def AccessKey(id: str):
         return AccessKey(id)
@@ -57,6 +60,8 @@ class IamFactory:
         return UserToGroupAddition(id)
 
 
+iam = IamFactory
+
 __all__ = [
-    "IamFactory"
+    "iam"
 ]

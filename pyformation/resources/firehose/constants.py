@@ -2,6 +2,8 @@ class DeliveryStreamType:
     DIRECT_PUT = "DirectPut"
     KINESIS_STREAM_AS_SOURCE = "KinesisStreamAsSource"
 
+##########################################
+
 
 class CompressionFormat:
     class __CompressionFormatS3:
@@ -31,6 +33,8 @@ class CompressionFormat:
     orc = __CompressionFormatOrc
     parquet = __CompressionFormatParquet
 
+##########################################
+
 
 class S3BackupMode:
     class __S3BackupModeSplunk:
@@ -49,6 +53,8 @@ class S3BackupMode:
     ext_s3 = __S3BackupModeExtendedS3
     es = __S3BackupModeElasticsearch
 
+##########################################
+
 
 class ElasticsearchDestinationIndexRotationPeriod:
     NO_ROTATION = "NoRotation"
@@ -57,15 +63,21 @@ class ElasticsearchDestinationIndexRotationPeriod:
     ONE_MONTH = "OneMonth"
     ONE_WEEK = "OneWeek"
 
+##########################################
+
 
 class OrcSerDeFormatVersion:
     V0_11 = "V0_11"
     V0_12 = "V0_12"
 
+##########################################
+
 
 class ParquetSerDeWriterVersion:
     V1 = "V1"
     V2 = "V2"
+
+##########################################
 
 
 class ProcessorParameterName:
@@ -75,18 +87,23 @@ class ProcessorParameterName:
     NUMBER_OF_RETRIES = "NumberOfRetries"
     ROLE_ARN = "RoleArn"
 
+##########################################
+
 
 class SplunkDestinationHECEndpointType:
     EVENT = "Event"
     RAW = "Raw"
 
+##########################################
+
 
 class ProcessorType:
     LAMBDA = "Lambda"
 
+##########################################
+
 
 class Property:
-    # -----------------------------------------------------------
     ELASTICSEARCH_DESTINATION_CONFIGURATION_BUFFERING_HINTS = "BufferingHints"
     ELASTICSEARCH_DESTINATION_CONFIGURATION_DOMAIN_ARN = "DomainARN"
     ELASTICSEARCH_DESTINATION_CONFIGURATION_INDEX_NAME = "IndexName"
@@ -96,65 +113,51 @@ class Property:
     ELASTICSEARCH_DESTINATION_CONFIGURATION_S3_BACKUP_MODE = "S3BackupMode"
     ELASTICSEARCH_DESTINATION_CONFIGURATION_S3_CONFIGURATION = "S3Configuration"
     ELASTICSEARCH_DESTINATION_CONFIGURATION_TYPE_NAME = "TypeName"
-    # -----------------------------------------------------------
     EXTENDED_S3_DESTINATION_CONFIGURATION_BUCKET_ARN = "BucketARN"
     EXTENDED_S3_DESTINATION_CONFIGURATION_BUFFERING_HINTS = "BufferingHints"
     EXTENDED_S3_DESTINATION_CONFIGURATION_COMPRESSION_FORMAT = "CompressionFormat"
     EXTENDED_S3_DESTINATION_CONFIGURATION_ROLE_ARN = "RoleARN"
-    # -----------------------------------------------------------
     KINESIS_STREAM_SOURCE_CONFIGURATION_KINESIS_STREAM_ARN = "KinesisStreamARN"
     KINESIS_STREAM_SOURCE_CONFIGURATION_ROLE_ARN = "RoleARN"
-    # -----------------------------------------------------------
     REDSHIFT_DESTINATION_CONFIGURATION_CLUSTER_JDBC_URL = "ClusterJDBCURL"
     REDSHIFT_DESTINATION_CONFIGURATION_COPY_COMMAND = "CopyCommand"
     REDSHIFT_DESTINATION_CONFIGURATION_PASSWORD = "Password"
     REDSHIFT_DESTINATION_CONFIGURATION_ROLE_ARN = "RoleARN"
     REDSHIFT_DESTINATION_CONFIGURATION_S3_CONFIGURATION = "S3Configuration"
     REDSHIFT_DESTINATION_CONFIGURATION_USERNAME = "Username"
-    # -----------------------------------------------------------
     S3_DESTINATION_CONFIGURATION_BUCKET_ARN = "BucketARN"
     S3_DESTINATION_CONFIGURATION_BUFFERING_HINTS = "BufferingHints"
     S3_DESTINATION_CONFIGURATION_COMPRESSION_FORMAT = "CompressionFormat"
     S3_DESTINATION_CONFIGURATION_ROLE_ARN = "RoleARN"
-    # -----------------------------------------------------------
     SPLUNK_DESTINATION_CONFIGURATION_HEC_ENDPOINT = "HECEndpoint"
     SPLUNK_DESTINATION_CONFIGURATION_HEC_ENDPOINT_TYPE = "HECEndpointType"
     SPLUNK_DESTINATION_CONFIGURATION_HEC_TOKEN = "HECToken"
     SPLUNK_DESTINATION_CONFIGURATION_S3_CONFIGURATION = "S3Configuration"
-    # -----------------------------------------------------------
     BUFFERING_HINTS_INTERVAL_IN_SECONDS = "IntervalInSeconds"
     BUFFERING_HINTS_SIZE_IN_MBS = "SizeInMBs"
-    # -----------------------------------------------------------
     CLOUDWATCH_LOGGING_OPTIONS = "CloudWatchLoggingOptions"
     CLOUDWATCH_LOGGING_OPTIONS_ENABLED = "Enabled"
     CLOUDWATCH_LOGGING_OPTIONS_LOG_GROUP_NAME = "LogGroupName"
     CLOUDWATCH_LOGGING_OPTIONS_LOG_STREAM_NAME = "LogStreamName"
-    # -----------------------------------------------------------
     DATA_FORMAT_CONVERSION_CONFIGURATION = "DataFormatConversionConfiguration"
     DATA_FORMAT_CONVERSION_CONFIGURATION_ENABLED = "Enabled"
     DATA_FORMAT_CONVERSION_CONFIGURATION_INPUT_FORMAT_CONFIGURATION = "InputFormatConfiguration"
     DATA_FORMAT_CONVERSION_CONFIGURATION_OUTPUT_FORMAT_CONFIGURATION = "OutputFormatConfiguration"
     DATA_FORMAT_CONVERSION_CONFIGURATION_SCHEMA_CONFIGURATION = "SchemaConfiguration"
-    # -----------------------------------------------------------
     ELASTICSEARCH_RETRY_OPTIONS_DURATION_IN_SECONDS = "DurationInSeconds"
-    # -----------------------------------------------------------
     COPY_COMMAND_DATA_TABLE_NAME = "DataTableName"
-    # -----------------------------------------------------------
     SPLUNK_RETRY_OPTIONS_DURATION_IN_SECONDS = "DurationInSeconds"
-    # -----------------------------------------------------------
     KMS_ENCRYPTION_CONFIG_AWS_KMS_KEY_ARN = "AWSKMSKeyARN"
-    # -----------------------------------------------------------
     INPUT_FORMAT_CONFIGURATION_DESERIALIZER = "Deserializer"
-    # -----------------------------------------------------------
     OUTPUT_FORMAT_CONFIGURATION_SERIALIZER = "Serializer"
-    # -----------------------------------------------------------
     SCHEMA_CONFIGURATION_CATALOG_ID = "CatalogId"
     SCHEMA_CONFIGURATION_DATABASE_NAME = "DatabaseName"
     SCHEMA_CONFIGURATION_REGION = "Region"
     SCHEMA_CONFIGURATION_ROLE_ARN = "RoleARN"
     SCHEMA_CONFIGURATION_TABLE_NAME = "TableName"
     SCHEMA_CONFIGURATION_VERSION_ID = "VersionId"
-    # -----------------------------------------------------------
+
+# -----------------------------------------------------------
 
 
 class RequiredProperties:
@@ -240,6 +243,8 @@ class RequiredProperties:
         Property.KMS_ENCRYPTION_CONFIG_AWS_KMS_KEY_ARN
     ]
 
+# -----------------------------------------------------------
+
 
 class Conditions:
     CLOUDWATCH_LOGGING_OPTIONS = [
@@ -254,6 +259,8 @@ class Conditions:
                 else Exception("When property \"Enabled\" is True you need to specify \"LogStreamName\" and \"LogGroupName\" properties!")
         )
     ]
+
+# -----------------------------------------------------------
 
 
 class AllowedValues:

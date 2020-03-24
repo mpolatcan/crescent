@@ -1,4 +1,5 @@
 from pyformation.core import Model, Validator
+from .constants import AllowedValues
 
 
 class Destination(Model):
@@ -10,7 +11,7 @@ class Destination(Model):
     def BucketArn(self, value: str):
         return self._set_field(self.BucketArn.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.FORMAT)
     def Format(self, value: str):
         return self._set_field(self.Format.__name__, value)
 

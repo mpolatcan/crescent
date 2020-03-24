@@ -12,6 +12,8 @@ class EcrFactory:
         return LifecyclePolicy()
 
 
+ecr = EcrFactory
+
 __all__ = [
-    "EcrFactory"
+    "ecr"
 ]

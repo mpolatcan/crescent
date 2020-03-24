@@ -170,6 +170,11 @@ class FirehoseFactory:
     delivery_stream = __DeliveryStreamFactory
 
 
+firehose = FirehoseFactory
+firehose_delivery_stream = firehose.delivery_stream
+
+
 __all__ = [
-    "FirehoseFactory"
+    "firehose",
+    "firehose_delivery_stream"
 ]

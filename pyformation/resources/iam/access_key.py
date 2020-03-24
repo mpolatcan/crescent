@@ -1,4 +1,5 @@
 from pyformation.core import Resource, Validator
+from .constants import AllowedValues
 
 
 class AccessKey(Resource):
@@ -11,7 +12,7 @@ class AccessKey(Resource):
     def Serial(self, value: int):
         return self._set_property(self.Serial.__name__, value)
 
-    @Validator.validate(type=str, allowed_values=["Active", "Inactive"])
+    @Validator.validate(type=str, allowed_values=AllowedValues.STATUS)
     def Status(self, value: str):
         return self._set_property(self.Status.__name__, value)
 

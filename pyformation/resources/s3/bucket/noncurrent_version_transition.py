@@ -1,8 +1,9 @@
 from pyformation.core import Model, Validator
+from .constants import AllowedValues
 
 
 class NoncurrentVersionTransition(Model):
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.NONCURRENT_VERSION_TRANSITION_SC)
     def StorageClass(self, value: str):
         return self._set_field(self.StorageClass.__name__, value)
 

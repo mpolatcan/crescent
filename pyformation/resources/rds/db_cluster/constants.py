@@ -3,6 +3,8 @@ class Engine:
     AURORA_MYSQL = "aurora-mysql"
     AURORA_POSTGRESQL = "aurora-postgresql"
 
+# -----------------------------------------------------------
+
 
 class EngineMode:
     PROVISIONED = "provisioned"
@@ -11,10 +13,14 @@ class EngineMode:
     GLOBAL = "global"
     MULTI_MASTER = "multimaster"
 
+# -----------------------------------------------------------
+
 
 class RestoreType:
     FULL_COPY = "full-copy"
     COPY_ON_WRITE = "copy-on-write"
+
+# -----------------------------------------------------------
 
 
 class Capacity:
@@ -43,22 +49,71 @@ class Capacity:
     aurora_mysql = __CapacityAuroraMysql
     aurora_postgresql = __CapacityAuroraPostgresql
 
+# -----------------------------------------------------------
+
 
 class Property:
-    ASSOCIATED_ROLES = "AssociatedRoles"
-    ENGINE = "Engine"
-    ENGINE_MODE = "EngineMode"
-    SCALING_CONFIGURATION = "ScalingConfiguration"
+    DB_CLUSTER_ASSOCIATED_ROLES = "AssociatedRoles"
+    DB_CLUSTER_ENGINE = "Engine"
+    DB_CLUSTER_ENGINE_MODE = "EngineMode"
+    DB_CLUSTER_SCALING_CONFIGURATION = "ScalingConfiguration"
+    DB_CLUSTER_IDENTIFIER = "DBClusterIdentifier"
+    DB_CLUSTER_SNAPSHOT_IDENTIFIER = "SnapshotIdentifier"
+    DB_CLUSTER_SOURCE_DB_INSTANCE_IDENTIFIER = "SourceDBInstanceIdentifier"
     SCALING_CONFIGURATION_MAX_CAPACITY = "MaxCapacity"
     SCALING_CONFIGURATION_MIN_CAPACITY = "MinCapacity"
-    DB_CLUSTER_IDENTIFIER = "DBClusterIdentifier"
-    SNAPSHOT_IDENTIFIER = "SnapshotIdentifier"
-    SOURCE_DB_INSTANCE_IDENTIFIER = "SourceDBInstanceIdentifier"
+    DB_CLUSTER_ROLE_ROLE_ARN = "RoleARN"
+
+# -----------------------------------------------------------
+
+
+class AllowedValues:
+    RESTORE_TYPE = [
+        RestoreType.FULL_COPY,
+        RestoreType.COPY_ON_WRITE
+    ]
+    ENGINE = [
+        Engine.AURORA,
+        Engine.AURORA_MYSQL,
+        Engine.AURORA_POSTGRESQL
+    ]
+    ENGINE_MODE = [
+        EngineMode.PROVISIONED,
+        EngineMode.SERVERLESS,
+        EngineMode.PARALLEL_QUERY,
+        EngineMode.GLOBAL,
+        EngineMode.MULTI_MASTER
+    ]
+
+# -----------------------------------------------------------
+
+
+class NotSpecifyIfSpecified:
+    DB_CLUSTER_STORAGE_ENCRYPTED = [
+        Property.DB_CLUSTER_IDENTIFIER,
+        Property.DB_CLUSTER_SNAPSHOT_IDENTIFIER,
+        Property.DB_CLUSTER_SOURCE_DB_INSTANCE_IDENTIFIER
+    ]
+    DB_CLUSTER_MASTER_USERNAME = [
+        Property.DB_CLUSTER_SNAPSHOT_IDENTIFIER
+    ]
+    DB_CLUSTER_MASTER_USER_PASSWORD = [
+        Property.DB_CLUSTER_SOURCE_DB_INSTANCE_IDENTIFIER,
+        Property.DB_CLUSTER_SNAPSHOT_IDENTIFIER
+    ]
+
+# -----------------------------------------------------------
+
+
+class RequiredProperties:
+    DB_CLUSTER_ROLE = [
+        Property.DB_CLUSTER_ROLE_ROLE_ARN
+    ]
+
+# -----------------------------------------------------------
 
 
 class Constants:
-    KEY_PARAMETERS = "parameters"
-    KEY_CONDITION_FUNCTION = "condition_function"
     ENGINE_CAPACITIES = {
         Engine.AURORA: [
             Capacity.aurora_mysql.CAP_1, Capacity.aurora_mysql.CAP_2, Capacity.aurora_mysql.CAP_4,
@@ -78,16 +133,18 @@ class Constants:
         ]
     }
 
+# -----------------------------------------------------------
+
 
 class Conditions:
-    SCALING_CONFIGURATION = [
+    DB_CLUSTER_SCALING_CONFIGURATION = [
         (
-            [Property.ENGINE_MODE],
+            [Property.DB_CLUSTER_ENGINE_MODE],
             lambda engine_mode:
                 True if engine_mode == EngineMode.SERVERLESS else Exception("Property \"EngineMode\"'s value must be \"serverless\"")
         ),
         (
-            [Property.ENGINE, Property.SCALING_CONFIGURATION],
+            [Property.DB_CLUSTER_ENGINE_MODE, Property.DB_CLUSTER_SCALING_CONFIGURATION],
             lambda engine, scaling_conf:
                 True if scaling_conf.get(Property.SCALING_CONFIGURATION_MAX_CAPACITY, None) is None or
                         scaling_conf[Property.SCALING_CONFIGURATION_MAX_CAPACITY] in Constants.ENGINE_CAPACITIES[engine]
@@ -98,7 +155,7 @@ class Conditions:
                 )
         ),
         (
-            [Property.ENGINE, Property.SCALING_CONFIGURATION],
+            [Property.DB_CLUSTER_ENGINE, Property.DB_CLUSTER_SCALING_CONFIGURATION],
             lambda engine, scaling_conf:
                 True if scaling_conf.get(Property.SCALING_CONFIGURATION_MIN_CAPACITY, None) is None or
                         scaling_conf[Property.SCALING_CONFIGURATION_MIN_CAPACITY] in Constants.ENGINE_CAPACITIES[engine]

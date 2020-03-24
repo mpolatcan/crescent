@@ -1,4 +1,5 @@
 from pyformation.core import Resource, Validator
+from .constants import AllowedValues, Conditions
 
 
 class EventSubscription(Resource):
@@ -19,10 +20,10 @@ class EventSubscription(Resource):
     def SnsTopicArn(self, value: str):
         return self._set_property(self.SnsTopicArn.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, conditions=Conditions.EVENT_SUBSCRIPTION_SOURCE_IDS)
     def SourceIds(self, *value: str):
         return self._set_property(self.SourceIds.__name__, list(value))
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.SOURCE_TYPE)
     def SourceType(self, value: str):
         return self._set_property(self.SourceType.__name__, value)

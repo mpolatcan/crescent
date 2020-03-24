@@ -11,7 +11,7 @@ class DBSubnetGroup(Resource):
     def DBSubnetGroupDescription(self, value: str):
         return self._set_property(self.DBSubnetGroupDescription.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, max_length=255)
     def DBSubnetGroupName(self, value: str):
         return self._set_property(self.DBSubnetGroupName.__name__, value)
 

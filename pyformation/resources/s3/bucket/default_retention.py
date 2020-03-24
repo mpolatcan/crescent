@@ -1,4 +1,5 @@
 from pyformation.core import Model, Validator
+from .constants import AllowedValues
 
 
 class DefaultRetention(Model):
@@ -6,7 +7,7 @@ class DefaultRetention(Model):
     def Days(self, value: int):
         return self._set_field(self.Days.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.MODE)
     def Mode(self, value: str):
         return self._set_field(self.Mode.__name__, value)
 

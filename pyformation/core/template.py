@@ -4,6 +4,7 @@ from .parameter import Parameter
 from .validator import Validator
 import json
 import yaml
+from .constants import RequiredProperties
 
 
 class Template(Model):
@@ -25,7 +26,7 @@ class Template(Model):
 
         return self
 
-    @Validator.validate(type=Resource)
+    @Validator.validate(type=Resource, required_properties=RequiredProperties)
     def Resources(self, *resources: Resource):
         if self._get_field(self.Resources.__name__) is None:
             self._set_field(self.Resources.__name__, {})

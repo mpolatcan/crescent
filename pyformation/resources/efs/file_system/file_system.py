@@ -1,6 +1,7 @@
 from pyformation.core import Resource, Validator
 from .lifecycle_policy import LifecyclePolicy
 from .efs_tag import ElasticFileSystemTag
+from .constants import AllowedValues, RequiredProperties
 
 
 class FileSystem(Resource):
@@ -21,11 +22,11 @@ class FileSystem(Resource):
     def KmsKeyId(self, value: str):
         return self._set_property(self.KmsKeyId.__name__, value)
 
-    @Validator.validate(type=LifecyclePolicy)
+    @Validator.validate(type=LifecyclePolicy, required_properties=RequiredProperties.LIFECYCLE_POLICY)
     def LifecyclePolicies(self, *value: LifecyclePolicy):
         return self._set_property(self.LifecyclePolicies.__name__, [lp.__to_dict__() for lp in list(value)])
 
-    @Validator.validate(type=str, allowed_values=["generalPurpose", "maxIO"])
+    @Validator.validate(type=str, allowed_values=AllowedValues.PERFORMANCE_MODE)
     def PerformanceMode(self, value: str):
         return self._set_property(self.PerformanceMode.__name__, value)
 
@@ -33,6 +34,6 @@ class FileSystem(Resource):
     def ProvisionedThroughputInMibps(self, value: float):
         return self._set_property(self.ProvisionedThroughputInMibps.__name__, value)
 
-    @Validator.validate(type=str, allowed_values=["bursting", "provisioned"])
+    @Validator.validate(type=str, allowed_values=AllowedValues.THROUGHPUT_MODE)
     def ThroughputMode(self, value: str):
         return self._set_property(self.ThroughputMode.__name__, value)

@@ -1,11 +1,6 @@
 from .db_cluster import (
-    DBCluster,
-    DBClusterRole,
-    ScalingConfiguration,
-    Engine,
-    EngineMode,
-    RestoreType,
-    Capacity
+    DBCluster, DBClusterRole, ScalingConfiguration,
+    Engine, EngineMode, RestoreType, Capacity
 )
 from .db_cluster_pg import DBClusterParameterGroup
 from .db_instance import DBInstance, DBInstanceRole, ProcessorFeature
@@ -13,7 +8,7 @@ from .db_pg import DBParameterGroup
 from .db_security_group import DBSecurityGroup, Ingress
 from .db_security_group_ingress import DBSecurityGroupIngress
 from .db_subnet_group import DBSubnetGroup
-from .event_subscription import EventSubscription
+from .event_subscription import EventSubscription, SourceType
 from .option_group import OptionGroup, OptionConfiguration, OptionSetting
 
 
@@ -89,6 +84,8 @@ class RdsFactory:
             return DBSubnetGroup(id)
 
     class __EventSubscriptionFactory:
+        source_type = SourceType
+
         @staticmethod
         def EventSubscription(id: str):
             return EventSubscription(id)
@@ -101,6 +98,21 @@ class RdsFactory:
     event_subscription = __EventSubscriptionFactory
 
 
+rds = RdsFactory
+rds_cluster = rds.cluster
+rds_instance = rds.instance
+rds_security_group = rds.security_group
+rds_option_group = rds.option_group
+rds_subnet_group = rds.subnet_group
+rds_event_subscription = rds.event_subscription
+
+
 __all__ = [
-    "RdsFactory"
+    "rds",
+    "rds_cluster",
+    "rds_instance",
+    "rds_security_group",
+    "rds_option_group",
+    "rds_subnet_group",
+    "rds_event_subscription"
 ]

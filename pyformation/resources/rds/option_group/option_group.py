@@ -1,5 +1,6 @@
 from pyformation.core import Resource, Tag, Validator
 from .option_configuration import OptionConfiguration
+from .constants import RequiredProperties
 
 
 class OptionGroup(Resource):
@@ -16,7 +17,7 @@ class OptionGroup(Resource):
     def MajorEngineVersion(self, value: str):
         return self._set_property(self.MajorEngineVersion.__name__, value)
 
-    @Validator.validate(type=OptionConfiguration)
+    @Validator.validate(type=OptionConfiguration, required_properties=RequiredProperties.OPTION_CONFIGURATION)
     def OptionConfigurations(self, *value: OptionConfiguration):
         return self._set_property(self.OptionConfigurations.__name__, [oc.__to_dict__() for oc in list(value)])
 

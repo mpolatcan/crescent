@@ -1,6 +1,5 @@
 from .resource import Resource
 from .exceptions import (
-    PropertyNotDefinedException,
     InvalidValueException,
     PatternMismatchException,
     TypeMismatchException,
@@ -22,19 +21,29 @@ class __Validator__:
     KEY_VALIDATION_VALUE = "validation_value"
     KEY_PARAMETERS = "parameters"
     KEY_CONDITION_FUNCTION = "condition_function"
+    VALIDATION_NOT_SPECIFY_IF_SPECIFIED = "not_specify_if_specified"
+    VALIDATION_CONDITIONS = "conditions"
+    VALIDATION_MIN_VALUE = "min_value"
+    VALIDATION_MAX_VALUE = "max_value"
+    VALIDATION_MIN_LENGTH = "min_length"
+    VALIDATION_MAX_LENGTH = "max_length"
+    VALIDATION_PATTERN = "pattern"
+    VALIDATION_ALLOWED_VALUES = "allowed_values"
+    VALIDATION_REQUIRED_PROPERTIES = "required_properties"
+    VALIDATION_TYPE = "type"
 
     def __init__(self):
         self.__validations = {
-            "not_specify_if_specified": self.__not_specify_if_specified,
-            "conditions": self.__conditions,
-            "min_value": self.__min_value,
-            "max_value": self.__max_value,
-            "min_length": self.__min_length,
-            "max_length": self.__max_length,
-            "pattern": self.__pattern,
-            "allowed_values": self.__allowed_values,
-            "required_properties": self.__required_properties,
-            "type": self.__type
+            self.VALIDATION_NOT_SPECIFY_IF_SPECIFIED: self.__not_specify_if_specified,
+            self.VALIDATION_CONDITIONS: self.__conditions,
+            self.VALIDATION_MIN_VALUE: self.__min_value,
+            self.VALIDATION_MAX_VALUE: self.__max_value,
+            self.VALIDATION_MIN_LENGTH: self.__min_length,
+            self.VALIDATION_MAX_LENGTH: self.__max_length,
+            self.VALIDATION_PATTERN: self.__pattern,
+            self.VALIDATION_ALLOWED_VALUES: self.__allowed_values,
+            self.VALIDATION_REQUIRED_PROPERTIES: self.__required_properties,
+            self.VALIDATION_TYPE: self.__type
         }
 
     def __min_value(self, **kwargs):
@@ -122,18 +131,7 @@ class __Validator__:
         value = kwargs[Validator.KEY_VALUE]
         __type__ = kwargs[Validator.KEY_VALIDATION_VALUE]
 
-        if value is None:
-            return
-
-        # List type checks
-        if isinstance(value, list):
-            invalid_elems = [(idx, elem) for idx, elem in enumerate(value) if not isinstance(elem, __type__)]
-
-            if len(invalid_elems) > 0:
-                raise TypeMismatchException("Value {value}'s type is not \"{correct_type}\" at index {idx}".format(
-                    value=invalid_elems[0][1], correct_type=__type__, idx=invalid_elems[0][0]
-                ))
-        elif not isinstance(value, __type__):
+        if not isinstance(value, __type__):
             raise TypeMismatchException("Value \"{value}\"'s type is not \"{correct_type}\"".format(
                 value=value, correct_type=__type__
             ))
@@ -141,14 +139,21 @@ class __Validator__:
             return
 
     def __required_properties(self, **kwargs):
-        parent_property = type(kwargs[Validator.KEY_MODEL]).__name__
-        property_name = kwargs[Validator.KEY_PROPERTY]
-        property = kwargs[Validator.KEY_VALUE].__to_dict__()
+        parent_property_name = type(kwargs[Validator.KEY_MODEL]).__name__
+        sub_property_name = kwargs[Validator.KEY_PROPERTY]
+        sub_property_value_name = type(kwargs[Validator.KEY_VALUE]).__name__
 
-        for required_property in kwargs[Validator.KEY_VALIDATION_VALUE]:
-            if property.get(required_property, None) is None:
-                raise RequiredPropertyException("\"{required_property}\" of \"{property}\" must be defined at \"{parent_property}\"".format(
-                    required_property=required_property, property=property_name, parent_property=parent_property
+        if isinstance(kwargs[Validator.KEY_VALUE], Resource):
+            value = kwargs[Validator.KEY_VALUE].__get_properties__()
+            validation_value = getattr(kwargs[Validator.KEY_VALIDATION_VALUE], sub_property_value_name, [])
+        else:
+            value = kwargs[Validator.KEY_VALUE].__to_dict__()
+            validation_value = kwargs[Validator.KEY_VALIDATION_VALUE]
+
+        for required_property in validation_value:
+            if value.get(required_property, None) is None:
+                raise RequiredPropertyException("\"{required_property}\" of \"{sub_property_value}\" must be defined at \"{parent_property}.{sub_property}\"".format(
+                    required_property=required_property, sub_property_value=sub_property_value_name, parent_property=parent_property_name, sub_property=sub_property_name
                 ))
 
         return
@@ -165,16 +170,13 @@ class __Validator__:
 
         for condition in conditions:
             params = []
+            param_keys = condition[0]
+            condition_fn = condition[1]
 
-            for param in list(condition[0]):
-                value = model_properties.get(param, None)
+            for param_key in param_keys:
+                params.append(model_properties.get(param_key, None))
 
-                if value is None:
-                    raise PropertyNotDefinedException("Property \"{}\" not defined!".format(param))
-
-                params.append(value)
-
-            result = condition[1](*params)
+            result = condition_fn(*params) if condition_fn else None
 
             if isinstance(result, Exception):
                 raise ConditionNotSatisfiedException(str(result))
@@ -186,17 +188,27 @@ class __Validator__:
             def __wrapper__(*args, **kwargs):
                 __wrapper__.__name__ = fn.__name__
 
-                fn(*args)
-
-                value = args[1] if len(args[1:]) <= 1 else list(args[1:])
-
-                for validation, arg in validations.items():
-                    self.__validations[validation](
+                # Type validation
+                for value in list(args[1:]):
+                    self.__validations[self.VALIDATION_TYPE](
                         model=args[0],
                         property=fn.__name__,
                         value=value,
-                        validation_value=arg
+                        validation_value=validations[self.VALIDATION_TYPE]
                     )
+
+                fn(*args)
+
+                # Other validations
+                for value in list(args[1:]):
+                    for validation, arg in validations.items():
+                        if validation != self.VALIDATION_TYPE:
+                            self.__validations[validation](
+                                model=args[0],
+                                property=fn.__name__,
+                                value=value,
+                                validation_value=arg
+                            )
 
                 return args[0]
 

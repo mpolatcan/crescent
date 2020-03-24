@@ -1,4 +1,5 @@
 from pyformation.core import Model, Validator
+from .constants import AllowedValues
 
 
 class CorsRule(Model):
@@ -6,7 +7,7 @@ class CorsRule(Model):
     def AllowedHeaders(self, *value: str):
         return self._set_field(self.AllowedHeaders.__name__, list(value))
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.ALLOWED_METHODS)
     def AllowedMethods(self, *value: str):
         return self._set_field(self.AllowedMethods.__name__, list(value))
 
@@ -18,7 +19,7 @@ class CorsRule(Model):
     def ExposedHeaders(self, *value: str):
         return self._set_field(self.ExposedHeaders.__name__, list(value))
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, max_length=255)
     def Id(self, value: str):
         return self._set_field(self.Id.__name__, value)
 
