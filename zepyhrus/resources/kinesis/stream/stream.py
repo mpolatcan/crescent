@@ -9,7 +9,7 @@ class Stream(Resource):
     def __init__(self, id: str):
         super(Stream, self).__init__(id, self.__TYPE)
 
-    @Validator.validate(type=str, min_length=1, max_length=128, pattern="[a-zA-Z0-9_.-]+")
+    @Validator.validate(type=str, min_length=1, max_length=128, pattern=r"[a-zA-Z0-9_.-]+")
     def Name(self, value: str):
         return self._set_property(self.Name.__name__, value)
 

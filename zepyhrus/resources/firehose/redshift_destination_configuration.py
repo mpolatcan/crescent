@@ -11,7 +11,7 @@ class RedshiftDestinationConfiguration(Model):
     def CloudWatchLoggingOptions(self, value: CloudWatchLoggingOptions):
         return self._set_field(self.CloudWatchLoggingOptions.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, min_length=1, pattern="jdbc:(redshift|postgresql)://((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+redshift\.([a-zA-Z0-9\.]+):\d{1,5}/[a-zA-Z0-9_$]+")
+    @Validator.validate(type=str, min_length=1, pattern=r"jdbc:(redshift|postgresql)://((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+redshift\.([a-zA-Z0-9\.]+):\d{1,5}/[a-zA-Z0-9_$]+")
     def ClusterJDBCURL(self, value: str):
         return self._set_field(self.ClusterJDBCURL.__name__, value)
 
@@ -27,7 +27,7 @@ class RedshiftDestinationConfiguration(Model):
     def ProcessingConfiguration(self, value: ProcessingConfiguration):
         return self._set_field(self.ProcessingConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, min_length=1, max_length=512, pattern="arn:.*")
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern=r"arn:.*")
     def RoleARN(self, value: str):
         return self._set_field(self.RoleARN.__name__, value)
 

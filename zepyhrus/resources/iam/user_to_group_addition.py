@@ -7,7 +7,7 @@ class UserToGroupAddition(Resource):
     def __init__(self, id: str):
         super(UserToGroupAddition, self).__init__(id, self.__TYPE)
 
-    @Validator.validate(type=str, min_length=1, max_length=128, pattern="[\w+=,.@-]+")
+    @Validator.validate(type=str, min_length=1, max_length=128, pattern=r"[\w+=,.@-]+")
     def GroupName(self, value: str):
         return self._set_property(self.GroupName.__name__, value)
 

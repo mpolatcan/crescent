@@ -22,7 +22,7 @@ class User(Resource):
     def ManagedPolicyArns(self, *value: str):
         return self._set_property(self.ManagedPolicyArns.__name__, list(value))
 
-    @Validator.validate(type=str, min_length=1, max_length=512, pattern="(\u002F)|(\u002F[\u0021-\u007F]+\u002F)")
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern=r"(\u002F)|(\u002F[\u0021-\u007F]+\u002F)")
     def Path(self, value: str):
         return self._set_property(self.Path.__name__, value)
 

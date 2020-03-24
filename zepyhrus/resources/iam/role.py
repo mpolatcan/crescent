@@ -13,7 +13,7 @@ class Role(Resource):
     def AssumeRolePolicyDocument(self, value: dict):
         return self._set_property(self.AssumeRolePolicyDocument.__name__, value)
 
-    @Validator.validate(type=str, max_length=1000, pattern="[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*")
+    @Validator.validate(type=str, max_length=1000, pattern=r"[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*")
     def Description(self, value: str):
         return self._set_property(self.Description.__name__, value)
 
@@ -25,7 +25,7 @@ class Role(Resource):
     def MaxSessionDuration(self, value: int):
         return self._set_property(self.MaxSessionDuration.__name__, value)
 
-    @Validator.validate(type=str, min_length=1, max_length=512, pattern="(\u002F)|(\u002F[\u0021-\u007F]+\u002F)")
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern=r"(\u002F)|(\u002F[\u0021-\u007F]+\u002F)")
     def Path(self, value: str):
         return self._set_property(self.Path.__name__, value)
 

@@ -1,5 +1,5 @@
-from .stream import Stream, StreamEncryption
-from .stream_consumer import StreamConsumer
+from .stream import *
+from .stream_consumer import *
 
 
 class KinesisFactory:

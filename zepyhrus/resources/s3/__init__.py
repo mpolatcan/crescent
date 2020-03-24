@@ -1,26 +1,6 @@
-from .access_point import (
-    AccessPoint,
-    PublicAccessBlockConfiguration as AccessPointPublicAccessBlockConfiguration,
-    VpcConfiguration
-)
-from .bucket import (
-    AbortIncompleteMultipartUpload, AccelerateConfiguration, AccessControlTranslation, AnalyticsConfiguration,
-    Bucket, BucketEncryption, CorsConfiguration, CorsRule,
-    DataExport, DefaultRetention, Destination, EncryptionConfiguration,
-    FilterRule, InventoryConfiguration, LambdaConfiguration, LifecycleConfiguration,
-    LoggingConfiguration, MetricsConfiguration, NoncurrentVersionTransition, NotificationConfiguration,
-    NotificationFilter, ObjectLockConfiguration, ObjectLockRule, PublicAccessBlockConfiguration as BucketPublicAccessBlockConfiguration,
-    QueueConfiguration, RedirectAllRequestTo, RedirectRule, ReplicationConfiguration,
-    ReplicationDestination, ReplicationRule, RoutingRule, RoutingRuleCondition,
-    Rule, S3KeyFilter, ServerSideEncryptionByDefault, ServerSideEncryptionRule,
-    SourceSelectionCriteria, SseKmsEncryptedObjects, StorageClassAnalysis, TagFilter,
-    TopicConfiguration, Transition, VersioningConfiguration, WebsiteConfiguration,
-    StatusEnabledDisabled, StatusEnabledSuspended, AccessControlTranslationOwner, HttpMethod,
-    DataExportOutputSchemaVersion, DefaultRetentionMode, DestinationFormat, FilterRuleName,
-    InventoryConfigurationIncludedObjectVersions, InventoryConfigurationScheduleFrequency,
-    StorageClass, Protocol, SSEAlgorithm
-)
-from .bucket_policy import BucketPolicy
+from .access_point import *
+from .bucket import *
+from .bucket_policy import *
 
 
 class S3Factory:
@@ -31,7 +11,7 @@ class S3Factory:
 
         @staticmethod
         def PublicAccessBlockConfiguration():
-            return AccessPointPublicAccessBlockConfiguration()
+            return PublicAccessBlockConfiguration()
 
         @staticmethod
         def VpcConfiguration():

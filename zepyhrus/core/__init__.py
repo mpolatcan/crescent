@@ -4,6 +4,7 @@ from .resource import Resource
 from .parameter import Parameter
 from .validator import Validator
 from .tag import Tag
+from .type import types, aws_types, aws_ec2_types, aws_ssm_types
 
 __all__ = [
     "Template",
@@ -11,5 +12,9 @@ __all__ = [
     "Resource",
     "Parameter",
     "Tag",
-    "Validator"
+    "Validator",
+    "types",
+    "aws_types",
+    "aws_ec2_types",
+    "aws_ssm_types"
 ]

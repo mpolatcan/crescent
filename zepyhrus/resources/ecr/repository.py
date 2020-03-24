@@ -12,7 +12,7 @@ class Repository(Resource):
     def LifecyclePolicy(self, value: LifecyclePolicy):
         return self._set_property(self.LifecyclePolicy.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, min_length=5, max_length=256, pattern="(?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*")
+    @Validator.validate(type=str, min_length=5, max_length=256, pattern=r"(?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*")
     def RepositoryName(self, value: str):
         return self._set_property(self.RepositoryName.__name__, value)
 

@@ -1,3 +1,7 @@
+class Types:
+    pass
+
+
 class Property:
     EFS_MOUNT_TARGET_FILE_SYSTEM_ID = "FileSystemId"
     EFS_MOUNT_TARGET_SECURITY_GROUPS = "SecurityGroups"

@@ -16,6 +16,6 @@ class AccessKey(Resource):
     def Status(self, value: str):
         return self._set_property(self.Status.__name__, value)
 
-    @Validator.validate(type=str, min_length=1, max_length=128, pattern="[\w+=,.@-]+")
+    @Validator.validate(type=str, min_length=1, max_length=128, pattern=r"[\w+=,.@-]+")
     def Username(self, value: str):
         return self._set_property(self.Username.__name__, value)

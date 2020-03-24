@@ -16,7 +16,7 @@ class ElasticsearchDestinationConfiguration(Model):
     def CloudWatchLoggingOptions(self, value: CloudWatchLoggingOptions):
         return self._set_field(self.CloudWatchLoggingOptions.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, min_length=1, max_length=512, pattern="arn:.*")
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern=r"arn:.*")
     def DomainARN(self, value: str):
         return self._set_field(self.DomainARN.__name__, value)
 
@@ -36,7 +36,7 @@ class ElasticsearchDestinationConfiguration(Model):
     def RetryOptions(self, value: ElasticsearchRetryOptions):
         return self._set_field(self.RetryOptions.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, min_length=1, max_length=512, pattern="arn:.*")
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern=r"arn:.*")
     def RoleARN(self, value: str):
         return self._set_field(self.RoleARN.__name__, value)
 

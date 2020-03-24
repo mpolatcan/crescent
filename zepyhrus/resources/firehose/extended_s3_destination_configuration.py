@@ -9,7 +9,7 @@ from .constants import RequiredProperties, AllowedValues, Conditions
 
 
 class ExtendedS3DestinationConfiguration(Model):
-    @Validator.validate(type=str, min_length=1, max_length=2048, pattern="arn:.*")
+    @Validator.validate(type=str, min_length=1, max_length=2048, pattern=r"arn:.*")
     def BucketARN(self, value: str):
         return self._set_field(self.BucketARN.__name__, value)
 
@@ -45,7 +45,7 @@ class ExtendedS3DestinationConfiguration(Model):
     def ProcessingConfiguration(self, value: ProcessingConfiguration):
         return self._set_field(self.ProcessingConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, min_length=1, max_length=512, pattern="arn:.*")
+    @Validator.validate(type=str, min_length=1, max_length=512, pattern=r"arn:.*")
     def RoleARN(self, value: str):
         return self._set_field(self.RoleARN.__name__, value)
 

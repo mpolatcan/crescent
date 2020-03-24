@@ -1,12 +1,5 @@
-from .file_system import (
-    FileSystem,
-    LifecyclePolicy,
-    ElasticFileSystemTag,
-    ThroughtputMode,
-    PerformanceMode,
-    TransitionToIA
-)
-from .mount_target import MountTarget
+from .file_system import *
+from .mount_target import *
 
 
 class EfsFactory:

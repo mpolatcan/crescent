@@ -14,7 +14,7 @@ class DeliveryStream(Resource):
     def __init__(self, id: str):
         super(DeliveryStream, self).__init__(id, self.__TYPE)
 
-    @Validator.validate(type=str, min_length=1, max_length=64, pattern="[a-zA-Z0-9_.-]+")
+    @Validator.validate(type=str, min_length=1, max_length=64, pattern=r"[a-zA-Z0-9_.-]+")
     def DeliveryStreamName(self, value: str):
         return self._set_property(self.DeliveryStreamName.__name__, value)
 
