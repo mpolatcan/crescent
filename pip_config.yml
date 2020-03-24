@@ -12,4 +12,4 @@ long_description_content_type: text/markdown
 long_description_path: README.md
 name: zepyhrus
 url: https://github.com/mpolatcan/zepyhrus
-version: 0.0.13
+version: 0.0.14
