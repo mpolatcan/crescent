@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  TestUser:
+    Properties:
+      UserName: test-user
+    Type: AWS::IAM::User
+  test-bucket:
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+    Type: AWS::S3::Bucket
