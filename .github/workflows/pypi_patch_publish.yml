@@ -2,8 +2,6 @@ name: zepyhrus-publish (patch)
 
 on:
   push:
-    branches:
-      - master
     tags:
       - patch
 
@@ -20,6 +18,6 @@ jobs:
       - run: python version_updater.py patch
       - run: python setup.py bdist_wheel
       - run: twine upload dist/*
-                --username ${{secrets.PIP_USERNAME}}
-                --password ${{secrets.PIP_PASSWORD}}
+                --username ${{secrets.PYPI_USERNAME}}
+                --password ${{secrets.PYPI_PASSWORD}}
                 --non-interactive
