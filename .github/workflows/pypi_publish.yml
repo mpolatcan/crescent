@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - master
+    tags:
+      - patch-*
+      - minor-*
+      - major-*
 
 jobs:
   publish:
