@@ -12,7 +12,7 @@ jobs:
     name: Zepyhrus major version publish
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v1
+      - uses: actions/checkout@v1
       - run: pip install pyyaml twine
       - run: python version_updater.py major
       - run: python setup.py bdist_wheel
