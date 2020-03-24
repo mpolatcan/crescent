@@ -36,6 +36,8 @@ jobs:
         run: git commit -m "new patch version published"
       - if: contains(github.ref, 'minor')
         run: git commit -m "new minor version published"
+      - if: contains(github.ref, 'major')
+        run: git commit -m "new major version published"
       - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
         run: git push https://${{secrets.GITHUB_TOKEN}}@github.com/mpolatcan/zepyhrus.git HEAD:master
       - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
