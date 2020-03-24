@@ -22,5 +22,7 @@ jobs:
                 --password ${{secrets.PYPI_PASSWORD}}
                 --non-interactive
       - run: git add .
+      - run: git config user.name 'mpolatcan'
+      - run: git config user.email 'mutlupolatcan@gmail.com'
       - run: git commit -m "new patch version published"
       - run: git push https://${{secrets.GITHUB_TOKEN}}@github.com/mpolatcan/zepyhrus.git
