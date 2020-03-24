@@ -21,3 +21,6 @@ jobs:
                 --username ${{secrets.PYPI_USERNAME}}
                 --password ${{secrets.PYPI_PASSWORD}}
                 --non-interactive
+      - run: git add .
+      - run: git commit -m "new patch version published"
+      - run: git push https://mpolatcan:${{secrets.GITHUB_TOKEN}}@github.com/zepyhrus.git
