@@ -16,9 +16,9 @@ jobs:
           python-version: 3.7
       - run: pip install wheel pyyaml twine
       - run: python version_updater.py patch
-        if: contains(github.ref, "patch")
+        if: contains(github.ref, patch)
       - run: python version_updater.py major
-        if: contains(github.ref, "major")
+        if: contains(github.ref, major)
       - run: git config user.name 'mpolatcan'
       - run: git config user.email 'mutlupolatcan@gmail.com'
       - run: git add .
