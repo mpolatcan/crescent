@@ -1,0 +1,22 @@
+name: zepyhrus-publish (minor)
+
+on:
+  push:
+    branches:
+      - master
+    tag:
+      - minor
+
+jobs:
+  publish:
+    name: Zepyhrus minor version publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v1
+      - run: pip install pyyaml twine
+      - run: python version_updater.py minor
+      - run: python setup.py bdist_wheel
+      - run: twine upload dist/*
+                --username ${{secret.PIP_USERNAME}}
+                --password ${{secret.PIP_PASSWORD}}
+                --non-interactive

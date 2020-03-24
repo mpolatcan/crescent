@@ -1,0 +1,22 @@
+name: zepyhrus-publish (major)
+
+on:
+  push:
+    branches:
+      - master
+    tag:
+      - patch
+
+jobs:
+  publish:
+    name: Zepyhrus major version publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v1
+      - run: pip install pyyaml twine
+      - run: python version_updater.py major
+      - run: python setup.py bdist_wheel
+      - run: twine upload dist/*
+                --username ${{secret.PIP_USERNAME}}
+                --password ${{secret.PIP_PASSWORD}}
+                --non-interactive
