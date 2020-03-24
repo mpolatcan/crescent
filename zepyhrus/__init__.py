@@ -29,7 +29,7 @@ from .resources import (
 )
 
 
-class PyformationFactory:
+class ZepyhrusFactory:
     @staticmethod
     def Template(version: str = "2010-09-09"):
         return Template(version)
@@ -44,7 +44,7 @@ class PyformationFactory:
 
 
 __all__ = [
-    "PyformationFactory",
+    "ZepyhrusFactory",
     "ecr",
     "efs",
     "efs_file_system",
