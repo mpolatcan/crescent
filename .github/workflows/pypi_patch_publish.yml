@@ -18,6 +18,7 @@ jobs:
       - run: python version_updater.py patch
       - run: git config user.name 'mpolatcan'
       - run: git config user.email 'mutlupolatcan@gmail.com'
+      - run: git add .
       - run: git commit -m "new patch version published"
       - run: git push https://${{secrets.GITHUB_TOKEN}}@github.com/mpolatcan/zepyhrus.git HEAD:master
       - run: python setup.py bdist_wheel
@@ -25,4 +26,3 @@ jobs:
                 --username ${{secrets.PYPI_USERNAME}}
                 --password ${{secrets.PYPI_PASSWORD}}
                 --non-interactive
-      - run: git add .
