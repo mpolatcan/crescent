@@ -3,7 +3,7 @@ name: zepyhrus-publish (major)
 on:
   push:
     tags:
-      - patch
+      - major
 
 jobs:
   publish:

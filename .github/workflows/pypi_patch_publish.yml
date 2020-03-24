@@ -23,4 +23,4 @@ jobs:
                 --non-interactive
       - run: git add .
       - run: git commit -m "new patch version published"
-      - run: git push https://mpolatcan:${{secrets.GITHUB_TOKEN}}@github.com/zepyhrus.git
+      - run: git push https://${{secrets.GITHUB_TOKEN}}@github.com/mpolatcan/zepyhrus.git
