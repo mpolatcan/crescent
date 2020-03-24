@@ -4,8 +4,7 @@ classifiers:
 - 'Programming Language :: Python :: 3.6'
 - 'License :: OSI Approved :: Apache Software License'
 - 'Operating System :: OS Independent'
-description: Zepyhrus is CloudFormation template generator that validates your template
-  and inform you easily.
+description: Zepyhrus is CloudFormation template generator that validates your template and inform you easily.
 install_requires:
 - PyYAML
 long_description_content_type: text/markdown
