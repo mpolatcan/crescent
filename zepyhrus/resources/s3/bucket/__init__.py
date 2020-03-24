@@ -102,5 +102,18 @@ __all__ = [
     "TopicConfiguration",
     "Transition",
     "VersioningConfiguration",
-    "WebsiteConfiguration"
+    "WebsiteConfiguration",
+    "StatusEnabledSuspended",
+    "StatusEnabledDisabled",
+    "AccessControlTranslationOwner",
+    "HttpMethod",
+    "DataExportOutputSchemaVersion",
+    "DefaultRetentionMode",
+    "DestinationFormat",
+    "FilterRuleName",
+    "InventoryConfigurationIncludedObjectVersions",
+    "InventoryConfigurationScheduleFrequency",
+    "StorageClass",
+    "Protocol",
+    "SSEAlgorithm"
 ]

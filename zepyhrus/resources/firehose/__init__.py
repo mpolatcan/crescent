@@ -42,13 +42,13 @@ from .constants import (
 
 class FirehoseFactory:
     class __DeliveryStreamFactory:
-        type = DeliveryStreamType
+        delivery_stream_type = DeliveryStreamType
         s3_backup_mode = S3BackupMode
-        compression = CompressionFormat
-        orc_version = OrcSerDeFormatVersion
-        parquet_version = ParquetSerDeWriterVersion
-        es_ir_period = ElasticsearchDestinationIndexRotationPeriod
-        processor_param = ProcessorParameterName
+        compression_format = CompressionFormat
+        orc_ser_de_format_version = OrcSerDeFormatVersion
+        parquet_ser_de_writer_version = ParquetSerDeWriterVersion
+        elastisearch_destination_index_rotation_period = ElasticsearchDestinationIndexRotationPeriod
+        processor_parameter_name = ProcessorParameterName
         processor_type = ProcessorType
 
         @staticmethod

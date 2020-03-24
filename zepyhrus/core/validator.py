@@ -105,6 +105,8 @@ class __Validator__:
         value = kwargs[Validator.KEY_VALUE]
         pattern = kwargs[Validator.KEY_VALIDATION_VALUE]
 
+        print(value)
+
         if value is not None and not re.match(pattern, value):
             raise PatternMismatchException("Value \"{value}\" is not matching regex pattern \"{pattern}\"".format(
                 value=value, pattern=pattern

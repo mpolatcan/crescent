@@ -14,7 +14,11 @@ from .bucket import (
     ReplicationDestination, ReplicationRule, RoutingRule, RoutingRuleCondition,
     Rule, S3KeyFilter, ServerSideEncryptionByDefault, ServerSideEncryptionRule,
     SourceSelectionCriteria, SseKmsEncryptedObjects, StorageClassAnalysis, TagFilter,
-    TopicConfiguration, Transition, VersioningConfiguration, WebsiteConfiguration
+    TopicConfiguration, Transition, VersioningConfiguration, WebsiteConfiguration,
+    StatusEnabledDisabled, StatusEnabledSuspended, AccessControlTranslationOwner, HttpMethod,
+    DataExportOutputSchemaVersion, DefaultRetentionMode, DestinationFormat, FilterRuleName,
+    InventoryConfigurationIncludedObjectVersions, InventoryConfigurationScheduleFrequency,
+    StorageClass, Protocol, SSEAlgorithm
 )
 from .bucket_policy import BucketPolicy
 
@@ -34,6 +38,23 @@ class S3Factory:
             return VpcConfiguration()
 
     class __BucketFactory:
+        acceleration_status = StatusEnabledSuspended
+        access_control_translation_owner = AccessControlTranslationOwner
+        http_method = HttpMethod
+        default_retention_mode = DefaultRetentionMode
+        destination_format = DestinationFormat
+        data_export_output_schema_version = DataExportOutputSchemaVersion
+        storage_class = StorageClass
+        inventory_configuration_schedule_frequency = InventoryConfigurationScheduleFrequency
+        inventory_configuration_included_object_versions = InventoryConfigurationIncludedObjectVersions
+        protocol = Protocol
+        replication_rule_status = StatusEnabledDisabled
+        rule_status = StatusEnabledDisabled
+        sse_algorithm = SSEAlgorithm
+        sse_kms_encrypted_objects_status = StatusEnabledDisabled
+        versioning_configuration_status = StatusEnabledSuspended
+        filter_rule_name = FilterRuleName
+
         @staticmethod
         def AbortIncompleteMultipartUpload():
             return AbortIncompleteMultipartUpload()
