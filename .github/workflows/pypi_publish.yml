@@ -1,0 +1,43 @@
+name: zepyhrus-publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    name: Zepyhrus version publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
+        run: pip install wheel pyyaml twine
+      - if: contains(github.ref, 'patch')
+        run: python version_updater.py patch
+      - if: contains(github.ref, 'minor')
+        run: python version_updater.py minor
+      - if: contains(github.ref, 'major')
+        run: python version_updater.py major
+      - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
+        run: git config user.name 'mpolatcan'
+      - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
+        run: git config user.email 'mutlupolatcan@gmail.com'
+      - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
+        run: git add .
+      - if: contains(github.ref, 'patch')
+        run: git commit -m "new patch version published"
+      - if: contains(github.ref, 'minor')
+        run: git commit -m "new minor version published"
+      - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
+        run: git push https://${{secrets.GITHUB_TOKEN}}@github.com/mpolatcan/zepyhrus.git HEAD:master
+      - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
+        run: python setup.py bdist_wheel
+      - if: contains(github.ref, 'patch') || contains(github.ref, 'minor') || contains(github.ref, 'major')
+        run: twine upload dist/*
+                --username ${{secrets.PYPI_USERNAME}}
+                --password ${{secrets.PYPI_PASSWORD}}
+                --non-interactive
