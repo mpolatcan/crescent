@@ -1,2 +1,20 @@
-# TODO Pypi packaging
+import setuptools
+import yaml
 
+config = yaml.safe_load(open("pip_config.yml"))
+
+with open(config["long_description_path"], "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name=config["name"],
+    version=config["version"],
+    author=config["author"],
+    author_email=config["author_email"],
+    description=config["description"],
+    long_description=long_description,
+    long_description_content_type=config["long_description_content_type"],
+    url=config["url"],
+    packages=setuptools.find_packages(),
+    classifiers=config["classifiers"]
+)

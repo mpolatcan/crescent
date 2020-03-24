@@ -1,0 +1,12 @@
+name: zepyhrus
+version: 0.0.1
+author: Mutlu Polatcan
+author_email: mutlupolatcan@gmail.com
+description: Zepyhrus is CloudFormation template generator that validates your template and inform you easily.
+long_description_path: README.md
+long_description_content_type: text/markdown
+url: https://github.com/mpolatcan/zepyhrus
+classifiers:
+  - "Programming Language :: Python :: 3.6"
+  - "License :: OSI Approved :: Apache Software License"
+  - "Operating System :: OS Independent"
