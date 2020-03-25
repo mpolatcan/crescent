@@ -1,4 +1,4 @@
-name: zepyhrus-publish
+name: crescent-publish
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   publish:
-    name: Zepyhrus version publish
+    name: Crescent version publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
         run: git commit -m "new minor version published"
       - if: contains(github.ref, 'major')
         run: git commit -m "new major version published"
-      - run: git push https://${{secrets.GITHUB_TOKEN}}@github.com/mpolatcan/zepyhrus.git HEAD:master
+      - run: git push https://${{secrets.GITHUB_TOKEN}}@github.com/mpolatcan/crescent.git HEAD:master
       - run: python setup.py bdist_wheel
       - run: twine upload dist/*
                 --username ${{secrets.PYPI_USERNAME}}

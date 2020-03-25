@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  TestBucket:
+    Properties:
+      BucketName: test
+      LoggingConfiguration:
+        DestinationBucketName: log-test
+        LogFilePrefix: test-prefix
+    Type: AWS::S3::Bucket
+  TestEcrUser:
+    Properties:
+      Groups:
+      - test-ecr-group
+      UserName: test-ecr-user
+    Type: AWS::IAM::User
+  TestEfs:
+    Properties:
+      Encrypted: true
+      PerformanceMode: generalPurpose
+      ThroughputMode: provisioned
+    Type: AWS::EFS::FileSystem
+  TestEfsMountTarget:
+    Properties:
+      FileSystemId: TestEfs
+      SecurityGroups:
+      - sg-1
+      - sg-2
+      - sg-3
+      SubnetId: 192.168.0.0/0
+    Type: AWS::EFS::MountTarget
+  TestS3User:
+    Properties:
+      Groups:
+      - test-s3-group
+      UserName: test-s3-user
+    Type: AWS::IAM::User
+  test:
+    Properties:
+      DBInstanceClass: db.m4.large
+    Type: AWS::RDS::DBInstance
