@@ -12,4 +12,4 @@ long_description_content_type: text/markdown
 long_description_path: README.md
 name: crescent
 url: https://github.com/mpolatcan/crescent
-version: 0.0.15
+version: 0.0.16
