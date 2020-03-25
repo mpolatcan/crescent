@@ -36,5 +36,5 @@ Resources:
     Type: AWS::IAM::User
   test:
     Properties:
-      DBInstanceClass: db.m4.large
+      DBInstanceClass: db.m5.2xlarge
     Type: AWS::RDS::DBInstance

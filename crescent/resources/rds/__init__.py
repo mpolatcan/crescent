@@ -36,6 +36,7 @@ class RdsFactory:
 
     class __InstanceFactory:
         engine_version = EngineVersion
+        instance_class = DBInstanceClass
 
         @staticmethod
         def DBInstance(id: str):

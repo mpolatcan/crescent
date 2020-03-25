@@ -30,5 +30,5 @@ cf.Template().Resources(
         .UserName("test-s3-user")
         .Groups("test-s3-group"),
     rds_instance.DBInstance("test")
-    .DBInstanceClass("db.m4.large")
+    .DBInstanceClass(rds_instance.instance_class.M5_2XL_8_VCPU_32GIB_MEM)
 ).YAML("test")
