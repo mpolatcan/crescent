@@ -1,5 +1,5 @@
-# Zepyhrus
+# Crescent
 
-![zepyhrus-publish](https://github.com/mpolatcan/zepyhrus/workflows/zepyhrus-publish/badge.svg)
+![crescent-publish](https://github.com/mpolatcan/zepyhrus/workflows/crescent-publish/badge.svg)
 
-**Zepyhrus** is **AWS CloudFormation** template generator that validates your template and inform you easily.
+**Crescent** is **AWS CloudFormation** template generator that validates your template and inform you easily.
