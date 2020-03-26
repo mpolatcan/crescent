@@ -9,7 +9,7 @@ class Efs:
         TransitionToIA = TransitionToIA
 
         @staticmethod
-        def FileSystem(id: str):
+        def Create(id: str):
             return FileSystem(id)
 
         @staticmethod
@@ -22,7 +22,7 @@ class Efs:
 
     class MountTarget:
         @staticmethod
-        def MountTarget(id: str):
+        def Create(id: str):
             return MountTarget(id)
 
 

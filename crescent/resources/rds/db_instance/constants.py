@@ -1,3 +1,23 @@
+class DBInstanceEngines:
+    AURORA = "aurora"
+    AURORA_MYSQL = "aurora-mysql"
+    AURORA_POSTGRESQL = "aurora-postgresql"
+    MARIADB = "mariadb"
+    MYSQL = "mysql"
+    ORACLE_EE = "oracle-ee"
+    ORACLE_SE2 = "oracle-se2"
+    ORACLE_SE1 = "oracle-se1"
+    ORACLE_SE = "oracle-se"
+    POSTGRESQL = "postgres"
+    SQLSERVER_EE = "sqlserver-ee"
+    SQLSERVER_SE = "sqlserver-se"
+    SQLSERVER_EX = "sqlserver-ex"
+    SQLSERVER_WEB = "sqlserver-web"
+
+
+# ------------------------------------------------
+
+
 class StorageType:
     STANDARD = "standard"
     GP2 = "gp2"
@@ -99,6 +119,7 @@ class DBInstanceClass:
 
 
 class Property:
+    DB_INSTANCE_ENGINE = "Engine"
     DB_INSTANCE_ROLE_FEATURE_NAME = "FeatureName"
     DB_INSTANCE_ROLE_ROLE_ARN = "RoleArn"
 
@@ -109,4 +130,162 @@ class RequiredProperties:
     DB_INSTANCE_ROLE = [
         Property.DB_INSTANCE_ROLE_FEATURE_NAME,
         Property.DB_INSTANCE_ROLE_ROLE_ARN
+    ]
+
+
+class AllowedValues:
+    ENGINE = [
+        DBInstanceEngines.AURORA,
+        DBInstanceEngines.AURORA_MYSQL,
+        DBInstanceEngines.AURORA_POSTGRESQL,
+        DBInstanceEngines.MARIADB,
+        DBInstanceEngines.MYSQL,
+        DBInstanceEngines.ORACLE_EE,
+        DBInstanceEngines.ORACLE_SE2,
+        DBInstanceEngines.ORACLE_SE1,
+        DBInstanceEngines.ORACLE_EE,
+        DBInstanceEngines.POSTGRESQL,
+        DBInstanceEngines.SQLSERVER_EE,
+        DBInstanceEngines.SQLSERVER_SE,
+        DBInstanceEngines.SQLSERVER_EX,
+        DBInstanceEngines.SQLSERVER_WEB
+    ]
+    DB_INSTANCE_CLASS = [
+        DBInstanceClass.M5_24XL_96_VCPU_384GIB_MEM,
+        DBInstanceClass.M5_16XL_64_VCPU_256GIB_MEM,
+        DBInstanceClass.M5_12XL_48_VCPU_192GIB_MEM,
+        DBInstanceClass.M5_8XL_32_VCPU_128GIB_MEM,
+        DBInstanceClass.M5_4XL_16_VCPU_64GIB_MEM,
+        DBInstanceClass.M5_2XL_8_VCPU_32GIB_MEM,
+        DBInstanceClass.M5_XL_4_VCPU_16GIB_MEM,
+        DBInstanceClass.M5_L_2_VCPU_8GIB_MEM,
+        DBInstanceClass.M4_16XL_64_VCPU_25GIB_MEM,
+        DBInstanceClass.M4_10XL_40_VCPU_160GIB_MEM,
+        DBInstanceClass.M4_4XL_16_VCPU_64GIB_MEM,
+        DBInstanceClass.M4_2XL_8_VCPU_32GIB_MEM,
+        DBInstanceClass.M4_XL_4_VCPU_16GIB_MEM,
+        DBInstanceClass.M4_L_2_VCPU_8GIB_MEM,
+        DBInstanceClass.M3_2XL_8_VCPU_30GIB_MEM,
+        DBInstanceClass.M3_XL_4_VCPU_15GIB_MEM,
+        DBInstanceClass.M3_L_2_VCPU_7_5GIB_MEM,
+        DBInstanceClass.M3_M_1_VCPU_3_75GIB_MEM,
+        DBInstanceClass.M2_4XL_8_VCPU_68_4GIB_MEM,
+        DBInstanceClass.M2_XL_2_VCPU_17_1GIB_MEM,
+        DBInstanceClass.M2_2XL_4_VCPU_34_2GIB_MEM,
+        DBInstanceClass.M1_XL_4_VCPU_15GIB_MEM,
+        DBInstanceClass.M1_L_2_VCPU_7_5GIB_MEM,
+        DBInstanceClass.M1_M_1_VCPU_3_75GIB_MEM,
+        DBInstanceClass.M1_S_1_VCPU_1_7GIB_MEM,
+        DBInstanceClass.X1E_32XL_128_VCPU_3904GIB_MEM,
+        DBInstanceClass.X1E_16XL_64_VCPU_1952GIB_MEM,
+        DBInstanceClass.X1E_8XL_32_VCPU_976GIB_MEM,
+        DBInstanceClass.X1E_4XL_16_VCPU_488GIB_MEM,
+        DBInstanceClass.X1E_2XL_8_VCPU_244GIB_MEM,
+        DBInstanceClass.X1E_XL_4_VCPU_122GIB_MEM,
+        DBInstanceClass.X1_32XL_128_VCPU_1952GIB_MEM,
+        DBInstanceClass.X1_16XL_64_VCPU_976GIB_MEM,
+        DBInstanceClass.R5_24XL_96_VCPU_768GIB_MEM,
+        DBInstanceClass.R5_16XL_64_VCPU_512GIB_MEM,
+        DBInstanceClass.R5_12XL_48_VCPU_384GIB_MEM,
+        DBInstanceClass.R5_8XL_32_VCPU_256GIB_MEM,
+        DBInstanceClass.R5_4XL_16_VCPU_128GIB_MEM,
+        DBInstanceClass.R5_2XL_8_VCPU_64GIB_MEM,
+        DBInstanceClass.R5_XL_4_VCPU_32GIB_MEM,
+        DBInstanceClass.R5_L_2_VCPU_16GIB_MEM,
+        DBInstanceClass.R4_16XL_64_VCPU_488GIB_MEM,
+        DBInstanceClass.R4_8XL_32_VCPU_244GIB_MEM,
+        DBInstanceClass.R4_4XL_16_VCPU_122GIB_MEM,
+        DBInstanceClass.R4_2XL_8_VCPU_61GIB_MEM,
+        DBInstanceClass.R4_XL_4_VCPU_30_5GIB_MEM,
+        DBInstanceClass.R4_L_2_VCPU_15_25GIB_MEM,
+        DBInstanceClass.R3_8XL_32_VCPU_244GIB_MEM,
+        DBInstanceClass.R3_4XL_16_VCPU_122GIB_MEM,
+        DBInstanceClass.R3_2XL_8_VCPU_61GIB_MEM,
+        DBInstanceClass.R3_XL_4_VCPU_30_5GIB_MEM,
+        DBInstanceClass.R3_L_2_VCPU_15_25GIB_MEM,
+        DBInstanceClass.T3_2XL_8_VCPU_32GIB_MEM,
+        DBInstanceClass.T3_XL_4_VCPU_16GIB_MEM,
+        DBInstanceClass.T3_L_2_VCPU_8GIB_MEM,
+        DBInstanceClass.T3_M_2_VCPU_4GIB_MEM,
+        DBInstanceClass.T3_S_2_VCPU_2GIB_MEM,
+        DBInstanceClass.T3_MICRO_2_VCPU_1GIB_MEM,
+        DBInstanceClass.T2_2XL_8_VCPU_32GIB_MEM,
+        DBInstanceClass.T2_XL_4_VCPU_16GIB_MEM,
+        DBInstanceClass.T2_L_2_VCPU_8GIB_MEM,
+        DBInstanceClass.T2_M_2_VCPU_4GIB_MEM,
+        DBInstanceClass.T2_S_1_VCPU_2GIB_MEM,
+        DBInstanceClass.T2_MICRO_1_VCPU_1GIB_MEM
+    ]
+    MONITORING_INTERVAL = [
+        MonitoringInterval.SECS_0,
+        MonitoringInterval.SECS_1,
+        MonitoringInterval.SECS_5,
+        MonitoringInterval.SECS_10,
+        MonitoringInterval.SECS_15,
+        MonitoringInterval.SECS_30,
+        MonitoringInterval.SECS_60
+    ]
+    STORAGE_TYPE = [
+        StorageType.STANDARD,
+        StorageType.GP2,
+        StorageType.IO1
+    ]
+
+# ------------------------------------------------
+
+
+class Conditions:
+    BACKUP_RETENTION_PERIOD = [
+        (
+            [Property.DB_INSTANCE_ENGINE],
+            lambda engine:
+                Exception("The retention period for automated backups is managed by the DB Cluster for engine {}".format(engine))
+                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                else True
+        )
+    ]
+    CHARACTER_SET_NAME = [
+        (
+            [Property.DB_INSTANCE_ENGINE],
+            lambda engine:
+                Exception("Not applicable.The character set is managed by the DB Cluster for engine {}".format(engine))
+                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                else True
+        )
+    ]
+    COPY_TAGS_TO_SNAPSHOT = [
+        (
+            [Property.DB_INSTANCE_ENGINE],
+            lambda engine:
+                Exception("Not applicable. Copying tags to snapshots is managed by the DB cluster for engine {}".format(engine))
+                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                else True
+        )
+    ]
+    DELETION_PROTECTION = [
+        (
+            [Property.DB_INSTANCE_ENGINE],
+            lambda engine:
+                Exception("Not applicable. You can enable or disable deletion protection for the DB cluster for engine {}".format(engine))
+                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                else True
+        )
+    ]
+    ENABLE_IAM_DATABASE_AUTHENTICATION = [
+        (
+            [Property.DB_INSTANCE_ENGINE],
+            lambda engine:
+                Exception("Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster for engine {}".format(engine))
+                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                else True
+        )
+    ]
+    STORAGE_ENCRYPTED = [
+        (
+            [Property.DB_INSTANCE_ENGINE],
+            lambda engine:
+                Exception("Not applicable. The encryption for DB instances is managed by the DB cluster for engine {}".format(engine))
+                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                else True
+        )
     ]

@@ -52,7 +52,7 @@ class Firehose:
         ProcessorType = ProcessorType
 
         @staticmethod
-        def DeliveryStream(id: str):
+        def Create(id: str):
             return DeliveryStream(id)
 
         @staticmethod

@@ -1,5 +1,5 @@
 class EngineVersion:
-    class __AuroraVersion:
+    class Aurora:
         AURORA_5_6_10A = "5.6.10a"
         AURORA_5_6_MYSQL_AURORA_1_17_9 = "5.6.mysql_aurora.1.17.9"
         AURORA_5_6_MYSQL_AURORA_1_19_0 = "5.6.mysql_aurora.1.19.0"
@@ -13,7 +13,7 @@ class EngineVersion:
         AURORA_5_6_MYSQL_AURORA_1_22_1 = "5.6.mysql_aurora.1.22.1"
         AURORA_5_6_MYSQL_AURORA_1_22_2 = "5.6.mysql_aurora.1.22.2"
 
-    class __AuroraMysqlVersion:
+    class AuroraMysql:
         AURORA_MYSQL_5_7_12 = "5.7.12"
         AURORA_MYSQL_5_7_MYSQL_AURORA_2_03_2 = "5.7.mysql_aurora.2.03.2"
         AURORA_MYSQL_5_7_MYSQL_AURORA_2_03_3 = "5.7.mysql_aurora.2.03.3"
@@ -32,7 +32,7 @@ class EngineVersion:
         AURORA_MYSQL_5_7_MYSQL_AURORA_2_07_0 = "5.7.mysql_aurora.2.07.0"
         AURORA_MYSQL_5_7_MYSQL_AURORA_2_07_1 = "5.7.mysql_aurora.2.07.1"
 
-    class __AuroraPostgresqlVersion:
+    class AuroraPostgresql:
         AURORA_POSTGRESQL_9_6_3 = "9.6.3"
         AURORA_POSTGRESQL_9_6_6 = "9.6.6"
         AURORA_POSTGRESQL_9_6_8 = "9.6.8"
@@ -47,7 +47,3 @@ class EngineVersion:
         AURORA_POSTGRESQL_10_11 = "10.11"
         AURORA_POSTGRESQL_11_4 = "11.4"
         AURORA_POSTGRESQL_11_6 = "11.6"
-
-    aurora = __AuroraVersion
-    aurora_mysql = __AuroraMysqlVersion
-    aurora_postgresql = __AuroraPostgresqlVersion

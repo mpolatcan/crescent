@@ -41,5 +41,5 @@ Resources:
     Type: AWS::IAM::User
   test:
     Properties:
-      DBInstanceClass: db.m5.xlarge
-    Type: AWS::RDS::DBInstance
+      Engine: aurora
+    Type: AWS::RDS::DBCluster

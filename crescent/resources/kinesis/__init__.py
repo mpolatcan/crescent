@@ -5,7 +5,7 @@ from .stream_consumer import *
 class Kinesis:
     class Stream:
         @staticmethod
-        def Stream(id: str):
+        def Create(id: str):
             return Stream(id)
 
         @staticmethod
@@ -14,7 +14,7 @@ class Kinesis:
 
     class StreamConsumer:
         @staticmethod
-        def StreamConsumer(id: str):
+        def Create(id: str):
             return StreamConsumer(id)
 
 

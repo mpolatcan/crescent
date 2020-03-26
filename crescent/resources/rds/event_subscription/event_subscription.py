@@ -12,7 +12,7 @@ class EventSubscription(Resource):
     def Enabled(self, value: bool):
         return self._set_property(self.Enabled.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, conditions=Conditions.EVENT_CATEGORIES)
     def EventCategories(self, *value: str):
         return self._set_property(self.EventCategories.__name__, list(value))
 
@@ -20,7 +20,7 @@ class EventSubscription(Resource):
     def SnsTopicArn(self, value: str):
         return self._set_property(self.SnsTopicArn.__name__, value)
 
-    @Validator.validate(type=str, conditions=Conditions.EVENT_SUBSCRIPTION_SOURCE_IDS)
+    @Validator.validate(type=str, conditions=Conditions.SOURCE_IDS)
     def SourceIds(self, *value: str):
         return self._set_property(self.SourceIds.__name__, list(value))
 

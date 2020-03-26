@@ -1,4 +1,4 @@
-class Engine:
+class DBClusterEngines:
     AURORA = "aurora"
     AURORA_MYSQL = "aurora-mysql"
     AURORA_POSTGRESQL = "aurora-postgresql"
@@ -24,7 +24,7 @@ class RestoreType:
 
 
 class Capacity:
-    class __CapacityAuroraMysql:
+    class Aurora:
         CAP_1 = 1
         CAP_2 = 2
         CAP_4 = 4
@@ -35,7 +35,18 @@ class Capacity:
         CAP_128 = 128
         CAP_256 = 256
 
-    class __CapacityAuroraPostgresql:
+    class AuroraMysql:
+        CAP_1 = 1
+        CAP_2 = 2
+        CAP_4 = 4
+        CAP_8 = 8
+        CAP_16 = 16
+        CAP_32 = 32
+        CAP_64 = 64
+        CAP_128 = 128
+        CAP_256 = 256
+
+    class AuroraPostgresql:
         CAP_2 = 2
         CAP_4 = 4
         CAP_8 = 8
@@ -44,10 +55,6 @@ class Capacity:
         CAP_64 = 64
         CAP_192 = 192
         CAP_384 = 384
-
-    aurora = __CapacityAuroraMysql
-    aurora_mysql = __CapacityAuroraMysql
-    aurora_postgresql = __CapacityAuroraPostgresql
 
 # -----------------------------------------------------------
 
@@ -73,9 +80,9 @@ class AllowedValues:
         RestoreType.COPY_ON_WRITE
     ]
     ENGINE = [
-        Engine.AURORA,
-        Engine.AURORA_MYSQL,
-        Engine.AURORA_POSTGRESQL
+        DBClusterEngines.AURORA,
+        DBClusterEngines.AURORA_MYSQL,
+        DBClusterEngines.AURORA_POSTGRESQL
     ]
     ENGINE_MODE = [
         EngineMode.PROVISIONED,
@@ -115,21 +122,21 @@ class RequiredProperties:
 
 class Constants:
     ENGINE_CAPACITIES = {
-        Engine.AURORA: [
-            Capacity.aurora_mysql.CAP_1, Capacity.aurora_mysql.CAP_2, Capacity.aurora_mysql.CAP_4,
-            Capacity.aurora_mysql.CAP_8, Capacity.aurora_mysql.CAP_16, Capacity.aurora_mysql.CAP_32,
-            Capacity.aurora_mysql.CAP_64, Capacity.aurora_mysql.CAP_128, Capacity.aurora_mysql.CAP_256
+        DBClusterEngines.AURORA: [
+            Capacity.Aurora.CAP_1, Capacity.Aurora.CAP_2, Capacity.Aurora.CAP_4,
+            Capacity.Aurora.CAP_8, Capacity.Aurora.CAP_16, Capacity.Aurora.CAP_32,
+            Capacity.Aurora.CAP_64, Capacity.Aurora.CAP_128, Capacity.Aurora.CAP_256
         ],
-        Engine.AURORA_MYSQL: [
-            Capacity.aurora_mysql.CAP_1, Capacity.aurora_mysql.CAP_2, Capacity.aurora_mysql.CAP_4,
-            Capacity.aurora_mysql.CAP_8, Capacity.aurora_mysql.CAP_16, Capacity.aurora_mysql.CAP_32,
-            Capacity.aurora_mysql.CAP_64, Capacity.aurora_mysql.CAP_128, Capacity.aurora_mysql.CAP_256
+        DBClusterEngines.AURORA_MYSQL: [
+            Capacity.AuroraMysql.CAP_1, Capacity.AuroraMysql.CAP_2, Capacity.AuroraMysql.CAP_4,
+            Capacity.AuroraMysql.CAP_8, Capacity.AuroraMysql.CAP_16, Capacity.AuroraMysql.CAP_32,
+            Capacity.AuroraMysql.CAP_64, Capacity.AuroraMysql.CAP_128, Capacity.AuroraMysql.CAP_256
         ],
-        Engine.AURORA_POSTGRESQL: [
-            Capacity.aurora_postgresql.CAP_2, Capacity.aurora_postgresql.CAP_4,
-            Capacity.aurora_postgresql.CAP_8, Capacity.aurora_postgresql.CAP_16,
-            Capacity.aurora_postgresql.CAP_32, Capacity.aurora_postgresql.CAP_64,
-            Capacity.aurora_postgresql.CAP_192, Capacity.aurora_postgresql.CAP_384
+        DBClusterEngines.AURORA_POSTGRESQL: [
+            Capacity.AuroraPostgresql.CAP_2, Capacity.AuroraPostgresql.CAP_4,
+            Capacity.AuroraPostgresql.CAP_8, Capacity.AuroraPostgresql.CAP_16,
+            Capacity.AuroraPostgresql.CAP_32, Capacity.AuroraPostgresql.CAP_64,
+            Capacity.AuroraPostgresql.CAP_192, Capacity.AuroraPostgresql.CAP_384
         ]
     }
 

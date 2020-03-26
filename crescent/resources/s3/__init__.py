@@ -6,7 +6,7 @@ from .bucket_policy import *
 class S3:
     class AccessPoint:
         @staticmethod
-        def AccessPoint(id: str):
+        def Create(id: str):
             return AccessPoint(id)
 
         @staticmethod
@@ -36,6 +36,10 @@ class S3:
         FilterRuleName = FilterRuleName
 
         @staticmethod
+        def Create(id: str):
+            return Bucket(id)
+
+        @staticmethod
         def AbortIncompleteMultipartUpload():
             return AbortIncompleteMultipartUpload()
 
@@ -50,10 +54,6 @@ class S3:
         @staticmethod
         def AnalyticsConfiguration():
             return AnalyticsConfiguration()
-
-        @staticmethod
-        def Bucket(id: str):
-            return Bucket(id)
 
         @staticmethod
         def BucketEncryption():
@@ -213,7 +213,7 @@ class S3:
 
     class BucketPolicy:
         @staticmethod
-        def BucketPolicy(id: str):
+        def Create(id: str):
             return BucketPolicy(id)
 
 

@@ -11,15 +11,15 @@ from .constants import EngineVersion
 
 
 class Rds:
-    class Cluster:
-        Engine = Engine
+    class DBCluster:
+        Engine = DBClusterEngines
         EngineVersion = EngineVersion
         EngineMode = EngineMode
         RestoreType = RestoreType
         Capacity = Capacity
 
         @staticmethod
-        def DBCluster(id: str):
+        def Create(id: str):
             return DBCluster(id)
 
         @staticmethod
@@ -34,12 +34,14 @@ class Rds:
         def ScalingConfiguration():
             return ScalingConfiguration()
 
-    class Instance:
-        EngineVersion = EngineVersion
+    class DBInstance:
+        Engines = DBInstanceEngines
         DBInstanceClass = DBInstanceClass
+        MonitoringInterval = MonitoringInterval
+        StorageType = StorageType
 
         @staticmethod
-        def DBInstance(id: str):
+        def Create(id: str):
             return DBInstance(id)
 
         @staticmethod
@@ -54,9 +56,9 @@ class Rds:
         def ProcessorFeature():
             return ProcessorFeature()
 
-    class SecurityGroup:
+    class DBSecurityGroup:
         @staticmethod
-        def DBSecurityGroup(id: str):
+        def Create(id: str):
             return DBSecurityGroup(id)
 
         @staticmethod
@@ -67,9 +69,14 @@ class Rds:
         def Ingress():
             return Ingress()
 
+    class DBSubnetGroup:
+        @staticmethod
+        def Create(id: str):
+            return DBSubnetGroup(id)
+
     class OptionGroup:
         @staticmethod
-        def OptionGroup(id: str):
+        def Create(id: str):
             return OptionGroup(id)
 
         @staticmethod
@@ -80,16 +87,12 @@ class Rds:
         def OptionSetting():
             return OptionSetting()
 
-    class SubnetGroup:
-        @staticmethod
-        def DBSubnetGroup(id: str):
-            return DBSubnetGroup(id)
-
     class EventSubscription:
+        EventCategories = EventCategories
         SourceType = SourceType
 
         @staticmethod
-        def EventSubscription(id: str):
+        def Create(id: str):
             return EventSubscription(id)
 
 

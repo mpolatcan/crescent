@@ -1,7 +1,7 @@
 from crescent.core import Resource, Tag, Validator
 from .db_instance_role import DBInstanceRole
 from .processor_feature import ProcessorFeature
-from .constants import RequiredProperties
+from .constants import AllowedValues, RequiredProperties, Conditions
 
 
 class DBInstance(Resource):
@@ -10,7 +10,7 @@ class DBInstance(Resource):
     def __init__(self, id: str):
         super(DBInstance, self).__init__(id, self.__TYPE)
 
-    @Validator.validate(type=int)
+    @Validator.validate(type=int, min_value=100)
     def AllocatedStorage(self, value: int):
         return self._set_property(self.AllocatedStorage.__name__, value)
 
@@ -31,7 +31,7 @@ class DBInstance(Resource):
     def AvailabilityZone(self, value: str):
         return self._set_property(self.AvailabilityZone.__name__, value)
 
-    @Validator.validate(type=int)
+    @Validator.validate(type=int, conditions=Conditions.BACKUP_RETENTION_PERIOD)
     def BackupRetentionPeriod(self, value: int):
         return self._set_property(self.BackupRetentionPeriod.__name__, value)
 
@@ -39,13 +39,11 @@ class DBInstance(Resource):
     def CACertificateIdentifier(self, value: str):
         return self._set_property(self.CACertificateIdentifier.__name__, value)
 
-    # TODO Condition implementation for Amazon Aurora engine
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, conditions=Conditions.CHARACTER_SET_NAME)
     def CharacterSetName(self, value: str):
         return self._set_property(self.CharacterSetName.__name__, value)
 
-    # TODO Condition implementation for Amazon Aurora engine
-    @Validator.validate(type=bool)
+    @Validator.validate(type=bool, conditions=Conditions.COPY_TAGS_TO_SNAPSHOT)
     def CopyTagsToSnapshot(self, value: bool):
         return self._set_property(self.CopyTagsToSnapshot.__name__, value)
 
@@ -53,8 +51,7 @@ class DBInstance(Resource):
     def DBClusterIdentifier(self, value: str):
         return self._set_property(self.DBClusterIdentifier.__name__, value)
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.DB_INSTANCE_CLASS)
     def DBInstanceClass(self, value: str):
         return self._set_property(self.DBInstanceClass.__name__, value)
 
@@ -83,12 +80,11 @@ class DBInstance(Resource):
     def DBSubnetGroupName(self, value: str):
         return self._set_property(self.DBSubnetGroupName.__name__, value)
 
-    #  TODO Condition implementation for Amazon Aurora engine
     @Validator.validate(type=bool)
     def DeleteAutomatedBackups(self, value: bool):
         return self._set_property(self.DeleteAutomatedBackups.__name__, value)
 
-    @Validator.validate(type=bool)
+    @Validator.validate(type=bool, conditions=Conditions.DELETION_PROTECTION)
     def DeletionProtection(self, value: bool):
         return self._set_property(self.DeletionProtection.__name__, value)
 
@@ -104,8 +100,7 @@ class DBInstance(Resource):
     def EnableCloudwatchLogsExports(self, *value: str):
         return self._set_property(self.EnableCloudwatchLogsExports.__name__, list(value))
 
-    # TODO Condition implementation for Amazon Aurora engine
-    @Validator.validate(type=bool)
+    @Validator.validate(type=bool, conditions=Conditions.ENABLE_IAM_DATABASE_AUTHENTICATION)
     def EnableIAMDatabaseAuthentication(self, value: bool):
         return self._set_property(self.EnableIAMDatabaseAuthentication.__name__, value)
 
@@ -113,8 +108,7 @@ class DBInstance(Resource):
     def EnablePerformanceInsights(self, value: bool):
         return self._set_property(self.EnablePerformanceInsights.__name__, value)
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.ENGINE)
     def Engine(self, value: str):
         return self._set_property(self.Engine.__name__, value)
 
@@ -148,13 +142,11 @@ class DBInstance(Resource):
     def MaxAllocatedStorage(self, value: int):
         return self._set_property(self.MaxAllocatedStorage.__name__, value)
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=int)
+    @Validator.validate(type=int, allowed_values=AllowedValues.MONITORING_INTERVAL)
     def MonitoringInterval(self, value: int):
         return self._set_property(self.MonitoringInterval.__name__, value)
 
-    # TODO Pattern check must be applied for ARN
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, pattern=r"arn:.*")
     def MonitoringRoleArn(self, value: str):
         return self._set_property(self.MonitoringRoleArn.__name__, value)
 
@@ -207,13 +199,11 @@ class DBInstance(Resource):
     def SourceRegion(self, value: str):
         return self._set_property(self.SourceRegion.__name__, value)
 
-    # TODO Condition implementation for Amazon Aurora
-    @Validator.validate(type=bool)
+    @Validator.validate(type=bool, conditions=Conditions.STORAGE_ENCRYPTED)
     def StorageEncrypted(self, value: bool):
         return self._set_property(self.StorageEncrypted.__name__, value)
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.STORAGE_TYPE)
     def StorageType(self, value: str):
         return self._set_property(self.StorageType.__name__, value)
 
