@@ -2,7 +2,7 @@ from .repository import Repository
 from .lifecycle_policy import LifecyclePolicy
 
 
-class EcrFactory:
+class Ecr:
     @staticmethod
     def Repository(id: str):
         return Repository(id)
@@ -12,8 +12,6 @@ class EcrFactory:
         return LifecyclePolicy()
 
 
-ecr = EcrFactory
-
 __all__ = [
-    "ecr"
+    "Ecr"
 ]

@@ -1,14 +1,66 @@
-# TODO Zones will be added
-class Zones:
-    pass
-
+class Region:
+    EU_NORTH_1 = "eu-north-1"
+    AP_SOUTH_1 = "ap-south-1"
+    EU_WEST_3 = "eu-west-3"
+    EU_WEST_2 = "eu-west-2"
+    EU_WEST_1 = "eu-west-1"
+    AP_NORTHEAST_2 = "ap-northeast-2"
+    AP_NORTHEAST_1 = "ap-northeast-1"
+    SA_EAST_1 = "sa-east-1"
+    CA_CENTRAL_1 = "ca-central-1"
+    AP_SOUTHEAST_1 = "ap-southeast-1"
+    AP_SOUTHEAST_2 = "ap-southeast-2"
+    EU_CENTRAL_1 = "eu-central-1"
+    US_EAST_1 = "us-east-1"
+    US_EAST_2 = "us-east-2"
+    US_WEST_1 = "us-west-1"
+    US_WEST_2 = "us-west-2"
 
 # --------------------------------------------------------------------------------
 
-# TODO Regions will be added
-class Regions:
-    pass
 
+class Region2AZ:
+    def __init__(self, value):
+        self.A = "{}a".format(value)
+        self.B = "{}b".format(value)
+
+
+class Region3Az(Region2AZ):
+    def __init__(self, value):
+        super(Region3Az, self).__init__(value)
+        self.C = "{}c".format(value)
+
+
+class Region4Az(Region3Az):
+    def __init__(self, value):
+        super(Region4Az, self).__init__(value)
+        self.D = "{}d".format(value)
+
+
+class Region6Az(Region4Az):
+    def __init__(self, value):
+        super(Region6Az, self).__init__(value)
+        self.E = "{}e".format(value)
+        self.F = "{}f".format(value)
+
+
+class Zone:
+    EU_NORTH_1 = Region3Az(Region.EU_NORTH_1)
+    AP_SOUTH_1 = Region3Az(Region.AP_SOUTH_1)
+    EU_WEST_3 = Region3Az(Region.EU_WEST_3)
+    EU_WEST_2 = Region3Az(Region.EU_WEST_2)
+    EU_WEST_1 = Region3Az(Region.EU_WEST_1)
+    AP_NORTHEAST_2 = Region3Az(Region.AP_NORTHEAST_2)
+    AP_NORTHEAST_1 = Region3Az(Region.AP_NORTHEAST_1)
+    SA_EAST_1 = Region3Az(Region.SA_EAST_1)
+    CA_CENTRAL_1 = Region2AZ(Region.CA_CENTRAL_1)
+    AP_SOUTHEAST_1 = Region3Az(Region.AP_SOUTHEAST_1)
+    AP_SOUTHEAST_2 = Region3Az(Region.AP_SOUTHEAST_2)
+    EU_CENTRAL_1 = Region3Az(Region.EU_CENTRAL_1)
+    US_EAST_1 = Region6Az(Region.US_EAST_1)
+    US_EAST_2 = Region3Az(Region.US_EAST_2)
+    US_WEST_1 = Region2AZ(Region.US_WEST_1)
+    US_WEST_2 = Region4Az(Region.US_WEST_2)
 
 # --------------------------------------------------------------------------------
 
@@ -51,6 +103,7 @@ class Property:
     S3_BUCKET_POLICY_POLICY_DOCUMENT = "PolicyDocument"
     CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_APPLICATION_NAME = "ApplicationName"
     CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_DEPLOYMENT_GROUP_NAME = "DeploymentGroupNmae"
+
 
 # --------------------------------------------------------
 

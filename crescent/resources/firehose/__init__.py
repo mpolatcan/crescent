@@ -40,16 +40,16 @@ from .constants import (
 )
 
 
-class FirehoseFactory:
-    class __DeliveryStreamFactory:
-        delivery_stream_type = DeliveryStreamType
-        s3_backup_mode = S3BackupMode
-        compression_format = CompressionFormat
-        orc_ser_de_format_version = OrcSerDeFormatVersion
-        parquet_ser_de_writer_version = ParquetSerDeWriterVersion
-        elastisearch_destination_index_rotation_period = ElasticsearchDestinationIndexRotationPeriod
-        processor_parameter_name = ProcessorParameterName
-        processor_type = ProcessorType
+class Firehose:
+    class DeliveryStream:
+        DeliveryStreamType = DeliveryStreamType
+        S3BackupMode = S3BackupMode
+        CompressionFormat = CompressionFormat
+        OrcSerDeFormatVersion = OrcSerDeFormatVersion
+        ParquetSerDeWriterVersion = ParquetSerDeWriterVersion
+        ElasticsearchDestinationIndexRotationPeriod = ElasticsearchDestinationIndexRotationPeriod
+        ProcessorParameterName = ProcessorParameterName
+        ProcessorType = ProcessorType
 
         @staticmethod
         def DeliveryStream(id: str):
@@ -167,14 +167,7 @@ class FirehoseFactory:
         def SplunkRetryOptions():
             return SplunkRetryOptions()
 
-    delivery_stream = __DeliveryStreamFactory
-
-
-firehose = FirehoseFactory
-firehose_delivery_stream = firehose.delivery_stream
-
 
 __all__ = [
-    "firehose",
-    "firehose_delivery_stream"
+    "Firehose"
 ]

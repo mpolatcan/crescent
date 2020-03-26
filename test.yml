@@ -1,4 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  aws-type-test:
+    Type: AWS::EC2::Instance::Id
+  test:
+    Type: CommaDelimitedList
 Resources:
   TestBucket:
     Properties:
@@ -36,5 +41,5 @@ Resources:
     Type: AWS::IAM::User
   test:
     Properties:
-      DBInstanceClass: db.m5.2xlarge
+      DBInstanceClass: db.m5.xlarge
     Type: AWS::RDS::DBInstance

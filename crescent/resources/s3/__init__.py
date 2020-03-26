@@ -3,8 +3,8 @@ from .bucket import *
 from .bucket_policy import *
 
 
-class S3Factory:
-    class __AccessPointFactory:
+class S3:
+    class AccessPoint:
         @staticmethod
         def AccessPoint(id: str):
             return AccessPoint(id)
@@ -17,23 +17,23 @@ class S3Factory:
         def VpcConfiguration():
             return VpcConfiguration()
 
-    class __BucketFactory:
-        acceleration_status = StatusEnabledSuspended
-        access_control_translation_owner = AccessControlTranslationOwner
-        http_method = HttpMethod
-        default_retention_mode = DefaultRetentionMode
-        destination_format = DestinationFormat
-        data_export_output_schema_version = DataExportOutputSchemaVersion
-        storage_class = StorageClass
-        inventory_configuration_schedule_frequency = InventoryConfigurationScheduleFrequency
-        inventory_configuration_included_object_versions = InventoryConfigurationIncludedObjectVersions
-        protocol = Protocol
-        replication_rule_status = StatusEnabledDisabled
-        rule_status = StatusEnabledDisabled
-        sse_algorithm = SSEAlgorithm
-        sse_kms_encrypted_objects_status = StatusEnabledDisabled
-        versioning_configuration_status = StatusEnabledSuspended
-        filter_rule_name = FilterRuleName
+    class Bucket:
+        AccelerationStatus = StatusEnabledSuspended
+        AccessControlTranslationOwner = AccessControlTranslationOwner
+        HttpMethod = HttpMethod
+        DefaultRetentionMode = DefaultRetentionMode
+        DestinationFormat = DestinationFormat
+        DataExportOutputSchemaVersion = DataExportOutputSchemaVersion
+        StorageClass = StorageClass
+        InventoryConfigurationScheduleFrequency = InventoryConfigurationScheduleFrequency
+        InventoryConfigurationIncludedObjectVersions = InventoryConfigurationIncludedObjectVersions
+        Protocol = Protocol
+        ReplicationRuleStatus = StatusEnabledDisabled
+        RuleStatus = StatusEnabledDisabled
+        SSEAlgorithm = SSEAlgorithm
+        SseKmsEncryptedObjectsStatus = StatusEnabledDisabled
+        VersioningConfigurationStatus = StatusEnabledSuspended
+        FilterRuleName = FilterRuleName
 
         @staticmethod
         def AbortIncompleteMultipartUpload():
@@ -133,7 +133,7 @@ class S3Factory:
 
         @staticmethod
         def PublicAccessBlockConfiguration():
-            return BucketPublicAccessBlockConfiguration()
+            return PublicAccessBlockConfiguration()
 
         @staticmethod
         def RedirectAllRequestTo():
@@ -211,25 +211,12 @@ class S3Factory:
         def WebsiteConfiguration():
             return WebsiteConfiguration()
 
-    class __BucketPolicyFactory:
+    class BucketPolicy:
         @staticmethod
         def BucketPolicy(id: str):
             return BucketPolicy(id)
 
-    access_point = __AccessPointFactory
-    bucket = __BucketFactory
-    bucket_policy = __BucketPolicyFactory
-
-
-s3 = S3Factory
-s3_access_point = s3.access_point
-s3_bucket = s3.bucket
-s3_bucket_policy = s3.bucket_policy
-
 
 __all__ = [
-    "s3",
-    "s3_bucket",
-    "s3_access_point",
-    "s3_bucket_policy"
+    "S3"
 ]

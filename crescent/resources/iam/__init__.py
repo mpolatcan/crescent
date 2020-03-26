@@ -12,8 +12,8 @@ from .user_to_group_addition import UserToGroupAddition
 from .constants import AccessKeyStatus
 
 
-class IamFactory:
-    access_key_status = AccessKeyStatus
+class Iam:
+    AccessKeyStatus = AccessKeyStatus
 
     @staticmethod
     def AccessKey(id: str):
@@ -60,8 +60,6 @@ class IamFactory:
         return UserToGroupAddition(id)
 
 
-iam = IamFactory
-
 __all__ = [
-    "iam"
+    "Iam"
 ]

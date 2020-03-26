@@ -10,13 +10,13 @@ from .option_group import *
 from .constants import EngineVersion
 
 
-class RdsFactory:
-    class __ClusterFactory:
-        engine = Engine
-        engine_version = EngineVersion
-        engine_mode = EngineMode
-        restore_type = RestoreType
-        capacity = Capacity
+class Rds:
+    class Cluster:
+        Engine = Engine
+        EngineVersion = EngineVersion
+        EngineMode = EngineMode
+        RestoreType = RestoreType
+        Capacity = Capacity
 
         @staticmethod
         def DBCluster(id: str):
@@ -34,9 +34,9 @@ class RdsFactory:
         def ScalingConfiguration():
             return ScalingConfiguration()
 
-    class __InstanceFactory:
-        engine_version = EngineVersion
-        instance_class = DBInstanceClass
+    class Instance:
+        EngineVersion = EngineVersion
+        DBInstanceClass = DBInstanceClass
 
         @staticmethod
         def DBInstance(id: str):
@@ -54,7 +54,7 @@ class RdsFactory:
         def ProcessorFeature():
             return ProcessorFeature()
 
-    class __SecurityGroupFactory:
+    class SecurityGroup:
         @staticmethod
         def DBSecurityGroup(id: str):
             return DBSecurityGroup(id)
@@ -67,7 +67,7 @@ class RdsFactory:
         def Ingress():
             return Ingress()
 
-    class __OptionGroupFactory:
+    class OptionGroup:
         @staticmethod
         def OptionGroup(id: str):
             return OptionGroup(id)
@@ -80,41 +80,19 @@ class RdsFactory:
         def OptionSetting():
             return OptionSetting()
 
-    class __SubnetGroupFactory:
+    class SubnetGroup:
         @staticmethod
         def DBSubnetGroup(id: str):
             return DBSubnetGroup(id)
 
-    class __EventSubscriptionFactory:
-        source_type = SourceType
+    class EventSubscription:
+        SourceType = SourceType
 
         @staticmethod
         def EventSubscription(id: str):
             return EventSubscription(id)
 
-    cluster = __ClusterFactory
-    instance = __InstanceFactory
-    security_group = __SecurityGroupFactory
-    option_group = __OptionGroupFactory
-    subnet_group = __SubnetGroupFactory
-    event_subscription = __EventSubscriptionFactory
-
-
-rds = RdsFactory
-rds_cluster = rds.cluster
-rds_instance = rds.instance
-rds_security_group = rds.security_group
-rds_option_group = rds.option_group
-rds_subnet_group = rds.subnet_group
-rds_event_subscription = rds.event_subscription
-
 
 __all__ = [
-    "rds",
-    "rds_cluster",
-    "rds_instance",
-    "rds_security_group",
-    "rds_option_group",
-    "rds_subnet_group",
-    "rds_event_subscription"
+   "Rds"
 ]

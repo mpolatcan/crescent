@@ -2,11 +2,11 @@ from .file_system import *
 from .mount_target import *
 
 
-class EfsFactory:
-    class __FileSystemFactory:
-        throughput_mode = ThroughtputMode
-        performance_mode = PerformanceMode
-        transition_to_ia = TransitionToIA
+class Efs:
+    class FileSystem:
+        ThroughtputMode = ThroughtputMode
+        PerformanceMode = PerformanceMode
+        TransitionToIA = TransitionToIA
 
         @staticmethod
         def FileSystem(id: str):
@@ -20,22 +20,12 @@ class EfsFactory:
         def EfsTag(key: str, value: str):
             return ElasticFileSystemTag(key, value)
 
-    class __MountTargetFactory:
+    class MountTarget:
         @staticmethod
         def MountTarget(id: str):
             return MountTarget(id)
 
-    file_system = __FileSystemFactory
-    mount_target = __MountTargetFactory
-
-
-efs = EfsFactory
-efs_file_system = efs.file_system
-efs_mount_target = efs.mount_target
-
 
 __all__ = [
-    "efs",
-    "efs_file_system",
-    "efs_mount_target"
+    "Efs"
 ]

@@ -1,12 +1,6 @@
-# TODO Validations will be checked and updated
 from .model import Model
 from .validator import Validator
-from .resource_attrs import (
-    CreationPolicy,
-    DeletionPolicy,
-    UpdatePolicy,
-    UpdateReplacePolicy
-)
+from .resource_attrs import CreationPolicy, DeletionPolicy, UpdatePolicy, UpdateReplacePolicy
 
 
 class Resource(Model):
@@ -33,9 +27,9 @@ class Resource(Model):
     def CreationPolicy(self, value: CreationPolicy):
         return self._set_field(self.CreationPolicy.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, allowed_values=[DeletionPolicy.SNAPSHOT,
+    @Validator.validate(type=str, allowed_values=[DeletionPolicy.DELETE,
                                                   DeletionPolicy.RETAIN,
-                                                  DeletionPolicy.DELETE])
+                                                  DeletionPolicy.SNAPSHOT])
     def DeletionPolicy(self, value: str):
         return self._set_field(self.DeletionPolicy.__name__, value)
 
@@ -56,8 +50,8 @@ class Resource(Model):
     def UpdatePolicy(self, value: UpdatePolicy):
         return self._set_field(self.UpdatePolicy.__name__, value.__to_dict__())
 
-    @Validator.validate(type=str, allowed_values=[UpdateReplacePolicy.SNAPSHOT,
+    @Validator.validate(type=str, allowed_values=[UpdateReplacePolicy.DELETE,
                                                   UpdateReplacePolicy.RETAIN,
-                                                  UpdateReplacePolicy.DELETE])
+                                                  UpdateReplacePolicy.SNAPSHOT])
     def UpdateReplacePolicy(self, value: str):
         return self._set_field(self.UpdateReplacePolicy.__name__, value)

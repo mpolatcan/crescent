@@ -13,7 +13,7 @@ from .exceptions import (
 import re
 
 
-class __Validator__:
+class CrescentValidator:
     KEY_MODEL = "model"
     KEY_PROPERTY = "property"
     KEY_VALUE = "value"
@@ -216,4 +216,4 @@ class __Validator__:
         return __decorator__
 
 
-Validator = __Validator__()
+Validator = CrescentValidator()

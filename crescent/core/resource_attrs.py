@@ -1,10 +1,9 @@
-# TODO Validations will be checked and updated
 from .model import Model
 from .validator import Validator
 from .constants import RequiredProperties
 
 
-class ResourceSignalModel(Model):
+class ResourceSignal(Model):
     @Validator.validate(type=int)
     def Count(self, value: int):
         return self._set_field(self.Count.__name__, value)
@@ -14,33 +13,25 @@ class ResourceSignalModel(Model):
         return self._set_field(self.Timeout.__name__, value)
 
 
-class AutoscalingCreationPolicyModel(Model):
+class AutoscalingCreationPolicy(Model):
     @Validator.validate(type=int, min_value=0, max_value=100)
     def MinSuccessfulInstancesPercent(self, value: int):
         return self._set_field(self.MinSuccessfulInstancesPercent.__name__, value)
 
 
-class CreationPolicy(Model):
-    @Validator.validate(type=AutoscalingCreationPolicyModel)
-    def AutoscalingCreationPolicy(self, value: AutoscalingCreationPolicyModel):
+class _CreationPolicy(Model):
+    @Validator.validate(type=AutoscalingCreationPolicy)
+    def AutoscalingCreationPolicy(self, value: AutoscalingCreationPolicy):
         return self._set_field(self.AutoscalingCreationPolicy.__name__, value.__to_dict__())
 
-    @Validator.validate(type=ResourceSignalModel)
-    def ResourceSignal(self, value: ResourceSignalModel):
+    @Validator.validate(type=ResourceSignal)
+    def ResourceSignal(self, value: ResourceSignal):
         return self._set_field(self.ResourceSignal.__name__, value.__to_dict__())
 
 # --------------------------------------------------------------------------------------------
 
 
-class DeletionPolicy:
-    DELETE = "Delete"
-    RETAIN = "Retain"
-    SNAPSHOT = "Snapshot"
-
-# --------------------------------------------------------------------------------------------
-
-
-class AutoScalingReplacingUpdatePolicy(Model):
+class AutoScalingReplacingUpdate(Model):
     @Validator.validate(type=bool)
     def WillReplace(self, value: bool):
         return self._set_field(self.WillReplace.__name__, value)
@@ -57,7 +48,7 @@ class SuspendedProcesses:
     ADD_TO_LOAD_BALANCER = "AddToLoadBalancer"
 
 
-class AutoScalingRollingUpdatePolicy(Model):
+class AutoScalingRollingUpdate(Model):
     @Validator.validate(type=int)
     def MaxBatchSize(self, value: int):
         return self._set_field(self.MaxBatchSize.__name__, value)
@@ -92,13 +83,13 @@ class AutoScalingRollingUpdatePolicy(Model):
         return self._set_field(self.WaitOnResourceSignals.__name__, value)
 
 
-class AutoScalingScheduledActionPolicy(Model):
+class AutoScalingScheduledAction(Model):
     @Validator.validate(type=bool)
     def IgnoreUnmodifiedGroupSizeProperties(self, value: bool):
         return self._set_field(self.IgnoreUnmodifiedGroupSizeProperties.__name__, value)
 
 
-class CodeDeployLambdaAliasUpdatePolicy(Model):
+class CodeDeployLambdaAliasUpdate(Model):
     @Validator.validate(type=str)
     def AfterAllowTrafficHook(self, value: str):
         return self._set_field(self.AfterAllowTrafficHook.__name__, value)
@@ -116,17 +107,17 @@ class CodeDeployLambdaAliasUpdatePolicy(Model):
         return self._set_field(self.DeploymentGroupName.__name__, value)
 
 
-class UpdatePolicy(Model):
-    @Validator.validate(type=AutoScalingReplacingUpdatePolicy)
-    def AutoScalingReplacingUpdate(self, value: AutoScalingReplacingUpdatePolicy):
+class _UpdatePolicy(Model):
+    @Validator.validate(type=AutoScalingReplacingUpdate)
+    def AutoScalingReplacingUpdate(self, value: AutoScalingReplacingUpdate):
         return self._set_field(self.AutoScalingReplacingUpdate.__name__, value.__to_dict__())
 
-    @Validator.validate(type=AutoScalingRollingUpdatePolicy)
-    def AutoScalingRollingUpdate(self, value: AutoScalingRollingUpdatePolicy):
+    @Validator.validate(type=AutoScalingRollingUpdate)
+    def AutoScalingRollingUpdate(self, value: AutoScalingRollingUpdate):
         return self._set_field(self.AutoScalingRollingUpdate.__name__, value.__to_dict__())
 
-    @Validator.validate(type=AutoScalingScheduledActionPolicy)
-    def AutoScalingScheduledAction(self, value: AutoScalingScheduledActionPolicy):
+    @Validator.validate(type=AutoScalingScheduledAction)
+    def AutoScalingScheduledAction(self, value: AutoScalingScheduledAction):
         return self._set_field(self.AutoScalingScheduledAction.__name__, value.__to_dict__())
 
     @Validator.validate(type=bool)
@@ -137,15 +128,58 @@ class UpdatePolicy(Model):
     def EnableVersionUpgrade(self, value: bool):
         return self._set_field(self.EnableVersionUpgrade.__name__, value)
 
-    @Validator.validate(type=CodeDeployLambdaAliasUpdatePolicy, required_properties=RequiredProperties.CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_POLICY)
-    def CodeDeployLambdaAliasUpdate(self, value: CodeDeployLambdaAliasUpdatePolicy):
+    @Validator.validate(type=CodeDeployLambdaAliasUpdate, required_properties=RequiredProperties.CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_POLICY)
+    def CodeDeployLambdaAliasUpdate(self, value: CodeDeployLambdaAliasUpdate):
         return self._set_field(self.CodeDeployLambdaAliasUpdate.__name__, value.__to_dict__())
 
 # --------------------------------------------------------------------------------------------
+
+
+class CreationPolicy:
+    @staticmethod
+    def Create():
+        return _CreationPolicy()
+
+    @staticmethod
+    def AutoscalingCreationPolicy():
+        return AutoscalingCreationPolicy()
+
+    @staticmethod
+    def ResourceSignal():
+        return ResourceSignal()
+
+
+class DeletionPolicy:
+    DELETE = "Delete"
+    RETAIN = "Retain"
+    SNAPSHOT = "Snapshot"
+
+
+class UpdatePolicy:
+    SuspendedProcesses = SuspendedProcesses
+
+    @staticmethod
+    def Create():
+        return _UpdatePolicy()
+
+    @staticmethod
+    def AutoScalingReplacingUpdate():
+        return AutoScalingReplacingUpdate()
+
+    @staticmethod
+    def AutoScalingRollingUpdate():
+        return AutoScalingRollingUpdate()
+
+    @staticmethod
+    def AutoScalingScheduledAction():
+        return AutoScalingScheduledAction()
+
+    @staticmethod
+    def CodeDeployLambdaAliasUpdate():
+        return CodeDeployLambdaAliasUpdate()
 
 
 class UpdateReplacePolicy:
     DELETE = "Delete"
     RETAIN = "Retain"
     SNAPSHOT = "Snapshot"
-
