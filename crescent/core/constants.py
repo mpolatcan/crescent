@@ -1,20 +1,21 @@
 class Region:
-    EU_NORTH_1 = "eu-north-1"
-    AP_SOUTH_1 = "ap-south-1"
-    EU_WEST_3 = "eu-west-3"
-    EU_WEST_2 = "eu-west-2"
-    EU_WEST_1 = "eu-west-1"
-    AP_NORTHEAST_2 = "ap-northeast-2"
-    AP_NORTHEAST_1 = "ap-northeast-1"
-    SA_EAST_1 = "sa-east-1"
-    CA_CENTRAL_1 = "ca-central-1"
-    AP_SOUTHEAST_1 = "ap-southeast-1"
-    AP_SOUTHEAST_2 = "ap-southeast-2"
-    EU_CENTRAL_1 = "eu-central-1"
-    US_EAST_1 = "us-east-1"
-    US_EAST_2 = "us-east-2"
-    US_WEST_1 = "us-west-1"
-    US_WEST_2 = "us-west-2"
+    N_VIRGINIA_US_EAST_1 = "us-east-1"
+    OHIO_US_EAST_2 = "us-east-2"
+    N_CALIFORNIA_US_WEST_1 = "us-west-1"
+    OREGON_US_WEST_2 = "us-west-2"
+    CANADA_CA_CENTRAL_1 = "ca-central-1"
+    HONG_KONG_AP_EAST_1 = "ap-east-1"
+    MUMBAI_AP_SOUTH_1 = "ap-south-1"
+    SEOUL_AP_NORTHEAST_1 = "ap-northeast-1"
+    SINGAPORE_AP_NORTHEAST_2 = "ap-northeast-2"
+    SYDNEY_AP_SOUTHEAST_1 = "ap-southeast-1"
+    TOKYO_AP_SOUTHEAST_2 = "ap-southeast-2"
+    FRANKFURT_EU_CENTRAL_1 = "eu-central-1"
+    IRELAND_EU_WEST_1 = "eu-west-1"
+    LONDON_EU_WEST_2 = "eu-west-2"
+    PARIS_EU_WEST_3 = "eu-west-3"
+    STOCKHOLM_EU_NORTH_1 = "eu-north-1"
+    SAO_PAULO_SA_EAST_1 = "sa-east-1"
 
 # --------------------------------------------------------------------------------
 
@@ -45,22 +46,23 @@ class Region6Az(Region4Az):
 
 
 class Zone:
-    EU_NORTH_1 = Region3Az(Region.EU_NORTH_1)
-    AP_SOUTH_1 = Region3Az(Region.AP_SOUTH_1)
-    EU_WEST_3 = Region3Az(Region.EU_WEST_3)
-    EU_WEST_2 = Region3Az(Region.EU_WEST_2)
-    EU_WEST_1 = Region3Az(Region.EU_WEST_1)
-    AP_NORTHEAST_2 = Region3Az(Region.AP_NORTHEAST_2)
-    AP_NORTHEAST_1 = Region3Az(Region.AP_NORTHEAST_1)
-    SA_EAST_1 = Region3Az(Region.SA_EAST_1)
-    CA_CENTRAL_1 = Region2AZ(Region.CA_CENTRAL_1)
-    AP_SOUTHEAST_1 = Region3Az(Region.AP_SOUTHEAST_1)
-    AP_SOUTHEAST_2 = Region3Az(Region.AP_SOUTHEAST_2)
-    EU_CENTRAL_1 = Region3Az(Region.EU_CENTRAL_1)
-    US_EAST_1 = Region6Az(Region.US_EAST_1)
-    US_EAST_2 = Region3Az(Region.US_EAST_2)
-    US_WEST_1 = Region2AZ(Region.US_WEST_1)
-    US_WEST_2 = Region4Az(Region.US_WEST_2)
+    N_VIRGINIA_US_EAST_1 = Region6Az(Region.N_VIRGINIA_US_EAST_1)
+    OHIO_US_EAST_2 = Region3Az(Region.OHIO_US_EAST_2)
+    N_CALIFORNIA_US_WEST_1 = Region2AZ(Region.N_CALIFORNIA_US_WEST_1)
+    OREGON_US_WEST_2 = Region4Az(Region.OREGON_US_WEST_2)
+    CANADA_CA_CENTRAL_1 = Region2AZ(Region.CANADA_CA_CENTRAL_1)
+    HONG_KONG_AP_EAST_1 = Region3Az(Region.HONG_KONG_AP_EAST_1)
+    MUMBAI_AP_SOUTH_1 = Region3Az(Region.MUMBAI_AP_SOUTH_1)
+    SEOUL_AP_NORTHEAST_1 = Region3Az(Region.SEOUL_AP_NORTHEAST_1)
+    SINGAPORE_AP_NORTHEAST_2 = Region3Az(Region.SINGAPORE_AP_NORTHEAST_2)
+    SYDNEY_AP_SOUTHEAST_1 = Region3Az(Region.SYDNEY_AP_SOUTHEAST_1)
+    TOKYO_AP_SOUTHEAST_2 = Region3Az(Region.TOKYO_AP_SOUTHEAST_2)
+    FRANKFURT_EU_CENTRAL_1 = Region3Az(Region.FRANKFURT_EU_CENTRAL_1)
+    IRELAND_EU_WEST_1 = Region3Az(Region.IRELAND_EU_WEST_1)
+    LONDON_EU_WEST_2 = Region3Az(Region.LONDON_EU_WEST_2)
+    PARIS_EU_WEST_3 = Region3Az(Region.PARIS_EU_WEST_3)
+    STOCKHOLM_EU_NORTH_1 = Region3Az(Region.STOCKHOLM_EU_NORTH_1)
+    SAO_PAULO_SA_EAST_1 = Region3Az(Region.SAO_PAULO_SA_EAST_1)
 
 # --------------------------------------------------------------------------------
 
@@ -105,6 +107,83 @@ class Property:
     CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_DEPLOYMENT_GROUP_NAME = "DeploymentGroupNmae"
 
 
+# --------------------------------------------------------
+
+class AllowedValues:
+    REGION = [
+        Region.N_VIRGINIA_US_EAST_1,
+        Region.OHIO_US_EAST_2,
+        Region.N_CALIFORNIA_US_WEST_1,
+        Region.OREGON_US_WEST_2,
+        Region.CANADA_CA_CENTRAL_1,
+        Region.HONG_KONG_AP_EAST_1,
+        Region.MUMBAI_AP_SOUTH_1,
+        Region.SEOUL_AP_NORTHEAST_1,
+        Region.SINGAPORE_AP_NORTHEAST_2,
+        Region.SYDNEY_AP_SOUTHEAST_1,
+        Region.TOKYO_AP_SOUTHEAST_2,
+        Region.FRANKFURT_EU_CENTRAL_1,
+        Region.IRELAND_EU_WEST_1,
+        Region.LONDON_EU_WEST_2,
+        Region.PARIS_EU_WEST_3,
+        Region.STOCKHOLM_EU_NORTH_1,
+        Region.SAO_PAULO_SA_EAST_1
+    ]
+    ZONE = [
+        Zone.N_VIRGINIA_US_EAST_1.A,
+        Zone.N_VIRGINIA_US_EAST_1.B,
+        Zone.N_VIRGINIA_US_EAST_1.C,
+        Zone.N_VIRGINIA_US_EAST_1.D,
+        Zone.N_VIRGINIA_US_EAST_1.E,
+        Zone.N_VIRGINIA_US_EAST_1.F,
+        Zone.OHIO_US_EAST_2.A,
+        Zone.OHIO_US_EAST_2.B,
+        Zone.OHIO_US_EAST_2.C,
+        Zone.N_CALIFORNIA_US_WEST_1.A,
+        Zone.N_CALIFORNIA_US_WEST_1.B,
+        Zone.OREGON_US_WEST_2.A,
+        Zone.OREGON_US_WEST_2.B,
+        Zone.OREGON_US_WEST_2.C,
+        Zone.OREGON_US_WEST_2.D,
+        Zone.CANADA_CA_CENTRAL_1.A,
+        Zone.CANADA_CA_CENTRAL_1.B,
+        Zone.HONG_KONG_AP_EAST_1.A,
+        Zone.HONG_KONG_AP_EAST_1.B,
+        Zone.HONG_KONG_AP_EAST_1.C,
+        Zone.MUMBAI_AP_SOUTH_1.A,
+        Zone.MUMBAI_AP_SOUTH_1.B,
+        Zone.MUMBAI_AP_SOUTH_1.C,
+        Zone.SEOUL_AP_NORTHEAST_1.A,
+        Zone.SEOUL_AP_NORTHEAST_1.B,
+        Zone.SEOUL_AP_NORTHEAST_1.C,
+        Zone.SINGAPORE_AP_NORTHEAST_2.A,
+        Zone.SINGAPORE_AP_NORTHEAST_2.B,
+        Zone.SINGAPORE_AP_NORTHEAST_2.C,
+        Zone.SYDNEY_AP_SOUTHEAST_1.A,
+        Zone.SYDNEY_AP_SOUTHEAST_1.B,
+        Zone.SYDNEY_AP_SOUTHEAST_1.C,
+        Zone.TOKYO_AP_SOUTHEAST_2.A,
+        Zone.TOKYO_AP_SOUTHEAST_2.B,
+        Zone.TOKYO_AP_SOUTHEAST_2.C,
+        Zone.FRANKFURT_EU_CENTRAL_1.A,
+        Zone.FRANKFURT_EU_CENTRAL_1.B,
+        Zone.FRANKFURT_EU_CENTRAL_1.C,
+        Zone.IRELAND_EU_WEST_1.A,
+        Zone.IRELAND_EU_WEST_1.B,
+        Zone.IRELAND_EU_WEST_1.C,
+        Zone.LONDON_EU_WEST_2.A,
+        Zone.LONDON_EU_WEST_2.B,
+        Zone.LONDON_EU_WEST_2.C,
+        Zone.PARIS_EU_WEST_3.A,
+        Zone.PARIS_EU_WEST_3.B,
+        Zone.PARIS_EU_WEST_3.C,
+        Zone.STOCKHOLM_EU_NORTH_1.A,
+        Zone.STOCKHOLM_EU_NORTH_1.B,
+        Zone.STOCKHOLM_EU_NORTH_1.C,
+        Zone.SAO_PAULO_SA_EAST_1.A,
+        Zone.SAO_PAULO_SA_EAST_1.B,
+        Zone.SAO_PAULO_SA_EAST_1.C
+    ]
 # --------------------------------------------------------
 
 

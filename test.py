@@ -5,7 +5,8 @@ from crescent import (
     Iam as iam,
     Rds as rds,
     Types as types,
-    AwsTypes as aws_types
+    AwsTypes as aws_types,
+    Firehose as fh
 )
 
 cf.Template().Resources(
@@ -30,10 +31,11 @@ cf.Template().Resources(
         .UserName("test-s3-user")
         .Groups("test-s3-group"),
     rds.DBInstance.Create("test")
-    .DBInstanceClass(rds.DBInstance.DBInstanceClass.M5_XL_4_VCPU_16GIB_MEM)
-    .Engine(rds.DBInstance.Engines.MARIADB),
-    rds.DBCluster.Create("test")
-    .Engine(rds.DBCluster.Engine.AURORA)
+        .DBInstanceClass(rds.DBInstance.DBInstanceClass.M5_XL_4_VCPU_16GIB_MEM)
+        .Engine(rds.DBInstance.Engines.MYSQL)
+        .MasterUserPassword("test_password")
+        .DBName("test-db"),
+    fh.DeliveryStream.Create("afaf")
 ).Parameters(
     cf.Parameter("test", types.CommaDelimitedList),
     cf.Parameter("aws-type-test", aws_types.Ec2.InstanceId)

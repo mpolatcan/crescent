@@ -16,7 +16,7 @@ from .type import (
     Types,
     AwsTypes
 )
-from .constants import Region, Zone
+from .constants import Region, Zone, AllowedValues
 
 __all__ = [
     "Template",

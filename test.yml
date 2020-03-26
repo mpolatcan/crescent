@@ -39,7 +39,13 @@ Resources:
       - test-s3-group
       UserName: test-s3-user
     Type: AWS::IAM::User
+  afaf:
+    Properties: {}
+    Type: AWS::KinesisFirehose::DeliveryStream
   test:
     Properties:
-      Engine: aurora
-    Type: AWS::RDS::DBCluster
+      DBInstanceClass: db.m5.xlarge
+      DBName: test-db
+      Engine: mysql
+      MasterUserPassword: test_password
+    Type: AWS::RDS::DBInstance

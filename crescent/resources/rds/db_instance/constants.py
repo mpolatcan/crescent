@@ -122,6 +122,8 @@ class Property:
     DB_INSTANCE_ENGINE = "Engine"
     DB_INSTANCE_ROLE_FEATURE_NAME = "FeatureName"
     DB_INSTANCE_ROLE_ROLE_ARN = "RoleArn"
+    DB_INSTANCE_DB_NAME = "DBName"
+    DB_INSTANCE_MASTER_USER_PASSWORD = "MasterUserPassword"
 
 # -----------------------------------------------------------
 
@@ -131,6 +133,8 @@ class RequiredProperties:
         Property.DB_INSTANCE_ROLE_FEATURE_NAME,
         Property.DB_INSTANCE_ROLE_ROLE_ARN
     ]
+
+# -----------------------------------------------------------
 
 
 class AllowedValues:
@@ -234,12 +238,41 @@ class AllowedValues:
 # ------------------------------------------------
 
 
+class Constants:
+    MASTER_USER_PASSWORD_LENGTHS = {
+        DBInstanceEngines.MARIADB: (8, 41),
+        DBInstanceEngines.SQLSERVER_SE: (8, 128),
+        DBInstanceEngines.SQLSERVER_WEB: (8, 128),
+        DBInstanceEngines.SQLSERVER_EE: (8, 128),
+        DBInstanceEngines.SQLSERVER_EX: (8, 128),
+        DBInstanceEngines.MYSQL: (8, 41),
+        DBInstanceEngines.ORACLE_EE: (8, 30),
+        DBInstanceEngines.ORACLE_SE: (8, 30),
+        DBInstanceEngines.ORACLE_SE1: (8, 30),
+        DBInstanceEngines.ORACLE_SE2: (8, 30),
+        DBInstanceEngines.POSTGRESQL: (8, 128)
+    }
+    DB_NAME_LENGTHS = {
+        DBInstanceEngines.MYSQL: (1, 64),
+        DBInstanceEngines.MARIADB: (1, 64),
+        DBInstanceEngines.POSTGRESQL: (1, 63),
+        DBInstanceEngines.AURORA: (1, 64),
+        DBInstanceEngines.AURORA_MYSQL: (1, 64),
+        DBInstanceEngines.AURORA_POSTGRESQL: (1, 64),
+        DBInstanceEngines.ORACLE_SE2: (1, 8),
+        DBInstanceEngines.ORACLE_SE1: (1, 8),
+        DBInstanceEngines.ORACLE_SE: (1, 8),
+        DBInstanceEngines.ORACLE_EE: (1, 8)
+    }
+# ------------------------------------------------
+
+
 class Conditions:
     BACKUP_RETENTION_PERIOD = [
         (
             [Property.DB_INSTANCE_ENGINE],
             lambda engine:
-                Exception("The retention period for automated backups is managed by the DB Cluster for engine {}".format(engine))
+                Exception("Property \"BackupRetentionPeriod\" is not applicable. The retention period for automated backups is managed by the DB Cluster for engine {}".format(engine))
                 if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
                 else True
         )
@@ -248,7 +281,7 @@ class Conditions:
         (
             [Property.DB_INSTANCE_ENGINE],
             lambda engine:
-                Exception("Not applicable.The character set is managed by the DB Cluster for engine {}".format(engine))
+                Exception("Property \"CharacterSetName\" is not applicable.The character set is managed by the DB Cluster for engine {}".format(engine))
                 if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
                 else True
         )
@@ -257,7 +290,7 @@ class Conditions:
         (
             [Property.DB_INSTANCE_ENGINE],
             lambda engine:
-                Exception("Not applicable. Copying tags to snapshots is managed by the DB cluster for engine {}".format(engine))
+                Exception("Property \"CopyTagsToSnapshot\" is not applicable. Copying tags to snapshots is managed by the DB cluster for engine {}".format(engine))
                 if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
                 else True
         )
@@ -266,7 +299,7 @@ class Conditions:
         (
             [Property.DB_INSTANCE_ENGINE],
             lambda engine:
-                Exception("Not applicable. You can enable or disable deletion protection for the DB cluster for engine {}".format(engine))
+                Exception("Property \"DeletionProtection\" is not applicable. You can enable or disable deletion protection for the DB cluster for engine {}".format(engine))
                 if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
                 else True
         )
@@ -275,7 +308,7 @@ class Conditions:
         (
             [Property.DB_INSTANCE_ENGINE],
             lambda engine:
-                Exception("Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster for engine {}".format(engine))
+                Exception("Property \"EnableIAMDatabaseAuthentication\" is not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster for engine {}".format(engine))
                 if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
                 else True
         )
@@ -284,8 +317,47 @@ class Conditions:
         (
             [Property.DB_INSTANCE_ENGINE],
             lambda engine:
-                Exception("Not applicable. The encryption for DB instances is managed by the DB cluster for engine {}".format(engine))
+                Exception("Property \"StorageEncrypted\" is not applicable. The encryption for DB instances is managed by the DB cluster for engine {}".format(engine))
                 if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
                 else True
+        )
+    ]
+    MASTER_USER_PASSWORD = [
+        (
+            [Property.DB_INSTANCE_ENGINE],
+            lambda engine:
+                Exception("Property \"MasterUserPassword\" is not applicable. The password for the master user is managed by the DB cluster for engine {}".format(engine))
+                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                else True
+        ),
+        (
+            [Property.DB_INSTANCE_MASTER_USER_PASSWORD, Property.DB_INSTANCE_ENGINE],
+            lambda master_user_password, engine:
+                Exception("Property \"MasterUserPassword\" must contain from {min} to {max} characters for engine {engine}. Given length: {length}".format(
+                    min=Constants.MASTER_USER_PASSWORD_LENGTHS[engine][0],
+                    max=Constants.MASTER_USER_PASSWORD_LENGTHS[engine][1],
+                    engine=engine,
+                    length=len(master_user_password)
+                ))
+                if (
+                    len(master_user_password) < Constants.MASTER_USER_PASSWORD_LENGTHS[engine][0] or
+                    len(master_user_password) > Constants.MASTER_USER_PASSWORD_LENGTHS[engine][1]
+                ) else True
+        )
+    ]
+    DB_NAME = [
+        (
+            [Property.DB_INSTANCE_DB_NAME, Property.DB_INSTANCE_ENGINE],
+            lambda db_name, engine:
+                Exception("Property \"DBName\" must contain from {min} to {max} characters for engine {engine}. Given length: {length}".format(
+                    min=Constants.DB_NAME_LENGTHS[engine][0],
+                    max=Constants.DB_NAME_LENGTHS[engine][1],
+                    engine=engine,
+                    length=len(db_name)
+                ))
+                if (
+                    len(db_name) < Constants.DB_NAME_LENGTHS[engine][0] or
+                    len(db_name) > Constants.DB_NAME_LENGTHS[engine][1]
+                ) else True
         )
     ]

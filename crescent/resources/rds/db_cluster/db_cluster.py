@@ -1,4 +1,4 @@
-from crescent.core import Resource, Tag, Validator
+from crescent.core import Resource, Tag, Validator, AllowedValues as CoreAllowedValues
 from .db_cluster_role import DBClusterRole
 from .scaling_configuration import ScalingConfiguration
 from .constants import AllowedValues, RequiredProperties, Conditions, NotSpecifyIfSpecified
@@ -14,8 +14,7 @@ class DBCluster(Resource):
     def AssociatedRoles(self, *value: DBClusterRole):
         return self._set_property(self.AssociatedRoles.__name__, [dcr.__to_dict__() for dcr in list(value)])
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=CoreAllowedValues.ZONE)
     def AvailabilityZones(self, *value: str):
         return self._set_property(self.AvailabilityZones.__name__, list(value))
 

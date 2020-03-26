@@ -1,4 +1,4 @@
-from crescent.core import Resource, Tag, Validator
+from crescent.core import Resource, Tag, Validator, AllowedValues as CoreAllowedValues
 from .db_instance_role import DBInstanceRole
 from .processor_feature import ProcessorFeature
 from .constants import AllowedValues, RequiredProperties, Conditions
@@ -26,8 +26,7 @@ class DBInstance(Resource):
     def AutoMinorVersionUpgrade(self, value: bool):
         return self._set_property(self.AutoMinorVersionUpgrade.__name__, value)
 
-    # TODO Allowed values validation will be addded
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=CoreAllowedValues.ZONE)
     def AvailabilityZone(self, value: str):
         return self._set_property(self.AvailabilityZone.__name__, value)
 
@@ -59,8 +58,7 @@ class DBInstance(Resource):
     def DBInstanceIdentifier(self, value: str):
         return self._set_property(self.DBInstanceIdentifier.__name__, value)
 
-    # TODO Condition implementation for all engines
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, conditions=Conditions.DB_NAME)
     def DBName(self, value: str):
         return self._set_property(self.DBName.__name__, value)
 
@@ -133,11 +131,10 @@ class DBInstance(Resource):
     def MasterUsername(self, value: str):
         return self._set_property(self.MasterUsername.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, conditions=Conditions.MASTER_USER_PASSWORD)
     def MasterUserPassword(self, value: str):
         return self._set_property(self.MasterUserPassword.__name__, value)
 
-    # TODO Condition implementation for all engines
     @Validator.validate(type=int)
     def MaxAllocatedStorage(self, value: int):
         return self._set_property(self.MaxAllocatedStorage.__name__, value)
@@ -194,8 +191,7 @@ class DBInstance(Resource):
     def SourceDBInstanceIdentifier(self, value: str):
         return self._set_property(self.SourceDBInstanceIdentifier.__name__, value)
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=CoreAllowedValues.REGION)
     def SourceRegion(self, value: str):
         return self._set_property(self.SourceRegion.__name__, value)
 
