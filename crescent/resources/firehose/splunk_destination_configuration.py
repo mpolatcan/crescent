@@ -3,7 +3,7 @@ from .cloudwatch_logging_options import CloudWatchLoggingOptions
 from .processing_configuration import ProcessingConfiguration
 from .s3_destination_configuration import S3DestinationConfiguration
 from .splunk_retry_options import SplunkRetryOptions
-from .constants import RequiredProperties, AllowedValues, Conditions
+from .constants import ModelRequiredProperties, AllowedValues, Conditions
 
 
 class SplunkDestinationConfiguration(Model):
@@ -31,7 +31,7 @@ class SplunkDestinationConfiguration(Model):
     def ProcessingConfiguration(self, value: ProcessingConfiguration):
         return self._set_field(self.ProcessingConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=SplunkRetryOptions, required_properties=RequiredProperties.SPLUNK_RETRY_OPTIONS)
+    @Validator.validate(type=SplunkRetryOptions, required_properties=ModelRequiredProperties.SPLUNK_RETRY_OPTIONS)
     def RetryOptions(self, value: SplunkRetryOptions):
         return self._set_field(self.RetryOptions.__name__, value.__to_dict__())
 
@@ -39,6 +39,6 @@ class SplunkDestinationConfiguration(Model):
     def S3BackupMode(self, value: str):
         return self._set_field(self.S3BackupMode.__name__, value)
 
-    @Validator.validate(type=S3DestinationConfiguration, required_properties=RequiredProperties.S3_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=S3DestinationConfiguration, required_properties=ModelRequiredProperties.S3_DESTINATION_CONFIGURATION)
     def S3Configuration(self, value: S3DestinationConfiguration):
         return self._set_field(self.S3Configuration.__name__, value.__to_dict__())

@@ -1,3 +1,6 @@
+from crescent.core.constants import get_values
+
+
 class AccessKeyStatus:
     ACTIVE = "Active"
     INACTIVE = "Inactive"
@@ -5,28 +8,23 @@ class AccessKeyStatus:
 # -----------------------------------------------------------
 
 
-class Property:
-    POLICY_MODEL_POLICY_DOCUMENT = "PolicyDocument"
-    POLICY_MODEL_POLICY_NAME = "PolicyName"
-    LOGIN_PROFILE_PASSWORD = "Password"
+class _RequiredProperties:
+    class PolicyModel:
+        POLICY_DOCUMENT = "PolicyDocument"
+        POLICY_NAME = "PolicyName"
+
+    class LoginProfile:
+        PASSWORD = "Password"
 
 # -----------------------------------------------------------
 
 
-class RequiredProperties:
-    POLICY_MODEL = [
-        Property.POLICY_MODEL_POLICY_DOCUMENT,
-        Property.POLICY_MODEL_POLICY_NAME
-    ]
-    LOGIN_PROFILE = [
-        Property.LOGIN_PROFILE_PASSWORD
-    ]
+class ModelRequiredProperties:
+    POLICY_MODEL = get_values(_RequiredProperties.PolicyModel)
+    LOGIN_PROFILE = get_values(_RequiredProperties.LoginProfile)
 
 # -----------------------------------------------------------
 
 
 class AllowedValues:
-    STATUS = [
-        AccessKeyStatus.ACTIVE,
-        AccessKeyStatus.INACTIVE
-    ]
+    STATUS = get_values(AccessKeyStatus)

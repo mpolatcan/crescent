@@ -1,3 +1,6 @@
+from crescent.core.constants import get_values
+
+
 class ThroughtputMode:
     BURSTING = "bursting"
     PROVISIONED = "provisioned"
@@ -22,33 +25,20 @@ class TransitionToIA:
 ##########################################
 
 
-class Property:
-    LIFECYCLE_POLICY_TRANSITION_TO_IA = "TransitionToIA"
+class _RequiredProperties:
+    class LifecyclePolicy:
+        TRANSITION_TO_IA = "TransitionToIA"
 
 ##########################################
 
 
-class RequiredProperties:
-    LIFECYCLE_POLICY = [
-        Property.LIFECYCLE_POLICY_TRANSITION_TO_IA
-    ]
+class ModelRequiredProperties:
+    LIFECYCLE_POLICY = get_values(_RequiredProperties.LifecyclePolicy)
 
 ##########################################
 
 
 class AllowedValues:
-    PERFORMANCE_MODE = [
-        PerformanceMode.GENERAL_PURPOSE,
-        PerformanceMode.MAX_IO
-    ]
-    THROUGHPUT_MODE = [
-        ThroughtputMode.BURSTING,
-        ThroughtputMode.PROVISIONED
-    ]
-    TRANSITION_TO_IA = [
-        TransitionToIA.AFTER_14_DAYS,
-        TransitionToIA.AFTER_30_DAYS,
-        TransitionToIA.AFTER_60_DAYS,
-        TransitionToIA.AFTER_7_DAYS,
-        TransitionToIA.AFTER_90_DAYS
-    ]
+    PERFORMANCE_MODE = get_values(PerformanceMode)
+    THROUGHPUT_MODE = get_values(ThroughtputMode)
+    TRANSITION_TO_IA = get_values(TransitionToIA)

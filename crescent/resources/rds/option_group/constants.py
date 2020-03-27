@@ -1,11 +1,13 @@
-class Property:
-    OPTION_CONFIGURATION_OPTION_NAME = "OptionName"
+from crescent.core.constants import get_values
+
+
+class _RequiredProperties:
+    class OptionConfiguration:
+        OPTION_NAME = "OptionName"
 
 # -----------------------------------------------------------
 
 
-class RequiredProperties:
-    OPTION_CONFIGURATION = [
-        Property.OPTION_CONFIGURATION_OPTION_NAME
-    ]
+class ModelRequiredProperties:
+    OPTION_CONFIGURATION = get_values(_RequiredProperties.OptionConfiguration)
 

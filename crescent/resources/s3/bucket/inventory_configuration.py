@@ -1,10 +1,10 @@
 from crescent.core import Model, Validator
 from .destination import Destination
-from .constants import AllowedValues, RequiredProperties
+from .constants import AllowedValues, ModelRequiredProperties
 
 
 class InventoryConfiguration(Model):
-    @Validator.validate(type=Destination, required_properties=RequiredProperties.DESTINATION)
+    @Validator.validate(type=Destination, required_properties=ModelRequiredProperties.DESTINATION)
     def Destination(self, value: Destination):
         return self._set_field(self.Destination.__name__, value.__to_dict__())
 

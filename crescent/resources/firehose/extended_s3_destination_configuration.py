@@ -5,7 +5,7 @@ from .data_format_conversion_configuration import DataFormatConversionConfigurat
 from .encryption_configuration import EncryptionConfiguration
 from .processing_configuration import ProcessingConfiguration
 from .s3_destination_configuration import S3DestinationConfiguration
-from .constants import RequiredProperties, AllowedValues, Conditions
+from .constants import ModelRequiredProperties, AllowedValues, Conditions
 
 
 class ExtendedS3DestinationConfiguration(Model):
@@ -13,7 +13,7 @@ class ExtendedS3DestinationConfiguration(Model):
     def BucketARN(self, value: str):
         return self._set_field(self.BucketARN.__name__, value)
 
-    @Validator.validate(type=BufferingHints, required_properties=RequiredProperties.BUFFERING_HINTS)
+    @Validator.validate(type=BufferingHints, required_properties=ModelRequiredProperties.BUFFERING_HINTS)
     def BufferingHints(self, value: BufferingHints):
         return self._set_field(self.BufferingHints.__name__, value.__to_dict__())
 
@@ -25,7 +25,7 @@ class ExtendedS3DestinationConfiguration(Model):
     def CompressionFormat(self, value: str):
         return self._set_field(self.CompressionFormat.__name__, value)
 
-    @Validator.validate(type=DataFormatConversionConfiguration, required_properties=RequiredProperties.DATA_FORMAT_CONVERSION_CONFIGURATION)
+    @Validator.validate(type=DataFormatConversionConfiguration, required_properties=ModelRequiredProperties.DATA_FORMAT_CONVERSION_CONFIGURATION)
     def DataFormatConversionConfiguration(self, value: DataFormatConversionConfiguration):
         return self._set_field(self.DataFormatConversionConfiguration.__name__, value.__to_dict__())
 
@@ -49,7 +49,7 @@ class ExtendedS3DestinationConfiguration(Model):
     def RoleARN(self, value: str):
         return self._set_field(self.RoleARN.__name__, value)
 
-    @Validator.validate(type=S3DestinationConfiguration, required_properties=RequiredProperties.S3_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=S3DestinationConfiguration, required_properties=ModelRequiredProperties.S3_DESTINATION_CONFIGURATION)
     def S3BackupConfiguration(self, value: S3DestinationConfiguration):
         return self._set_field(self.S3BackupConfiguration.__name__, value.__to_dict__())
 

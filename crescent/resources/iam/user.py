@@ -1,7 +1,7 @@
 from crescent.core import Resource, Tag, Validator
 from .policy_model import PolicyModel
 from .login_profile import LoginProfile
-from .constants import RequiredProperties
+from .constants import ModelRequiredProperties
 
 
 class User(Resource):
@@ -14,7 +14,7 @@ class User(Resource):
     def Groups(self, *value: str):
         return self._set_property(self.Groups.__name__, list(value))
 
-    @Validator.validate(type=LoginProfile, required_properties=RequiredProperties.LOGIN_PROFILE)
+    @Validator.validate(type=LoginProfile, required_properties=ModelRequiredProperties.LOGIN_PROFILE)
     def LoginProfile(self, value: LoginProfile):
         return self._set_property(self.LoginProfile.__name__, value.__to_dict__())
 
@@ -30,7 +30,7 @@ class User(Resource):
     def PermissionBoundary(self, value: str):
         return self._set_property(self.PermissionBoundary.__name__, value)
 
-    @Validator.validate(type=PolicyModel, required_properties=RequiredProperties.POLICY_MODEL)
+    @Validator.validate(type=PolicyModel, required_properties=ModelRequiredProperties.POLICY_MODEL)
     def Policies(self, *value: PolicyModel):
         return self._set_property(self.Policies.__name__, [pm.__to_dict__() for pm in list(value)])
 

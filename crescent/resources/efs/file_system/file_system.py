@@ -1,7 +1,7 @@
 from crescent.core import Resource, Validator
 from .lifecycle_policy import LifecyclePolicy
 from .efs_tag import ElasticFileSystemTag
-from .constants import AllowedValues, RequiredProperties
+from .constants import AllowedValues, ModelRequiredProperties
 
 
 class FileSystem(Resource):
@@ -22,7 +22,7 @@ class FileSystem(Resource):
     def KmsKeyId(self, value: str):
         return self._set_property(self.KmsKeyId.__name__, value)
 
-    @Validator.validate(type=LifecyclePolicy, required_properties=RequiredProperties.LIFECYCLE_POLICY)
+    @Validator.validate(type=LifecyclePolicy, required_properties=ModelRequiredProperties.LIFECYCLE_POLICY)
     def LifecyclePolicies(self, *value: LifecyclePolicy):
         return self._set_property(self.LifecyclePolicies.__name__, [lp.__to_dict__() for lp in list(value)])
 

@@ -1,6 +1,6 @@
 from crescent.core import Resource, Tag, Validator
 from .stream_encryption import StreamEncryption
-from .constants import RequiredProperties
+from .constants import ModelRequiredProperties
 
 
 class Stream(Resource):
@@ -21,7 +21,7 @@ class Stream(Resource):
     def ShardCount(self, value: int):
         return self._set_property(self.ShardCount.__name__, value)
 
-    @Validator.validate(type=StreamEncryption, required_properties=RequiredProperties.STREAM_ENCRYPTION)
+    @Validator.validate(type=StreamEncryption, required_properties=ModelRequiredProperties.STREAM_ENCRYPTION)
     def StreamEncryption(self, value: StreamEncryption):
         return self._set_property(self.StreamEncryption.__name__, value.__to_dict__())
 

@@ -1,3 +1,6 @@
+from crescent.core.constants import get_values
+
+
 class EventCategories:
     class DBInstance:
         AVAILABILITY = "availability"
@@ -50,67 +53,29 @@ class SourceType:
 # -----------------------------------------------------------
 
 
-class Property:
-    EVENT_SUBSCRIPTION_EVENT_CATEGORIES = "EventCategories"
-    EVENT_SUBSCRIPTION_SOURCE_TYPE = "SourceType"
+class _Property:
+    class EventSubscription:
+        EVENT_CATEGORIES = "EventCategories"
+        SOURCE_TYPE = "SourceType"
 
 
 # -----------------------------------------------------------
 
 
 class AllowedValues:
-    SOURCE_TYPE = [
-        SourceType.DB_INSTANCE,
-        SourceType.DB_CLUSTER,
-        SourceType.DB_PARAMETER_GROUP,
-        SourceType.DB_SECURITY_GROUP,
-        SourceType.DB_SNAPSHOT,
-        SourceType.DB_CLUSTER_SNAPSHOT
-    ]
+    SOURCE_TYPE = get_values(SourceType)
 
 # -----------------------------------------------------------
 
 
 class Constants:
     EVENT_CATEGORIES = {
-        SourceType.DB_INSTANCE: [
-            EventCategories.DBInstance.AVAILABILITY,
-            EventCategories.DBInstance.BACKUP,
-            EventCategories.DBInstance.CONFIGURATION_CHANGE,
-            EventCategories.DBInstance.CREATION,
-            EventCategories.DBInstance.DELETION,
-            EventCategories.DBInstance.FAILOVER,
-            EventCategories.DBInstance.FAILURE,
-            EventCategories.DBInstance.LOW_STORAGE,
-            EventCategories.DBInstance.MAINTENANCE,
-            EventCategories.DBInstance.NOTIFICATION,
-            EventCategories.DBInstance.READ_REPLICA,
-            EventCategories.DBInstance.RECOVERY,
-            EventCategories.DBInstance.RESTORATION
-        ],
-        SourceType.DB_PARAMETER_GROUP: [
-            EventCategories.DBParameterGroup.CONFIGURATION_CHANGE
-        ],
-        SourceType.DB_SECURITY_GROUP: [
-            EventCategories.DBSecurityGroup.CONFIGURATION_CHANGE,
-            EventCategories.DBSecurityGroup.FAILURE
-        ],
-        SourceType.DB_SNAPSHOT: [
-            EventCategories.DBSnapshot.DELETION,
-            EventCategories.DBSnapshot.CREATION,
-            EventCategories.DBSnapshot.NOTIFICATION,
-            EventCategories.DBSnapshot.RESTORATION
-        ],
-        SourceType.DB_CLUSTER: [
-            EventCategories.DBCluster.NOTIFICATION,
-            EventCategories.DBCluster.FAILURE,
-            EventCategories.DBCluster.FAILOVER,
-            EventCategories.DBCluster.MAINTENANCE
-        ],
-        SourceType.DB_CLUSTER_SNAPSHOT: [
-            EventCategories.DBClusterSnapshot.NOTIFICATION,
-            EventCategories.DBClusterSnapshot.BACKUP
-        ]
+        SourceType.DB_INSTANCE: get_values(EventCategories.DBInstance),
+        SourceType.DB_PARAMETER_GROUP: get_values(EventCategories.DBParameterGroup),
+        SourceType.DB_SECURITY_GROUP: get_values(EventCategories.DBSecurityGroup),
+        SourceType.DB_SNAPSHOT: get_values(EventCategories.DBSnapshot),
+        SourceType.DB_CLUSTER: get_values(EventCategories.DBCluster),
+        SourceType.DB_CLUSTER_SNAPSHOT: get_values(EventCategories.DBClusterSnapshot)
     }
 
 # -----------------------------------------------------------
@@ -119,19 +84,17 @@ class Constants:
 class Conditions:
     SOURCE_IDS = [
         (
-            [Property.EVENT_SUBSCRIPTION_SOURCE_TYPE],
-            lambda source_type:
-                True if source_type is not None
-                else Exception("Property SourceType must be provided!")
+            [_Property.EventSubscription.SOURCE_TYPE],
+            lambda source_type: True if source_type is not None else Exception("Property \"SourceType\" must be defined!")
         )
     ]
     EVENT_CATEGORIES = [
         (
-            [Property.EVENT_SUBSCRIPTION_SOURCE_TYPE],
+            [_Property.EventSubscription.SOURCE_TYPE],
             lambda source_type: Exception("Property \"SourceType\" must be defined!") if source_type is None else True
         ),
         (
-            [Property.EVENT_SUBSCRIPTION_SOURCE_TYPE, Property.EVENT_SUBSCRIPTION_EVENT_CATEGORIES],
+            [_Property.EventSubscription.SOURCE_TYPE, _Property.EventSubscription.EVENT_CATEGORIES],
             lambda source_type, event_categories:
                 Exception("Invalid event category \"{category}\" for source type {source_type}".format(
                     category=[

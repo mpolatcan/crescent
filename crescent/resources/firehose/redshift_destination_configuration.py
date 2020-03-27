@@ -3,7 +3,7 @@ from .cloudwatch_logging_options import CloudWatchLoggingOptions
 from .copy_command import CopyCommand
 from .processing_configuration import ProcessingConfiguration
 from .s3_destination_configuration import S3DestinationConfiguration
-from .constants import RequiredProperties, Conditions
+from .constants import ModelRequiredProperties, Conditions
 
 
 class RedshiftDestinationConfiguration(Model):
@@ -15,7 +15,7 @@ class RedshiftDestinationConfiguration(Model):
     def ClusterJDBCURL(self, value: str):
         return self._set_field(self.ClusterJDBCURL.__name__, value)
 
-    @Validator.validate(type=CopyCommand, required_properties=RequiredProperties.COPY_COMMAND)
+    @Validator.validate(type=CopyCommand, required_properties=ModelRequiredProperties.COPY_COMMAND)
     def CopyCommand(self, value: CopyCommand):
         return self._set_field(self.CopyCommand.__name__, value.__to_dict__())
 
@@ -31,7 +31,7 @@ class RedshiftDestinationConfiguration(Model):
     def RoleARN(self, value: str):
         return self._set_field(self.RoleARN.__name__, value)
 
-    @Validator.validate(type=S3DestinationConfiguration, required_properties=RequiredProperties.S3_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=S3DestinationConfiguration, required_properties=ModelRequiredProperties.S3_DESTINATION_CONFIGURATION)
     def S3Configuration(self, value: S3DestinationConfiguration):
         return self._set_field(self.S3Configuration.__name__, value.__to_dict__())
 

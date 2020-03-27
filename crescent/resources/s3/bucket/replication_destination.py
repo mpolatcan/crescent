@@ -1,11 +1,11 @@
 from crescent.core import Model, Validator
 from .access_control_translation import AccessControlTranslation
 from .encryption_configuration import EncryptionConfiguration
-from .constants import AllowedValues, RequiredProperties
+from .constants import AllowedValues, ModelRequiredProperties
 
 
 class ReplicationDestination(Model):
-    @Validator.validate(type=AccessControlTranslation, required_properties=RequiredProperties.ACCESS_CONTROL_TRANSLATION)
+    @Validator.validate(type=AccessControlTranslation, required_properties=ModelRequiredProperties.ACCESS_CONTROL_TRANSLATION)
     def AccessControlTranslation(self, value: AccessControlTranslation):
         return self._set_field(self.AccessControlTranslation.__name__, value.__to_dict__())
 
@@ -17,7 +17,7 @@ class ReplicationDestination(Model):
     def Bucket(self, value: str):
         return self._set_field(self.Bucket.__name__, value)
 
-    @Validator.validate(type=EncryptionConfiguration, required_properties=RequiredProperties.ENCRYPTION_CONFIGURATION)
+    @Validator.validate(type=EncryptionConfiguration, required_properties=ModelRequiredProperties.ENCRYPTION_CONFIGURATION)
     def EncryptionConfiguration(self, value: EncryptionConfiguration):
         return self._set_field(self.EncryptionConfiguration.__name__, value.__to_dict__())
 

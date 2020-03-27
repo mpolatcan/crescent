@@ -1,6 +1,6 @@
 from crescent.core import Model, Validator
 from .tag_filter import TagFilter
-from. constants import RequiredProperties
+from. constants import ModelRequiredProperties
 
 
 class MetricsConfiguration(Model):
@@ -12,6 +12,6 @@ class MetricsConfiguration(Model):
     def Prefix(self, value: str):
         return self._set_field(self.Prefix.__name__, value)
 
-    @Validator.validate(type=TagFilter, required_properties=RequiredProperties.TAG_FILTER)
+    @Validator.validate(type=TagFilter, required_properties=ModelRequiredProperties.TAG_FILTER)
     def TagFilters(self, *value: TagFilter):
         return self._set_field(self.TagFilters.__name__, [tf.__to_dict__() for tf in list(value)])

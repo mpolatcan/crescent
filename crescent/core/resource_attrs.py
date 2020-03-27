@@ -1,6 +1,6 @@
 from .model import Model
 from .validator import Validator
-from .constants import RequiredProperties
+from .constants import ModelRequiredProperties
 
 
 class ResourceSignal(Model):
@@ -128,7 +128,7 @@ class _UpdatePolicy(Model):
     def EnableVersionUpgrade(self, value: bool):
         return self._set_field(self.EnableVersionUpgrade.__name__, value)
 
-    @Validator.validate(type=CodeDeployLambdaAliasUpdate, required_properties=RequiredProperties.CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_POLICY)
+    @Validator.validate(type=CodeDeployLambdaAliasUpdate, required_properties=ModelRequiredProperties.CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_POLICY)
     def CodeDeployLambdaAliasUpdate(self, value: CodeDeployLambdaAliasUpdate):
         return self._set_field(self.CodeDeployLambdaAliasUpdate.__name__, value.__to_dict__())
 

@@ -1,12 +1,14 @@
-class Property:
-    STREAM_ENCRYPTION_ENCRYPTION_TYPE = "EncryptionType"
-    STREAM_ENCRYPTION_KEY_ID = "KeyId"
+from crescent.core.constants import get_values
+
+
+class _RequiredProperties:
+    class StreamEncryption:
+        ENCRYPTION_TYPE = "EncryptionType"
+        KEY_ID = "KeyId"
 
 # -----------------------------------------------------------
 
 
-class RequiredProperties:
-    STREAM_ENCRYPTION = [
-        Property.STREAM_ENCRYPTION_ENCRYPTION_TYPE,
-        Property.STREAM_ENCRYPTION_KEY_ID
-    ]
+class ModelRequiredProperties:
+    STREAM_ENCRYPTION = get_values(_RequiredProperties.StreamEncryption)
+

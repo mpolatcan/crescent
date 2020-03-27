@@ -1,7 +1,7 @@
 from crescent.core import Resource, Tag, Validator, AllowedValues as CoreAllowedValues
 from .db_cluster_role import DBClusterRole
 from .scaling_configuration import ScalingConfiguration
-from .constants import AllowedValues, RequiredProperties, Conditions, NotSpecifyIfSpecified
+from .constants import AllowedValues, ModelRequiredProperties, Conditions, NotSpecifyIfSpecified
 
 
 class DBCluster(Resource):
@@ -10,7 +10,7 @@ class DBCluster(Resource):
     def __init__(self, id: str):
         super(DBCluster, self).__init__(id, self.__TYPE)
 
-    @Validator.validate(type=DBClusterRole, required_properties=RequiredProperties.DB_CLUSTER_ROLE)
+    @Validator.validate(type=DBClusterRole, required_properties=ModelRequiredProperties.DB_CLUSTER_ROLE)
     def AssociatedRoles(self, *value: DBClusterRole):
         return self._set_property(self.AssociatedRoles.__name__, [dcr.__to_dict__() for dcr in list(value)])
 
@@ -102,7 +102,7 @@ class DBCluster(Resource):
     def RestoreType(self, value: str):
         return self._set_property(self.RestoreType.__name__, value)
 
-    @Validator.validate(type=ScalingConfiguration, conditions=Conditions.DB_CLUSTER_SCALING_CONFIGURATION)
+    @Validator.validate(type=ScalingConfiguration, conditions=Conditions.SCALING_CONFIGURATION)
     def ScalingConfiguration(self, value: ScalingConfiguration):
         return self._set_property(self.ScalingConfiguration.__name__, value.__to_dict__())
 

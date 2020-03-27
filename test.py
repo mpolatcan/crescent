@@ -6,9 +6,27 @@ from crescent import (
     Rds as rds,
     Types as types,
     AwsTypes as aws_types,
-    Firehose as fh
+    Firehose as fh,
+    Region,
+    Zone
 )
 
+
+cf.Template().Resources(
+    rds.DBCluster().Create("test")
+    .Engine(rds.DBCluster.Engine.AURORA)
+    .EngineMode(rds.DBCluster.EngineMode.SERVERLESS)
+    .ScalingConfiguration(
+        rds.DBCluster.ScalingConfiguration()
+        .MaxCapacity(16)
+    ).AssociatedRoles(
+        rds.DBCluster.DBClusterRole()
+        .RoleArn("arnaafaeoea")
+    )
+    .DBClusterIdentifier("afakfa")
+).YAML("test")
+
+'''
 cf.Template().Resources(
     s3.Bucket.Create("TestBucket")
     .BucketName("test")
@@ -31,12 +49,11 @@ cf.Template().Resources(
         .UserName("test-s3-user")
         .Groups("test-s3-group"),
     rds.DBInstance.Create("test")
-        .DBInstanceClass(rds.DBInstance.DBInstanceClass.M5_XL_4_VCPU_16GIB_MEM)
         .Engine(rds.DBInstance.Engines.MYSQL)
         .MasterUserPassword("test_password")
-        .DBName("test-db"),
-    fh.DeliveryStream.Create("afaf")
+        .DBName("test-db")
 ).Parameters(
     cf.Parameter("test", types.CommaDelimitedList),
     cf.Parameter("aws-type-test", aws_types.Ec2.InstanceId)
 ).YAML("test")
+'''

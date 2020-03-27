@@ -1,7 +1,7 @@
 from crescent.core import Resource, Tag, Validator, AllowedValues as CoreAllowedValues
 from .db_instance_role import DBInstanceRole
 from .processor_feature import ProcessorFeature
-from .constants import AllowedValues, RequiredProperties, Conditions
+from .constants import AllowedValues, ModelRequiredProperties, Conditions
 
 
 class DBInstance(Resource):
@@ -18,7 +18,7 @@ class DBInstance(Resource):
     def AllowMajorVersionUpgrade(self, value: bool):
         return self._set_property(self.AllowMajorVersionUpgrade.__name__, value)
 
-    @Validator.validate(type=DBInstanceRole, required_properties=RequiredProperties.DB_INSTANCE_ROLE)
+    @Validator.validate(type=DBInstanceRole, required_properties=ModelRequiredProperties.DB_INSTANCE_ROLE)
     def AssociatedRoles(self, *value: DBInstanceRole):
         return self._set_property(self.AssociatedRoles.__name__, [db_inst_role.__to_dict__() for db_inst_role in list(value)])
 

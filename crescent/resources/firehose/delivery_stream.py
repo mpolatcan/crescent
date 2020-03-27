@@ -5,7 +5,7 @@ from .kinesis_stream_source_configuration import KinesisStreamSourceConfiguratio
 from .redshift_destination_configuration import RedshiftDestinationConfiguration
 from .s3_destination_configuration import S3DestinationConfiguration
 from .splunk_destination_configuration import SplunkDestinationConfiguration
-from .constants import RequiredProperties, AllowedValues
+from .constants import ModelRequiredProperties, AllowedValues
 
 
 class DeliveryStream(Resource):
@@ -22,26 +22,26 @@ class DeliveryStream(Resource):
     def DeliveryStreamType(self, value: str):
         return self._set_property(self.DeliveryStreamType.__name__, value)
 
-    @Validator.validate(type=ElasticsearchDestinationConfiguration, required_properties=RequiredProperties.ELASTICSEARCH_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=ElasticsearchDestinationConfiguration, required_properties=ModelRequiredProperties.ELASTICSEARCH_DESTINATION_CONFIGURATION)
     def ElasticsearchDestinationConfiguration(self, value: ElasticsearchDestinationConfiguration):
         return self._set_property(self.ElasticsearchDestinationConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=ExtendedS3DestinationConfiguration, required_properties=RequiredProperties.EXTENDED_S3_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=ExtendedS3DestinationConfiguration, required_properties=ModelRequiredProperties.EXTENDED_S3_DESTINATION_CONFIGURATION)
     def ExtendedS3DestinationConfiguration(self, value: ExtendedS3DestinationConfiguration):
         return self._set_property(self.ExtendedS3DestinationConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=KinesisStreamSourceConfiguration, required_properties=RequiredProperties.KINESIS_STREAM_SOURCE_CONFIGURATION)
+    @Validator.validate(type=KinesisStreamSourceConfiguration, required_properties=ModelRequiredProperties.KINESIS_STREAM_SOURCE_CONFIGURATION)
     def KinesisStreamSourceConfiguration(self, value: KinesisStreamSourceConfiguration):
         return self._set_property(self.KinesisStreamSourceConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=RedshiftDestinationConfiguration, required_properties=RequiredProperties.REDSHIFT_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=RedshiftDestinationConfiguration, required_properties=ModelRequiredProperties.REDSHIFT_DESTINATION_CONFIGURATION)
     def RedshiftDestinationConfiguration(self, value: RedshiftDestinationConfiguration):
         return self._set_property(self.RedshiftDestinationConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=S3DestinationConfiguration, required_properties=RequiredProperties.S3_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=S3DestinationConfiguration, required_properties=ModelRequiredProperties.S3_DESTINATION_CONFIGURATION)
     def S3DestinationConfiguration(self, value: S3DestinationConfiguration):
         return self._set_property(self.S3DestinationConfiguration.__name__, value.__to_dict__())
 
-    @Validator.validate(type=SplunkDestinationConfiguration, required_properties=RequiredProperties.SPLUNK_DESTINATION_CONFIGURATION)
+    @Validator.validate(type=SplunkDestinationConfiguration, required_properties=ModelRequiredProperties.SPLUNK_DESTINATION_CONFIGURATION)
     def SplunkDestinationConfiguration(self, value: SplunkDestinationConfiguration):
         return self._set_property(self.SplunkDestinationConfiguration.__name__, value.__to_dict__())

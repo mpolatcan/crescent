@@ -1,6 +1,11 @@
 from .model import Model
 from .validator import Validator
-from .resource_attrs import CreationPolicy, DeletionPolicy, UpdatePolicy, UpdateReplacePolicy
+from .resource_attrs import (
+    _CreationPolicy as CreationPolicy,
+    DeletionPolicy,
+    _UpdatePolicy as UpdatePolicy,
+    UpdateReplacePolicy
+)
 
 
 class Resource(Model):
