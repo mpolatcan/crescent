@@ -71,9 +71,6 @@ class _Property:
         SNAPSHOT_IDENTIFIER = "SnapshotIdentifier"
         SOURCE_DB_INSTANCE_IDENTIFIER = "SourceDBInstanceIdentifier"
 
-    class DBClusterRole:
-        ROLE_ARN = "RoleArn"
-
     class ScalingConfiguration:
         MAX_CAPACITY = "MaxCapacity"
         MIN_CAPACITY = "MinCapacity"
@@ -103,7 +100,7 @@ class NotSpecifyIfSpecified:
 
 class _RequiredProperties:
     class DBClusterRole:
-        ROLE_ARN = _Property.DBClusterRole.ROLE_ARN
+        ROLE_ARN = "RoleArn"
 
 # -----------------------------------------------------------
 
