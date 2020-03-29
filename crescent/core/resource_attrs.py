@@ -19,7 +19,7 @@ class AutoscalingCreationPolicy(Model):
         return self._set_field(self.MinSuccessfulInstancesPercent.__name__, value)
 
 
-class _CreationPolicy(Model):
+class CreationPolicy(Model):
     @Validator.validate(type=AutoscalingCreationPolicy)
     def AutoscalingCreationPolicy(self, value: AutoscalingCreationPolicy):
         return self._set_field(self.AutoscalingCreationPolicy.__name__, value.__to_dict__())
@@ -27,6 +27,15 @@ class _CreationPolicy(Model):
     @Validator.validate(type=ResourceSignal)
     def ResourceSignal(self, value: ResourceSignal):
         return self._set_field(self.ResourceSignal.__name__, value.__to_dict__())
+
+# --------------------------------------------------------------------------------------------
+
+
+class DeletionPolicy:
+    DELETE = "Delete"
+    RETAIN = "Retain"
+    SNAPSHOT = "Snapshot"
+
 
 # --------------------------------------------------------------------------------------------
 
@@ -107,7 +116,7 @@ class CodeDeployLambdaAliasUpdate(Model):
         return self._set_field(self.DeploymentGroupName.__name__, value)
 
 
-class _UpdatePolicy(Model):
+class UpdatePolicy(Model):
     @Validator.validate(type=AutoScalingReplacingUpdate)
     def AutoScalingReplacingUpdate(self, value: AutoScalingReplacingUpdate):
         return self._set_field(self.AutoScalingReplacingUpdate.__name__, value.__to_dict__())
@@ -135,51 +144,51 @@ class _UpdatePolicy(Model):
 # --------------------------------------------------------------------------------------------
 
 
-class CreationPolicy:
-    @staticmethod
-    def Create():
-        return _CreationPolicy()
-
-    @staticmethod
-    def AutoscalingCreationPolicy():
-        return AutoscalingCreationPolicy()
-
-    @staticmethod
-    def ResourceSignal():
-        return ResourceSignal()
-
-
-class DeletionPolicy:
-    DELETE = "Delete"
-    RETAIN = "Retain"
-    SNAPSHOT = "Snapshot"
-
-
-class UpdatePolicy:
-    SuspendedProcesses = SuspendedProcesses
-
-    @staticmethod
-    def Create():
-        return _UpdatePolicy()
-
-    @staticmethod
-    def AutoScalingReplacingUpdate():
-        return AutoScalingReplacingUpdate()
-
-    @staticmethod
-    def AutoScalingRollingUpdate():
-        return AutoScalingRollingUpdate()
-
-    @staticmethod
-    def AutoScalingScheduledAction():
-        return AutoScalingScheduledAction()
-
-    @staticmethod
-    def CodeDeployLambdaAliasUpdate():
-        return CodeDeployLambdaAliasUpdate()
-
-
 class UpdateReplacePolicy:
     DELETE = "Delete"
     RETAIN = "Retain"
     SNAPSHOT = "Snapshot"
+
+
+# --------------------------------------------------------------------------------------------
+
+
+class ResourceAttributes:
+    DeletionPolicy = DeletionPolicy
+    UpdateReplacePolicy = UpdateReplacePolicy
+
+    class CreationPolicy:
+        @staticmethod
+        def Create():
+            return CreationPolicy()
+
+        @staticmethod
+        def AutoscalingCreationPolicy():
+            return AutoscalingCreationPolicy()
+
+        @staticmethod
+        def ResourceSignal():
+            return ResourceSignal()
+
+    class UpdatePolicy:
+        SuspendedProcesses = SuspendedProcesses
+
+        @staticmethod
+        def Create():
+            return UpdatePolicy()
+
+        @staticmethod
+        def AutoScalingReplacingUpdate():
+            return AutoScalingReplacingUpdate()
+
+        @staticmethod
+        def AutoScalingRollingUpdate():
+            return AutoScalingRollingUpdate()
+
+        @staticmethod
+        def AutoScalingScheduledAction():
+            return AutoScalingScheduledAction()
+
+        @staticmethod
+        def CodeDeployLambdaAliasUpdate():
+            return CodeDeployLambdaAliasUpdate()

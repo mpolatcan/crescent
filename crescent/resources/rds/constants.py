@@ -106,14 +106,12 @@ class EngineVersion:
         V_12_2_0_1 = "12.2.0.1.ru-2020-01.rur-2020-01.r1"
         V_19_0_0_0 = "19.0.0.0.ru-2020-01.rur-2020-01.r1"
 
-    class OracleSe2(OracleEe):
-        pass
+    OracleSe2 = OracleEe
 
     class OracleSe1:
         V_11_2_0_4 = "11.2.0.4.v23"
 
-    class OracleSe(OracleSe1):
-        pass
+    OracleSe = OracleSe1
 
     class Postgresql:
         V_9_3_12 = "9.3.12"
@@ -209,11 +207,80 @@ class EngineVersion:
         V_14_00_3192_2 = "14.00.3192.2.v1"
         V_14_00_3223_3 = "14.00.3223.3.v1"
 
-    class SqlServerSe(SqlServerEe):
-        pass
+    SqlServerSe = SqlServerEe
 
-    class SqlServerEx(SqlServerEe):
-        pass
+    SqlServerEx = SqlServerEe
 
-    class SqlServerWeb(SqlServerEe):
-        pass
+    SqlServerWeb = SqlServerEe
+
+
+class EngineFamily:
+    class Aurora:
+        V_5_6 = "aurora5.6"
+
+    class AuroraMysql:
+        V_5_7 = "aurora-mysql5.7"
+
+    class AuroraPostgresql:
+        V_9_6 = "aurora-postgresql9.6"
+        V_10 = "aurora-postgresql10"
+        V_11 = "aurora-postgresql11"
+
+    class MariaDb:
+        V_10 = "mariadb10.0"
+        V_10_1 = "mariadb10.1"
+        V_10_3 = "mariadb10.3"
+
+    class Mysql:
+        V_5_5 = "mysql5.5"
+        V_5_6 = "mysql5.6"
+        V_5_7 = "mysql5.7"
+        V_8_0 = "mysql8.0"
+
+    class OracleEe:
+        V_11_2 = "oracle-ee-11.2"
+        V_12_1 = "oracle-ee-12.1"
+        V_18 = "oracle-ee-18"
+        V_19 = "oracle-ee-19"
+
+    class OracleSe:
+        V_11_2 = "oracle-se-11.2"
+
+    class OracleSe1:
+        V_11_2 = "oracle-se1-11.2"
+
+    class OracleSe2:
+        V_12_1 = "oracle-se2-12.1"
+        V_18 = "oracle-se2-18"
+
+    class Postgresql:
+        V_9_4 = "postgres9.4"
+        V_9_5 = "postgres9.5"
+        V_9_6 = "postgres9.6"
+        V_10 = "postgres10"
+        V_11 = "postgres11"
+        V_12 = "postgres12"
+
+    class SqlServerEe:
+        V_11 = "sqlserver-ee-11.0"
+        V_12 = "sqlserver-ee-12.0"
+        V_13 = "sqlserver-ee-13.0"
+        V_14 = "sqlserver-ee-14.0"
+
+    class SqlServerEx:
+        V_11 = "sqlserver-ex-11.0"
+        V_12 = "sqlserver-ex-12.0"
+        V_13 = "sqlserver-ex-13.0"
+        V_14 = "sqlserver-ex-14.0"
+
+    class SqlServerSe:
+        V_11 = "sqlserver-se-11.0"
+        V_12 = "sqlserver-se-12.0"
+        V_13 = "sqlserver-se-13.0"
+        V_14 = "sqlserver-se-14.0"
+
+    class SqlServerWeb:
+        V_11 = "sqlserver-web-11.0"
+        V_12 = "sqlserver-web-12.0"
+        V_13 = "sqlserver-web-13.0"
+        V_14 = "sqlserver-web-14.0"

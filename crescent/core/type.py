@@ -176,32 +176,31 @@ class Types:
     NumberList = NumberList()
     CommaDelimitedList = CommaDelimitedList()
 
+    class Aws:
+        class Ec2:
+            AvailabilityZoneName = AvailabilityZoneName()
+            ImageId = ImageId()
+            InstanceId = InstanceId()
+            KeyPairKeyName = KeyPairKeyName()
+            SecurityGroupName = SecurityGroupName()
+            SecurityGroupId = SecurityGroupId()
+            SubnetId = SubnetId()
+            VolumeId = VolumeId()
+            VPCId = VPCId()
+            Route53HostedZoneId = Route53HostedZoneId()
+            AvailabilityZoneNameList = AvailabilityZoneNameList()
+            ImageIdList = ImageIdList()
+            InstanceIdList = InstanceIdList()
+            SecurityGroupNameList = SecurityGroupNameList()
+            SecurityGroupIdList = SecurityGroupIdList()
+            SubnetIdList = SubnetIdList()
+            VolumeIdList = VolumeIdList()
+            VPCIdList = VPCIdList()
+            Route53HostedZoneIdList = Route53HostedZoneIdList()
 
-class AwsTypes:
-    class Ec2:
-        AvailabilityZoneName = AvailabilityZoneName()
-        ImageId = ImageId()
-        InstanceId = InstanceId()
-        KeyPairKeyName = KeyPairKeyName()
-        SecurityGroupName = SecurityGroupName()
-        SecurityGroupId = SecurityGroupId()
-        SubnetId = SubnetId()
-        VolumeId = VolumeId()
-        VPCId = VPCId()
-        Route53HostedZoneId = Route53HostedZoneId()
-        AvailabilityZoneNameList = AvailabilityZoneNameList()
-        ImageIdList = ImageIdList()
-        InstanceIdList = InstanceIdList()
-        SecurityGroupNameList = SecurityGroupNameList()
-        SecurityGroupIdList = SecurityGroupIdList()
-        SubnetIdList = SubnetIdList()
-        VolumeIdList = VolumeIdList()
-        VPCIdList = VPCIdList()
-        Route53HostedZoneIdList = Route53HostedZoneIdList()
+        class Ssm:
+            Name = Name()
 
-    class Ssm:
-        Name = Name()
-
-        @staticmethod
-        def Value(_type: Type):
-            return Value(_type)
+            @staticmethod
+            def Value(_type: Type):
+                return Value(_type)

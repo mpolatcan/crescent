@@ -110,8 +110,7 @@ class DBInstance(Resource):
     def Engine(self, value: str):
         return self._set_property(self.Engine.__name__, value)
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, conditions=Conditions.ENGINE_VERSION)
     def EngineVersion(self, value: str):
         return self._set_property(self.EngineVersion.__name__, value)
 

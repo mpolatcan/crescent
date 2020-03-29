@@ -177,12 +177,6 @@ class _RequiredProperties:
 
 # --------------------------------------------------------
 
-class AllowedValues:
-    REGION = get_values(Region)
-    ZONE = get_values(Zone)
-# --------------------------------------------------------
-
-
 class ModelRequiredProperties:
     CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_POLICY = get_values(_RequiredProperties.ResourceAttr.CodeDeployLambdaAliasUpdate)
 
@@ -220,3 +214,11 @@ class ResourcesRequiredProperties:
     # -------------- S3 --------------
     AccessPoint = get_values(_RequiredProperties.S3.AccessPoint)
     BucketPolicy = get_values(_RequiredProperties.S3.BucketPolicy)
+
+
+# --------------------------------------------------------
+
+
+class AllowedValues:
+    REGION = get_values(Region)
+    ZONE = get_values(Zone)

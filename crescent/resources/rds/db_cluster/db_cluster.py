@@ -66,7 +66,7 @@ class DBCluster(Resource):
     def EngineMode(self, value: str):
         return self._set_property(self.EngineMode.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, conditions=Conditions.ENGINE_VERSION)
     def EngineVersion(self, value: str):
         return self._set_property(self.EngineVersion.__name__, value)
 

@@ -1,7 +1,8 @@
 from crescent.core.constants import get_values
+from crescent.resources.rds.constants import EngineVersion
 
 
-class DBInstanceEngines:
+class DBInstanceEngine:
     AURORA = "aurora"
     AURORA_MYSQL = "aurora-mysql"
     AURORA_POSTGRESQL = "aurora-postgresql"
@@ -124,6 +125,7 @@ class DBInstanceClass:
 class _Property:
     class DBInstance:
         ENGINE = "Engine"
+        ENGINE_VERSION = "EngineVersion"
         DB_NAME = "DBName"
         MASTER_USER_PASSWORD = "MasterUserPassword"
 
@@ -146,7 +148,7 @@ class ModelRequiredProperties:
 
 
 class AllowedValues:
-    ENGINE = get_values(DBInstanceEngines)
+    ENGINE = get_values(DBInstanceEngine)
     DB_INSTANCE_CLASS = get_values(DBInstanceClass)
     MONITORING_INTERVAL = get_values(MonitoringInterval)
     STORAGE_TYPE = get_values(StorageType)
@@ -156,29 +158,45 @@ class AllowedValues:
 
 class Constants:
     MASTER_USER_PASSWORD_LENGTHS = {
-        DBInstanceEngines.MARIADB: (8, 41),
-        DBInstanceEngines.SQLSERVER_SE: (8, 128),
-        DBInstanceEngines.SQLSERVER_WEB: (8, 128),
-        DBInstanceEngines.SQLSERVER_EE: (8, 128),
-        DBInstanceEngines.SQLSERVER_EX: (8, 128),
-        DBInstanceEngines.MYSQL: (8, 41),
-        DBInstanceEngines.ORACLE_EE: (8, 30),
-        DBInstanceEngines.ORACLE_SE: (8, 30),
-        DBInstanceEngines.ORACLE_SE1: (8, 30),
-        DBInstanceEngines.ORACLE_SE2: (8, 30),
-        DBInstanceEngines.POSTGRESQL: (8, 128)
+        DBInstanceEngine.MARIADB: (8, 41),
+        DBInstanceEngine.SQLSERVER_SE: (8, 128),
+        DBInstanceEngine.SQLSERVER_WEB: (8, 128),
+        DBInstanceEngine.SQLSERVER_EE: (8, 128),
+        DBInstanceEngine.SQLSERVER_EX: (8, 128),
+        DBInstanceEngine.MYSQL: (8, 41),
+        DBInstanceEngine.ORACLE_EE: (8, 30),
+        DBInstanceEngine.ORACLE_SE: (8, 30),
+        DBInstanceEngine.ORACLE_SE1: (8, 30),
+        DBInstanceEngine.ORACLE_SE2: (8, 30),
+        DBInstanceEngine.POSTGRESQL: (8, 128)
     }
     DB_NAME_LENGTHS = {
-        DBInstanceEngines.MYSQL: (1, 64),
-        DBInstanceEngines.MARIADB: (1, 64),
-        DBInstanceEngines.POSTGRESQL: (1, 63),
-        DBInstanceEngines.AURORA: (1, 64),
-        DBInstanceEngines.AURORA_MYSQL: (1, 64),
-        DBInstanceEngines.AURORA_POSTGRESQL: (1, 64),
-        DBInstanceEngines.ORACLE_SE2: (1, 8),
-        DBInstanceEngines.ORACLE_SE1: (1, 8),
-        DBInstanceEngines.ORACLE_SE: (1, 8),
-        DBInstanceEngines.ORACLE_EE: (1, 8)
+        DBInstanceEngine.MYSQL: (1, 64),
+        DBInstanceEngine.MARIADB: (1, 64),
+        DBInstanceEngine.POSTGRESQL: (1, 63),
+        DBInstanceEngine.AURORA: (1, 64),
+        DBInstanceEngine.AURORA_MYSQL: (1, 64),
+        DBInstanceEngine.AURORA_POSTGRESQL: (1, 64),
+        DBInstanceEngine.ORACLE_SE2: (1, 8),
+        DBInstanceEngine.ORACLE_SE1: (1, 8),
+        DBInstanceEngine.ORACLE_SE: (1, 8),
+        DBInstanceEngine.ORACLE_EE: (1, 8)
+    }
+    ENGINE_VERSIONS = {
+        DBInstanceEngine.AURORA: get_values(EngineVersion.Aurora),
+        DBInstanceEngine.AURORA_MYSQL: get_values(EngineVersion.AuroraMysql),
+        DBInstanceEngine.AURORA_POSTGRESQL: get_values(EngineVersion.AuroraPostgresql),
+        DBInstanceEngine.MARIADB: get_values(EngineVersion.MariaDb),
+        DBInstanceEngine.MYSQL: get_values(EngineVersion.Mysql),
+        DBInstanceEngine.ORACLE_EE: get_values(EngineVersion.OracleEe),
+        DBInstanceEngine.ORACLE_SE2: get_values(EngineVersion.OracleSe2),
+        DBInstanceEngine.ORACLE_SE1: get_values(EngineVersion.OracleSe1),
+        DBInstanceEngine.ORACLE_SE: get_values(EngineVersion.OracleSe),
+        DBInstanceEngine.POSTGRESQL: get_values(EngineVersion.Postgresql),
+        DBInstanceEngine.SQLSERVER_EE: get_values(EngineVersion.SqlServerEe),
+        DBInstanceEngine.SQLSERVER_SE: get_values(EngineVersion.SqlServerSe),
+        DBInstanceEngine.SQLSERVER_EX: get_values(EngineVersion.SqlServerEx),
+        DBInstanceEngine.SQLSERVER_WEB: get_values(EngineVersion.SqlServerWeb)
     }
 # ------------------------------------------------
 
@@ -189,7 +207,7 @@ class Conditions:
             [_Property.DBInstance.ENGINE],
             lambda engine:
                 Exception("Property \"BackupRetentionPeriod\" is not applicable. The retention period for automated backups is managed by the DB Cluster for engine {}".format(engine))
-                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
                 else True
         )
     ]
@@ -198,7 +216,7 @@ class Conditions:
             [_Property.DBInstance.ENGINE],
             lambda engine:
                 Exception("Property \"CharacterSetName\" is not applicable.The character set is managed by the DB Cluster for engine {}".format(engine))
-                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
                 else True
         )
     ]
@@ -207,7 +225,7 @@ class Conditions:
             [_Property.DBInstance.ENGINE],
             lambda engine:
                 Exception("Property \"CopyTagsToSnapshot\" is not applicable. Copying tags to snapshots is managed by the DB cluster for engine {}".format(engine))
-                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
                 else True
         )
     ]
@@ -216,7 +234,7 @@ class Conditions:
             [_Property.DBInstance.ENGINE],
             lambda engine:
                 Exception("Property \"DeletionProtection\" is not applicable. You can enable or disable deletion protection for the DB cluster for engine {}".format(engine))
-                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
                 else True
         )
     ]
@@ -225,7 +243,7 @@ class Conditions:
             [_Property.DBInstance.ENGINE],
             lambda engine:
                 Exception("Property \"EnableIAMDatabaseAuthentication\" is not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster for engine {}".format(engine))
-                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
                 else True
         )
     ]
@@ -234,7 +252,7 @@ class Conditions:
             [_Property.DBInstance.ENGINE],
             lambda engine:
                 Exception("Property \"StorageEncrypted\" is not applicable. The encryption for DB instances is managed by the DB cluster for engine {}".format(engine))
-                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
                 else True
         )
     ]
@@ -243,7 +261,7 @@ class Conditions:
             [_Property.DBInstance.ENGINE],
             lambda engine:
                 Exception("Property \"MasterUserPassword\" is not applicable. The password for the master user is managed by the DB cluster for engine {}".format(engine))
-                if engine in [DBInstanceEngines.AURORA, DBInstanceEngines.AURORA_MYSQL, DBInstanceEngines.AURORA_POSTGRESQL]
+                if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
                 else True
         ),
         (
@@ -275,5 +293,15 @@ class Conditions:
                     len(db_name) < Constants.DB_NAME_LENGTHS[engine][0] or
                     len(db_name) > Constants.DB_NAME_LENGTHS[engine][1]
                 ) else True
+        )
+    ]
+    ENGINE_VERSION = [
+        (
+            [_Property.DBInstance.ENGINE, _Property.DBInstance.ENGINE_VERSION],
+            lambda engine, engine_version:
+                True if engine_version in Constants.ENGINE_VERSIONS[engine]
+                else Exception("Invalid engine version {engine_version} for engine {engine}!".format(
+                    engine_version=engine_version, engine=engine
+                ))
         )
     ]

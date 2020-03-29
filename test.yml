@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  DeletionPolicy: Snapshot
+  Test1:
+    Properties:
+      AssociatedRoles:
+      - RoleArn: arn:bucket:adadka
+      AvailabilityZones:
+      - eu-central-1a
+      Engine: aurora-mysql
+      EngineMode: serverless
+      EngineVersion: 5.7.mysql_aurora.2.03.3
+      ScalingConfiguration:
+        MaxCapacity: 2
+        MinCapacity: 2
+    Type: AWS::RDS::DBCluster
+  Test2:
+    Properties:
+      DBInstanceClass: db.m5.8xlarge
+      Engine: mysql
+      EngineVersion: 5.5.53
+    Type: AWS::RDS::DBInstance
+  Test3:
+    Properties:
+      Description: test-description
+      Family: oracle-ee-18
+    Type: AWS::RDS::DBParameterGroup
+  Test4:
+    Properties:
+      Description: test-description
+      Family: aurora-mysql5.7
+      Parameters: {}
+    Type: AWS::RDS::DBClusterParameterGroup
+  UpdatePolicy:
+    AutoScalingReplacingUpdate:
+      WillReplace: true
+    EnableVersionUpgrade: true
+  UpdateReplacePolicy: Delete

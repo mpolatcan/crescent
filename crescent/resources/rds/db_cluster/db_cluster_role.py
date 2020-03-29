@@ -6,6 +6,6 @@ class DBClusterRole(Model):
     def FeatureName(self, value: str):
         return self._set_field(self.FeatureName.__name__, value)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, pattern=r"arn:.*")
     def RoleArn(self, value: str):
         return self._set_field(self.RoleArn.__name__, value)

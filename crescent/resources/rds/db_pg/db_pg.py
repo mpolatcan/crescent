@@ -1,4 +1,5 @@
 from crescent.core import Resource, Tag, Validator
+from .constants import AllowedValues
 
 
 class DBParameterGroup(Resource):
@@ -11,8 +12,7 @@ class DBParameterGroup(Resource):
     def Description(self, value: str):
         return self._set_property(self.Description.__name__, value)
 
-    # TODO Allowed values validation will be added
-    @Validator.validate(type=str)
+    @Validator.validate(type=str, allowed_values=AllowedValues.FAMILY)
     def Family(self, value: str):
         return self._set_property(self.Family.__name__, value)
 

@@ -1,10 +1,19 @@
 from crescent.core.constants import get_values
+from crescent.resources.rds.constants import EngineVersion
 
 
-class DBClusterEngines:
+class DBClusterEngine:
     AURORA = "aurora"
     AURORA_MYSQL = "aurora-mysql"
     AURORA_POSTGRESQL = "aurora-postgresql"
+
+# -----------------------------------------------------------
+
+
+class DBClusterEngineVersion:
+    Aurora = EngineVersion.Aurora
+    AuroraMysql = EngineVersion.AuroraMysql
+    AuroraPostgresql = EngineVersion.AuroraPostgresql
 
 # -----------------------------------------------------------
 
@@ -66,6 +75,7 @@ class _Property:
     class DBCluster:
         ENGINE = "Engine"
         ENGINE_MODE = "EngineMode"
+        ENGINE_VERSION = "EngineVersion"
         SCALING_CONFIGURATION = "ScalingConfiguration"
         DB_CLUSTER_IDENTIFIER = "DBClusterIdentifier"
         SNAPSHOT_IDENTIFIER = "SnapshotIdentifier"
@@ -80,7 +90,7 @@ class _Property:
 
 class AllowedValues:
     RESTORE_TYPE = get_values(RestoreType)
-    ENGINE = get_values(DBClusterEngines)
+    ENGINE = get_values(DBClusterEngine)
     ENGINE_MODE = get_values(EngineMode)
 
 # -----------------------------------------------------------
@@ -113,11 +123,15 @@ class ModelRequiredProperties:
 
 class Constants:
     ENGINE_CAPACITIES = {
-        DBClusterEngines.AURORA: get_values(Capacity.Aurora),
-        DBClusterEngines.AURORA_MYSQL: get_values(Capacity.AuroraMysql),
-        DBClusterEngines.AURORA_POSTGRESQL: get_values(Capacity.AuroraPostgresql)
+        DBClusterEngine.AURORA: get_values(Capacity.Aurora),
+        DBClusterEngine.AURORA_MYSQL: get_values(Capacity.AuroraMysql),
+        DBClusterEngine.AURORA_POSTGRESQL: get_values(Capacity.AuroraPostgresql)
     }
-
+    ENGINE_VERSIONS = {
+        DBClusterEngine.AURORA: get_values(DBClusterEngineVersion.Aurora),
+        DBClusterEngine.AURORA_MYSQL: get_values(DBClusterEngineVersion.AuroraMysql),
+        DBClusterEngine.AURORA_POSTGRESQL: get_values(DBClusterEngineVersion.AuroraPostgresql)
+    }
 # -----------------------------------------------------------
 
 
@@ -149,5 +163,15 @@ class Conditions:
                         engine=engine, capacities=str(Constants.ENGINE_CAPACITIES[engine]).replace('[', '').replace(']', '')
                     )
                 )
+        )
+    ]
+    ENGINE_VERSION = [
+        (
+            [_Property.DBCluster.ENGINE, _Property.DBCluster.ENGINE_VERSION],
+            lambda engine, engine_version:
+                True if engine_version in Constants.ENGINE_VERSIONS[engine]
+                else Exception("Invalid engine version {engine_version} for engine {engine}!".format(
+                    engine_version=engine_version, engine=engine
+                ))
         )
     ]

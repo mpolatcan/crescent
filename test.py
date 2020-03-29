@@ -1,59 +1,28 @@
-from crescent import (
-    CrescentFactory as cf,
-    S3 as s3,
-    Efs as efs,
-    Iam as iam,
-    Rds as rds,
-    Types as types,
-    AwsTypes as aws_types,
-    Firehose as fh,
-    Region,
-    Zone
-)
+from crescent import CrescentFactory as cf, rds
 
 
 cf.Template().Resources(
-    rds.DBCluster().Create("test")
-    .Engine(rds.DBCluster.Engine.AURORA)
+    rds.DBCluster().Create("Test1")
+    .Engine(rds.DBCluster.Engine.AURORA_MYSQL)
     .EngineMode(rds.DBCluster.EngineMode.SERVERLESS)
-    .ScalingConfiguration(
-        rds.DBCluster.ScalingConfiguration()
-        .MaxCapacity(16)
-    ).AssociatedRoles(
-        rds.DBCluster.DBClusterRole()
-        .RoleArn("arnaafaeoea")
-    )
-    .DBClusterIdentifier("afakfa")
+    .EngineVersion(rds.DBCluster.EngineVersion.AuroraMysql.V_2_03_3)
+    .ScalingConfiguration(rds.DBCluster.ScalingConfiguration().MinCapacity(2).MaxCapacity(2))
+    .AssociatedRoles(rds.DBCluster.DBClusterRole().RoleArn("arn:bucket:adadka"))
+    .AvailabilityZones(cf.Zone.FRANKFURT_EU_CENTRAL_1.A)
+    .UpdatePolicy(
+        cf.UpdatePolicy.Create().AutoScalingReplacingUpdate(
+            cf.UpdatePolicy.AutoScalingReplacingUpdate().WillReplace(True)
+        ).EnableVersionUpgrade(True)
+    ).DeletionPolicy(cf.DeletionPolicy.SNAPSHOT).UpdateReplacePolicy(cf.UpdateReplacePolicy.DELETE),
+    rds.DBInstance.Create("Test2")
+        .Engine(rds.DBInstance.Engine.MYSQL)
+        .DBInstanceClass(rds.DBInstance.DBInstanceClass.M5_8XL_32_VCPU_128GIB_MEM)
+        .EngineVersion(rds.DBInstance.EngineVersion.Mysql.V_5_5_53),
+    rds.DBParameterGroup.Create("Test3")
+        .Family(rds.DBParameterGroup.EngineFamily.OracleEe.V_18)
+        .Description("test-description"),
+    rds.DBClusterParameterGroup.Create("Test4")
+        .Family(rds.DBClusterParameterGroup.EngineFamily.AuroraMysql.V_5_7)
+        .Description("test-description")
+        .Parameters({})
 ).YAML("test")
-
-'''
-cf.Template().Resources(
-    s3.Bucket.Create("TestBucket")
-    .BucketName("test")
-    .LoggingConfiguration(
-        s3.Bucket.LoggingConfiguration()
-        .DestinationBucketName("log-test")
-        .LogFilePrefix("test-prefix")),
-    efs.FileSystem.Create("TestEfs")
-        .PerformanceMode(efs.FileSystem.PerformanceMode.GENERAL_PURPOSE)
-        .Encrypted(True)
-        .ThroughputMode(efs.FileSystem.ThroughtputMode.PROVISIONED),
-    efs.MountTarget.Create("TestEfsMountTarget")
-        .SubnetId("192.168.0.0/0")
-        .FileSystemId("TestEfs")
-        .SecurityGroups("sg-1", "sg-2", "sg-3"),
-    iam.User("TestEcrUser")
-        .UserName("test-ecr-user")
-        .Groups("test-ecr-group"),
-    iam.User("TestS3User")
-        .UserName("test-s3-user")
-        .Groups("test-s3-group"),
-    rds.DBInstance.Create("test")
-        .Engine(rds.DBInstance.Engines.MYSQL)
-        .MasterUserPassword("test_password")
-        .DBName("test-db")
-).Parameters(
-    cf.Parameter("test", types.CommaDelimitedList),
-    cf.Parameter("aws-type-test", aws_types.Ec2.InstanceId)
-).YAML("test")
-'''

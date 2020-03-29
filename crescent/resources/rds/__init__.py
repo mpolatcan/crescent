@@ -7,13 +7,13 @@ from .db_security_group_ingress import *
 from .db_subnet_group import *
 from .event_subscription import *
 from .option_group import *
-from .constants import EngineVersion
+from .constants import EngineVersion, EngineFamily
 
 
 class Rds:
     class DBCluster:
-        Engine = DBClusterEngines
-        EngineVersion = EngineVersion
+        Engine = DBClusterEngine
+        EngineVersion = DBClusterEngineVersion
         EngineMode = EngineMode
         RestoreType = RestoreType
         Capacity = Capacity
@@ -23,10 +23,6 @@ class Rds:
             return DBCluster(id)
 
         @staticmethod
-        def DBClusterParameterGroup(id: str):
-            return DBClusterParameterGroup(id)
-
-        @staticmethod
         def DBClusterRole():
             return DBClusterRole()
 
@@ -34,8 +30,16 @@ class Rds:
         def ScalingConfiguration():
             return ScalingConfiguration()
 
+    class DBClusterParameterGroup:
+        EngineFamily = DBClusterParameterGroupEngineFamily
+
+        @staticmethod
+        def Create(id: str):
+            return DBClusterParameterGroup(id)
+
     class DBInstance:
-        Engines = DBInstanceEngines
+        Engine = DBInstanceEngine
+        EngineVersion = EngineVersion
         DBInstanceClass = DBInstanceClass
         MonitoringInterval = MonitoringInterval
         StorageType = StorageType
@@ -45,10 +49,6 @@ class Rds:
             return DBInstance(id)
 
         @staticmethod
-        def DBParameterGroup(id: str):
-            return DBParameterGroup(id)
-
-        @staticmethod
         def DBInstanceRole():
             return DBInstanceRole()
 
@@ -56,18 +56,26 @@ class Rds:
         def ProcessorFeature():
             return ProcessorFeature()
 
+    class DBParameterGroup:
+        EngineFamily = EngineFamily
+
+        @staticmethod
+        def Create(id: str):
+            return DBParameterGroup(id)
+
     class DBSecurityGroup:
         @staticmethod
         def Create(id: str):
             return DBSecurityGroup(id)
 
         @staticmethod
-        def DBSecurityGroupIngress(id: str):
-            return DBSecurityGroupIngress(id)
-
-        @staticmethod
         def Ingress():
             return Ingress()
+
+    class DBSecurityGroupIngress:
+        @staticmethod
+        def Create(id: str):
+            return DBSecurityGroupIngress(id)
 
     class DBSubnetGroup:
         @staticmethod
