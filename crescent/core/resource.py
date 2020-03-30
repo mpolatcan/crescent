@@ -14,11 +14,11 @@ class Resource(Model):
 
     def __init__(self, id: str, type: str):
         super(Resource, self).__init__()
-        self._data[id] = {
+        self._set_field(id, {
             self.__KEY_TYPE: type,
             self.__KEY_PROPERTIES: {}
-        }
-        self._properties = self._data[id][self.__KEY_PROPERTIES]
+        })
+        self._properties = self._get_field(id)[self.__KEY_PROPERTIES]
 
     def _set_property(self, property, value):
         self._properties[property] = value
@@ -29,34 +29,34 @@ class Resource(Model):
         return self._properties
 
     @Validator.validate(type=CreationPolicy)
-    def CreationPolicy(self, value: CreationPolicy):
-        return self._set_field(self.CreationPolicy.__name__, value.__to_dict__())
+    def CreationPolicy(self, creation_policy: CreationPolicy):
+        return self._set_field(self.CreationPolicy.__name__, creation_policy.__to_dict__())
 
     @Validator.validate(type=str, allowed_values=[DeletionPolicy.DELETE,
                                                   DeletionPolicy.RETAIN,
                                                   DeletionPolicy.SNAPSHOT])
-    def DeletionPolicy(self, value: str):
-        return self._set_field(self.DeletionPolicy.__name__, value)
+    def DeletionPolicy(self, deletion_policy: str):
+        return self._set_field(self.DeletionPolicy.__name__, deletion_policy)
 
     @Validator.validate(type=str)
-    def DependsOn(self, *value: str):
-        return self._set_field(self.DependsOn.__name__, list(value))
+    def DependsOn(self, *depends_on: str):
+        return self._set_field(self.DependsOn.__name__, list(depends_on))
 
-    def Metadata(self, *value):
+    def Metadata(self, *metadatas):
         if self._get_field(self.Metadata.__name__) is None:
             self._set_field(self.Metadata.__name__, {})
 
-        for metadata in list(value):
+        for metadata in list(metadatas):
             self._get_field(self.Metadata.__name__).update(metadata)
 
         return self
 
     @Validator.validate(type=UpdatePolicy)
-    def UpdatePolicy(self, value: UpdatePolicy):
-        return self._set_field(self.UpdatePolicy.__name__, value.__to_dict__())
+    def UpdatePolicy(self, update_policy: UpdatePolicy):
+        return self._set_field(self.UpdatePolicy.__name__, update_policy.__to_dict__())
 
     @Validator.validate(type=str, allowed_values=[UpdateReplacePolicy.DELETE,
                                                   UpdateReplacePolicy.RETAIN,
                                                   UpdateReplacePolicy.SNAPSHOT])
-    def UpdateReplacePolicy(self, value: str):
-        return self._set_field(self.UpdateReplacePolicy.__name__, value)
+    def UpdateReplacePolicy(self, update_replace_policy: str):
+        return self._set_field(self.UpdateReplacePolicy.__name__, update_replace_policy)

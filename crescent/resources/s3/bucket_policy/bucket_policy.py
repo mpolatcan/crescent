@@ -8,9 +8,9 @@ class BucketPolicy(Resource):
         super(BucketPolicy, self).__init__(id, self.__TYPE)
 
     @Validator.validate(type=str)
-    def Bucket(self, value: str):
-        return self._set_property(self.Bucket.__name__, value)
+    def Bucket(self, bucket: str):
+        return self._set_property(self.Bucket.__name__, bucket)
 
     @Validator.validate(type=dict)
-    def PolicyDocument(self, value: dict):
-        return self._set_property(self.PolicyDocument, value)
+    def PolicyDocument(self, policy_document: dict):
+        return self._set_property(self.PolicyDocument, policy_document)

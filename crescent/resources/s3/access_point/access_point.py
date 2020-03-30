@@ -10,33 +10,33 @@ class AccessPoint(Resource):
         super(AccessPoint, self).__init__(id, self.__TYPE)
 
     @Validator.validate(type=str)
-    def Bucket(self, value: str):
-        return self._set_property(self.Bucket.__name__, value)
+    def Bucket(self, bucket: str):
+        return self._set_property(self.Bucket.__name__, bucket)
 
     @Validator.validate(type=str)
-    def CreationDate(self, value: str):
-        return self._set_property(self.CreationDate.__name__, value)
+    def CreationDate(self, creation_date: str):
+        return self._set_property(self.CreationDate.__name__, creation_date)
 
     @Validator.validate(type=str)
-    def Name(self, value: str):
-        return self._set_property(self.Name.__name__, value)
+    def Name(self, name: str):
+        return self._set_property(self.Name.__name__, name)
 
     @Validator.validate(type=str)
-    def NetworkOrigin(self, value: str):
-        return self._set_property(self.NetworkOrigin.__name__, value)
+    def NetworkOrigin(self, network_origin: str):
+        return self._set_property(self.NetworkOrigin.__name__, network_origin)
 
     @Validator.validate(type=dict)
-    def Policy(self, value: dict):
-        return self._set_property(self.Policy.__name__, value)
+    def Policy(self, policy: dict):
+        return self._set_property(self.Policy.__name__, policy)
 
     @Validator.validate(type=dict)
-    def PolicyStatus(self, value: dict):
-        return self._set_property(self.PolicyStatus, value)
+    def PolicyStatus(self, policy_status: dict):
+        return self._set_property(self.PolicyStatus, policy_status)
 
     @Validator.validate(type=PublicAccessBlockConfiguration)
-    def PublicAccessBlockConfiguration(self, value: PublicAccessBlockConfiguration):
-        return self._set_property(self.PublicAccessBlockConfiguration.__name__, value.__to_dict__())
+    def PublicAccessBlockConfiguration(self, public_access_block_conf: PublicAccessBlockConfiguration):
+        return self._set_property(self.PublicAccessBlockConfiguration.__name__, public_access_block_conf.__to_dict__())
 
     @Validator.validate(type=VpcConfiguration)
-    def VpcConfiguration(self, value: VpcConfiguration):
-        return self._set_property(self.VpcConfiguration.__name__, value.__to_dict__())
+    def VpcConfiguration(self, vpc_conf: VpcConfiguration):
+        return self._set_property(self.VpcConfiguration.__name__, vpc_conf.__to_dict__())

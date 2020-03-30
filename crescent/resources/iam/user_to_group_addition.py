@@ -8,9 +8,9 @@ class UserToGroupAddition(Resource):
         super(UserToGroupAddition, self).__init__(id, self.__TYPE)
 
     @Validator.validate(type=str, min_length=1, max_length=128, pattern=r"[\w+=,.@-]+")
-    def GroupName(self, value: str):
-        return self._set_property(self.GroupName.__name__, value)
+    def GroupName(self, group_name: str):
+        return self._set_property(self.GroupName.__name__, group_name)
 
     @Validator.validate(type=str)
-    def Users(self, *value: str):
-        return self._set_property(self.Users.__name__, list(value))
+    def Users(self, *users: str):
+        return self._set_property(self.Users.__name__, list(users))

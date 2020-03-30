@@ -5,30 +5,30 @@ from .constants import AllowedValues, ModelRequiredProperties
 
 class InventoryConfiguration(Model):
     @Validator.validate(type=Destination, required_properties=ModelRequiredProperties.DESTINATION)
-    def Destination(self, value: Destination):
-        return self._set_field(self.Destination.__name__, value.__to_dict__())
+    def Destination(self, destination: Destination):
+        return self._set_field(self.Destination.__name__, destination.__to_dict__())
 
     @Validator.validate(type=bool)
-    def Enabled(self, value: bool):
-        return self._set_field(self.Enabled, value)
+    def Enabled(self, enabled: bool):
+        return self._set_field(self.Enabled, enabled)
 
     @Validator.validate(type=str)
-    def Id(self, value: str):
-        return self._set_field(self.Id.__name__, value)
+    def Id(self, id: str):
+        return self._set_field(self.Id.__name__, id)
 
     @Validator.validate(type=str, allowed_values=AllowedValues.INCLUDED_OBJECT_VERSIONS)
-    def IncludedObjectVersions(self, value: str):
-        return self._set_field(self.IncludedObjectVersions.__name__, value)
+    def IncludedObjectVersions(self, included_object_versions: str):
+        return self._set_field(self.IncludedObjectVersions.__name__, included_object_versions)
 
     @Validator.validate(type=str)
-    def OptionalFields(self, *value: str):
-        return self._set_field(self.OptionalFields.__name__, list(value))
+    def OptionalFields(self, *optional_fields: str):
+        return self._set_field(self.OptionalFields.__name__, list(optional_fields))
 
     @Validator.validate(type=str)
-    def Prefix(self, value: str):
-        return self._set_field(self.Prefix.__name__, value)
+    def Prefix(self, prefix: str):
+        return self._set_field(self.Prefix.__name__, prefix)
 
     @Validator.validate(type=str, allowed_values=AllowedValues.SCHEDULE_FREQUENCY)
-    def ScheduleFrequency(self, value: str):
-        return self._set_field(self.ScheduleFrequency.__name__, value)
+    def ScheduleFrequency(self, schedule_frequency: str):
+        return self._set_field(self.ScheduleFrequency.__name__, schedule_frequency)
 

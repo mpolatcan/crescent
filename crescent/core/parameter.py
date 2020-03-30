@@ -17,41 +17,41 @@ class Parameter(Model):
         return self
 
     @Validator.validate(type=str)
-    def AllowedPattern(self, value: str):
-        return self.__set_property(self.AllowedPattern.__name__, value)
+    def AllowedPattern(self, allowed_pattern: str):
+        return self.__set_property(self.AllowedPattern.__name__, allowed_pattern)
 
     @Validator.validate(type=str)
-    def AllowedValues(self, *values: str):
-        return self.__set_property(self.AllowedValues.__name__, list(values))
+    def AllowedValues(self, *allowed_values: str):
+        return self.__set_property(self.AllowedValues.__name__, list(allowed_values))
 
     @Validator.validate(type=str, pattern=r"[A-Za-z0-9]+")
     def ConstraintDescription(self, value: str):
         return self.__set_property(self.ConstraintDescription.__name__, value)
 
     @Validator.validate(type=str)
-    def Default(self, value: str):
-        return self.__set_property(self.Default.__name__, value)
+    def Default(self, default: str):
+        return self.__set_property(self.Default.__name__, default)
 
     @Validator.validate(type=str, max_length=4000)
-    def Description(self, value: str):
-        return self.__set_property(self.Description.__name__, value)
+    def Description(self, description: str):
+        return self.__set_property(self.Description.__name__, description)
 
     @Validator.validate(type=int)
-    def MaxLength(self, value: int):
-        return self.__set_property(self.MaxLength.__name__, value)
+    def MaxLength(self, max_length: int):
+        return self.__set_property(self.MaxLength.__name__, max_length)
 
     @Validator.validate(type=int)
-    def MaxValue(self, value: int):
-        return self.__set_property(self.MaxValue.__name__, value)
+    def MaxValue(self, max_value: int):
+        return self.__set_property(self.MaxValue.__name__, max_value)
 
     @Validator.validate(type=int)
-    def MinLength(self, value: int):
-        return self.__set_property(self.MinLength.__name__, value)
+    def MinLength(self, min_length: int):
+        return self.__set_property(self.MinLength.__name__, min_length)
 
     @Validator.validate(type=int)
-    def MinValue(self, value: int):
-        return self.__set_property(self.MinValue.__name__, value)
+    def MinValue(self, min_value: int):
+        return self.__set_property(self.MinValue.__name__, min_value)
 
     @Validator.validate(type=bool)
-    def NoEcho(self, value: bool):
-        return self.__set_property(self.NoEcho.__name__, value)
+    def NoEcho(self, no_echo: bool):
+        return self.__set_property(self.NoEcho.__name__, no_echo)

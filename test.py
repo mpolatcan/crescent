@@ -1,6 +1,5 @@
 from crescent import CrescentFactory as cf, rds
 
-
 cf.Template().Resources(
     rds.DBCluster().Create("Test1")
     .Engine(rds.DBCluster.Engine.AURORA_MYSQL)

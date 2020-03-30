@@ -11,6 +11,7 @@ from .type import (
     Types
 )
 from .constants import Region, Zone, AllowedValues
+from .arn import Arn
 
 __all__ = [
     "Template",
@@ -25,5 +26,6 @@ __all__ = [
     "Region",
     "Zone",
     "ResourceAttributes",
-    "AllowedValues"
+    "AllowedValues",
+    "Arn"
 ]

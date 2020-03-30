@@ -11,29 +11,29 @@ class FileSystem(Resource):
         super(FileSystem, self).__init__(id, self.__TYPE)
 
     @Validator.validate(type=bool)
-    def Encrypted(self, value: bool):
-        return self._set_property(self.Encrypted.__name__, value)
+    def Encrypted(self, encrypted: bool):
+        return self._set_property(self.Encrypted.__name__, encrypted)
 
     @Validator.validate(type=ElasticFileSystemTag)
-    def FileSystemTags(self, *value: ElasticFileSystemTag):
-        return self._set_property(self.FileSystemTags.__name__, list(value))
+    def FileSystemTags(self, *tags: ElasticFileSystemTag):
+        return self._set_property(self.FileSystemTags.__name__, list(tags))
 
     @Validator.validate(type=str, min_length=1, max_length=2048)
-    def KmsKeyId(self, value: str):
-        return self._set_property(self.KmsKeyId.__name__, value)
+    def KmsKeyId(self, kms_key_id: str):
+        return self._set_property(self.KmsKeyId.__name__, kms_key_id)
 
     @Validator.validate(type=LifecyclePolicy, required_properties=ModelRequiredProperties.LIFECYCLE_POLICY)
-    def LifecyclePolicies(self, *value: LifecyclePolicy):
-        return self._set_property(self.LifecyclePolicies.__name__, [lp.__to_dict__() for lp in list(value)])
+    def LifecyclePolicies(self, *lifecycle_policies: LifecyclePolicy):
+        return self._set_property(self.LifecyclePolicies.__name__, [lp.__to_dict__() for lp in list(lifecycle_policies)])
 
     @Validator.validate(type=str, allowed_values=AllowedValues.PERFORMANCE_MODE)
-    def PerformanceMode(self, value: str):
-        return self._set_property(self.PerformanceMode.__name__, value)
+    def PerformanceMode(self, performance_mode: str):
+        return self._set_property(self.PerformanceMode.__name__, performance_mode)
 
     @Validator.validate(type=float)
-    def ProvisionedThroughputInMibps(self, value: float):
-        return self._set_property(self.ProvisionedThroughputInMibps.__name__, value)
+    def ProvisionedThroughputInMibps(self, provisioned_throughput_in_mibs: float):
+        return self._set_property(self.ProvisionedThroughputInMibps.__name__, provisioned_throughput_in_mibs)
 
     @Validator.validate(type=str, allowed_values=AllowedValues.THROUGHPUT_MODE)
-    def ThroughputMode(self, value: str):
-        return self._set_property(self.ThroughputMode.__name__, value)
+    def ThroughputMode(self, throughtput_mode: str):
+        return self._set_property(self.ThroughputMode.__name__, throughtput_mode)

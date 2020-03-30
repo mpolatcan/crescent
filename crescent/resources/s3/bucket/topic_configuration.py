@@ -5,13 +5,13 @@ from .constants import ModelRequiredProperties
 
 class TopicConfiguration(Model):
     @Validator.validate(type=str)
-    def Event(self, value: str):
-        return self._set_field(self.Event.__name__, value)
+    def Event(self, event: str):
+        return self._set_field(self.Event.__name__, event)
 
     @Validator.validate(type=NotificationFilter, required_properties=ModelRequiredProperties.NOTIFICATION_FILTER)
-    def Filter(self, value: NotificationFilter):
-        return self._set_field(self.Filter.__name__, value.__to_dict__())
+    def Filter(self, filter: NotificationFilter):
+        return self._set_field(self.Filter.__name__, filter.__to_dict__())
 
     @Validator.validate(type=str)
-    def Topic(self, value: str):
-        return self._set_field(self.Topic.__name__, value)
+    def Topic(self, topic: str):
+        return self._set_field(self.Topic.__name__, topic)

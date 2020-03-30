@@ -9,21 +9,21 @@ class EventSubscription(Resource):
         super(EventSubscription, self).__init__(id, self.__TYPE)
 
     @Validator.validate(type=bool)
-    def Enabled(self, value: bool):
-        return self._set_property(self.Enabled.__name__, value)
+    def Enabled(self, enabled: bool):
+        return self._set_property(self.Enabled.__name__, enabled)
 
     @Validator.validate(type=str, conditions=Conditions.EVENT_CATEGORIES)
-    def EventCategories(self, *value: str):
-        return self._set_property(self.EventCategories.__name__, list(value))
+    def EventCategories(self, *event_categories: str):
+        return self._set_property(self.EventCategories.__name__, list(event_categories))
 
     @Validator.validate(type=str)
-    def SnsTopicArn(self, value: str):
-        return self._set_property(self.SnsTopicArn.__name__, value)
+    def SnsTopicArn(self, sns_topic_arn: str):
+        return self._set_property(self.SnsTopicArn.__name__, sns_topic_arn)
 
     @Validator.validate(type=str, conditions=Conditions.SOURCE_IDS)
-    def SourceIds(self, *value: str):
-        return self._set_property(self.SourceIds.__name__, list(value))
+    def SourceIds(self, *source_ids: str):
+        return self._set_property(self.SourceIds.__name__, list(source_ids))
 
     @Validator.validate(type=str, allowed_values=AllowedValues.SOURCE_TYPE)
-    def SourceType(self, value: str):
-        return self._set_property(self.SourceType.__name__, value)
+    def SourceType(self, source_type: str):
+        return self._set_property(self.SourceType.__name__, source_type)
