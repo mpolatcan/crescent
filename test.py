@@ -1,4 +1,4 @@
-from crescent import CrescentFactory as cf, rds
+from crescent import CrescentFactory as cf, rds, iam
 
 cf.Template().Resources(
     rds.DBCluster().Create("Test1")
@@ -23,5 +23,11 @@ cf.Template().Resources(
     rds.DBClusterParameterGroup.Create("Test4")
         .Family(rds.DBClusterParameterGroup.EngineFamily.AuroraMysql.V_5_7)
         .Description("test-description")
-        .Parameters({})
+        .Parameters({}),
+    iam.User.Create("TestUser")
+    .ManagedPolicyArns(
+        iam.AwsManagedPolicy.S3.FULL_ACCESS,
+        iam.AwsManagedPolicy.S3.READ_ONLY_ACCESS,
+        iam.AwsManagedPolicy.Kinesis.FULL_ACCESS
+    )
 ).YAML("test")

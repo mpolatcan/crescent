@@ -1,5 +1,6 @@
 from crescent.core.constants import get_values
 from .arn import PolicyArn
+from itertools import chain
 
 
 class AwsManagedPolicy:
@@ -78,3 +79,12 @@ class ModelRequiredProperties:
 
 class AllowedValues:
     STATUS = get_values(AccessKeyStatus)
+    MANAGED_POLICY_ARNS = list(chain.from_iterable([
+        get_values(AwsManagedPolicy.Ecr),
+        get_values(AwsManagedPolicy.Efs),
+        get_values(AwsManagedPolicy.Firehose),
+        get_values(AwsManagedPolicy.Iam),
+        get_values(AwsManagedPolicy.Kinesis),
+        get_values(AwsManagedPolicy.Rds),
+        get_values(AwsManagedPolicy.S3)
+    ]))

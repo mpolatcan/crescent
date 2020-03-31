@@ -1,6 +1,7 @@
 from crescent.core import Resource, Tag, Validator
 from .policy_model import PolicyModel
-from .constants import ModelRequiredProperties
+from .constants import AllowedValues, ModelRequiredProperties
+from .arn import PolicyArn
 
 
 class Role(Resource):
@@ -17,7 +18,7 @@ class Role(Resource):
     def Description(self, description: str):
         return self._set_property(self.Description.__name__, description)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=PolicyArn, allowed_values=AllowedValues.MANAGED_POLICY_ARNS)
     def ManagedPolicyArns(self, *managed_policy_arns: str):
         return self._set_property(self.ManagedPolicyArns.__name__, list(managed_policy_arns))
 

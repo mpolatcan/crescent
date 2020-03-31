@@ -1,6 +1,7 @@
 from crescent.core import Resource, Validator
 from .policy_model import PolicyModel
-from .constants import ModelRequiredProperties
+from .constants import AllowedValues, ModelRequiredProperties
+from .arn import PolicyArn
 
 
 class Group(Resource):
@@ -13,7 +14,7 @@ class Group(Resource):
     def GroupName(self, group_name: str):
         return self._set_property(self.GroupName.__name__, group_name)
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=PolicyArn, allowed_values=AllowedValues.MANAGED_POLICY_ARNS)
     def ManagedPolicyArns(self, *managed_policy_arns: str):
         return self._set_property(self.ManagedPolicyArns.__name__, list(managed_policy_arns))
 

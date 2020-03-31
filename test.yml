@@ -31,6 +31,13 @@ Resources:
       Family: aurora-mysql5.7
       Parameters: {}
     Type: AWS::RDS::DBClusterParameterGroup
+  TestUser:
+    Properties:
+      ManagedPolicyArns:
+      - arn:aws:iam:::policy/AmazonS3FullAccess
+      - arn:aws:iam:::policy/AmazonS3ReadOnlyAccess
+      - arn:aws:iam:::policy/AmazonKinesisFullAccess
+    Type: AWS::IAM::User
   UpdatePolicy:
     AutoScalingReplacingUpdate:
       WillReplace: true

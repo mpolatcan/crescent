@@ -1,7 +1,8 @@
 from crescent.core import Resource, Tag, Validator
 from .policy_model import PolicyModel
 from .login_profile import LoginProfile
-from .constants import ModelRequiredProperties
+from .arn import PolicyArn
+from .constants import AllowedValues, ModelRequiredProperties
 
 
 class User(Resource):
@@ -18,7 +19,7 @@ class User(Resource):
     def LoginProfile(self, login_profile: LoginProfile):
         return self._set_property(self.LoginProfile.__name__, login_profile.__to_dict__())
 
-    @Validator.validate(type=str)
+    @Validator.validate(type=PolicyArn, allowed_values=AllowedValues.MANAGED_POLICY_ARNS)
     def ManagedPolicyArns(self, *managed_policy_arns: str):
         return self._set_property(self.ManagedPolicyArns.__name__, list(managed_policy_arns))
 
