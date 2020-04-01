@@ -1,11 +1,12 @@
 from itertools import chain
 
 
-def get_values(obj):
+def get_values(obj, raw=True):
     ignore_keys = ["__module__", "__dict__", "__doc__", "__weakref__"]
     values = [value for key, value in obj.__dict__.items() if key not in ignore_keys]
 
     if (
+        raw and
         not isinstance(values[0], str) and
         not isinstance(values[0], int) and
         not isinstance(values[0], float)

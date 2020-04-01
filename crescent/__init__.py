@@ -9,6 +9,8 @@ from .resources import (
     S3 as s3
 )
 
+# TODO Policy builder components will be added
+
 
 class CrescentFactory:
     Region = Region
@@ -44,5 +46,6 @@ __all__ = [
     "iam",
     "kinesis",
     "rds",
-    "s3"
+    "s3",
+    "actions"
 ]
