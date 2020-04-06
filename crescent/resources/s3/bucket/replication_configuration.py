@@ -1,13 +1,14 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .replication_rule import ReplicationRule
 from .constants import ModelRequiredProperties
 
 
 class ReplicationConfiguration(Model):
-    @Validator.validate(type=str)
+    def __init__(self):
+        super(ReplicationConfiguration, self).__init__(required_properties=ModelRequiredProperties.REPLICATION_CONFIGURATION)
+
     def Role(self, role: str):
         return self._set_field(self.Role.__name__, role)
 
-    @Validator.validate(type=ReplicationRule, required_properties=ModelRequiredProperties.REPLICATION_RULE)
     def Rules(self, *rules: ReplicationRule):
-        return self._set_field(self.Rules.__name__, [rr.__to_dict__() for rr in list(rules)])
+        return self._set_field(self.Rules.__name__, list(rules))

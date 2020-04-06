@@ -7,6 +7,7 @@ class DBClusterEngine:
     AURORA_MYSQL = "aurora-mysql"
     AURORA_POSTGRESQL = "aurora-postgresql"
 
+
 # -----------------------------------------------------------
 
 
@@ -14,6 +15,7 @@ class DBClusterEngineVersion:
     Aurora = EngineVersion.Aurora
     AuroraMysql = EngineVersion.AuroraMysql
     AuroraPostgresql = EngineVersion.AuroraPostgresql
+
 
 # -----------------------------------------------------------
 
@@ -25,12 +27,14 @@ class EngineMode:
     GLOBAL = "global"
     MULTI_MASTER = "multimaster"
 
+
 # -----------------------------------------------------------
 
 
 class RestoreType:
     FULL_COPY = "full-copy"
     COPY_ON_WRITE = "copy-on-write"
+
 
 # -----------------------------------------------------------
 
@@ -68,6 +72,7 @@ class Capacity:
         CAP_192 = 192
         CAP_384 = 384
 
+
 # -----------------------------------------------------------
 
 
@@ -85,6 +90,7 @@ class _Property:
         MAX_CAPACITY = "MaxCapacity"
         MIN_CAPACITY = "MinCapacity"
 
+
 # -----------------------------------------------------------
 
 
@@ -92,6 +98,7 @@ class AllowedValues:
     RESTORE_TYPE = get_values(RestoreType)
     ENGINE = get_values(DBClusterEngine)
     ENGINE_MODE = get_values(EngineMode)
+
 
 # -----------------------------------------------------------
 
@@ -103,7 +110,9 @@ class NotSpecifyIfSpecified:
         _Property.DBCluster.SOURCE_DB_INSTANCE_IDENTIFIER
     ]
     DB_CLUSTER_MASTER_USERNAME = [_Property.DBCluster.SNAPSHOT_IDENTIFIER]
-    DB_CLUSTER_MASTER_USER_PASSWORD = [_Property.DBCluster.SOURCE_DB_INSTANCE_IDENTIFIER, _Property.DBCluster.SNAPSHOT_IDENTIFIER]
+    DB_CLUSTER_MASTER_USER_PASSWORD = [_Property.DBCluster.SOURCE_DB_INSTANCE_IDENTIFIER,
+                                       _Property.DBCluster.SNAPSHOT_IDENTIFIER]
+
 
 # -----------------------------------------------------------
 
@@ -112,11 +121,23 @@ class _RequiredProperties:
     class DBClusterRole:
         ROLE_ARN = "RoleArn"
 
+    class DBCluster:
+        ENGINE = "Engine"
+
+
 # -----------------------------------------------------------
 
 
 class ModelRequiredProperties:
     DB_CLUSTER_ROLE = get_values(_RequiredProperties.DBClusterRole)
+
+
+# -----------------------------------------------------------
+
+
+class ResourceRequiredProperties:
+    DB_CLUSTER = get_values(_RequiredProperties.DBCluster)
+
 
 # -----------------------------------------------------------
 
@@ -132,6 +153,8 @@ class Constants:
         DBClusterEngine.AURORA_MYSQL: get_values(DBClusterEngineVersion.AuroraMysql),
         DBClusterEngine.AURORA_POSTGRESQL: get_values(DBClusterEngineVersion.AuroraPostgresql)
     }
+
+
 # -----------------------------------------------------------
 
 
@@ -140,38 +163,56 @@ class Conditions:
         (
             [_Property.DBCluster.ENGINE_MODE],
             lambda engine_mode:
-                True if engine_mode == EngineMode.SERVERLESS else Exception("_Property \"EngineMode\"'s value must be \"serverless\"")
+                dict(is_valid=True) if engine_mode and engine_mode == EngineMode.SERVERLESS
+                else dict(is_valid=False, error="DBCluster'a property EngineMode's value must be \"serverless\"")
         ),
         (
             [_Property.DBCluster.ENGINE, _Property.DBCluster.SCALING_CONFIGURATION],
             lambda engine, scaling_conf:
-                True if scaling_conf.get(_Property.ScalingConfiguration.MAX_CAPACITY, None) is None or
-                        scaling_conf[_Property.ScalingConfiguration.MAX_CAPACITY] in Constants.ENGINE_CAPACITIES[engine]
-                else Exception(
-                    "Property \"MaxCapacity\" must be equal to one of these values for engine \"{engine}\"! ({capacities})".format(
-                        engine=engine, capacities=str(Constants.ENGINE_CAPACITIES[engine]).replace('[', '').replace(']', '')
+            dict(is_valid=True) if engine not in AllowedValues.ENGINE
+                or not scaling_conf.__get_field__(_Property.ScalingConfiguration.MAX_CAPACITY)
+                or scaling_conf.__get_field__(_Property.ScalingConfiguration.MAX_CAPACITY) in Constants.ENGINE_CAPACITIES[engine]
+            else dict(
+                is_valid=False,
+                error=(
+                    "ScalingConfiguration's property MaxCapacity must be equal to one of these values for "
+                    "engine \"{engine}\"! ({capacities})".format(
+                        engine=engine,
+                        capacities=str(Constants.ENGINE_CAPACITIES[engine]).replace('[', '').replace(']', '')
                     )
                 )
+            )
         ),
         (
             [_Property.DBCluster.ENGINE, _Property.DBCluster.SCALING_CONFIGURATION],
             lambda engine, scaling_conf:
-                True if scaling_conf.get(_Property.ScalingConfiguration.MIN_CAPACITY, None) is None or
-                        scaling_conf[_Property.ScalingConfiguration.MIN_CAPACITY] in Constants.ENGINE_CAPACITIES[engine]
-                else Exception(
-                    "Property \"MinCapacity\" must be equal to one of these values for engine \"{engine}\"! ({capacities})".format(
-                        engine=engine, capacities=str(Constants.ENGINE_CAPACITIES[engine]).replace('[', '').replace(']', '')
+            dict(is_valid=True) if engine not in AllowedValues.ENGINE
+                or not scaling_conf.__get_field__(_Property.ScalingConfiguration.MIN_CAPACITY)
+                or scaling_conf.__get_field__(_Property.ScalingConfiguration.MIN_CAPACITY) in Constants.ENGINE_CAPACITIES[engine]
+            else dict(
+                is_valid=False,
+                error=(
+                    "ScalingConfiguration's property MinCapacity must be equal to one of these values for "
+                    "engine \"{engine}\"! ({capacities})".format(
+                        engine=engine,
+                        capacities=str(Constants.ENGINE_CAPACITIES[engine]).replace('[', '').replace(']', '')
                     )
                 )
+            )
         )
     ]
     ENGINE_VERSION = [
         (
             [_Property.DBCluster.ENGINE, _Property.DBCluster.ENGINE_VERSION],
             lambda engine, engine_version:
-                True if engine_version in Constants.ENGINE_VERSIONS[engine]
-                else Exception("Invalid engine version {engine_version} for engine {engine}!".format(
-                    engine_version=engine_version, engine=engine
-                ))
+                dict(is_valid=True) if engine not in AllowedValues.ENGINE
+                    or not engine_version
+                    or engine_version in Constants.ENGINE_VERSIONS[engine]
+                else dict(
+                    is_valid=False,
+                    error="DBCluster's property EngineVersion value {engine_version} is invalid for engine {engine}!".format(
+                        engine_version=engine_version, engine=engine
+                    )
+                )
         )
     ]

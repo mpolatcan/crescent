@@ -53,17 +53,22 @@ class SourceType:
 # -----------------------------------------------------------
 
 
-class _Property:
-    class EventSubscription:
-        EVENT_CATEGORIES = "EventCategories"
-        SOURCE_TYPE = "SourceType"
-
+class AllowedValues:
+    SOURCE_TYPE = get_values(SourceType)
 
 # -----------------------------------------------------------
 
 
-class AllowedValues:
-    SOURCE_TYPE = get_values(SourceType)
+class _RequiredProperties:
+    class EventSubscription:
+        SNS_TOPIC_ARN = "SnsTopicArn"
+
+# -----------------------------------------------------------
+
+
+class ResourceRequiredProperties:
+    EVENT_SUBSCRIPTION = get_values(_RequiredProperties.EventSubscription)
+
 
 # -----------------------------------------------------------
 
@@ -81,30 +86,45 @@ class Constants:
 # -----------------------------------------------------------
 
 
+class _Property:
+    class EventSubscription:
+        EVENT_CATEGORIES = "EventCategories"
+        SOURCE_TYPE = "SourceType"
+
+# -----------------------------------------------------------
+
+
 class Conditions:
     SOURCE_IDS = [
         (
             [_Property.EventSubscription.SOURCE_TYPE],
-            lambda source_type: True if source_type is not None else Exception("Property \"SourceType\" must be defined!")
+            lambda source_type:
+                dict(is_valid=True) if source_type
+                else dict(is_valid=False, error="Property SourceType must be defined!")
         )
     ]
     EVENT_CATEGORIES = [
         (
             [_Property.EventSubscription.SOURCE_TYPE],
-            lambda source_type: Exception("Property \"SourceType\" must be defined!") if source_type is None else True
+            lambda source_type:
+                dict(is_valid=True) if source_type
+                else dict(is_valid=False, error="Property SourceType must be defined!")
         ),
         (
             [_Property.EventSubscription.SOURCE_TYPE, _Property.EventSubscription.EVENT_CATEGORIES],
             lambda source_type, event_categories:
-                Exception("Invalid event category \"{category}\" for source type {source_type}".format(
-                    category=[
-                        event_category for event_category in event_categories
-                        if event_category not in Constants.EVENT_CATEGORIES[source_type]
-                    ][0],
-                    source_type=source_type)
-                ) if len([
+                dict(
+                    is_valid=False,
+                    error="Invalid event category \"{category}\" for source type {source_type}".format(
+                        category=[
+                            event_category for event_category in event_categories
+                            if event_category not in Constants.EVENT_CATEGORIES[source_type]
+                        ][0],
+                        source_type=source_type
+                    )
+                ) if source_type and len([
                     event_category for event_category in event_categories
                     if event_category not in Constants.EVENT_CATEGORIES[source_type]
-                ]) > 0 else True
+                ]) > 0 else dict(is_valid=True)
         )
     ]

@@ -1,23 +1,29 @@
 from crescent.core import Arn
 
 
-class _EfsArn(Arn):
+class EfsArn(Arn):
+    __SERVICE_EFS = "efs"
+
     def __new__(cls,
-                suffix,
-                partition="aws",
-                region="",
-                account_id=""):
-        return super(_EfsArn, cls).__new__(
+                suffix: str,
+                partition: str = "aws",
+                region: str = "",
+                account_id: str = ""):
+        return super(EfsArn, cls).__new__(
             cls,
-            service="efs",
+            service=cls.__SERVICE_EFS,
             suffix=suffix,
             partition=partition,
             region=region,
             account_id=account_id
         )
 
+# ------------------------------------
 
-class FileSystemArn(_EfsArn):
+
+class FileSystemArn(EfsArn):
+    __FILE_SYSTEM_ARN_SUFFIX = "file-system/{}"
+
     def __new__(cls,
                 file_system_id: str,
                 partition: str = "aws",
@@ -25,14 +31,18 @@ class FileSystemArn(_EfsArn):
                 account_id: str = ""):
         return super(FileSystemArn, cls).__new__(
             cls,
-            suffix="file-system/{}".format(file_system_id),
+            suffix=cls.__FILE_SYSTEM_ARN_SUFFIX.format(file_system_id),
             partition=partition,
             region=region,
             account_id=account_id
         )
 
+# ------------------------------------
 
-class AccessPointArn(_EfsArn):
+
+class AccessPointArn(EfsArn):
+    __ACCESS_POINT_ARN_SUFFIX = "access-point/{}"
+
     def __new__(cls,
                 access_point_id: str,
                 partition: str = "aws",
@@ -40,7 +50,7 @@ class AccessPointArn(_EfsArn):
                 account_id: str = ""):
         return super(AccessPointArn, cls).__new__(
             cls,
-            suffix="access-point/{}".format(access_point_id),
+            suffix=cls.__ACCESS_POINT_ARN_SUFFIX.format(access_point_id),
             partition=partition,
             region=region,
             account_id=account_id

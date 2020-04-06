@@ -1,26 +1,27 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .replication_destination import ReplicationDestination
 from .source_selection_criteria import SourceSelectionCriteria
 from .constants import AllowedValues, ModelRequiredProperties
 
 
 class ReplicationRule(Model):
-    @Validator.validate(type=ReplicationDestination, required_properties=ModelRequiredProperties.REPLICATION_DESTINATION)
-    def Destination(self, destination: ReplicationDestination):
-        return self._set_field(self.Destination.__name__, destination.__to_dict__())
+    def __init__(self):
+        super(ReplicationRule, self).__init__(
+            allowed_values={self.Status.__name__: AllowedValues.REPLICATION_RULE_STATUS},
+            required_properties=ModelRequiredProperties.REPLICATION_RULE
+        )
 
-    @Validator.validate(type=str)
+    def Destination(self, destination: ReplicationDestination):
+        return self._set_field(self.Destination.__name__, destination)
+
     def Id(self, id: str):
         return self._set_field(self.Id.__name__, id)
 
-    @Validator.validate(type=str)
     def Prefix(self, prefix: str):
         return self._set_field(self.Prefix.__name__, prefix)
 
-    @Validator.validate(type=SourceSelectionCriteria, required_properties=ModelRequiredProperties.SOURCE_SELECTION_CRITERIA)
     def SourceSelectionCriteria(self, source_selection_criteria: SourceSelectionCriteria):
-        return self._set_field(self.SourceSelectionCriteria.__name__, source_selection_criteria.__to_dict__())
+        return self._set_field(self.SourceSelectionCriteria.__name__, source_selection_criteria)
 
-    @Validator.validate(type=str, allowed_values=AllowedValues.REPLICATION_RULE_STATUS)
     def Status(self, status: str):
         return self._set_field(self.Status.__name__, status)

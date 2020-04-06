@@ -1,9 +1,11 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .filter_rule import FilterRule
 from .constants import ModelRequiredProperties
 
 
 class S3KeyFilter(Model):
-    @Validator.validate(type=FilterRule, required_properties=ModelRequiredProperties.FILTER_RULE)
+    def __init__(self):
+        super(S3KeyFilter, self).__init__(required_properties=ModelRequiredProperties.S3_KEY_FILTER)
+
     def Rules(self, *rules: FilterRule):
-        return self._set_field(self.Rules, [fr.__to_dict__() for fr in list(rules)])
+        return self._set_field(self.Rules, list(rules))

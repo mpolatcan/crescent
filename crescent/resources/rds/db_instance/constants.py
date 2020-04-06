@@ -138,11 +138,21 @@ class _RequiredProperties:
         FEATURE_NAME = "FeatureName"
         ROLE_ARN = "RoleArn"
 
+    class DBInstance:
+        DB_INSTANCE_CLASS = "DBInstanceClass"
+
 
 # -----------------------------------------------------------
 
 class ModelRequiredProperties:
     DB_INSTANCE_ROLE = get_values(_RequiredProperties.DBInstanceRole)
+
+# -----------------------------------------------------------
+
+
+class ResourceRequiredProperties:
+    DB_INSTANCE = get_values(_RequiredProperties.DBInstance)
+
 
 # -----------------------------------------------------------
 
@@ -206,102 +216,144 @@ class Conditions:
         (
             [_Property.DBInstance.ENGINE],
             lambda engine:
-                Exception("Property \"BackupRetentionPeriod\" is not applicable. The retention period for automated backups is managed by the DB Cluster for engine {}".format(engine))
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property BackupRetentionPeriod is not applicable. The retention period "
+                           "for automated backups is managed by the DBCluster for engine {}").format(engine)
+                )
                 if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
-                else True
+                else dict(is_valid=True)
         )
     ]
     CHARACTER_SET_NAME = [
         (
             [_Property.DBInstance.ENGINE],
             lambda engine:
-                Exception("Property \"CharacterSetName\" is not applicable.The character set is managed by the DB Cluster for engine {}".format(engine))
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property CharacterSetName is not applicable.The character set is managed "
+                           "by the DB Cluster for engine {}").format(engine)
+                )
                 if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
-                else True
+                else dict(is_valid=True)
         )
     ]
     COPY_TAGS_TO_SNAPSHOT = [
         (
             [_Property.DBInstance.ENGINE],
             lambda engine:
-                Exception("Property \"CopyTagsToSnapshot\" is not applicable. Copying tags to snapshots is managed by the DB cluster for engine {}".format(engine))
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property CopyTagsToSnapshot is not applicable. Copying tags to snapshots is "
+                           "managed by the DB cluster for engine {}").format(engine)
+                )
                 if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
-                else True
+                else dict(is_valid=True)
         )
     ]
     DELETION_PROTECTION = [
         (
             [_Property.DBInstance.ENGINE],
             lambda engine:
-                Exception("Property \"DeletionProtection\" is not applicable. You can enable or disable deletion protection for the DB cluster for engine {}".format(engine))
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property DeletionProtection is not applicable. You can enable or disable "
+                           "deletion protection for the DB cluster for engine {}").format(engine)
+                )
                 if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
-                else True
+                else dict(is_valid=True)
         )
     ]
     ENABLE_IAM_DATABASE_AUTHENTICATION = [
         (
             [_Property.DBInstance.ENGINE],
             lambda engine:
-                Exception("Property \"EnableIAMDatabaseAuthentication\" is not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster for engine {}".format(engine))
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property EnableIAMDatabaseAuthentication is not applicable. Mapping "
+                           "AWS IAM accounts to database accounts is managed by the DB cluster "
+                           "for engine {}").format(engine)
+                )
                 if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
-                else True
+                else dict(is_valid=True)
         )
     ]
     STORAGE_ENCRYPTED = [
         (
             [_Property.DBInstance.ENGINE],
             lambda engine:
-                Exception("Property \"StorageEncrypted\" is not applicable. The encryption for DB instances is managed by the DB cluster for engine {}".format(engine))
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property StorageEncrypted is not applicable. The encryption for DB "
+                           "instances is managed by the DB cluster for engine {}").format(engine)
+                )
                 if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
-                else True
+                else dict(is_valid=True)
         )
     ]
     MASTER_USER_PASSWORD = [
         (
             [_Property.DBInstance.ENGINE],
             lambda engine:
-                Exception("Property \"MasterUserPassword\" is not applicable. The password for the master user is managed by the DB cluster for engine {}".format(engine))
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property MasterUserPassword is not applicable. The password for the "
+                           "master user is managed by the DB cluster for engine {}").format(engine)
+                )
                 if engine in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
-                else True
+                else dict(is_valid=True)
         ),
         (
             [_Property.DBInstance.MASTER_USER_PASSWORD, _Property.DBInstance.ENGINE],
             lambda master_user_password, engine:
-                Exception("Property \"MasterUserPassword\" must contain from {min} to {max} characters for engine {engine}. Given length: {length}".format(
-                    min=Constants.MASTER_USER_PASSWORD_LENGTHS[engine][0],
-                    max=Constants.MASTER_USER_PASSWORD_LENGTHS[engine][1],
-                    engine=engine,
-                    length=len(master_user_password)
-                ))
-                if (
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property MasterUserPassword must contain from {min} to {max} "
+                           "characters for engine {engine}. Given length: {length}").format(
+                                min=Constants.MASTER_USER_PASSWORD_LENGTHS[engine][0],
+                                max=Constants.MASTER_USER_PASSWORD_LENGTHS[engine][1],
+                                engine=engine,
+                                length=len(master_user_password)
+                    )
+                )
+                if engine
+                and engine not in [DBInstanceEngine.AURORA, DBInstanceEngine.AURORA_MYSQL, DBInstanceEngine.AURORA_POSTGRESQL]
+                and (
                     len(master_user_password) < Constants.MASTER_USER_PASSWORD_LENGTHS[engine][0] or
                     len(master_user_password) > Constants.MASTER_USER_PASSWORD_LENGTHS[engine][1]
-                ) else True
+                ) else dict(is_valid=True)
         )
     ]
     DB_NAME = [
         (
             [_Property.DBInstance.DB_NAME, _Property.DBInstance.ENGINE],
             lambda db_name, engine:
-                Exception("Property \"DBName\" must contain from {min} to {max} characters for engine {engine}. Given length: {length}".format(
-                    min=Constants.DB_NAME_LENGTHS[engine][0],
-                    max=Constants.DB_NAME_LENGTHS[engine][1],
-                    engine=engine,
-                    length=len(db_name)
-                ))
-                if (
+                dict(
+                    is_valid=False,
+                    error=("DBInstance's property DBName must contain from {min} to {max} characters "
+                           "for engine {engine}. Given length: {length}").format(
+                                min=Constants.DB_NAME_LENGTHS[engine][0],
+                                max=Constants.DB_NAME_LENGTHS[engine][1],
+                                engine=engine,
+                                length=len(db_name)
+                    )
+                )
+                if db_name is not None and engine and (
                     len(db_name) < Constants.DB_NAME_LENGTHS[engine][0] or
                     len(db_name) > Constants.DB_NAME_LENGTHS[engine][1]
-                ) else True
+                ) else dict(is_valid=True)
         )
     ]
     ENGINE_VERSION = [
         (
             [_Property.DBInstance.ENGINE, _Property.DBInstance.ENGINE_VERSION],
             lambda engine, engine_version:
-                True if engine_version in Constants.ENGINE_VERSIONS[engine]
-                else Exception("Invalid engine version {engine_version} for engine {engine}!".format(
-                    engine_version=engine_version, engine=engine
-                ))
+                dict(is_valid=True) if not engine
+                    or engine_version in Constants.ENGINE_VERSIONS[engine]
+                else dict(
+                    is_valid=False,
+                    error=("DBInstance's property EngineVersion value {engine_version} is invalid "
+                           "for engine {engine}!").format(engine_version=engine_version, engine=engine)
+                )
         )
     ]

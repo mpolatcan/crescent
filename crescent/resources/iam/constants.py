@@ -67,12 +67,47 @@ class _RequiredProperties:
     class LoginProfile:
         PASSWORD = "Password"
 
+    class AccessKey:
+        USERNAME = "Username"
+
+    class InstanceProfile:
+        ROLES = "Roles"
+
+    class ManagedPolicy:
+        POLICY_DOCUMENT = "PolicyDocument"
+
+    class Policy:
+        POLICY_DOCUMENT = "PolicyDocument"
+        POLICY_NAME = "PolicyName"
+
+    class Role:
+        ASSUME_ROLE_POLICY_DOCUMENT = "AssumeRolePolicyDocument"
+
+    class ServiceLinkedRole:
+        AWS_SERVICE_NAME = "AWSServiceName"
+
+    class UserToGroupAddition:
+        GROUP_NAME = "GroupName"
+        USERS = "Users"
+
 # -----------------------------------------------------------
 
 
 class ModelRequiredProperties:
     POLICY_MODEL = get_values(_RequiredProperties.PolicyModel)
     LOGIN_PROFILE = get_values(_RequiredProperties.LoginProfile)
+
+# -----------------------------------------------------------
+
+
+class ResourceRequiredProperties:
+    ACCESS_KEY = get_values(_RequiredProperties.AccessKey)
+    INSTANCE_PROFILE = get_values(_RequiredProperties.InstanceProfile)
+    MANAGED_POLICY = get_values(_RequiredProperties.ManagedPolicy)
+    POLICY = get_values(_RequiredProperties.Policy)
+    ROLE = get_values(_RequiredProperties.Role)
+    SERVICE_LINKED_ROLE = get_values(_RequiredProperties.ServiceLinkedRole)
+    USER_TO_GROUP_ADDITION = get_values(_RequiredProperties.UserToGroupAddition)
 
 # -----------------------------------------------------------
 

@@ -1,8 +1,13 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .serializer import Serializer
+from .constants import ModelRequiredProperties
 
 
 class OutputFormatConfiguration(Model):
-    @Validator.validate(type=Serializer)
+    def __init__(self):
+        super(OutputFormatConfiguration, self).__init__(
+            required_properties=ModelRequiredProperties.OUTPUT_FORMAT_CONFIGURATION
+        )
+
     def Serializer(self, serializer: Serializer):
-        return self._set_field(self.Serializer.__name__, serializer.__to_dict__())
+        return self._set_field(self.Serializer.__name__, serializer)

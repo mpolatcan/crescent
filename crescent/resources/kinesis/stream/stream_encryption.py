@@ -1,11 +1,18 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
+from .constants import ModelRequiredProperties
 
 
 class StreamEncryption(Model):
-    @Validator.validate(type=str, allowed_values=["KMS"])
+    def __int__(self):
+        super(StreamEncryption, self).__init__(
+            min_length={self.KeyId.__name__: 1},
+            max_length={self.KeyId.__name__: 2048},
+            allowed_values={self.EncryptionType.__name__: ["KMS"]},
+            required_properties=ModelRequiredProperties.STREAM_ENCRYPTION
+        )
+
     def EncryptionType(self, encryption_type: str):
         return self._set_field(self.EncryptionType.__name__, encryption_type)
 
-    @Validator.validate(type=str, min_length=1, max_length=2048)
     def KeyId(self, key_id: str):
         return self._set_field(self.KeyId.__name__, key_id)

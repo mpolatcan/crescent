@@ -1,25 +1,26 @@
-from crescent.core import Resource, Tag, Validator
-from .constants import AllowedValues
+from crescent.core import Resource, Tag
+from .constants import AllowedValues, ResourceRequiredProperties
 
 
 class DBParameterGroup(Resource):
     __TYPE = "AWS::RDS::DBParameterGroup"
 
     def __init__(self, id: str):
-        super(DBParameterGroup, self).__init__(id, self.__TYPE)
+        super(DBParameterGroup, self).__init__(
+            id=id,
+            type=self.__TYPE,
+            allowed_values={self.Family.__name__: AllowedValues.FAMILY},
+            required_properties=ResourceRequiredProperties.DB_PARAMETER_GROUP
+        )
 
-    @Validator.validate(type=str)
     def Description(self, description: str):
         return self._set_property(self.Description.__name__, description)
 
-    @Validator.validate(type=str, allowed_values=AllowedValues.FAMILY)
     def Family(self, family: str):
         return self._set_property(self.Family.__name__, family)
 
-    @Validator.validate(type=dict)
     def Parameters(self, parameters: dict):
         return self._set_property(self.Parameters.__name__, parameters)
 
-    @Validator.validate(type=Tag)
     def Tags(self, *tags: Tag):
         return self._set_property(self.Tags.__name__, list(tags))

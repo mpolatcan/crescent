@@ -4,13 +4,14 @@ from .arn import RepositoryArn
 
 
 class Ecr:
-    @staticmethod
-    def Repository(id: str):
-        return Repository(id)
+    class Repository:
+        @staticmethod
+        def Create(id: str):
+            return Repository(id)
 
-    @staticmethod
-    def LifecyclePolicy():
-        return LifecyclePolicy()
+        @staticmethod
+        def LifecyclePolicy():
+            return LifecyclePolicy()
 
     @staticmethod
     def RepositoryArn(repository_name: str,

@@ -1,17 +1,17 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .notification_filter import NotificationFilter
 from .constants import ModelRequiredProperties
 
 
 class TopicConfiguration(Model):
-    @Validator.validate(type=str)
+    def __init__(self):
+        super(TopicConfiguration, self).__init__(required_properties=ModelRequiredProperties.TOPIC_CONFIGURATION)
+
     def Event(self, event: str):
         return self._set_field(self.Event.__name__, event)
 
-    @Validator.validate(type=NotificationFilter, required_properties=ModelRequiredProperties.NOTIFICATION_FILTER)
     def Filter(self, filter: NotificationFilter):
-        return self._set_field(self.Filter.__name__, filter.__to_dict__())
+        return self._set_field(self.Filter.__name__, filter)
 
-    @Validator.validate(type=str)
     def Topic(self, topic: str):
         return self._set_field(self.Topic.__name__, topic)

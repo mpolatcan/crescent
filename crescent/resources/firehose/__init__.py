@@ -38,6 +38,7 @@ from .constants import (
     ElasticsearchDestinationIndexRotationPeriod,
     SplunkDestinationHECEndpointType
 )
+from .arn import DeliveryStreamArn
 
 
 class Firehose:
@@ -167,7 +168,20 @@ class Firehose:
         def SplunkRetryOptions():
             return SplunkRetryOptions()
 
+    @staticmethod
+    def DeliveryStreamArn(delivery_stream_name: str,
+                          partition: str = "aws",
+                          region: str = "",
+                          account_id: str = ""):
+        return DeliveryStreamArn(
+            delivery_stream_name=delivery_stream_name,
+            partition=partition,
+            region=region,
+            account_id=account_id
+        )
+
 
 __all__ = [
-    "Firehose"
+    "Firehose",
+    "DeliveryStreamArn"
 ]

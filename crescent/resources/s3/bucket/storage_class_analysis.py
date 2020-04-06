@@ -1,9 +1,7 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .data_export import DataExport
-from .constants import ModelRequiredProperties
 
 
 class StorageClassAnalysis(Model):
-    @Validator.validate(type=DataExport, required_properties=ModelRequiredProperties.DATA_EXPORT)
     def DataExport(self, data_export: DataExport):
-        return self._set_field(self.DataExport.__name__, data_export.__to_dict__())
+        return self._set_field(self.DataExport.__name__, data_export)

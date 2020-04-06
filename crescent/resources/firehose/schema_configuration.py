@@ -1,27 +1,33 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
+from .constants import ModelRequiredProperties
 
 
 class SchemaConfiguration(Model):
-    @Validator.validate(type=str, pattern=r"^\S+$")
+    def __init__(self):
+        super(SchemaConfiguration, self).__init__(
+            pattern={self.CatalogId.__name__: r"^\S+$",
+                     self.DatabaseName.__name__: r"^\S+$",
+                     self.Region.__name__: r"^\S+$",
+                     self.RoleARN.__name__: r"^\S+$",
+                     self.TableName.__name__: r"^\S+$",
+                     self.VersionId.__name__: r"^\S+$"},
+            required_properties=ModelRequiredProperties.SCHEMA_CONFIGURATION
+        )
+
     def CatalogId(self, catalog_id: str):
         return self._set_field(self.CatalogId.__name__, catalog_id)
 
-    @Validator.validate(type=str, pattern=r"^\S+$")
     def DatabaseName(self, database_name: str):
         return self._set_field(self.DatabaseName.__name__, database_name)
 
-    @Validator.validate(type=str, pattern=r"^\S+$")
     def Region(self, region: str):
         return self._set_field(self.Region.__name__, region)
 
-    @Validator.validate(type=str, pattern=r"^\S+$")
     def RoleARN(self, role_arn: str):
         return self._set_field(self.RoleARN.__name__, role_arn)
 
-    @Validator.validate(type=str, pattern=r"^\S+$")
     def TableName(self, table_name: str):
         return self._set_field(self.TableName.__name__, table_name)
 
-    @Validator.validate(type=str, pattern=r"^\S+$")
     def VersionId(self, version_id: str):
         return self._set_field(self.VersionId.__name__, version_id)

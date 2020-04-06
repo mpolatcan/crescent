@@ -88,88 +88,6 @@ class Zone:
 
 
 class _RequiredProperties:
-    class Efs:
-        class MountTarget:
-            FILE_SYSTEM_ID = "FileSystemId"
-            SECURITY_GROUPS = "SecurityGroups"
-            SUBNET_ID = "SubnetId"
-
-    class Iam:
-        class AccessKey:
-            USERNAME = "Username"
-
-        class InstanceProfile:
-            ROLES = "Roles"
-
-        class ManagedPolicy:
-            POLICY_DOCUMENT = "PolicyDocument"
-
-        class Policy:
-            POLICY_DOCUMENT = "PolicyDocument"
-            POLICY_NAME = "PolicyName"
-
-        class Role:
-            ASSUME_ROLE_POLICY_DOCUMENT = "AssumeRolePolicyDocument"
-
-        class ServiceLinkedRole:
-            AWS_SERVICE_NAME = "AWSServiceName"
-
-        class UserToGroupAddition:
-            GROUP_NAME = "GroupName"
-            USERS = "Users"
-
-    class Kinesis:
-        class Stream:
-            SHARD_COUNT = "ShardCount"
-
-        class StreamConsumer:
-            CONSUMER_NAME = "ConsumerName"
-            STREAM_ARN = "StreamARN"
-
-    class Rds:
-        class DBCluster:
-            ENGINE = "Engine"
-
-        class DBClusterParameterGroup:
-            DESCRIPTION = "Description"
-            FAMILY = "Family"
-            PARAMETERS = "Parameters"
-
-        class DBInstance:
-            DB_INSTANCE_CLASS = "DBInstanceClass"
-
-        class DBParameterGroup:
-            DESCRIPTION = "Description"
-            FAMILY = "Family"
-
-        class DBSecurityGroup:
-            DB_SECURITY_GROUP_INGRESS = "DBSecurityGroupIngress"
-            GROUP_DESCRIPTION = "GroupDescription"
-
-        class DBSecurityGroupIngress:
-            DB_SECURITY_GROUP_NAME = "DBSecurityGroupName"
-
-        class DBSubnetGroup:
-            DB_SUBNET_GROUP_DESCRIPTION = "DBSubnetGroupDescription"
-            SUBNET_IDS = "SubnetIds"
-
-        class EventSubscription:
-            SNS_TOPIC_ARN = "SnsTopicArn"
-
-        class OptionGroup:
-            ENGINE_NAME = "EngineName"
-            MAJOR_ENGINE_VERSION = "MajorEngineVersion"
-            OPTION_CONFIGURATIONS = "OptionConfigurations"
-            OPTION_GROUP_DESCRIPTION = "OptionGroupDescription"
-
-    class S3:
-        class AccessPoint:
-            BUCKET = "Bucket"
-
-        class BucketPolicy:
-            BUCKET = "Bucket"
-            POLICY_DOCUMENT = "PolicyDocument"
-
     class ResourceAttr:
         class CodeDeployLambdaAliasUpdate:
             APPLICATION_NAME = "ApplicationName"
@@ -184,42 +102,45 @@ class ModelRequiredProperties:
 # --------------------------------------------------------
 
 
-class ResourcesRequiredProperties:
-    # -------------- EFS --------------
-    MountTarget = get_values(_RequiredProperties.Efs.MountTarget)
-
-    # -------------- IAM --------------
-    AccessKey = get_values(_RequiredProperties.Iam.AccessKey)
-    InstanceProfile = get_values(_RequiredProperties.Iam.InstanceProfile)
-    ManagedPolicy = get_values(_RequiredProperties.Iam.ManagedPolicy)
-    Policy = get_values(_RequiredProperties.Iam.Policy)
-    Role = get_values(_RequiredProperties.Iam.Role)
-    ServiceLinkedRole = get_values(_RequiredProperties.Iam.ServiceLinkedRole)
-    UserToGroupAddition = get_values(_RequiredProperties.Iam.UserToGroupAddition)
-
-    # ------------ KINESIS -------------
-    Stream = get_values(_RequiredProperties.Kinesis.Stream)
-    StreamConsumer = get_values(_RequiredProperties.Kinesis.StreamConsumer)
-
-    # -------------- RDS --------------
-    DBCluster = get_values(_RequiredProperties.Rds.DBCluster)
-    DBClusterParameterGroup = get_values(_RequiredProperties.Rds.DBClusterParameterGroup)
-    DBInstance = get_values(_RequiredProperties.Rds.DBInstance)
-    DBParameterGroup = get_values(_RequiredProperties.Rds.DBParameterGroup)
-    DBSecurityGroup = get_values(_RequiredProperties.Rds.DBSecurityGroup)
-    DBSecurityGroupIngress = get_values(_RequiredProperties.Rds.DBSecurityGroupIngress)
-    DBSubnetGroup = get_values(_RequiredProperties.Rds.DBSubnetGroup)
-    EventSubscription = get_values(_RequiredProperties.Rds.EventSubscription)
-    OptionGroup = get_values(_RequiredProperties.Rds.OptionGroup)
-
-    # -------------- S3 --------------
-    AccessPoint = get_values(_RequiredProperties.S3.AccessPoint)
-    BucketPolicy = get_values(_RequiredProperties.S3.BucketPolicy)
+class AllowedValues:
+    REGION = get_values(Region)
+    ZONE = get_values(Zone)
 
 
 # --------------------------------------------------------
 
 
-class AllowedValues:
-    REGION = get_values(Region)
-    ZONE = get_values(Zone)
+class ValidationFailureMessages:
+    TYPE_VALIDATION = (
+        "{owner}'s property {prop_name}'s value \"{prop_value}\" is not "
+        "type of {prop_type}"
+    )
+    NOT_SPECIFY_IF_SPECIFIED_VALIDATION = (
+        "{owner}'s property {prop_name} can't be specified when you have specified one "
+        "of these properties {specified_properties}"
+    )
+    MIN_VALUE_VALIDATION = (
+        "{owner}'s property {prop_name}'s value \"{prop_value}\" can't be lower"
+        " than min value \"{min_value}\""
+    )
+    MAX_VALUE_VALIDATION = (
+        "{owner}'s property {prop_name}'s value \"{prop_value}\" can't be greater"
+        " than max value \"{max_value}\""
+    )
+    MIN_LENGTH_VALIDATION = (
+        "{owner}'s property {prop_name}'s value \"{prop_value}\" length must "
+        "be \"{min_length}\" at least"
+    )
+    MAX_LENGTH_VALIDAITON = (
+        "{owner}'s property {prop_name}'s value \"{prop_value}\" length must "
+        "be \"{max_length}\" at most"
+    )
+    PATTERN_VALIDATION = (
+        "{owner}'s property {prop_name}'s value \"{prop_value}\" is"
+        "not matching regex pattern \"{pattern}\""
+    )
+    REQUIRED_PROPERTIES_VALIDATION = "{owner}'s property {prop_name} must be defined!"
+    ALLOWED_VALUES_VALIDATION = (
+        "{owner}'s property {prop_name}'s value \"{prop_value}\" is not valid! Valid values "
+        "are \"{allowed_values}\"!"
+    )

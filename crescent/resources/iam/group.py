@@ -1,6 +1,6 @@
-from crescent.core import Resource, Validator
+from crescent.core import Resource
 from .policy_model import PolicyModel
-from .constants import AllowedValues, ModelRequiredProperties
+from .constants import AllowedValues
 from .arn import PolicyArn
 
 
@@ -8,21 +8,24 @@ class Group(Resource):
     __TYPE = "AWS::IAM::Group"
 
     def __init__(self, id: str):
-        super(Group, self).__init__(id, self.__TYPE)
+        super(Group, self).__init__(
+            id=id,
+            type=self.__TYPE,
+            min_length={self.Path.__name__: 1},
+            max_length={self.Path.__name__: 512},
+            pattern={self.Path.__name__: r"(\u002F)|(\u002F[\u0021-\u007F]+\u002F)"},
+            allowed_values={self.ManagedPolicyArns.__name__: AllowedValues.MANAGED_POLICY_ARNS}
+        )
 
-    @Validator.validate(type=str)
     def GroupName(self, group_name: str):
         return self._set_property(self.GroupName.__name__, group_name)
 
-    @Validator.validate(type=PolicyArn, allowed_values=AllowedValues.MANAGED_POLICY_ARNS)
-    def ManagedPolicyArns(self, *managed_policy_arns: str):
+    def ManagedPolicyArns(self, *managed_policy_arns: PolicyArn):
         return self._set_property(self.ManagedPolicyArns.__name__, list(managed_policy_arns))
 
-    @Validator.validate(type=str, min_length=1, max_length=512, pattern=r"(\u002F)|(\u002F[\u0021-\u007F]+\u002F)")
     def Path(self, path: str):
         return self._set_property(self.Path.__name__, path)
 
-    @Validator.validate(type=PolicyModel, required_properties=ModelRequiredProperties.POLICY_MODEL)
     def Policies(self, *policies: PolicyModel):
-        return self._set_property(self.Policies.__name__, [pm.__to_dict__() for pm in list(policies)])
+        return self._set_property(self.Policies.__name__, list(policies))
 

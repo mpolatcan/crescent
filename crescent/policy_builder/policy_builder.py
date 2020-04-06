@@ -17,13 +17,11 @@
 """
 
 
-from crescent.core import Model, Validator
 from .actions import Action
-import json
 from itertools import chain
 
 
-class PolicyBuilder(Model):
+class PolicyBuilder:
     __KEY_VERSION = "Version"
     __KEY_ID = "Id"
     __KEY_STATEMENTS = "Statements"
@@ -35,7 +33,6 @@ class PolicyBuilder(Model):
     __EFFECT_DENY = "Deny"
 
     def __init__(self, id, version="2012-10-17"):
-        super(PolicyBuilder, self).__init__()
         self.__policy = {
             self.__KEY_VERSION: version,
             self.__KEY_ID: id,
@@ -52,14 +49,20 @@ class PolicyBuilder(Model):
                 # All resources
                 if effect_svc == "*":
                     if str(action) in effect_svc_resources_or_actions:
-                        effect_svc_resources_or_actions.remove(str(action)) if len(effect_svc_resources_or_actions) > 1 else deleted_effect_resources.append((effect, effect_svc))
+                        if len(effect_svc_resources_or_actions) > 1:
+                            effect_svc_resources_or_actions.remove(str(action))
+                        else:
+                            deleted_effect_resources.append((effect, effect_svc))
                 else:
                     # Service specific resources
                     deleted_effect_svc_resources = []
 
                     for effect_svc_resource, effect_svc_resource_actions in effect_svc_resources_or_actions.items():
                         if str(action) in effect_svc_resource_actions:
-                            effect_svc_resource_actions.remove(str(action)) if len(effect_svc_resource_actions) > 1 else deleted_effect_svc_resources.append(effect_svc_resource)
+                            if len(effect_svc_resource_actions) > 1:
+                                effect_svc_resource_actions.remove(str(action))
+                            else:
+                                deleted_effect_svc_resources.append(effect_svc_resource)
 
                     # Delete empty service specific resources and actions
                     for deleted_effect_svc_resource in deleted_effect_svc_resources:
@@ -139,18 +142,11 @@ class PolicyBuilder(Model):
 
         return self
 
-    @Validator.validate(type=(Action, list))
     def AllowActions(self, *actions: Action):
         return self.__statement_creator(self.__EFFECT_ALLOW, list(actions))
 
-    @Validator.validate(type=(Action, list))
     def DenyActions(self, *actions: Action):
         return self.__statement_creator(self.__EFFECT_DENY, list(actions))
 
     def Create(self):
         return self.__policy
-
-    def JSON(self, filename):
-        json.dump(self.__policy, open("{}.json".format(filename), "w"), indent=4)
-
-

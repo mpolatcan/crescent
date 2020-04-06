@@ -22,3 +22,18 @@ class AllowedValues:
             get_values(EngineFamily.SqlServerWeb)
         ]
     ))
+
+# --------------------------------------------
+
+
+class _RequiredProperties:
+    class DBParameterGroup:
+        DESCRIPTION = "Description"
+        FAMILY = "Family"
+
+
+# --------------------------------------------
+
+
+class ResourceRequiredProperties:
+    DB_PARAMETER_GROUP = get_values(_RequiredProperties.DBParameterGroup)

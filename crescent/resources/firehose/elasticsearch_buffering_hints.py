@@ -1,17 +1,19 @@
-from crescent.core import Validator
-from .buffering_hints import BufferingHints
+from crescent.core import Model
+from .constants import ModelRequiredProperties
 
 
-class ElasticsearchBufferingHints(BufferingHints):
+class ElasticsearchBufferingHints(Model):
     def __init__(self):
-        super(ElasticsearchBufferingHints, self).__init__()
+        super(ElasticsearchBufferingHints, self).__init__(
+            min_value={self.IntervalInSeconds.__name__: 60,
+                       self.SizeInMBs.__name__: 1},
+            max_value={self.IntervalInSeconds.__name__: 900,
+                       self.SizeInMBs.__name__: 100},
+            required_propertieS=ModelRequiredProperties.ELASTICSEARCH_BUFFERING_HINTS
+        )
 
-    @Validator.validate(type=int, min_value=60, max_value=900)
     def IntervalInSeconds(self, interval_in_secs: int):
-        super().IntervalInSeconds(interval_in_secs)
-        return self
+        return self._set_field(self.IntervalInSeconds.__name__, interval_in_secs)
 
-    @Validator.validate(type=int, min_value=1, max_value=100)
     def SizeInMBs(self, size_in_mbs: int):
-        super().SizeInMBs(size_in_mbs)
-        return self
+        return self._set_field(self.SizeInMBs.__name__, size_in_mbs)

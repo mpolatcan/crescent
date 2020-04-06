@@ -20,3 +20,19 @@ class AllowedValues:
             get_values(DBClusterParameterGroupEngineFamily.AuroraPostgresql)
         ]
     ))
+
+# -------------------------------------------
+
+
+class _RequiredProperties:
+    class DBClusterParameterGroup:
+        DESCRIPTION = "Description"
+        FAMILY = "Family"
+        PARAMETERS = "Parameters"
+
+
+# -------------------------------------------
+
+
+class ResourceRequiredProperties:
+    DB_CLUSTER_PARAMETER_GROUP = get_values(_RequiredProperties.DBClusterParameterGroup)

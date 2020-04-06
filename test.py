@@ -1,33 +1,31 @@
-from crescent import CrescentFactory as cf, rds, iam
+from crescent import CrescentFactory as cf, Rds as rds
 
 cf.Template().Resources(
-    rds.DBCluster().Create("Test1")
-    .Engine(rds.DBCluster.Engine.AURORA_MYSQL)
-    .EngineMode(rds.DBCluster.EngineMode.SERVERLESS)
-    .EngineVersion(rds.DBCluster.EngineVersion.AuroraMysql.V_2_03_3)
-    .ScalingConfiguration(rds.DBCluster.ScalingConfiguration().MinCapacity(2).MaxCapacity(2))
-    .AssociatedRoles(rds.DBCluster.DBClusterRole().RoleArn("arn:bucket:adadka"))
-    .AvailabilityZones(cf.Zone.FRANKFURT_EU_CENTRAL_1.A)
-    .UpdatePolicy(
-        cf.UpdatePolicy.Create().AutoScalingReplacingUpdate(
-            cf.UpdatePolicy.AutoScalingReplacingUpdate().WillReplace(True)
-        ).EnableVersionUpgrade(True)
-    ).DeletionPolicy(cf.DeletionPolicy.SNAPSHOT).UpdateReplacePolicy(cf.UpdateReplacePolicy.DELETE),
-    rds.DBInstance.Create("Test2")
-        .Engine(rds.DBInstance.Engine.MYSQL)
-        .DBInstanceClass(rds.DBInstance.DBInstanceClass.M5_8XL_32_VCPU_128GIB_MEM)
-        .EngineVersion(rds.DBInstance.EngineVersion.Mysql.V_5_5_53),
-    rds.DBParameterGroup.Create("Test3")
-        .Family(rds.DBParameterGroup.EngineFamily.OracleEe.V_18)
-        .Description("test-description"),
-    rds.DBClusterParameterGroup.Create("Test4")
-        .Family(rds.DBClusterParameterGroup.EngineFamily.AuroraMysql.V_5_7)
-        .Description("test-description")
-        .Parameters({}),
-    iam.User.Create("TestUser")
-    .ManagedPolicyArns(
-        iam.AwsManagedPolicy.S3.FULL_ACCESS,
-        iam.AwsManagedPolicy.S3.READ_ONLY_ACCESS,
-        iam.AwsManagedPolicy.Kinesis.FULL_ACCESS
+    rds.DBCluster.Create("TestDBCluster")
+    .Engine(rds.DBCluster.Engine.AURORA_MYSQL),
+    rds.OptionGroup.Create("TestOptionGroup")
+    .EngineName("test-engine")
+    .MajorEngineVersion("11.2")
+    .OptionConfigurations(
+        rds.OptionGroup.OptionConfiguration().OptionName("test")
     )
-).YAML("test")
+    .OptionGroupDescription("test-description")
+    .DependsOn(
+        "test"
+    )
+    .Metadata(
+        Description="Test description for Crescent"
+    )
+).Parameters(
+    cf.Parameter.Create("TestParameter", cf.Parameter.Type.Aws.Ec2.SecurityGroupNameList)
+    .AllowedValues(
+        "test1",
+        "test2",
+        "test3"
+    )
+).Mappings(
+   cf.Mapping.Create("test").KV(
+       cf.Mapping.KV("a", "b"),
+       cf.Mapping.KV("test", "ava")
+   )
+).Yaml("test")

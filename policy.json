@@ -1,0 +1,48 @@
+{
+  "Version": "2012-10-17",
+  "Id": "test",
+  "Statements": [
+    {
+      "Sid": "CrescentStatement0",
+      "Effect": "Allow",
+      "Action": [
+        "efs:DescribeFileSystem"
+      ],
+      "Resource": "arn:aws:efs:::file-system/test"
+    },
+    {
+      "Sid": "CrescentStatement1",
+      "Effect": "Allow",
+      "Action": [
+        "firehose:DescribeDeliveryStream",
+        "firehose:ListDeliveryStreams",
+        "firehose:ListTagsForDeliveryStream"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CrescentStatement2",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:DescribeImages"
+      ],
+      "Resource": "arn:aws:ecr:::repository/test"
+    },
+    {
+      "Sid": "CrescentStatement3",
+      "Effect": "Deny",
+      "Action": [
+        "efs:DescribeAccessPoints"
+      ],
+      "Resource": "arn:aws:efs:::file-system/test"
+    },
+    {
+      "Sid": "CrescentStatement4",
+      "Effect": "Deny",
+      "Action": [
+        "efs:DescribeFileSystemPolicy"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

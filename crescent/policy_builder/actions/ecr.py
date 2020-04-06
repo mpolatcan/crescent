@@ -1,17 +1,17 @@
 from .action import Action, AccessLevelAllActions
 from crescent.resources.ecr import RepositoryArn
-from crescent.core import Validator
 
-__SERVICE_ECR__ = "ecr"
 
+# TODO Type checking will be added
 
 class EcrAction(Action):
-    def __init__(self, action_name, required_resource=None):
-        super(EcrAction, self).__init__(__SERVICE_ECR__, action_name, required_resource)
+    __SERVICE_ECR = "ecr"
 
-    @Validator.validate(type=RepositoryArn)
+    def __init__(self, action_name, required_resource=None):
+        super(EcrAction, self).__init__(self.__SERVICE_ECR, action_name, required_resource)
+
     def Repository(self, repository: RepositoryArn):
-        return self._set_resource(repository)
+        return self._set_resource(self.Repository.__name__, repository)
 
 # ------------------------------------
 

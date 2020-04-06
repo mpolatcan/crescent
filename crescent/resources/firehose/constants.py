@@ -236,15 +236,19 @@ class AllowedValues:
 
 
 class Conditions:
-    CLOUDWATCH_LOGGING_OPTIONS = [
+    CLOUDWATCH_LOGGING_OPTIONS_ENABLED = [
         (
-            [_Property.CloudWatchLoggingOptions.ENABLED],
-            lambda cw_l_opts:
-                True if cw_l_opts.get(_Property.CloudWatchLoggingOptions.ENABLED, None) is False or (
-                    cw_l_opts.get(_Property.CloudWatchLoggingOptions.ENABLED, None) is True and
-                    cw_l_opts.get(_Property.CloudWatchLoggingOptions.LOG_GROUP_NAME, None) is not None and
-                    cw_l_opts.get(_Property.CloudWatchLoggingOptions.LOG_STREAM_NAME, None) is not None
-                ) else Exception("You need to specify property \"Enabled\" at least!") if cw_l_opts.get(_Property.CloudWatchLoggingOptions.ENABLED, None) is None
-                else Exception("When property \"Enabled\" is True you need to specify \"LogStreamName\" and \"LogGroupName\" properties!")
+            [
+                _Property.CloudWatchLoggingOptions.ENABLED,
+                _Property.CloudWatchLoggingOptions.LOG_GROUP_NAME,
+                _Property.CloudWatchLoggingOptions.LOG_STREAM_NAME
+            ],
+            lambda enabled, log_group_name, log_stream_name:
+                dict(is_valid=True) if not enabled or (enabled and log_group_name and log_stream_name)
+                else dict(
+                    is_valid=False,
+                    error=("When property Enabled is \"True\" you need to specify "
+                           "LogStreamName and LogGroupName properties!")
+                )
         )
     ]

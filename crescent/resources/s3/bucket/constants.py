@@ -315,43 +315,63 @@ class AllowedValues:
 
 
 class Conditions:
-    RULE = [
+    RULE_STATUS = [
         (
-            [_Property.LifecycleConfiguration.RULES],
-            lambda lc_rules:
-                True if len([
-                    property
-                    for lc_rule in lc_rules
-                    for property in lc_rule.keys() if property in get_values(_Property.Rule)
-                ]) >= len(lc_rules)
-                else Exception("""
-                    You must specify at least one of the following properties: AbortIncompleteMultipartUpload,
-                    ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition,
-                    NoncurrentVersionTransitions, Transition, or Transitions.""")
+            get_values(_Property.Rule),
+            lambda *properties:
+                dict(is_valid=True) if len([property for property in list(properties) if property]) > 0
+                else dict(
+                    is_valid=False,
+                    error="You must specify at least one of the following properties of Rule: \n\t* {properties}".format(
+                        properties="\n\t* ".join(get_values(_Property.Rule))
+                    )
+                )
         )
     ]
-    ROUTING_RULE_CONDITION = [
+    ROUTING_RULE_CONDITION_KEY_PREFIX_EQUALS = [
         (
-            [_Property.RoutingRule.ROUTING_RULE_CONDITON],
-            lambda rrc:
-                True if (
-                    rrc.get(_Property.RoutingRuleCondition.KEY_PREFIX_EQUALS, None) is not None and
-                    rrc.get(_Property.RoutingRuleCondition.HTTP_ERROR_CODE_RETURNED_EQUALS, None) is None
-                ) or (
-                    rrc.get(_Property.RoutingRuleCondition.KEY_PREFIX_EQUALS, None) is None and
-                    rrc.get(_Property.RoutingRuleCondition.HTTP_ERROR_CODE_RETURNED_EQUALS, None) is not None
-                ) else Exception("Only one property must be defined: \"KeyPrefixEquals\" or \"HttpErrorCoderReturnedEquals\"")
+            [_Property.RoutingRuleCondition.HTTP_ERROR_CODE_RETURNED_EQUALS],
+            lambda property:
+                dict(is_valid=True) if not property
+                else dict(
+                    is_valid=False,
+                    error=("RoutingRuleCondition's property KeyPrefixEquals can't specified due to "
+                           "you have specified HttpErrorCodeReturnedEquals property!")
+                )
         )
     ]
-    REPLACE_KEY_WITH = [
+    ROUTING_RULE_CONDITION_HTTP_ERROR_CODE_RETURNED_EQUALS = [
+        (
+            [_Property.RoutingRuleCondition.KEY_PREFIX_EQUALS],
+            lambda property:
+                dict(is_valid=True) if not property
+                else dict(
+                    is_valid=False,
+                    error=("RoutingRuleCondition's property HttpErrorCodeReturnedEquals can't specified due to "
+                           "you have specified KeyPrefixEquals property!")
+                )
+        )
+    ]
+    REDIRECT_RULE_REPLACE_KEY_WITH = [
         (
             [_Property.RedirectRule.REPLACE_KEY_PREFIX_WITH],
-            lambda property: True if property is None else Exception("Not required due to you have specified \"ReplaceKeyPrefixWith\" property!")
+            lambda property:
+                dict(is_valid=True) if not property
+                else dict(
+                    is_valid=False,
+                    error=("RedirectRule's property ReplaceKeyWith can't specified due to you "
+                           "have specified ReplaceKeyPrefixWith property!")
+                )
         )
     ]
-    REPLACE_KEY_PREFIX_WITH = [
+    REDIRECT_RULE_REPLACE_KEY_PREFIX_WITH = [
         (
             [_Property.RedirectRule.REPLACE_KEY_WITH],
-            lambda property: True if property is None else Exception("Not required due to you have specified \"ReplaceKeyWith\" property!")
+            lambda property: dict(is_valid=True) if not property
+            else dict(
+                is_valid=False,
+                error=("RedirectRule's property ReplaceKeyPrefixWith can't specified due to you "
+                       "have specified ReplaceKeyWith property!")
+            )
         )
     ]

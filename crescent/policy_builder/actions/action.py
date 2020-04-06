@@ -11,18 +11,37 @@ class Action:
 
     def __validate__(self):
         if self.__resource is None:
-            raise Exception("Required resource \"{}\" must be filled or use \"*\" define policy for all resources of action {}!".format(
-                self.__required_resource, self.__action_name)
+            raise Exception(
+                (
+                    "Required resource \"{required_resource}\" must be filled or use \"*\" "
+                    "define policy for all resources of action {action}!"
+                ).format(required_resource=self.__required_resource, action=self.__action_name)
             )
         else:
             return True
 
-    def _set_resource(self, value):
+    def _set_resource(self, resource_key, value):
+        if self.__required_resource is None:
+            raise Exception("You can't set resource \"{resource}\" which it is not required for action {action}!".format(
+                resource=resource_key, action=self.__action_name)
+            )
+
+        if resource_key != self.__required_resource:
+            raise Exception(
+                (
+                    "Expecting required resource \"{required_resource}\" but given \"{given_resource}\" for "
+                    "action {action}!"
+                ).format(required_resource=self.__required_resource, given_resource=resource_key, action=self.__action_name))
+
         self.__resource = value
+
         return self
 
     def __get_resource__(self):
         return self.__resource
+
+    def __get_required_resource_name__(self):
+        return self.__required_resource
 
     def __get_service__(self):
         return self.__service

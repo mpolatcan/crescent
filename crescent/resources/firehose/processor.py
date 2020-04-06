@@ -1,17 +1,20 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .processor_parameter import ProcessorParameter
 from .constants import AllowedValues
 
 
 class Processor(Model):
-    @Validator.validate(type=ProcessorParameter)
+    def __init__(self):
+        super(Processor, self).__init__(
+            allowed_values={self.Type.__name__: AllowedValues.PROCESSOR_TYPE}
+        )
+
     def Parameters(self, *parameters: ProcessorParameter):
-        if self._get_field(self.Parameters.__name__) is None:
-            return self._set_field(self.Parameters.__name__, [proc_param.__to_dict__() for proc_param in list(parameters)])
+        if self.__get_field__(self.Parameters.__name__) is None:
+            return self._set_field(self.Parameters.__name__, list(parameters))
         else:
-            self._get_field(self.Parameters.__name__).extend([proc_param.__to_dict__() for proc_param in list(parameters)])
+            self.__get_field__(self.Parameters.__name__).extend(list(parameters))
             return self
 
-    @Validator.validate(type=str, allowed_values=AllowedValues.PROCESSOR_TYPE)
     def Type(self, type: str):
         return self._set_field(self.Type.__name__, type)

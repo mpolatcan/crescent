@@ -14,6 +14,9 @@ from .arn import (
     GroupArn,
     RoleArn,
     UserArn,
+    InstanceProfileArn,
+    MfaArn,
+    U2fArn,
     OidcProviderArn,
     SamlProviderArn
 )
@@ -77,27 +80,39 @@ class Iam:
     class Arn:
         @staticmethod
         def PolicyArn(policy_id: str, account_id: str = ""):
-            return PolicyArn(policy_id, account_id)
+            return PolicyArn(policy_id=policy_id, account_id=account_id)
 
         @staticmethod
         def GroupArn(group_id: str, account_id: str = ""):
-            return GroupArn(group_id, account_id)
+            return GroupArn(group_id=group_id, account_id=account_id)
 
         @staticmethod
         def RoleArn(role_id: str, account_id: str = ""):
-            return RoleArn(role_id, account_id)
+            return RoleArn(role_id=role_id, account_id=account_id)
 
         @staticmethod
         def UserArn(user_id: str, account_id: str = ""):
-            return UserArn(user_id, account_id)
+            return UserArn(user_id=user_id, account_id=account_id)
+
+        @staticmethod
+        def InstanceProfileArn(instance_profile_id: str, account_id: str = ""):
+            return InstanceProfileArn(instance_profile_id=instance_profile_id, account_id=account_id)
+
+        @staticmethod
+        def MfaArn(mfa_id: str, account_id: str = ""):
+            return MfaArn(mfa_id=mfa_id, account_id=account_id)
+
+        @staticmethod
+        def U2fArn(u2f_id: str, account_id: str = ""):
+            return U2fArn(u2f_id=u2f_id, account_id=account_id)
 
         @staticmethod
         def OidcProviderArn(provider_id: str, account_id: str = ""):
-            return OidcProviderArn(provider_id, account_id)
+            return OidcProviderArn(provider_id=provider_id, account_id=account_id)
 
         @staticmethod
         def SamlProviderArn(provider_id: str, account_id: str = ""):
-            return SamlProviderArn(provider_id, account_id)
+            return SamlProviderArn(provider_id=provider_id, account_id=account_id)
 
     @staticmethod
     def PolicyModel():
@@ -105,5 +120,6 @@ class Iam:
 
 
 __all__ = [
-    "Iam"
+    "Iam",
+    "RoleArn"
 ]

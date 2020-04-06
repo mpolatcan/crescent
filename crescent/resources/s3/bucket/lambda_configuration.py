@@ -1,17 +1,17 @@
-from crescent.core import Model, Validator
+from crescent.core import Model
 from .notification_filter import NotificationFilter
 from .constants import ModelRequiredProperties
 
 
 class LambdaConfiguration(Model):
-    @Validator.validate(type=str)
+    def __init__(self):
+        super(LambdaConfiguration, self).__init__(required_properties=ModelRequiredProperties.LAMBDA_CONFIGURATION)
+
     def Event(self, event: str):
         return self._set_field(self.Event.__name__, event)
 
-    @Validator.validate(type=NotificationFilter, required_properties=ModelRequiredProperties.NOTIFICATION_FILTER)
     def Filter(self, filter: NotificationFilter):
-        return self._set_field(self.Filter.__name__, filter.__to_dict__())
+        return self._set_field(self.Filter.__name__, filter)
 
-    @Validator.validate(type=str)
     def Function(self, function: str):
         return self._set_field(self.Function.__name__, function)

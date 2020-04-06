@@ -1,7 +1,8 @@
 from .action import Action, AccessLevelAllActions
-from crescent.core import Validator
 from crescent.resources.efs import AccessPointArn, FileSystemArn
 
+
+# TODO Type checking will be added
 
 class EfsAction(Action):
     __SERVICE_EFS = "efs"
@@ -9,13 +10,11 @@ class EfsAction(Action):
     def __init__(self, action_name, required_resource=None):
         super(EfsAction, self).__init__(self.__SERVICE_EFS, action_name, required_resource)
 
-    @Validator.validate(type=FileSystemArn)
     def FileSystem(self, value: FileSystemArn):
-        return self._set_resource(value)
+        return self._set_resource(self.FileSystem.__name__, value)
 
-    @Validator.validate(type=AccessPointArn)
     def AccessPoint(self, value: AccessPointArn):
-        return self._set_resource(value)
+        return self._set_resource(self.AccessPoint.__name__, value)
 
 # ---------------------------------------------
 

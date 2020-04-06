@@ -170,7 +170,7 @@ class Value(AwsSsmType):
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-class Types:
+class ParameterTypes:
     String = String()
     Number = Number()
     NumberList = NumberList()

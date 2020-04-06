@@ -2,10 +2,14 @@ from .model import Model
 from .resource import Resource
 from .parameter import Parameter
 from .mapping import Mapping
-from .validator import Validator
 import json
 import yaml
-from .constants import ResourcesRequiredProperties
+
+
+class TemplateErrorException(Exception):
+    pass
+
+# ------------------------------------------
 
 
 class Template(Model):
@@ -13,43 +17,49 @@ class Template(Model):
         super(Template, self).__init__()
         self._set_field("AWSTemplateFormatVersion", version)
 
-    @Validator.validate(type=str)
     def Description(self, description: str):
         return self._set_field(self.Description.__name__, description)
 
-    @Validator.validate(type=Parameter)
     def Parameters(self, *parameters: Parameter):
-        if self._get_field(self.Parameters.__name__) is None:
-            self._set_field(self.Parameters.__name__, {})
+        return self._set_field(self.Parameters.__name__, list(parameters))
 
-        for parameter in list(parameters):
-            self._get_field(self.Parameters.__name__).update(parameter.__to_dict__())
-
-        return self
-
-    @Validator.validate(type=Mapping)
     def Mappings(self, *mappings: Mapping):
-        if self._get_field(self.Mappings.__name__) is None:
-            self._set_field(self.Mappings.__name__, {})
+        return self._set_field(self.Mappings.__name__, list(mappings))
 
-        for mapping in list(mappings):
-            self._get_field(self.Mappings.__name__).update(mapping.__to_dict__())
-
-    @Validator.validate(type=Resource, required_properties=ResourcesRequiredProperties)
     def Resources(self, *resources: Resource):
-        if self._get_field(self.Resources.__name__) is None:
-            self._set_field(self.Resources.__name__, {})
+        return self._set_field(self.Resources.__name__, list(resources))
 
-        for resource in list(resources):
-            self._get_field(self.Resources.__name__).update(resource.__to_dict__())
+    def Json(self, filename: str):
+        converted_template = self.__to_dict__()
 
-        return self
+        if converted_template:
+            json.dump(converted_template, open("{}.json".format(filename), "w"))
 
-    @Validator.validate(type=str)
-    def JSON(self, filename: str):
-        json.dump(self.__to_dict__(), open("{}.json".format(filename), "w"))
+    def Yaml(self, filename: str):
+        converted_template = self.__to_dict__()
 
-    @Validator.validate(type=str)
-    def YAML(self, filename: str):
-        yaml.dump(json.loads(json.dumps(self.__to_dict__())), open("{}.yml".format(filename), "w"))
+        if converted_template:
+            yaml.dump(json.loads(json.dumps(converted_template)), open("{}.yml".format(filename), "w"), sort_keys=False)
 
+    def __rearrange_multiple_valued_field(self, field):
+        fields_dict = {}
+
+        if self.__get_field__(field):
+            for field_dict in self.__get_field__(field):
+                fields_dict.update(field_dict)
+
+            self._set_field(field, fields_dict)
+
+    def __to_dict__(self):
+        conversion_success, conversion_result = super().__to_dict__()
+
+        if conversion_success:
+            self.__rearrange_multiple_valued_field(self.Resources.__name__)
+            self.__rearrange_multiple_valued_field(self.Mappings.__name__)
+            self.__rearrange_multiple_valued_field(self.Parameters.__name__)
+
+            return conversion_result
+        else:
+            raise TemplateErrorException("Template has errors: \n\t- {errors}".format(
+                errors="\n\t- ".join(conversion_result)
+            ))
