@@ -16,6 +16,7 @@
 from .model import Model
 from .constants import get_values
 from .resource_attrs import CreationPolicy, DeletionPolicy, UpdatePolicy, UpdateReplacePolicy
+from .metadata import Metadata
 
 
 class Resource(Model):
@@ -64,9 +65,8 @@ class Resource(Model):
         self.__resource_def[self.DependsOn.__name__] = list(depends_on)
         return self
 
-    # FIXME Metadata section will be fixed
-    def Metadata(self, **metadatas: dict):
-        self.__resource_def[self.Metadata.__name__] = metadatas
+    def Metadata(self, metadata: Metadata):
+        self.__resource_def[self.Metadata.__name__] = metadata
         return self
 
     def UpdatePolicy(self, update_policy: UpdatePolicy):

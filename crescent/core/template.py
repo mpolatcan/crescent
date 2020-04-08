@@ -2,6 +2,8 @@ from .model import Model
 from .resource import Resource
 from .parameter import Parameter
 from .mapping import Mapping
+from .metadata import Metadata
+from .output import Output
 import json
 import yaml
 
@@ -29,6 +31,12 @@ class Template(Model):
     def Resources(self, *resources: Resource):
         return self._set_field(self.Resources.__name__, list(resources))
 
+    def Metadata(self, *metadatas: Metadata):
+        return self._set_field(self.Metadata.__name__, list(metadatas))
+
+    def Outputs(self, *outputs: Output):
+        return self._set_field(self.Outputs.__name__, list(outputs))
+
     def Json(self, filename: str):
         converted_template = self.__to_dict__()
 
@@ -54,9 +62,10 @@ class Template(Model):
         conversion_success, conversion_result = super().__to_dict__()
 
         if conversion_success:
-            self.__rearrange_multiple_valued_field(self.Resources.__name__)
-            self.__rearrange_multiple_valued_field(self.Mappings.__name__)
-            self.__rearrange_multiple_valued_field(self.Parameters.__name__)
+            for field in [self.Resources.__name__, self.Parameters.__name__,
+                          self.Mappings.__name__, self.Metadata.__name__,
+                          self.Outputs.__name__]:
+                self.__rearrange_multiple_valued_field(field)
 
             return conversion_result
         else:

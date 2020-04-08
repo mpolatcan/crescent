@@ -6,7 +6,13 @@ from .core import (
     Parameter,
     ParameterTypes,
     Mapping,
-    MappingKV,
+    Output,
+    Metadata,
+    CfnAuthentication,
+    CfnInterface,
+    ParameterLabel,
+    ParameterGroup,
+    Label,
     Tag
 )
 from .resources import *
@@ -19,7 +25,7 @@ class CrescentFactory:
     Region = Region
     Zone = Zone
 
-    class Resource:
+    class ResourceAttrs:
         CreationPolicy = ResourceAttributes.CreationPolicy
         DeletionPolicy = ResourceAttributes.DeletionPolicy
         UpdatePolicy = ResourceAttributes.UpdatePolicy
@@ -32,14 +38,41 @@ class CrescentFactory:
         def Create(id: str, data_type: Type):
             return Parameter(id, data_type)
 
-    class Mapping:
+    class Metadata:
         @staticmethod
-        def Create(id: str):
-            return Mapping(id)
+        def Create():
+            return Metadata()
 
-        @staticmethod
-        def KV(key: str, value: (int, str, list, dict)):
-            return MappingKV().Key(key).Value(value)
+        class CfnAuthentication:
+            @staticmethod
+            def Create(id: str):
+                return CfnAuthentication(id)
+
+        class CfnInterface:
+            @staticmethod
+            def Create(id: str):
+                return CfnInterface(id)
+
+            @staticmethod
+            def ParameterLabel(id: str):
+                return ParameterLabel(id)
+
+            @staticmethod
+            def ParameterGroup():
+                return ParameterGroup()
+
+            @staticmethod
+            def Label():
+                return Label()
+
+
+    @staticmethod
+    def Mapping(id: str):
+        return Mapping(id)
+
+    @staticmethod
+    def Output(id: str):
+        return Output(id)
 
     @staticmethod
     def Template(version: str = "2010-09-09"):

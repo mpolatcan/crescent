@@ -2,7 +2,9 @@ from .model import Model
 from .resource_attrs import ResourceAttributes
 from .resource import Resource
 from .template import Template
-from .mapping import Mapping, MappingKV
+from .mapping import Mapping
+from .metadata import *
+from .output import Output
 from .parameter import Parameter
 from .tag import Tag
 from .parameter_types import Type, ParameterTypes
@@ -14,7 +16,13 @@ __all__ = [
     "Model",
     "Resource",
     "Mapping",
-    "MappingKV",
+    "Output",
+    "Metadata",
+    "CfnAuthentication",
+    "CfnInterface",
+    "ParameterLabel",
+    "ParameterGroup",
+    "Label",
     "Parameter",
     "Tag",
     "Type",

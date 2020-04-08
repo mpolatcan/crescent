@@ -2,30 +2,55 @@ from crescent import CrescentFactory as cf, Rds as rds
 
 cf.Template().Resources(
     rds.DBCluster.Create("TestDBCluster")
-    .Engine(rds.DBCluster.Engine.AURORA_MYSQL),
+       .Engine(rds.DBCluster.Engine.AURORA_MYSQL)
+       .EngineVersion(rds.DBCluster.EngineVersion.AuroraMysql.V_2_04_2)
+       .Metadata(
+            cf.Metadata.Create().KeyValue(
+                cluster_name="test",
+                engine="mysql"
+            )
+       ),
     rds.OptionGroup.Create("TestOptionGroup")
-    .EngineName("test-engine")
-    .MajorEngineVersion("11.2")
-    .OptionConfigurations(
-        rds.OptionGroup.OptionConfiguration().OptionName("test")
-    )
-    .OptionGroupDescription("test-description")
-    .DependsOn(
-        "test"
-    )
-    .Metadata(
-        Description="Test description for Crescent"
-    )
+       .EngineName("test-engine")
+       .MajorEngineVersion("11.2")
+       .OptionConfigurations(
+            rds.OptionGroup.OptionConfiguration()
+               .OptionName("test")
+       ).OptionGroupDescription("test-description")
+        .DependsOn("test")
 ).Parameters(
-    cf.Parameter.Create("TestParameter", cf.Parameter.Type.Aws.Ec2.SecurityGroupNameList)
-    .AllowedValues(
-        "test1",
-        "test2",
-        "test3"
-    )
+    cf.Parameter.Create("TestParameter", cf.Parameter.Type.Aws.Ec2.SecurityGroupIdList)
+      .AllowedValues("test1", "test2", "test3")
 ).Mappings(
-   cf.Mapping.Create("test").KV(
-       cf.Mapping.KV("a", "b"),
-       cf.Mapping.KV("test", "ava")
-   )
+   cf.Mapping("test")
+).Metadata(
+    cf.Metadata.Create()
+      .Json({
+        "MetadataTest": {
+            "crescent": "formation"
+        }
+      }),
+    cf.Metadata.CfnAuthentication.Create("CfnAuthenticationTest")
+      .type("basic")
+      .username("mpolatcan")
+      .password("12345"),
+    cf.Metadata.CfnInterface.Create("CfnInterfaceTest")
+    .ParameterGroups(
+        cf.Metadata.CfnInterface.ParameterGroup()
+          .Label(
+            cf.Metadata.CfnInterface.Label().default("test")
+          ).Parameters("a", "b", "c")
+    ).ParameterLabels(
+        cf.Metadata.CfnInterface.ParameterLabel("test")
+          .Label(
+            cf.Metadata.CfnInterface.Label().default("test")
+          )
+    )
+).Outputs(
+    cf.Output("OutputTest")
+      .Description("Output Test Description")
+      .Value("Output Test Value"),
+    cf.Output("OutputTest")
+      .Description("Output Test Description")
+      .Value("Output Test Value")
 ).Yaml("test")

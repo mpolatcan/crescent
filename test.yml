@@ -4,6 +4,10 @@ Resources:
     Type: AWS::RDS::DBCluster
     Properties:
       Engine: aurora-mysql
+      EngineVersion: 5.7.mysql_aurora.2.04.2
+    Metadata:
+      cluster_name: test
+      engine: mysql
   TestOptionGroup:
     Type: AWS::RDS::OptionGroup
     Properties:
@@ -14,16 +18,36 @@ Resources:
       OptionGroupDescription: test-description
     DependsOn:
     - test
-    Metadata:
-      Description: Test description for Crescent
 Parameters:
   TestParameter:
-    Type: List<AWS::EC2::SecurityGroup::GroupName>
+    Type: List<AWS::EC2::SecurityGroup::Id>
     AllowedValues:
     - test1
     - test2
     - test3
 Mappings:
-  test:
-    a: b
-    test: ava
+  test: {}
+Metadata:
+  MetadataTest:
+    crescent: formation
+  AWS::CloudFormation::Authentication:
+    CfnAuthenticationTest:
+      type: basic
+      username: mpolatcan
+      password: '12345'
+  AWS::CloudFormation::Interface:
+    CfnInterfaceTest:
+      ParameterGroups:
+      - Label:
+          default: test
+        Parameters:
+        - a
+        - b
+        - c
+      ParameterLabels:
+      - Label:
+          default: test
+Outputs:
+  OutputTest:
+    Description: Output Test Description
+    Value: Output Test Value

@@ -110,6 +110,82 @@ class AllowedValues:
 # --------------------------------------------------------
 
 
+class _Property:
+    class TypeSafeDict:
+        KEY_VALUE = "KeyValue"
+        JSON = "Json"
+
+    class CloudFormationAuthentication:
+        TYPE = "type"
+        ACCESS_KEY_ID = "accessKeyId"
+        BUCKETS = "buckets"
+        PASSWORD = "password"
+        SECRET_KEY = "secretKey"
+        URIS = "uris"
+        USERNAME = "username"
+        ROLE_NAME = "roleName"
+# --------------------------------------------------------
+
+
+class Conditions:
+    TYPE_SAFE_DICT_KEY_VALUE = [
+        (
+            [_Property.TypeSafeDict.JSON],
+            lambda json:
+                dict(is_valid=True) if not json
+                else dict(
+                    is_valid=True,
+                    error="You cannot use KV method when you used Json method of Mapping!"
+                )
+        )
+    ]
+    TYPE_SAFE_DICT_JSON = [
+        (
+            [_Property.TypeSafeDict.KEY_VALUE],
+            lambda key_value:
+                dict(is_valid=True) if not key_value
+                else dict(
+                    is_valid=False,
+                    error="You cannot use Json method when you used KV method of Mapping!"
+                )
+        )
+    ]
+    CLOUDFORMATION_AUTHENTICATION_TYPE = [
+        (
+            [
+                _Property.CloudFormationAuthentication.TYPE,
+                _Property.CloudFormationAuthentication.ACCESS_KEY_ID,
+                _Property.CloudFormationAuthentication.BUCKETS,
+                _Property.CloudFormationAuthentication.PASSWORD,
+                _Property.CloudFormationAuthentication.SECRET_KEY,
+                _Property.CloudFormationAuthentication.URIS,
+                _Property.CloudFormationAuthentication.USERNAME,
+                _Property.CloudFormationAuthentication.ROLE_NAME
+            ],
+            lambda _type, access_key_id, buckets, password, secret_key, uris, username, role_name:
+            dict(
+                is_valid=False,
+                error=("CloudFormationAuthentication's properties accessKeyId, secretKey, buckets "
+                       "and roleName can be specified only if the type is \"S3\"")
+            ) if _type != "S3" and (access_key_id or secret_key or buckets or role_name)
+            else dict(
+                is_valid=False,
+                error=("CloudFormationAuthentication's properties accessKeyId and secretKey must be"
+                       " defined when the type is \"S3\"")
+            ) if _type == "S3" and (not access_key_id or not secret_key)
+            else dict(
+                is_valid=False,
+                error=("CloudFormationAuthentication's properties username, password "
+                       "must be defined when type is \"basic\"!")
+            ) if _type == "basic" and (not username or not password)
+            else dict(is_valid=True)
+        )
+    ]
+
+
+# --------------------------------------------------------
+
+
 class ValidationFailureMessages:
     TYPE_VALIDATION = (
         "{owner}'s property {prop_name}'s value \"{prop_value}\" is not "
