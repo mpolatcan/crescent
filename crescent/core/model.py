@@ -84,7 +84,7 @@ class Model:
         property_type = self.__property_types_validations.get(property_name, None)
 
         # If type check failed add return error message
-        if property_type and not isinstance(property_value, property_type):
+        if (property_type is not None) and (not isinstance(property_value, property_type)):
             return self.__validation_failure_msg(error_msg_prefix,
                                                  ValidationFailureMessages.TYPE_VALIDATION,
                                                  prop_name=property_name,
@@ -96,7 +96,7 @@ class Model:
     def __not_specify_if_specified_validation(self, properties, property_name, error_msg_prefix):
         property_if_specified_properties = self.__not_specify_if_specified_validations.get(property_name, None)
 
-        if property_if_specified_properties:
+        if property_if_specified_properties is not None:
             for property_if_specified_property in property_if_specified_properties:
                 if property_if_specified_property in properties.keys():
                     return self.__validation_failure_msg(error_msg_prefix,
@@ -132,7 +132,7 @@ class Model:
     def __min_value_validation(self, property_name, property_value, error_msg_prefix):
         property_min_value = self.__min_value_validations.get(property_name, None)
 
-        if property_value and property_min_value and property_value < property_min_value:
+        if (property_value is not None) and (property_min_value is not None) and (property_value < property_min_value):
             return self.__validation_failure_msg(error_msg_prefix,
                                                  ValidationFailureMessages.MIN_VALUE_VALIDATION,
                                                  prop_name=property_name,
@@ -144,7 +144,7 @@ class Model:
     def __max_value_validation(self, property_name, property_value, error_msg_prefix):
         property_max_value = self.__max_value_validations.get(property_name, None)
 
-        if property_value and property_max_value and property_value > property_max_value:
+        if (property_value is not None) and (property_max_value is not None) and (property_value > property_max_value):
             return self.__validation_failure_msg(error_msg_prefix,
                                                  ValidationFailureMessages.MAX_VALUE_VALIDATION,
                                                  prop_name=property_name,
@@ -156,7 +156,7 @@ class Model:
     def __min_length_validation(self, property_name, property_value, error_msg_prefix):
         property_min_length = self.__min_length_validations.get(property_name, None)
 
-        if property_value and property_min_length and len(property_value) < property_min_length:
+        if (property_value is not None) and (property_min_length is not None) and (len(property_value) < property_min_length):
             return self.__validation_failure_msg(error_msg_prefix,
                                                  ValidationFailureMessages.MIN_LENGTH_VALIDATION,
                                                  prop_name=property_name,
@@ -168,7 +168,7 @@ class Model:
     def __max_length_validation(self, property_name, property_value, error_msg_prefix):
         property_max_length = self.__max_length_validations.get(property_name, None)
 
-        if property_value and property_max_length and len(property_value) > property_max_length:
+        if (property_value is not None) and (property_max_length is not None) and (len(property_value) > property_max_length):
             return self.__validation_failure_msg(error_msg_prefix,
                                                  ValidationFailureMessages.MAX_LENGTH_VALIDAITON,
                                                  prop_name=property_name,
@@ -180,7 +180,7 @@ class Model:
     def __pattern_validation(self, property_name, property_value, error_msg_prefix):
         property_pattern = self.__pattern_validations.get(property_name, None)
 
-        if property_value and property_pattern and not re.match(property_pattern, property_value):
+        if (property_value is not None) and (property_pattern is not None) and (not re.match(property_pattern, property_value)):
             return self.__validation_failure_msg(error_msg_prefix,
                                                  ValidationFailureMessages.PATTERN_VALIDATION,
                                                  prop_name=property_name,
@@ -209,7 +209,7 @@ class Model:
     def __allowed_values_validation(self, property_name, property_value, error_msg_prefix):
         property_allowed_values = self.__allowed_values_validations.get(property_name, None)
 
-        if property_value and property_allowed_values and property_value not in property_allowed_values:
+        if (property_value is not None) and (property_allowed_values is not None) and (property_value not in property_allowed_values):
             return self.__validation_failure_msg(error_msg_prefix,
                                                  ValidationFailureMessages.ALLOWED_VALUES_VALIDATION,
                                                  prop_name=property_name,
@@ -245,8 +245,12 @@ class Model:
                 error_msg = validation_res[self.__KEY_VALIDATION_RESULT_ERROR]
                 errors.extend(error_msg) if isinstance(error_msg, list) else errors.append(error_msg)
 
-            if validation == self.__type_validation and is_valid:
-                is_type_valid = True
+            # If type validation failed pass other validations
+            if validation == self.__type_validation:
+                if is_valid:
+                    is_type_valid = True
+                else:
+                    break
 
         # If value type is valid and it is also Model, convert it dict, if has errors save that errors
         if is_type_valid and isinstance(property_value, Model):
