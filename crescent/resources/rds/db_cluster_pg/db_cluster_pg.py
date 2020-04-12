@@ -1,5 +1,7 @@
 from crescent.core import Resource, Tag
+from crescent.functions import AnyFn
 from .constants import AllowedValues, ResourceRequiredProperties
+from typing import Union
 
 
 class DBClusterParameterGroup(Resource):
@@ -13,13 +15,13 @@ class DBClusterParameterGroup(Resource):
             required_properties=ResourceRequiredProperties.DB_CLUSTER_PARAMETER_GROUP
         )
 
-    def Description(self, description: str):
+    def Description(self, description: Union[str, AnyFn]):
         return self._set_property(self.Description.__name__, description)
 
-    def Family(self, family: str):
+    def Family(self, family: Union[str, AnyFn]):
         return self._set_property(self.Family.__name__, family)
 
-    def Parameters(self, parameters: dict):
+    def Parameters(self, parameters: Union[dict, AnyFn]):
         return self._set_property(self.Parameters.__name__, parameters)
 
     def Tags(self, *tags: Tag):

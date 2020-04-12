@@ -1,9 +1,11 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .cloudwatch_logging_options import CloudWatchLoggingOptions
 from .copy_command import CopyCommand
 from .processing_configuration import ProcessingConfiguration
 from .s3_destination_configuration import S3DestinationConfiguration
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class RedshiftDestinationConfiguration(Model):
@@ -22,23 +24,23 @@ class RedshiftDestinationConfiguration(Model):
     def CloudWatchLoggingOptions(self, cw_logging_opts: CloudWatchLoggingOptions):
         return self._set_field(self.CloudWatchLoggingOptions.__name__, cw_logging_opts)
 
-    def ClusterJDBCURL(self, cluster_jdbc_url: str):
+    def ClusterJDBCURL(self, cluster_jdbc_url: Union[str, AnyFn]):
         return self._set_field(self.ClusterJDBCURL.__name__, cluster_jdbc_url)
 
     def CopyCommand(self, copy_command: CopyCommand):
         return self._set_field(self.CopyCommand.__name__, copy_command)
 
-    def Password(self, password: str):
+    def Password(self, password: Union[str, AnyFn]):
         return self._set_field(self.Password.__name__, password)
 
     def ProcessingConfiguration(self, processing_conf: ProcessingConfiguration):
         return self._set_field(self.ProcessingConfiguration.__name__, processing_conf)
 
-    def RoleARN(self, role_arn: str):
+    def RoleARN(self, role_arn: Union[str, AnyFn]):
         return self._set_field(self.RoleARN.__name__, role_arn)
 
     def S3Configuration(self, s3_conf: S3DestinationConfiguration):
         return self._set_field(self.S3Configuration.__name__, s3_conf)
 
-    def Username(self, username: str):
+    def Username(self, username: Union[str, AnyFn]):
         return self._set_field(self.Username.__name__, username)

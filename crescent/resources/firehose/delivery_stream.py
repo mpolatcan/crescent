@@ -1,4 +1,5 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .elasticsearch_destination_configuration import ElasticsearchDestinationConfiguration
 from .extended_s3_destination_configuration import ExtendedS3DestinationConfiguration
 from .kinesis_stream_source_configuration import KinesisStreamSourceConfiguration
@@ -6,6 +7,7 @@ from .redshift_destination_configuration import RedshiftDestinationConfiguration
 from .s3_destination_configuration import S3DestinationConfiguration
 from .splunk_destination_configuration import SplunkDestinationConfiguration
 from .constants import AllowedValues
+from typing import Union
 
 
 class DeliveryStream(Resource):
@@ -21,10 +23,10 @@ class DeliveryStream(Resource):
             allowed_values={self.DeliveryStreamType.__name__: AllowedValues.DELIVERY_STREAM_TYPE}
         )
 
-    def DeliveryStreamName(self, delivery_stream_name: str):
+    def DeliveryStreamName(self, delivery_stream_name: Union[str, AnyFn]):
         return self._set_property(self.DeliveryStreamName.__name__, delivery_stream_name)
 
-    def DeliveryStreamType(self, delivery_stream_type: str):
+    def DeliveryStreamType(self, delivery_stream_type: Union[str, AnyFn]):
         return self._set_property(self.DeliveryStreamType.__name__, delivery_stream_type)
 
     def ElasticsearchDestinationConfiguration(self, elasticsearch_destination_conf: ElasticsearchDestinationConfiguration):

@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class KMSEncryptionConfig(Model):
@@ -11,5 +13,5 @@ class KMSEncryptionConfig(Model):
             required_properties=ModelRequiredProperties.KMS_ENCRYPTION_CONFIG
         )
 
-    def AWSKMSKeyARN(self, aws_kms_key_arn: str):
+    def AWSKMSKeyARN(self, aws_kms_key_arn: Union[str, AnyFn]):
         return self._set_field(self.AWSKMSKeyARN.__name__, aws_kms_key_arn)

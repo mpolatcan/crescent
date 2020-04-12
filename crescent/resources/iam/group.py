@@ -1,7 +1,9 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .policy_model import PolicyModel
 from .constants import AllowedValues
 from .arn import PolicyArn
+from typing import Union
 
 
 class Group(Resource):
@@ -17,13 +19,13 @@ class Group(Resource):
             allowed_values={self.ManagedPolicyArns.__name__: AllowedValues.MANAGED_POLICY_ARNS}
         )
 
-    def GroupName(self, group_name: str):
+    def GroupName(self, group_name: Union[str, AnyFn]):
         return self._set_property(self.GroupName.__name__, group_name)
 
     def ManagedPolicyArns(self, *managed_policy_arns: PolicyArn):
         return self._set_property(self.ManagedPolicyArns.__name__, list(managed_policy_arns))
 
-    def Path(self, path: str):
+    def Path(self, path: Union[str, AnyFn]):
         return self._set_property(self.Path.__name__, path)
 
     def Policies(self, *policies: PolicyModel):

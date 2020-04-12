@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import AllowedValues, ModelRequiredProperties
+from typing import Union
 
 
 class AccessControlTranslation(Model):
@@ -9,5 +11,5 @@ class AccessControlTranslation(Model):
             required_properties=ModelRequiredProperties.ACCESS_CONTROL_TRANSLATION
         )
 
-    def Owner(self, owner: str):
+    def Owner(self, owner: Union[str, AnyFn]):
         return self._set_field(self.Owner.__name__, owner)

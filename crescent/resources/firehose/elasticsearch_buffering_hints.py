@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class ElasticsearchBufferingHints(Model):
@@ -12,8 +14,8 @@ class ElasticsearchBufferingHints(Model):
             required_propertieS=ModelRequiredProperties.ELASTICSEARCH_BUFFERING_HINTS
         )
 
-    def IntervalInSeconds(self, interval_in_secs: int):
+    def IntervalInSeconds(self, interval_in_secs: Union[int, AnyFn]):
         return self._set_field(self.IntervalInSeconds.__name__, interval_in_secs)
 
-    def SizeInMBs(self, size_in_mbs: int):
+    def SizeInMBs(self, size_in_mbs: Union[int, AnyFn]):
         return self._set_field(self.SizeInMBs.__name__, size_in_mbs)

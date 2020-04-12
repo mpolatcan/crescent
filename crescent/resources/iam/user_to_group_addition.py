@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class UserToGroupAddition(Resource):
@@ -15,8 +17,8 @@ class UserToGroupAddition(Resource):
             required_properties=ResourceRequiredProperties.USER_TO_GROUP_ADDITION
         )
 
-    def GroupName(self, group_name: str):
+    def GroupName(self, group_name: Union[str, AnyFn]):
         return self._set_property(self.GroupName.__name__, group_name)
 
-    def Users(self, *users: str):
+    def Users(self, *users: Union[str, AnyFn]):
         return self._set_property(self.Users.__name__, list(users))

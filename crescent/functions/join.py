@@ -1,4 +1,5 @@
-from .fn import FnArrayValue
+from .fn import Fn as AnyFn, FnArrayValue
+from typing import Union
 
 
 class Join(FnArrayValue):
@@ -8,8 +9,8 @@ class Join(FnArrayValue):
             field_order=[self.Delimiter.__name__, self.Values.__name__]
         )
 
-    def Values(self, *values: object):
-        return self._set_field(self.Values.__name__, list(values))
-
     def Delimiter(self, delimiter: str):
         return self._set_field(self.Delimiter.__name__, delimiter)
+
+    def Values(self, *values: Union[int, str, float, AnyFn]):
+        return self._set_field(self.Values.__name__, list(values))

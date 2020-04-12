@@ -1,7 +1,10 @@
-from .fn import Fn
+from .fn import Fn as AnyFn, FnSingleValue
+from typing import Union
 
 
-class GetAZs(Fn):
-    def __init__(self, region: str):
+class GetAZs(FnSingleValue):
+    def __init__(self):
         super(GetAZs, self).__init__(fn_name=GetAZs.__name__)
-        self._set_fn_value(region)
+
+    def Value(self, value: Union[str, AnyFn]):
+        return self._set_field(self.Value.__name__, value)

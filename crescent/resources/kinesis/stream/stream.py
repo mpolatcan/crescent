@@ -1,6 +1,8 @@
 from crescent.core import Resource, Tag
+from crescent.functions import AnyFn
 from .stream_encryption import StreamEncryption
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class Stream(Resource):
@@ -17,13 +19,13 @@ class Stream(Resource):
             required_properties=ResourceRequiredProperties.STREAM
         )
 
-    def Name(self, name: str):
+    def Name(self, name: Union[str, AnyFn]):
         return self._set_property(self.Name.__name__, name)
 
-    def RetentionPeriodHours(self, retention_period_hours: int):
+    def RetentionPeriodHours(self, retention_period_hours: Union[int, AnyFn]):
         return self._set_property(self.RetentionPeriodHours.__name__, retention_period_hours)
 
-    def ShardCount(self, shard_count: int):
+    def ShardCount(self, shard_count: Union[int, AnyFn]):
         return self._set_property(self.ShardCount.__name__, shard_count)
 
     def StreamEncryption(self, stream_encryption: StreamEncryption):

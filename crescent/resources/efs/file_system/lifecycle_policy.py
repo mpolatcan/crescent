@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import AllowedValues, ModelRequiredProperties
+from typing import Union
 
 
 class LifecyclePolicy(Model):
@@ -9,5 +11,5 @@ class LifecyclePolicy(Model):
             required_properties=ModelRequiredProperties.LIFECYCLE_POLICY
         )
 
-    def TransitionToIA(self, transition_to_ia: str):
+    def TransitionToIA(self, transition_to_ia: Union[str, AnyFn]):
         return self._set_field(self.TransitionToIA.__name__, transition_to_ia)

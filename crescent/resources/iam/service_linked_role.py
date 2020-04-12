@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class ServiceLinkedRole(Resource):
@@ -20,11 +22,11 @@ class ServiceLinkedRole(Resource):
             required_properties=ResourceRequiredProperties.SERVICE_LINKED_ROLE
         )
 
-    def AWSServiceName(self, aws_service_name: str):
+    def AWSServiceName(self, aws_service_name: Union[str, AnyFn]):
         return self._set_property(self.AWSServiceName.__name__, aws_service_name)
 
-    def CustomSuffix(self, custom_suffix: str):
+    def CustomSuffix(self, custom_suffix: Union[str, AnyFn]):
         return self._set_property(self.CustomSuffix.__name__, custom_suffix)
 
-    def Description(self, description: str):
+    def Description(self, description: Union[str, AnyFn]):
         return self._set_property(self.Description.__name__, description)

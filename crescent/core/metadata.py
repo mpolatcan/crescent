@@ -1,6 +1,8 @@
+from crescent.functions import AnyFn
 from .typesafe_dict import TypeSafeDict
 from .constants import Conditions
 from .model import Model
+from typing import Union
 
 # TODO Cloudformation Init Metadata will be added
 
@@ -48,28 +50,28 @@ class CfnAuthentication(Metadata):
         self.__get_field__(self.__METADATA_TYPE_CFN_AUTHENTICATION)[self.__id][property] = value
         return self
 
-    def accessKeyId(self, access_key_id: str):
+    def accessKeyId(self, access_key_id: Union[str, AnyFn]):
         return self.__set_property(self.accessKeyId.__name__, access_key_id)
 
-    def buckets(self, *buckets: str):
+    def buckets(self, *buckets: Union[str, AnyFn]):
         return self.__set_property(self.buckets.__name__, ",".join(list(buckets)))
 
-    def password(self, password: str):
+    def password(self, password: Union[str, AnyFn]):
         return self.__set_property(self.password.__name__, password)
 
-    def secretKey(self, secret_key: str):
+    def secretKey(self, secret_key: Union[str, AnyFn]):
         return self.__set_property(self.secretKey.__name__, secret_key)
 
-    def type(self, type: str):
+    def type(self, type: Union[str, AnyFn]):
         return self.__set_property(self.type.__name__, type)
 
-    def uris(self, *uris: str):
+    def uris(self, *uris: Union[str, AnyFn]):
         return self.__set_property(self.uris.__name__, ",".join(list(uris)))
 
-    def username(self, username: str):
+    def username(self, username: Union[str, AnyFn]):
         return self.__set_property(self.username.__name__, username)
 
-    def roleName(self, role_name: str):
+    def roleName(self, role_name: Union[str, AnyFn]):
         return self.__set_property(self.roleName.__name__, role_name)
 
     def Json(self, kvs: dict = None):
@@ -82,7 +84,7 @@ class CfnAuthentication(Metadata):
 
 
 class Label(Model):
-    def default(self, default: str):
+    def default(self, default: Union[str, AnyFn]):
         return self._set_field(self.default.__name__, default)
 
 
@@ -90,12 +92,12 @@ class ParameterGroup(Model):
     def Label(self, label: Label):
         return self._set_field(self.Label.__name__, label)
 
-    def Parameters(self, *parameters: str):
+    def Parameters(self, *parameters: Union[str, AnyFn]):
         return self._set_field(self.Parameters.__name__, list(parameters))
 
 
 class ParameterLabel(Model):
-    def __init__(self, id: str):
+    def __init__(self, id: Union[str, AnyFn]):
         super(ParameterLabel, self).__init__()
         self.__id = id
 
@@ -127,3 +129,33 @@ class CfnInterface(Metadata):
     def KeyValue(self, **kvs: dict):
         return self  # These methods doesn't use for this class
 
+
+# ----------------------------------------------------
+
+
+class MetadataFactory:
+    @staticmethod
+    def Create():
+        return Metadata()
+
+    class CfnAuthentication:
+        @staticmethod
+        def Create(id: str):
+            return CfnAuthentication(id)
+
+    class CfnInterface:
+        @staticmethod
+        def Create(id: str):
+            return CfnInterface(id)
+
+        @staticmethod
+        def ParameterLabel(id: str):
+            return ParameterLabel(id)
+
+        @staticmethod
+        def ParameterGroup():
+            return ParameterGroup()
+
+        @staticmethod
+        def Label():
+            return Label()

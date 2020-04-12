@@ -1,7 +1,9 @@
 from crescent.core import Resource, Tag
+from crescent.functions import AnyFn
 from .policy_model import PolicyModel
 from .constants import AllowedValues, ResourceRequiredProperties
 from .arn import PolicyArn
+from typing import Union
 
 
 class Role(Resource):
@@ -23,28 +25,28 @@ class Role(Resource):
             required_properties=ResourceRequiredProperties.ROLE
         )
 
-    def AssumeRolePolicyDocument(self, assume_role_policy_document: dict):
+    def AssumeRolePolicyDocument(self, assume_role_policy_document: Union[dict, AnyFn]):
         return self._set_property(self.AssumeRolePolicyDocument.__name__, assume_role_policy_document)
 
-    def Description(self, description: str):
+    def Description(self, description: Union[str, AnyFn]):
         return self._set_property(self.Description.__name__, description)
 
     def ManagedPolicyArns(self, *managed_policy_arns: PolicyArn):
         return self._set_property(self.ManagedPolicyArns.__name__, list(managed_policy_arns))
 
-    def MaxSessionDuration(self, max_session_duration: int):
+    def MaxSessionDuration(self, max_session_duration: Union[int, AnyFn]):
         return self._set_property(self.MaxSessionDuration.__name__, max_session_duration)
 
-    def Path(self, path: str):
+    def Path(self, path: Union[str, AnyFn]):
         return self._set_property(self.Path.__name__, path)
 
-    def PermissionBoundary(self, permission_boundary: str):
+    def PermissionBoundary(self, permission_boundary: Union[str, AnyFn]):
         return self._set_property(self.PermissionBoundary.__name__, permission_boundary)
 
     def Policies(self, *policies: PolicyModel):
         return self._set_property(self.Policies.__name__, list(policies))
 
-    def RoleName(self, role_name: str):
+    def RoleName(self, role_name: Union[str, AnyFn]):
         return self._set_property(self.RoleName.__name__, role_name)
 
     def Tags(self, *tags: Tag):

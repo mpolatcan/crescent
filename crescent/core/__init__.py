@@ -1,15 +1,17 @@
 from .model import Model
-from .resource_attrs import ResourceAttributes
+from .resource_attrs import ResourceAttributesFactory
 from .resource import Resource
 from .template import Template
 from .mapping import Mapping
-from .metadata import *
+from .metadata import MetadataFactory
 from .output import Output
-from .parameter import Parameter
 from .tag import Tag
-from .parameter_types import Type, ParameterTypes
+from .parameter import Parameter
+from .parameter_types import ParameterType, ParameterTypes
 from .constants import Region, Zone, AllowedValues
 from .arn import Arn
+from .condition import Condition
+
 
 __all__ = [
     "Template",
@@ -17,19 +19,15 @@ __all__ = [
     "Resource",
     "Mapping",
     "Output",
-    "Metadata",
-    "CfnAuthentication",
-    "CfnInterface",
-    "ParameterLabel",
-    "ParameterGroup",
-    "Label",
+    "Condition",
+    "MetadataFactory",
     "Parameter",
     "Tag",
-    "Type",
+    "ParameterType",
     "ParameterTypes",
     "Region",
     "Zone",
-    "ResourceAttributes",
+    "ResourceAttributesFactory",
     "AllowedValues",
     "Arn"
 ]

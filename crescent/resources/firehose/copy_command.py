@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class CopyCommand(Model):
@@ -9,11 +11,11 @@ class CopyCommand(Model):
             required_properties=ModelRequiredProperties.COPY_COMMAND
         )
 
-    def CopyOptions(self, copy_options: str):
+    def CopyOptions(self, copy_options: Union[str, AnyFn]):
         return self._set_field(self.CopyOptions.__name__, copy_options)
 
-    def DataTableColumns(self, data_table_cols: str):
+    def DataTableColumns(self, data_table_cols: Union[str, AnyFn]):
         return self._set_field(self.DataTableColumns.__name__, data_table_cols)
 
-    def DataTableName(self, data_table_name: str):
+    def DataTableName(self, data_table_name: Union[str, AnyFn]):
         return self._set_field(self.DataTableName.__name__, data_table_name)

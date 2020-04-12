@@ -1,11 +1,11 @@
 from .model import Model
-from .parameter_types import Type
+from .parameter_types import ParameterType
 
 
 class Parameter(Model):
     __KEY_TYPE = "Type"
 
-    def __init__(self, id: str, _type: Type):
+    def __init__(self, id: str, _type: ParameterType):
         super(Parameter, self).__init__(
             pattern={self.ConstraintDescription.__name__: r"[A-Za-z0-9]+"},
             max_length={self.Description.__name__: 4000}

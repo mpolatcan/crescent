@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class MountTarget(Resource):
@@ -13,14 +15,14 @@ class MountTarget(Resource):
             required_properties=ResourceRequiredProperties.MOUNT_TARGET
         )
 
-    def FileSystemId(self, file_system_id: str):
+    def FileSystemId(self, file_system_id: Union[str, AnyFn]):
         return self._set_property(self.FileSystemId.__name__, file_system_id)
 
-    def IpAddress(self, ip_address: str):
+    def IpAddress(self, ip_address: Union[str, AnyFn]):
         return self._set_property(self.IpAddress.__name__, ip_address)
 
-    def SecurityGroups(self, *security_groups: str):
+    def SecurityGroups(self, *security_groups: Union[str, AnyFn]):
         return self._set_property(self.SecurityGroups.__name__, list(security_groups))
 
-    def SubnetId(self, subnet_id: str):
+    def SubnetId(self, subnet_id: Union[str, AnyFn]):
         return self._set_property(self.SubnetId.__name__, subnet_id)

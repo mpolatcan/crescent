@@ -1,7 +1,9 @@
 from crescent.core import Resource, Tag, AllowedValues as CoreAllowedValues
+from crescent.functions import AnyFn
 from .db_instance_role import DBInstanceRole
 from .processor_feature import ProcessorFeature
 from .constants import AllowedValues, Conditions, ResourceRequiredProperties
+from typing import Union
 
 
 class DBInstance(Resource):
@@ -36,159 +38,159 @@ class DBInstance(Resource):
             required_properties=ResourceRequiredProperties.DB_INSTANCE
         )
 
-    def AllocatedStorage(self, allocated_storage: int):
+    def AllocatedStorage(self, allocated_storage: Union[int, AnyFn]):
         return self._set_property(self.AllocatedStorage.__name__, allocated_storage)
 
-    def AllowMajorVersionUpgrade(self, allow_major_version_upgrade: bool):
+    def AllowMajorVersionUpgrade(self, allow_major_version_upgrade: Union[bool, AnyFn]):
         return self._set_property(self.AllowMajorVersionUpgrade.__name__, allow_major_version_upgrade)
 
     def AssociatedRoles(self, *associated_roles: DBInstanceRole):
         return self._set_property(self.AssociatedRoles.__name__, list(associated_roles))
 
-    def AutoMinorVersionUpgrade(self, auto_minor_version_upgrade: bool):
+    def AutoMinorVersionUpgrade(self, auto_minor_version_upgrade: Union[bool, AnyFn]):
         return self._set_property(self.AutoMinorVersionUpgrade.__name__, auto_minor_version_upgrade)
 
-    def AvailabilityZone(self, availability_zone: str):
+    def AvailabilityZone(self, availability_zone: Union[str, AnyFn]):
         return self._set_property(self.AvailabilityZone.__name__, availability_zone)
 
-    def BackupRetentionPeriod(self, backup_retention_period: int):
+    def BackupRetentionPeriod(self, backup_retention_period: Union[int, AnyFn]):
         return self._set_property(self.BackupRetentionPeriod.__name__, backup_retention_period)
 
-    def CACertificateIdentifier(self, ca_certificate_identifier: str):
+    def CACertificateIdentifier(self, ca_certificate_identifier: Union[str, AnyFn]):
         return self._set_property(self.CACertificateIdentifier.__name__, ca_certificate_identifier)
 
-    def CharacterSetName(self, character_set_name: str):
+    def CharacterSetName(self, character_set_name: Union[str, AnyFn]):
         return self._set_property(self.CharacterSetName.__name__, character_set_name)
 
-    def CopyTagsToSnapshot(self, copy_tags_to_snapshot: bool):
+    def CopyTagsToSnapshot(self, copy_tags_to_snapshot: Union[bool, AnyFn]):
         return self._set_property(self.CopyTagsToSnapshot.__name__, copy_tags_to_snapshot)
 
-    def DBClusterIdentifier(self, db_cluster_identifier: str):
+    def DBClusterIdentifier(self, db_cluster_identifier: Union[str, AnyFn]):
         return self._set_property(self.DBClusterIdentifier.__name__, db_cluster_identifier)
 
-    def DBInstanceClass(self, db_instance_class: str):
+    def DBInstanceClass(self, db_instance_class: Union[str, AnyFn]):
         return self._set_property(self.DBInstanceClass.__name__, db_instance_class)
 
-    def DBInstanceIdentifier(self, db_instance_identifier: str):
+    def DBInstanceIdentifier(self, db_instance_identifier: Union[str, AnyFn]):
         return self._set_property(self.DBInstanceIdentifier.__name__, db_instance_identifier)
 
-    def DBName(self, db_name: str):
+    def DBName(self, db_name: Union[str, AnyFn]):
         return self._set_property(self.DBName.__name__, db_name)
 
-    def DBParameterGroupName(self, db_parameter_group_name: str):
+    def DBParameterGroupName(self, db_parameter_group_name: Union[str, AnyFn]):
         return self._set_property(self.DBParameterGroupName.__name__, db_parameter_group_name)
 
-    def DBSecurityGroups(self, *db_security_groups: str):
+    def DBSecurityGroups(self, *db_security_groups: Union[str, AnyFn]):
         return self._set_property(self.DBSecurityGroups.__name__, list(db_security_groups))
 
-    def DBSnapshotIdentifier(self, db_snapshot_identifier: str):
+    def DBSnapshotIdentifier(self, db_snapshot_identifier: Union[str, AnyFn]):
         return self._set_property(self.DBSnapshotIdentifier.__name__, db_snapshot_identifier)
 
-    def DBSubnetGroupName(self, db_subnet_group_name: str):
+    def DBSubnetGroupName(self, db_subnet_group_name: Union[str, AnyFn]):
         return self._set_property(self.DBSubnetGroupName.__name__, db_subnet_group_name)
 
-    def DeleteAutomatedBackups(self, delete_automated_backups: bool):
+    def DeleteAutomatedBackups(self, delete_automated_backups: Union[bool, AnyFn]):
         return self._set_property(self.DeleteAutomatedBackups.__name__, delete_automated_backups)
 
-    def DeletionProtection(self, deletion_protection: bool):
+    def DeletionProtection(self, deletion_protection: Union[bool, AnyFn]):
         return self._set_property(self.DeletionProtection.__name__, deletion_protection)
 
-    def Domain(self, domain: str):
+    def Domain(self, domain: Union[str, AnyFn]):
         return self._set_property(self.Domain.__name__, domain)
 
-    def DomainIAMRoleName(self, domain_iam_role_name: str):
+    def DomainIAMRoleName(self, domain_iam_role_name: Union[str, AnyFn]):
         return self._set_property(self.DomainIAMRoleName.__name__, domain_iam_role_name)
 
-    def EnableCloudwatchLogsExports(self, *enable_cw_logs_exports: str):
+    def EnableCloudwatchLogsExports(self, *enable_cw_logs_exports: Union[str, AnyFn]):
         return self._set_property(self.EnableCloudwatchLogsExports.__name__, list(enable_cw_logs_exports))
 
-    def EnableIAMDatabaseAuthentication(self, enable_iam_db_auth: bool):
+    def EnableIAMDatabaseAuthentication(self, enable_iam_db_auth: Union[bool, AnyFn]):
         return self._set_property(self.EnableIAMDatabaseAuthentication.__name__, enable_iam_db_auth)
 
-    def EnablePerformanceInsights(self, enable_performance_insights: bool):
+    def EnablePerformanceInsights(self, enable_performance_insights: Union[bool, AnyFn]):
         return self._set_property(self.EnablePerformanceInsights.__name__, enable_performance_insights)
 
-    def Engine(self, engine: str):
+    def Engine(self, engine: Union[str, AnyFn]):
         return self._set_property(self.Engine.__name__, engine)
 
-    def EngineVersion(self, engine_version: str):
+    def EngineVersion(self, engine_version: Union[str, AnyFn]):
         return self._set_property(self.EngineVersion.__name__, engine_version)
 
-    def Iops(self, iops: int):
+    def Iops(self, iops: Union[int, AnyFn]):
         return self._set_property(self.Iops.__name__, iops)
 
-    def KmsKeyId(self, kms_key_id: str):
+    def KmsKeyId(self, kms_key_id: Union[str, AnyFn]):
         return self._set_property(self.KmsKeyId.__name__, kms_key_id)
 
-    def LicenseModel(self, license_model: str):
+    def LicenseModel(self, license_model: Union[str, AnyFn]):
         return self._set_property(self.LicenseModel.__name__, license_model)
 
-    def MasterUsername(self, master_username: str):
+    def MasterUsername(self, master_username: Union[str, AnyFn]):
         return self._set_property(self.MasterUsername.__name__, master_username)
 
-    def MasterUserPassword(self, master_user_password: str):
+    def MasterUserPassword(self, master_user_password: Union[str, AnyFn]):
         return self._set_property(self.MasterUserPassword.__name__, master_user_password)
 
-    def MaxAllocatedStorage(self, max_allocated_storage: int):
+    def MaxAllocatedStorage(self, max_allocated_storage: Union[int, AnyFn]):
         return self._set_property(self.MaxAllocatedStorage.__name__, max_allocated_storage)
 
-    def MonitoringInterval(self, monitoring_interval: int):
+    def MonitoringInterval(self, monitoring_interval: Union[int, AnyFn]):
         return self._set_property(self.MonitoringInterval.__name__, monitoring_interval)
 
-    def MonitoringRoleArn(self, monitoring_role_arn: str):
+    def MonitoringRoleArn(self, monitoring_role_arn: Union[str, AnyFn]):
         return self._set_property(self.MonitoringRoleArn.__name__, monitoring_role_arn)
 
-    def MultiAz(self, multi_az: bool):
+    def MultiAz(self, multi_az: Union[bool, AnyFn]):
         return self._set_property(self.MultiAz.__name__, multi_az)
 
-    def OptionGroupName(self, option_group_name: str):
+    def OptionGroupName(self, option_group_name: Union[str, AnyFn]):
         return self._set_property(self.OptionGroupName.__name__, option_group_name)
 
-    def PerformanceInsightsKMSKeyId(self, performance_insights_kms_key_id: str):
+    def PerformanceInsightsKMSKeyId(self, performance_insights_kms_key_id: Union[str, AnyFn]):
         return self._set_property(self.PerformanceInsightsKMSKeyId.__name__, performance_insights_kms_key_id)
 
-    def PerformanceInsightsRetentionPeriod(self, performance_insights_retention_period: int):
+    def PerformanceInsightsRetentionPeriod(self, performance_insights_retention_period: Union[int, AnyFn]):
         return self._set_property(self.PerformanceInsightsRetentionPeriod.__name__, performance_insights_retention_period)
 
-    def Port(self, port: str):
+    def Port(self, port: Union[str, AnyFn]):
         return self._set_property(self.Port.__name__, port)
 
-    def PreferredBackupWindow(self, preferred_backup_window: str):
+    def PreferredBackupWindow(self, preferred_backup_window: Union[str, AnyFn]):
         return self._set_property(self.PreferredBackupWindow.__name__, preferred_backup_window)
 
-    def PreferredMaintenanceWindow(self, preferred_maintenance_window: str):
+    def PreferredMaintenanceWindow(self, preferred_maintenance_window: Union[str, AnyFn]):
         return self._set_property(self.PreferredMaintenanceWindow.__name__, preferred_maintenance_window)
 
     def ProcessorFeatures(self, *processor_features: ProcessorFeature):
         return self._set_property(self.ProcessorFeatures.__name__, list(processor_features))
 
-    def PromotionTier(self, promotion_tier: int):
+    def PromotionTier(self, promotion_tier: Union[int, AnyFn]):
         return self._set_property(self.PromotionTier.__name__, promotion_tier)
 
-    def PubliclyAccessible(self, publicly_accessible: bool):
+    def PubliclyAccessible(self, publicly_accessible: Union[bool, AnyFn]):
         return self._set_property(self.PubliclyAccessible.__name__, publicly_accessible)
 
-    def SourceDBInstanceIdentifier(self, source_db_instance_identifier: str):
+    def SourceDBInstanceIdentifier(self, source_db_instance_identifier: Union[str, AnyFn]):
         return self._set_property(self.SourceDBInstanceIdentifier.__name__, source_db_instance_identifier)
 
-    def SourceRegion(self, source_region: str):
+    def SourceRegion(self, source_region: Union[str, AnyFn]):
         return self._set_property(self.SourceRegion.__name__, source_region)
 
-    def StorageEncrypted(self, storage_encrypted: bool):
+    def StorageEncrypted(self, storage_encrypted: Union[bool, AnyFn]):
         return self._set_property(self.StorageEncrypted.__name__, storage_encrypted)
 
-    def StorageType(self, storage_type: str):
+    def StorageType(self, storage_type: Union[str, AnyFn]):
         return self._set_property(self.StorageType.__name__, storage_type)
 
     def Tags(self, *tags: Tag):
         return self._set_property(self.Tags.__name__, list(tags))
 
-    def Timezone(self, timezone: str):
+    def Timezone(self, timezone: Union[str, AnyFn]):
         return self._set_property(self.Timezone.__name__, timezone)
 
-    def UseDefaultProcessorFeatures(self, use_default_processor_features: bool):
+    def UseDefaultProcessorFeatures(self, use_default_processor_features: Union[bool, AnyFn]):
         return self._set_property(self.UseDefaultProcessorFeatures.__name__, use_default_processor_features)
 
-    def VPCSecurityGroups(self, *vpc_security_groups: str):
+    def VPCSecurityGroups(self, *vpc_security_groups: Union[str, AnyFn]):
         return self._set_property(self.VPCSecurityGroups.__name__, list(vpc_security_groups))
 

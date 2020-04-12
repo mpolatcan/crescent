@@ -2,21 +2,18 @@ from .core import (
     Region,
     Zone,
     Template,
-    ResourceAttributes,
+    ResourceAttributesFactory,
     Parameter,
+    ParameterType,
     ParameterTypes,
     Mapping,
     Output,
-    Metadata,
-    CfnAuthentication,
-    CfnInterface,
-    ParameterLabel,
-    ParameterGroup,
-    Label,
+    Condition,
+    MetadataFactory,
     Tag
 )
 from .resources import *
-from .functions import *
+from .functions import AnyFn as AnyFn, FnFactory
 
 
 # TODO Policy builder components will be added
@@ -25,91 +22,25 @@ from .functions import *
 class CrescentFactory:
     Region = Region
     Zone = Zone
+    Metadata = MetadataFactory
+    Fn = FnFactory
 
     class ResourceAttrs:
-        CreationPolicy = ResourceAttributes.CreationPolicy
-        DeletionPolicy = ResourceAttributes.DeletionPolicy
-        UpdatePolicy = ResourceAttributes.UpdatePolicy
-        UpdateReplacePolicy = ResourceAttributes.UpdateReplacePolicy
+        CreationPolicy = ResourceAttributesFactory.CreationPolicy
+        DeletionPolicy = ResourceAttributesFactory.DeletionPolicy
+        UpdatePolicy = ResourceAttributesFactory.UpdatePolicy
+        UpdateReplacePolicy = ResourceAttributesFactory.UpdateReplacePolicy
 
     class Parameter:
         Type = ParameterTypes
 
         @staticmethod
-        def Create(id: str, data_type: Type):
+        def Create(id: str, data_type: ParameterType):
             return Parameter(id, data_type)
 
-    class Metadata:
-        @staticmethod
-        def Create():
-            return Metadata()
-
-        class CfnAuthentication:
-            @staticmethod
-            def Create(id: str):
-                return CfnAuthentication(id)
-
-        class CfnInterface:
-            @staticmethod
-            def Create(id: str):
-                return CfnInterface(id)
-
-            @staticmethod
-            def ParameterLabel(id: str):
-                return ParameterLabel(id)
-
-            @staticmethod
-            def ParameterGroup():
-                return ParameterGroup()
-
-            @staticmethod
-            def Label():
-                return Label()
-
-    class Fn:
-        @staticmethod
-        def Base64(value):
-            return Base64(value)
-
-        @staticmethod
-        def Cidr():
-            return Cidr()
-
-        @staticmethod
-        def GetAtt():
-            return GetAtt()
-
-        @staticmethod
-        def GetAZs(region: str):
-            return GetAZs(region)
-
-        @staticmethod
-        def ImportValue(import_value: str):
-            return ImportValue(import_value)
-
-        @staticmethod
-        def Join():
-            return Join()
-
-        @staticmethod
-        def Select():
-            return Select()
-
-        @staticmethod
-        def Split():
-            return Split()
-
-        @staticmethod
-        def Ref(id: str):
-            return Ref(id)
-
-        @staticmethod
-        def Sub():
-            return Sub()
-
-        @staticmethod
-        def FindInMap():
-            return FindInMap()
+    @staticmethod
+    def Condition(id: str, fn: AnyFn):
+        return Condition(id).Fn(fn)
 
     @staticmethod
     def Mapping(id: str):

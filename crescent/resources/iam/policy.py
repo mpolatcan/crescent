@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class Policy(Resource):
@@ -24,17 +26,17 @@ class Policy(Resource):
             required_properties=ResourceRequiredProperties.POLICY
         )
 
-    def Groups(self, *groups: str):
+    def Groups(self, *groups: Union[str, AnyFn]):
         return self._set_property(self.Groups.__name__, list(groups))
 
-    def PolicyDocument(self, policy_document: dict):
+    def PolicyDocument(self, policy_document: Union[dict, AnyFn]):
         return self._set_property(self.PolicyDocument.__name__, policy_document)
 
-    def PolicyName(self, policy_name: str):
+    def PolicyName(self, policy_name: Union[str, AnyFn]):
         return self._set_property(self.PolicyName.__name__, policy_name)
 
-    def Roles(self, *roles: str):
+    def Roles(self, *roles: Union[str, AnyFn]):
         return self._set_property(self.Roles.__name__, list(roles))
 
-    def Users(self, *users: str):
+    def Users(self, *users: Union[str, AnyFn]):
         return self._set_property(self.Users.__name__, list(users))

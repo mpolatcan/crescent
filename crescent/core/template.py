@@ -4,6 +4,7 @@ from .parameter import Parameter
 from .mapping import Mapping
 from .metadata import Metadata
 from .output import Output
+from .condition import Condition
 import json
 import yaml
 
@@ -37,6 +38,9 @@ class Template(Model):
     def Outputs(self, *outputs: Output):
         return self._set_field(self.Outputs.__name__, list(outputs))
 
+    def Conditions(self, *conditions: Condition):
+        return self._set_field(self.Conditions.__name__, list(conditions))
+
     def Json(self, filename: str):
         converted_template = self.__to_dict__()
 
@@ -64,7 +68,7 @@ class Template(Model):
         if conversion_success:
             for field in [self.Resources.__name__, self.Parameters.__name__,
                           self.Mappings.__name__, self.Metadata.__name__,
-                          self.Outputs.__name__]:
+                          self.Outputs.__name__, self.Conditions.__name__]:
                 self.__rearrange_multiple_valued_field(field)
 
             return conversion_result

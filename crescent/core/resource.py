@@ -13,10 +13,12 @@
         }
     }
 """
+from crescent.functions import AnyFn
 from .model import Model
 from .constants import get_values
 from .resource_attrs import CreationPolicy, DeletionPolicy, UpdatePolicy, UpdateReplacePolicy
 from .metadata import Metadata
+from typing import Union
 
 
 class Resource(Model):
@@ -42,40 +44,36 @@ class Resource(Model):
             self.__KEY_TYPE: type,
             self.__KEY_PROPERTIES: {}
         })
-        self.__resource_def = self.__get_field__(self.__id)
-        self._properties = self.__resource_def[self.__KEY_PROPERTIES]
+        self._properties = self.__get_field__(self.__id)[self.__KEY_PROPERTIES]
 
     def _set_property(self, property, value):
-        self._properties[property] = value
-
+        self.__get_field__(self.__id)[self.__KEY_PROPERTIES][property] = value
         return self
 
-    def __get_properties__(self):
-        return self._properties
+    def __set_common_property(self, property, value):
+        self.__get_field__(self.__id)[property] = value
+        return self
+
+    def Condition(self, condition_id: Union[str, AnyFn]):
+        return self.__set_common_property(self.Condition.__name__, condition_id)
 
     def CreationPolicy(self, creation_policy: CreationPolicy):
-        self.__resource_def[self.CreationPolicy.__name__] = creation_policy
-        return self
+        return self.__set_common_property(self.CreationPolicy.__name__, creation_policy)
 
-    def DeletionPolicy(self, deletion_policy: str):
-        self.__resource_def[self.DeletionPolicy.__name__] = deletion_policy
-        return self
+    def DeletionPolicy(self, deletion_policy: Union[str, AnyFn]):
+        return self.__set_common_property(self.DeletionPolicy.__name__, deletion_policy)
 
-    def DependsOn(self, *depends_on: str):
-        self.__resource_def[self.DependsOn.__name__] = list(depends_on)
-        return self
+    def DependsOn(self, *depends_on: Union[str, AnyFn]):
+        return self.__set_common_property(self.DependsOn.__name__, list(depends_on))
 
     def Metadata(self, metadata: Metadata):
-        self.__resource_def[self.Metadata.__name__] = metadata
-        return self
+        return self.__set_common_property(self.Metadata.__name__, metadata)
 
     def UpdatePolicy(self, update_policy: UpdatePolicy):
-        self.__resource_def[self.UpdatePolicy.__name__] = update_policy
-        return self
+        return self.__set_common_property(self.UpdatePolicy.__name__, update_policy)
 
-    def UpdateReplacePolicy(self, update_replace_policy: str):
-        self.__resource_def[self.UpdateReplacePolicy.__name__] = update_replace_policy
-        return self
-    
+    def UpdateReplacePolicy(self, update_replace_policy: Union[str, AnyFn]):
+        return self.__set_common_property(self.UpdateReplacePolicy.__name__, update_replace_policy)
+
     def __to_dict__(self, **kwargs):
         return super(Resource, self).__to_dict__(id=self.__id)

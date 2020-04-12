@@ -1,4 +1,5 @@
 from crescent.core import Resource, Tag
+from crescent.functions import AnyFn
 from .accelerate_configuration import AccelerateConfiguration
 from .analytics_configuration import AnalyticsConfiguration
 from .bucket_encryption import BucketEncryption
@@ -13,6 +14,7 @@ from .public_access_block_configuration import PublicAccessBlockConfiguration
 from .replication_configuration import ReplicationConfiguration
 from .versioning_configuration import VersioningConfiguration
 from .website_configuration import WebsiteConfiguration
+from typing import Union
 
 
 class Bucket(Resource):
@@ -24,7 +26,7 @@ class Bucket(Resource):
     def AccelerateConfiguration(self, accelerate_conf: AccelerateConfiguration):
         return self._set_property(self.AccelerateConfiguration.__name__, accelerate_conf)
 
-    def AccessControl(self, access_control: str):
+    def AccessControl(self, access_control: Union[str, AnyFn]):
         return self._set_property(self.AccessControl.__name__, access_control)
 
     def AnalyticsConfigurations(self, *analytics_confs: AnalyticsConfiguration):
@@ -33,7 +35,7 @@ class Bucket(Resource):
     def BucketEncryption(self, bucket_encryption: BucketEncryption):
         return self._set_property(self.BucketEncryption.__name__, bucket_encryption)
 
-    def BucketName(self, bucket_name: str):
+    def BucketName(self, bucket_name: Union[str, AnyFn]):
         return self._set_property(self.BucketName.__name__, bucket_name)
 
     def CorsConfiguration(self, cors_conf: CorsConfiguration):
@@ -57,7 +59,7 @@ class Bucket(Resource):
     def ObjectLockConfiguration(self, object_lock_conf: ObjectLockConfiguration):
         return self._set_property(self.ObjectLockConfiguration.__name__, object_lock_conf)
 
-    def ObjectLockEnabled(self, object_lock_enabled: bool):
+    def ObjectLockEnabled(self, object_lock_enabled: Union[bool, AnyFn]):
         return self._set_property(self.ObjectLockEnabled.__name__, object_lock_enabled)
 
     def PublicAccessBlockConfiguration(self, public_access_block_conf: PublicAccessBlockConfiguration):

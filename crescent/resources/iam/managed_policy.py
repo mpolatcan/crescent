@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class ManagedPolicy(Resource):
@@ -25,23 +27,23 @@ class ManagedPolicy(Resource):
             required_properties=ResourceRequiredProperties.MANAGED_POLICY
         )
 
-    def Description(self, description: str):
+    def Description(self, description: Union[str, AnyFn]):
         return self._set_property(self.Description.__name__, description)
 
-    def Groups(self, *groups: str):
+    def Groups(self, *groups: Union[str, AnyFn]):
         return self._set_property(self.Groups.__name__, list(groups))
 
-    def ManagedPolicyName(self, managed_policy_name: str):
+    def ManagedPolicyName(self, managed_policy_name: Union[str, AnyFn]):
         return self._set_property(self.ManagedPolicyName.__name__, managed_policy_name)
 
-    def Path(self, path: str):
+    def Path(self, path: Union[str, AnyFn]):
         return self._set_property(self.Path.__name__, path)
 
-    def PolicyDocument(self, policy_document: dict):
+    def PolicyDocument(self, policy_document: Union[dict, AnyFn]):
         return self._set_property(self.PolicyDocument.__name__, policy_document)
 
-    def Roles(self, *roles: str):
+    def Roles(self, *roles: Union[str, AnyFn]):
         return self._set_property(self.Roles.__name__, list(roles))
 
-    def Users(self, *users: str):
+    def Users(self, *users: Union[str, AnyFn]):
         return self._set_property(self.Users.__name__, list(users))

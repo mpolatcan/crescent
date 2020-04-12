@@ -15,9 +15,9 @@
         <PROPERTY_NAME>: [([PARAMETERS], <LAMBDA_FN>), ..., ([PARAMETERS], <LAMBDA_FN>)]
       }
 """
+from .constants import ValidationFailureMessages
 from typing import get_type_hints
 import re
-from .constants import ValidationFailureMessages
 
 
 class Model:
@@ -45,7 +45,10 @@ class Model:
         self.__allowed_values_validations = validations.get(self.__VALIDATION_ALLOWED_VALUES, {})
         self.__required_properties_validations = validations.get(self.__VALIDATION_REQUIRED_PROPERTIES, [])
         self.__property_types_validations = {
-            property_name: list(get_type_hints(property_fn).values())[0]
+            property_name:
+                list(get_type_hints(property_fn).values())[0].__args__
+                if type(list(get_type_hints(property_fn).values())[0]).__name__ == "_Union"
+                else list(get_type_hints(property_fn).values())[0]
             for property_name, property_fn in [
                 (class_attr, getattr(self, class_attr)) for class_attr in dir(self)
                 if hasattr(getattr(self, class_attr), "__call__") and not re.match(r"[\s]?_[^\s]*|\s?(.*?)\s+?", class_attr)
@@ -245,10 +248,13 @@ class Model:
                 error_msg = validation_res[self.__KEY_VALIDATION_RESULT_ERROR]
                 errors.extend(error_msg) if isinstance(error_msg, list) else errors.append(error_msg)
 
-            # If type validation failed pass other validations
+            # If type validation failed or property value is intrinsic function pass other validations
             if validation == self.__type_validation:
                 if is_valid:
                     is_type_valid = True
+
+                    if re.match("Fn*", type(property_value).__base__.__name__):
+                        break
                 else:
                     break
 

@@ -1,4 +1,5 @@
-from .fn import FnArrayValue
+from .fn import Fn as AnyFn, FnArrayValue
+from typing import Union
 
 
 class Select(FnArrayValue):
@@ -8,8 +9,8 @@ class Select(FnArrayValue):
             field_order=[self.Index.__name__, self.Values.__name__]
         )
 
-    def Index(self, index: int):
+    def Index(self, index: Union[int, AnyFn]):
         return self._set_field(self.Index.__name__, index)
 
-    def Values(self, *values: object):
+    def Values(self, *values: Union[str, AnyFn]):
         return self._set_field(self.Values.__name__, list(values))

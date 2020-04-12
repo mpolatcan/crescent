@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import AllowedValues, ModelRequiredProperties
+from typing import Union
 
 
 class FilterRule(Model):
@@ -9,8 +11,8 @@ class FilterRule(Model):
             required_properties=ModelRequiredProperties.FILTER_RULE
         )
 
-    def Name(self, name: str):
+    def Name(self, name: Union[str, AnyFn]):
         return self._set_field(self.Name.__name__, name)
 
-    def Value(self, value: str):
+    def Value(self, value: Union[str, AnyFn]):
         return self._set_field(self.Value.__name__, value)

@@ -1,6 +1,8 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from crescent.resources.kinesis import StreamArn
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class StreamConsumer(Resource):
@@ -19,7 +21,7 @@ class StreamConsumer(Resource):
             required_properties=ResourceRequiredProperties.STREAM_CONSUMER
         )
 
-    def ConsumerName(self, consumer_name: str):
+    def ConsumerName(self, consumer_name: Union[str, AnyFn]):
         return self._set_property(self.ConsumerName.__name__, consumer_name)
 
     def StreamARN(self, stream_arn: StreamArn):

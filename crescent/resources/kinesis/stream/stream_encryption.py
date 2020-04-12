@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class StreamEncryption(Model):
@@ -11,8 +13,8 @@ class StreamEncryption(Model):
             required_properties=ModelRequiredProperties.STREAM_ENCRYPTION
         )
 
-    def EncryptionType(self, encryption_type: str):
+    def EncryptionType(self, encryption_type: Union[str, AnyFn]):
         return self._set_field(self.EncryptionType.__name__, encryption_type)
 
-    def KeyId(self, key_id: str):
+    def KeyId(self, key_id: Union[str, AnyFn]):
         return self._set_field(self.KeyId.__name__, key_id)

@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class KinesisStreamSourceConfiguration(Model):
@@ -14,8 +16,8 @@ class KinesisStreamSourceConfiguration(Model):
             required_properties=ModelRequiredProperties.KINESIS_STREAM_SOURCE_CONFIGURATION
         )
 
-    def KinesisStreamARN(self, kinesis_stream_arn: str):
+    def KinesisStreamARN(self, kinesis_stream_arn: Union[str, AnyFn]):
         return self._set_field(self.KinesisStreamARN.__name__, kinesis_stream_arn)
 
-    def RoleARN(self, role_arn: str):
+    def RoleARN(self, role_arn: Union[str, AnyFn]):
         return self._set_field(self.RoleARN.__name__, role_arn)

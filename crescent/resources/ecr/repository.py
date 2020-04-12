@@ -1,5 +1,7 @@
 from crescent.core import Resource, Tag
+from crescent.functions import AnyFn
 from .lifecycle_policy import LifecyclePolicy
+from typing import Union
 
 
 class Repository(Resource):
@@ -17,7 +19,7 @@ class Repository(Resource):
     def LifecyclePolicy(self, lifecycle_policy: LifecyclePolicy):
         return self._set_property(self.LifecyclePolicy.__name__, lifecycle_policy)
 
-    def RepositoryName(self, repository_name: str):
+    def RepositoryName(self, repository_name: Union[str, AnyFn]):
         return self._set_property(self.RepositoryName.__name__, repository_name)
 
     def RepositoryPolicyText(self, repository_policy_text: dict):

@@ -1,9 +1,11 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
+from typing import Union
 
 
 class OptionSetting(Model):
-    def Name(self, name: str):
+    def Name(self, name: Union[str, AnyFn]):
         return self._set_field(self.Name.__name__, name)
 
-    def Value(self, value: str):
+    def Value(self, value: Union[str, AnyFn]):
         return self._set_field(self.Value.__name__, value)

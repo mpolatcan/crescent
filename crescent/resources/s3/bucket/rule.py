@@ -1,9 +1,11 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .abort_incomplete_multipart_upload import AbortIncompleteMultipartUpload
 from .noncurrent_version_transition import NoncurrentVersionTransition
 from .tag_filter import TagFilter
 from .transition import Transition
 from .constants import AllowedValues, ModelRequiredProperties, Conditions
+from typing import Union
 
 
 class Rule(Model):
@@ -17,16 +19,16 @@ class Rule(Model):
     def AbortIncompleteMultipartUpload(self, abort_incomplete_multipart_upload: AbortIncompleteMultipartUpload):
         return self._set_field(self.AbortIncompleteMultipartUpload.__name__, abort_incomplete_multipart_upload)
 
-    def ExpirationDate(self, expiration_date: str):
+    def ExpirationDate(self, expiration_date: Union[str, AnyFn]):
         return self._set_field(self.ExpirationDate.__name__, expiration_date)
 
-    def ExpirationInDays(self, expiration_in_days: int):
+    def ExpirationInDays(self, expiration_in_days: Union[int, AnyFn]):
         return self._set_field(self.ExpirationInDays.__name__, expiration_in_days)
 
-    def Id(self, id: str):
+    def Id(self, id: Union[str, AnyFn]):
         return self._set_field(self.Id.__name__, id)
 
-    def NoncurrentVersionExpirationInDays(self, noncurrent_version_expiration_in_days: int):
+    def NoncurrentVersionExpirationInDays(self, noncurrent_version_expiration_in_days: Union[int, AnyFn]):
         return self._set_field(self.NoncurrentVersionExpirationInDays.__name__, noncurrent_version_expiration_in_days)
 
     def NoncurrentVersionTransitions(self, *noncurrent_version_transitions: NoncurrentVersionTransition):
@@ -35,10 +37,10 @@ class Rule(Model):
     def NoncurrentVersionTransition(self, noncurrent_version_transition: NoncurrentVersionTransition):
         return self._set_field(self.NoncurrentVersionTransition.__name__, noncurrent_version_transition)
 
-    def Prefix(self, prefix: str):
+    def Prefix(self, prefix: Union[str, AnyFn]):
         return self._set_field(self.Prefix.__name__, prefix)
 
-    def Status(self, status: str):
+    def Status(self, status: Union[str, AnyFn]):
         return self._set_field(self.Status.__name__, status)
 
     def TagFilters(self, *tag_filters: TagFilter):

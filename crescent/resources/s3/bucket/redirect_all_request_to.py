@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import AllowedValues, ModelRequiredProperties
+from typing import Union
 
 
 class RedirectAllRequestTo(Model):
@@ -9,8 +11,8 @@ class RedirectAllRequestTo(Model):
             required_properties=ModelRequiredProperties.REDIRECT_ALL_REQUEST_TO
         )
 
-    def HostName(self, host_name: str):
+    def HostName(self, host_name: Union[str, AnyFn]):
         return self._set_field(self.HostName.__name__, host_name)
 
-    def Protocol(self, protocol: str):
+    def Protocol(self, protocol: Union[str, AnyFn]):
         return self._set_field(self.Protocol.__name__, protocol)

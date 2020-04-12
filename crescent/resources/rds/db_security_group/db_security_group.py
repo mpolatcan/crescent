@@ -1,6 +1,8 @@
 from crescent.core import Resource, Tag
+from crescent.functions import AnyFn
 from .ingress import Ingress
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class DBSecurityGroup(Resource):
@@ -16,10 +18,10 @@ class DBSecurityGroup(Resource):
     def DBSecurityGroupIngress(self, *db_security_group_ingress: Ingress):
         return self._set_property(self.DBSecurityGroupIngress.__name__, list(db_security_group_ingress))
 
-    def EC2VpcId(self, ec2_vpc_id: str):
+    def EC2VpcId(self, ec2_vpc_id: Union[str, AnyFn]):
         return self._set_property(self.EC2VpcId.__name__, ec2_vpc_id)
 
-    def GroupDescription(self, group_description: str):
+    def GroupDescription(self, group_description: Union[str, AnyFn]):
         return self._set_property(self.GroupDescription.__name__, group_description)
 
     def Tags(self, *tags: Tag):

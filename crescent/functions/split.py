@@ -1,4 +1,5 @@
-from .fn import FnArrayValue
+from .fn import Fn as AnyFn, FnArrayValue
+from typing import Union
 
 
 class Split(FnArrayValue):
@@ -11,5 +12,5 @@ class Split(FnArrayValue):
     def Delimiter(self, delimiter: str):
         return self._set_field(self.Delimiter.__name__, delimiter)
 
-    def SourceString(self, source_str: str):
+    def SourceString(self, source_str: Union[str, AnyFn]):
         return self._set_field(self.SourceString.__name__, source_str)

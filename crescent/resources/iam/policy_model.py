@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class PolicyModel(Model):
@@ -14,8 +16,8 @@ class PolicyModel(Model):
             required_properties=ModelRequiredProperties.POLICY_MODEL
         )
 
-    def PolicyDocument(self, policy_document: dict):
+    def PolicyDocument(self, policy_document: Union[dict, AnyFn]):
         return self._set_field(self.PolicyDocument.__name__, policy_document)
 
-    def PolicyName(self, policy_name: str):
+    def PolicyName(self, policy_name: Union[str, AnyFn]):
         return self._set_field(self.PolicyName.__name__, policy_name)

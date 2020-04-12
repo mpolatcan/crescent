@@ -1,4 +1,5 @@
-from .fn import FnArrayValue
+from .fn import Fn as AnyFn, FnArrayValue
+from typing import Union
 
 
 class Cidr(FnArrayValue):
@@ -10,11 +11,11 @@ class Cidr(FnArrayValue):
             max_value={self.Count.__name__: 256}
         )
 
-    def IpBlock(self, ip_block: str):
+    def IpBlock(self, ip_block: Union[str, AnyFn]):
         return self._set_field(self.IpBlock.__name__, ip_block)
 
-    def Count(self, count: int):
+    def Count(self, count: Union[int, AnyFn]):
         return self._set_field(self.Count.__name__, count)
 
-    def CidrBits(self, cidr_bits: int):
+    def CidrBits(self, cidr_bits: Union[int, AnyFn]):
         return self._set_field(self.CidrBits.__name__, cidr_bits)

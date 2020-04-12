@@ -2,14 +2,14 @@ from crescent import CrescentFactory as cf, Rds as rds
 
 cf.Template().Resources(
     rds.DBCluster.Create("TestDBCluster")
-       .Engine(rds.DBCluster.Engine.AURORA_MYSQL)
+       .Engine(cf.Fn.Ref("test"))
        .EngineVersion(rds.DBCluster.EngineVersion.AuroraMysql.V_2_04_2)
        .Metadata(
             cf.Metadata.Create().KeyValue(
                 cluster_name="test",
                 engine="mysql"
             )
-       ),
+       ).DatabaseName("test-database").Condition("test"),
     rds.OptionGroup.Create("TestOptionGroup")
        .EngineName("test-engine")
        .MajorEngineVersion("11.2")
@@ -53,4 +53,6 @@ cf.Template().Resources(
     cf.Output("OutputTest")
       .Description("Output Test Description")
       .Value("Output Test Value")
+).Conditions(
+    cf.Condition("ConditionTest", cf.Fn.Equals(cf.Fn.Ref("RefTest"), "abc"))
 ).Yaml("test")

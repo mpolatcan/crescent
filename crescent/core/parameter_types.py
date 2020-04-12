@@ -18,43 +18,43 @@ class Constants:
 
 
 # -------------------------- STANDARD TYPES --------------------------
-class Type(str):
+class ParameterType(str):
     def __new__(cls, value):
         return super().__new__(cls, value)
 
 
-class ListType(Type):
+class ListParameterType(ParameterType):
     def __new__(cls, value):
-        return super(ListType, cls).__new__(cls, Constants.LIST_TYPE_FMT.format(value))
+        return super(ListParameterType, cls).__new__(cls, Constants.LIST_TYPE_FMT.format(value))
 
 
-class String(Type):
+class String(ParameterType):
     def __new__(cls, *args, **kwargs):
         return super(String, cls).__new__(cls, cls.__name__)
 
 
-class Number(Type):
+class Number(ParameterType):
     def __new__(cls, *args, **kwargs):
         return super(Number, cls).__new__(cls, cls.__name__)
 
 
-class NumberList(ListType):
+class NumberList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(NumberList, cls).__new__(cls, Number.__name__)
 
 
-class CommaDelimitedList(Type):
+class CommaDelimitedList(ParameterType):
     def __new__(cls, *args, **kwargs):
         return super(CommaDelimitedList, cls).__new__(cls, cls.__name__)
 
 
 # ------------------------ AWS SPECIFIC TYPES ------------------------
-class AwsType(Type):
+class AwsParameterType(ParameterType):
     def __new__(cls, *value):
-        return super(AwsType, cls).__new__(cls, Constants.AWS_TYPE_FMT.format("::".join(list(value))))
+        return super(AwsParameterType, cls).__new__(cls, Constants.AWS_TYPE_FMT.format("::".join(list(value))))
 
 
-class AwsEc2Type(AwsType):
+class AwsEc2Type(AwsParameterType):
     def __new__(cls, *value):
         return super(AwsEc2Type, cls).__new__(cls, Constants.AWS_EC2_TYPE, *value)
 
@@ -104,57 +104,57 @@ class VPCId(AwsEc2Type):
         return super(VPCId, cls).__new__(cls, *Constants.AWS_EC2_TYPE_VPC_ID)
 
 
-class Route53HostedZoneId(AwsType):
+class Route53HostedZoneId(AwsParameterType):
     def __new__(cls, *args, **kwargs):
         return super(Route53HostedZoneId, cls).__new__(cls, *Constants.AWS_ROUTE53_TYPE_HOSTEDZONE_ID)
 
 
-class AvailabilityZoneNameList(ListType):
+class AvailabilityZoneNameList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(AvailabilityZoneNameList, cls).__new__(cls, AvailabilityZoneName())
 
 
-class ImageIdList(ListType):
+class ImageIdList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(ImageIdList, cls).__new__(cls, ImageId())
 
 
-class InstanceIdList(ListType):
+class InstanceIdList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(InstanceIdList, cls).__new__(cls, InstanceId())
 
 
-class SecurityGroupNameList(ListType):
+class SecurityGroupNameList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(SecurityGroupNameList, cls).__new__(cls, SecurityGroupName())
 
 
-class SecurityGroupIdList(ListType):
+class SecurityGroupIdList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(SecurityGroupIdList, cls).__new__(cls, SecurityGroupId())
 
 
-class SubnetIdList(ListType):
+class SubnetIdList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(SubnetIdList, cls).__new__(cls, SubnetId())
 
 
-class VolumeIdList(ListType):
+class VolumeIdList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(VolumeIdList, cls).__new__(cls, VolumeId())
 
 
-class VPCIdList(ListType):
+class VPCIdList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(VPCIdList, cls).__new__(cls, VPCId())
 
 
-class Route53HostedZoneIdList(ListType):
+class Route53HostedZoneIdList(ListParameterType):
     def __new__(cls, *args, **kwargs):
         return super(Route53HostedZoneIdList, cls).__new__(cls, Route53HostedZoneId())
 
 
-class AwsSsmType(AwsType):
+class AwsSsmType(AwsParameterType):
     def __new__(cls, *value):
         return super(AwsSsmType, cls).__new__(cls, *Constants.AWS_SSM_PARAMETER_TYPE, *value)
 
@@ -165,7 +165,7 @@ class Name(AwsSsmType):
 
 
 class Value(AwsSsmType):
-    def __new__(cls, _type: Type):
+    def __new__(cls, _type: ParameterType):
         return super(Value, cls).__new__(cls, Constants.AWS_SSM_VALUE_TYPE_FMT.format(_type))
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -202,5 +202,5 @@ class ParameterTypes:
             Name = Name()
 
             @staticmethod
-            def Value(_type: Type):
+            def Value(_type: ParameterType):
                 return Value(_type)

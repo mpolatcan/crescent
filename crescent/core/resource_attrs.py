@@ -1,13 +1,15 @@
+from crescent.functions import AnyFn
 from .model import Model
 from .constants import ModelRequiredProperties, get_values
+from typing import Union
 
 
 class ResourceSignal(Model):
-    def Count(self, value: int):
-        return self._set_field(self.Count.__name__, value)
+    def Count(self, count: Union[int, AnyFn]):
+        return self._set_field(self.Count.__name__, count)
 
-    def Timeout(self, value: str):
-        return self._set_field(self.Timeout.__name__, value)
+    def Timeout(self, timeout: Union[str, AnyFn]):
+        return self._set_field(self.Timeout.__name__, timeout)
 
 
 class AutoscalingCreationPolicy(Model):
@@ -17,16 +19,16 @@ class AutoscalingCreationPolicy(Model):
             max_value={self.MinSuccessfulInstancesPercent.__name__: 100}
         )
 
-    def MinSuccessfulInstancesPercent(self, value: int):
-        return self._set_field(self.MinSuccessfulInstancesPercent.__name__, value)
+    def MinSuccessfulInstancesPercent(self, min_succesfull_instances_percent: Union[int, AnyFn]):
+        return self._set_field(self.MinSuccessfulInstancesPercent.__name__, min_succesfull_instances_percent)
 
 
 class CreationPolicy(Model):
-    def AutoscalingCreationPolicy(self, value: AutoscalingCreationPolicy):
-        return self._set_field(self.AutoscalingCreationPolicy.__name__, value)
+    def AutoscalingCreationPolicy(self, autoscaling_creation_policy: AutoscalingCreationPolicy):
+        return self._set_field(self.AutoscalingCreationPolicy.__name__, autoscaling_creation_policy)
 
-    def ResourceSignal(self, value: ResourceSignal):
-        return self._set_field(self.ResourceSignal.__name__, value)
+    def ResourceSignal(self, resource_signal: ResourceSignal):
+        return self._set_field(self.ResourceSignal.__name__, resource_signal)
 
 # --------------------------------------------------------------------------------------------
 
@@ -41,8 +43,8 @@ class DeletionPolicy:
 
 
 class AutoScalingReplacingUpdate(Model):
-    def WillReplace(self, value: bool):
-        return self._set_field(self.WillReplace.__name__, value)
+    def WillReplace(self, will_replace: Union[bool, AnyFn]):
+        return self._set_field(self.WillReplace.__name__, will_replace)
 
 
 class SuspendedProcesses:
@@ -64,27 +66,27 @@ class AutoScalingRollingUpdate(Model):
             allowed_values={self.SuspendedProcesses.__name__: get_values(SuspendedProcesses)}
         )
 
-    def MaxBatchSize(self, value: int):
-        return self._set_field(self.MaxBatchSize.__name__, value)
+    def MaxBatchSize(self, max_batch_size: Union[int, AnyFn]):
+        return self._set_field(self.MaxBatchSize.__name__, max_batch_size)
 
-    def MinInstancesInService(self, value: int):
-        return self._set_field(self.MinInstancesInService.__name__, value)
+    def MinInstancesInService(self, min_instances_in_service: Union[int, AnyFn]):
+        return self._set_field(self.MinInstancesInService.__name__, min_instances_in_service)
 
-    def MinSuccessfullInstancesPercent(self, value: int):
+    def MinSuccessfullInstancesPercent(self, value: Union[int, AnyFn]):
         return self._set_field(self.MinSuccessfullInstancesPercent.__name__, value)
 
-    def PauseTime(self, value: str):
+    def PauseTime(self, value: Union[str, AnyFn]):
         return self._set_field(self.PauseTime.__name__, value)
 
-    def SuspendedProcesses(self, *value: str):
+    def SuspendedProcesses(self, *value: Union[str, AnyFn]):
         return self._set_field(self.SuspendedProcesses.__name__, list(value))
 
-    def WaitOnResourceSignals(self, value: bool):
+    def WaitOnResourceSignals(self, value: Union[bool, AnyFn]):
         return self._set_field(self.WaitOnResourceSignals.__name__, value)
 
 
 class AutoScalingScheduledAction(Model):
-    def IgnoreUnmodifiedGroupSizeProperties(self, value: bool):
+    def IgnoreUnmodifiedGroupSizeProperties(self, value: Union[bool, AnyFn]):
         return self._set_field(self.IgnoreUnmodifiedGroupSizeProperties.__name__, value)
 
 
@@ -92,16 +94,16 @@ class CodeDeployLambdaAliasUpdate(Model):
     def __init__(self):
         super(CodeDeployLambdaAliasUpdate, self).__init__(required_properties=ModelRequiredProperties.CODE_DEPLOY_LAMBDA_ALIAS_UPDATE_POLICY)
 
-    def AfterAllowTrafficHook(self, value: str):
+    def AfterAllowTrafficHook(self, value: Union[str, AnyFn]):
         return self._set_field(self.AfterAllowTrafficHook.__name__, value)
 
-    def ApplicationName(self, value: str):
+    def ApplicationName(self, value: Union[str, AnyFn]):
         return self._set_field(self.ApplicationName.__name__, value)
 
-    def BeforeAllowTrafficHook(self, value: str):
+    def BeforeAllowTrafficHook(self, value: Union[str, AnyFn]):
         return self._set_field(self.BeforeAllowTrafficHook.__name__, value)
 
-    def DeploymentGroupName(self, value: str):
+    def DeploymentGroupName(self, value: Union[str, AnyFn]):
         return self._set_field(self.DeploymentGroupName.__name__, value)
 
 
@@ -120,10 +122,10 @@ class UpdatePolicy(Model):
     def AutoScalingScheduledAction(self, value: AutoScalingScheduledAction):
         return self._set_field(self.AutoScalingScheduledAction.__name__, value)
 
-    def UseOnlineResharding(self, value: bool):
+    def UseOnlineResharding(self, value: Union[bool, AnyFn]):
         return self._set_field(self.UseOnlineResharding.__name__, value)
 
-    def EnableVersionUpgrade(self, value: bool):
+    def EnableVersionUpgrade(self, value: Union[bool, AnyFn]):
         return self._set_field(self.EnableVersionUpgrade.__name__, value)
 
     def CodeDeployLambdaAliasUpdate(self, value: CodeDeployLambdaAliasUpdate):
@@ -141,7 +143,7 @@ class UpdateReplacePolicy:
 # --------------------------------------------------------------------------------------------
 
 
-class ResourceAttributes:
+class ResourceAttributesFactory:
     DeletionPolicy = DeletionPolicy
     UpdateReplacePolicy = UpdateReplacePolicy
 

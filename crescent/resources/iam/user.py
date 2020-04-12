@@ -1,8 +1,10 @@
 from crescent.core import Resource, Tag
+from crescent.functions import AnyFn
 from .policy_model import PolicyModel
 from .login_profile import LoginProfile
 from .arn import PolicyArn
 from .constants import AllowedValues
+from typing import Union
 
 
 class User(Resource):
@@ -19,7 +21,7 @@ class User(Resource):
             allowed_values={self.ManagedPolicyArns.__name__: AllowedValues.MANAGED_POLICY_ARNS}
         )
 
-    def Groups(self, *groups: str):
+    def Groups(self, *groups: Union[str, AnyFn]):
         return self._set_property(self.Groups.__name__, list(groups))
 
     def LoginProfile(self, login_profile: LoginProfile):
@@ -28,10 +30,10 @@ class User(Resource):
     def ManagedPolicyArns(self, *managed_policy_arns: PolicyArn):
         return self._set_property(self.ManagedPolicyArns.__name__, list(managed_policy_arns))
 
-    def Path(self, path: str):
+    def Path(self, path: Union[str, AnyFn]):
         return self._set_property(self.Path.__name__, path)
 
-    def PermissionBoundary(self, permission_boundary: str):
+    def PermissionBoundary(self, permission_boundary: Union[str, AnyFn]):
         return self._set_property(self.PermissionBoundary.__name__, permission_boundary)
 
     def Policies(self, *policies: PolicyModel):
@@ -40,5 +42,5 @@ class User(Resource):
     def Tags(self, *tags: Tag):
         return self._set_property(self.Tags.__name__, list(tags))
 
-    def UserName(self, user_name: str):
+    def UserName(self, user_name: Union[str, AnyFn]):
         return self._set_property(self.UserName.__name__, user_name)

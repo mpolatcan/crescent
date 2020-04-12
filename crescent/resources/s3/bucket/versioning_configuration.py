@@ -1,5 +1,7 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .constants import AllowedValues, ModelRequiredProperties
+from typing import Union
 
 
 class VersioningConfiguration(Model):
@@ -9,5 +11,5 @@ class VersioningConfiguration(Model):
             required_properties=ModelRequiredProperties.VERSIONING_CONFIGURATION
         )
 
-    def Status(self, status: str):
+    def Status(self, status: Union[str, AnyFn]):
         return self._set_field(self.Status.__name__, status)

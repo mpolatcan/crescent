@@ -1,7 +1,9 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .public_access_block_configuration import PublicAccessBlockConfiguration
 from .vpc_configuration import VpcConfiguration
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class AccessPoint(Resource):
@@ -14,22 +16,22 @@ class AccessPoint(Resource):
             required_properties=ResourceRequiredProperties.ACCESS_POINT
         )
 
-    def Bucket(self, bucket: str):
+    def Bucket(self, bucket: Union[str, AnyFn]):
         return self._set_property(self.Bucket.__name__, bucket)
 
-    def CreationDate(self, creation_date: str):
+    def CreationDate(self, creation_date: Union[str, AnyFn]):
         return self._set_property(self.CreationDate.__name__, creation_date)
 
-    def Name(self, name: str):
+    def Name(self, name: Union[str, AnyFn]):
         return self._set_property(self.Name.__name__, name)
 
-    def NetworkOrigin(self, network_origin: str):
+    def NetworkOrigin(self, network_origin: Union[str, AnyFn]):
         return self._set_property(self.NetworkOrigin.__name__, network_origin)
 
-    def Policy(self, policy: dict):
+    def Policy(self, policy: Union[dict, AnyFn]):
         return self._set_property(self.Policy.__name__, policy)
 
-    def PolicyStatus(self, policy_status: dict):
+    def PolicyStatus(self, policy_status: Union[dict, AnyFn]):
         return self._set_property(self.PolicyStatus, policy_status)
 
     def PublicAccessBlockConfiguration(self, public_access_block_conf: PublicAccessBlockConfiguration):

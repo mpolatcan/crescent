@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import ResourceRequiredProperties
+from typing import Union
 
 
 class InstanceProfile(Resource):
@@ -18,11 +20,11 @@ class InstanceProfile(Resource):
             required_properties=ResourceRequiredProperties.INSTANCE_PROFILE
         )
 
-    def InstanceProfileName(self, instance_profile_name: str):
+    def InstanceProfileName(self, instance_profile_name: Union[str, AnyFn]):
         return self._set_property(self.InstanceProfileName.__name__, instance_profile_name)
 
-    def Path(self, path: str):
+    def Path(self, path: Union[str, AnyFn]):
         return self._set_property(self.Path.__name__, path)
 
-    def Roles(self, *roles: str):
+    def Roles(self, *roles: Union[str, AnyFn]):
         return self._set_property(self.Roles.__name__, list(roles))

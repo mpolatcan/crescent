@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import AllowedValues, ResourceRequiredProperties
+from typing import Union
 
 
 class AccessKey(Resource):
@@ -16,11 +18,11 @@ class AccessKey(Resource):
             required_properties=ResourceRequiredProperties.ACCESS_KEY
         )
 
-    def Serial(self, serial: int):
+    def Serial(self, serial: Union[int, AnyFn]):
         return self._set_property(self.Serial.__name__, serial)
 
-    def Status(self, status: str):
+    def Status(self, status: Union[str, AnyFn]):
         return self._set_property(self.Status.__name__, status)
 
-    def Username(self, username: str):
+    def Username(self, username: Union[str, AnyFn]):
         return self._set_property(self.Username.__name__, username)

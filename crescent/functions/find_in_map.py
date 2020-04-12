@@ -1,4 +1,5 @@
-from .fn import FnArrayValue
+from .fn import Fn as AnyFn, FnArrayValue
+from typing import Union
 
 
 class FindInMap(FnArrayValue):
@@ -10,12 +11,11 @@ class FindInMap(FnArrayValue):
                          self.SecondLevelKey.__name__]
         )
 
-    def MapName(self, map_name: str):
+    def MapName(self, map_name: Union[str, AnyFn]):
         return self._set_field(self.MapName.__name__, map_name)
 
-    def TopLevelKey(self, top_level_key: str):
+    def TopLevelKey(self, top_level_key: Union[str, AnyFn]):
         return self._set_field(self.TopLevelKey.__name__, top_level_key)
 
-    def SecondLevelKey(self, second_level_key: str):
+    def SecondLevelKey(self, second_level_key: Union[str, AnyFn]):
         return self._set_field(self.SecondLevelKey.__name__, second_level_key)
-

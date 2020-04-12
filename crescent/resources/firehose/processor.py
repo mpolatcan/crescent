@@ -1,6 +1,8 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .processor_parameter import ProcessorParameter
 from .constants import AllowedValues
+from typing import Union
 
 
 class Processor(Model):
@@ -16,5 +18,5 @@ class Processor(Model):
             self.__get_field__(self.Parameters.__name__).extend(list(parameters))
             return self
 
-    def Type(self, type: str):
+    def Type(self, type: Union[str, AnyFn]):
         return self._set_field(self.Type.__name__, type)

@@ -12,6 +12,25 @@ class Fn(Model):
 # -------------------------------------
 
 
+class FnSingleValue(Fn):
+    def __init__(self, fn_name, **validations):
+        super(FnSingleValue, self).__init__(fn_name=fn_name, **validations)
+
+    def Value(self, value):
+        pass
+
+    def __to_dict__(self, **kwargs):
+        conversion_success, conversion_result = super(FnSingleValue, self).__to_dict__()
+
+        if conversion_success:
+            self._set_fn_value(self.__get_field__(self.Value.__name__))
+            self._pop_field(self.Value.__name__)
+
+        return conversion_success, conversion_result
+
+# -------------------------------------
+
+
 class FnArrayValue(Fn):
     def __init__(self, fn_name, field_order, **validations):
         self.__field_order = field_order
@@ -30,4 +49,3 @@ class FnArrayValue(Fn):
                 self._pop_field(field)
 
         return conversion_success, conversion_result
-

@@ -1,10 +1,12 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .elasticsearch_buffering_hints import ElasticsearchBufferingHints
 from .cloudwatch_logging_options import CloudWatchLoggingOptions
 from .processing_configuration import ProcessingConfiguration
 from .elasticsearch_retry_options import ElasticsearchRetryOptions
 from .s3_destination_configuration import S3DestinationConfiguration
 from .constants import ModelRequiredProperties, AllowedValues
+from typing import Union
 
 
 class ElasticsearchDestinationConfiguration(Model):
@@ -31,13 +33,13 @@ class ElasticsearchDestinationConfiguration(Model):
     def CloudWatchLoggingOptions(self, cw_logging_opts: CloudWatchLoggingOptions):
         return self._set_field(self.CloudWatchLoggingOptions.__name__, cw_logging_opts)
 
-    def DomainARN(self, domain_arn: str):
+    def DomainARN(self, domain_arn: Union[str, AnyFn]):
         return self._set_field(self.DomainARN.__name__, domain_arn)
 
-    def IndexName(self, index_name: str):
+    def IndexName(self, index_name: Union[str, AnyFn]):
         return self._set_field(self.IndexName.__name__, index_name)
 
-    def IndexRotationPeriod(self, index_rotation_period: str):
+    def IndexRotationPeriod(self, index_rotation_period: Union[str, AnyFn]):
         return self._set_field(self.IndexRotationPeriod.__name__, index_rotation_period)
 
     def ProcessingConfiguration(self, processing_conf: ProcessingConfiguration):
@@ -46,14 +48,14 @@ class ElasticsearchDestinationConfiguration(Model):
     def RetryOptions(self, elasticsearch_retry_opts: ElasticsearchRetryOptions):
         return self._set_field(self.RetryOptions.__name__, elasticsearch_retry_opts)
 
-    def RoleARN(self, role_arn: str):
+    def RoleARN(self, role_arn: Union[str, AnyFn]):
         return self._set_field(self.RoleARN.__name__, role_arn)
 
-    def S3BackupMode(self, s3_backup_mode: str):
+    def S3BackupMode(self, s3_backup_mode: Union[str, AnyFn]):
         return self._set_field(self.S3BackupMode.__name__, s3_backup_mode)
 
     def S3Configuration(self, s3_conf: S3DestinationConfiguration):
         return self._set_field(self.S3Configuration.__name__, s3_conf)
 
-    def TypeName(self, type_name: str):
+    def TypeName(self, type_name: Union[str, AnyFn]):
         return self._set_field(self.TypeName.__name__, type_name)

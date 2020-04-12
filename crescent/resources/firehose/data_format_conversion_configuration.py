@@ -1,8 +1,10 @@
 from crescent.core import Model
+from crescent.functions import AnyFn
 from .input_format_configuration import InputFormatConfiguration
 from .output_format_configuration import OutputFormatConfiguration
 from .schema_configuration import SchemaConfiguration
 from .constants import ModelRequiredProperties
+from typing import Union
 
 
 class DataFormatConversionConfiguration(Model):
@@ -11,7 +13,7 @@ class DataFormatConversionConfiguration(Model):
             required_properties=ModelRequiredProperties.DATA_FORMAT_CONVERSION_CONFIGURATION
         )
 
-    def Enabled(self, enabled: bool):
+    def Enabled(self, enabled: Union[bool, AnyFn]):
         return self._set_field(self.Enabled.__name__, enabled)
 
     def InputFormatConfiguration(self, input_format_conf: InputFormatConfiguration):

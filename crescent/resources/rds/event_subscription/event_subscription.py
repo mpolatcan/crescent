@@ -1,5 +1,7 @@
 from crescent.core import Resource
+from crescent.functions import AnyFn
 from .constants import AllowedValues, Conditions, ResourceRequiredProperties
+from typing import Union
 
 
 class EventSubscription(Resource):
@@ -15,17 +17,17 @@ class EventSubscription(Resource):
             required_properties=ResourceRequiredProperties.EVENT_SUBSCRIPTION
         )
 
-    def Enabled(self, enabled: bool):
+    def Enabled(self, enabled: Union[bool, AnyFn]):
         return self._set_property(self.Enabled.__name__, enabled)
 
-    def EventCategories(self, *event_categories: str):
+    def EventCategories(self, *event_categories: Union[str, AnyFn]):
         return self._set_property(self.EventCategories.__name__, list(event_categories))
 
-    def SnsTopicArn(self, sns_topic_arn: str):
+    def SnsTopicArn(self, sns_topic_arn: Union[str, AnyFn]):
         return self._set_property(self.SnsTopicArn.__name__, sns_topic_arn)
 
-    def SourceIds(self, *source_ids: str):
+    def SourceIds(self, *source_ids: Union[str, AnyFn]):
         return self._set_property(self.SourceIds.__name__, list(source_ids))
 
-    def SourceType(self, source_type: str):
+    def SourceType(self, source_type: Union[str, AnyFn]):
         return self._set_property(self.SourceType.__name__, source_type)
