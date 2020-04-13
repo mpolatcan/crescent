@@ -13,21 +13,5 @@ from .arn import Arn
 from .condition import Condition
 
 
-__all__ = [
-    "Template",
-    "Model",
-    "Resource",
-    "Mapping",
-    "Output",
-    "Condition",
-    "MetadataFactory",
-    "Parameter",
-    "Tag",
-    "ParameterType",
-    "ParameterTypes",
-    "Region",
-    "Zone",
-    "ResourceAttributesFactory",
-    "AllowedValues",
-    "Arn"
-]
+__all__ = ["Template", "Model", "Resource", "Mapping", "Output", "Condition", "MetadataFactory", "Parameter", "Tag",
+           "ParameterType", "ParameterTypes", "Region", "Zone", "ResourceAttributesFactory", "AllowedValues", "Arn"]

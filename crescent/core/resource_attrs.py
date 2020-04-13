@@ -149,36 +149,28 @@ class ResourceAttributesFactory:
 
     class CreationPolicy:
         @staticmethod
-        def Create():
-            return CreationPolicy()
+        def Create(): return CreationPolicy()
 
         @staticmethod
-        def AutoscalingCreationPolicy():
-            return AutoscalingCreationPolicy()
+        def AutoscalingCreationPolicy(): return AutoscalingCreationPolicy()
 
         @staticmethod
-        def ResourceSignal():
-            return ResourceSignal()
+        def ResourceSignal(): return ResourceSignal()
 
     class UpdatePolicy:
         SuspendedProcesses = SuspendedProcesses
 
         @staticmethod
-        def Create():
-            return UpdatePolicy()
+        def Create(): return UpdatePolicy()
 
         @staticmethod
-        def AutoScalingReplacingUpdate():
-            return AutoScalingReplacingUpdate()
+        def AutoScalingReplacingUpdate(): return AutoScalingReplacingUpdate()
 
         @staticmethod
-        def AutoScalingRollingUpdate():
-            return AutoScalingRollingUpdate()
+        def AutoScalingRollingUpdate(): return AutoScalingRollingUpdate()
 
         @staticmethod
-        def AutoScalingScheduledAction():
-            return AutoScalingScheduledAction()
+        def AutoScalingScheduledAction(): return AutoScalingScheduledAction()
 
         @staticmethod
-        def CodeDeployLambdaAliasUpdate():
-            return CodeDeployLambdaAliasUpdate()
+        def CodeDeployLambdaAliasUpdate(): return CodeDeployLambdaAliasUpdate()

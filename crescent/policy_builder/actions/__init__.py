@@ -14,7 +14,4 @@ class Actions:
     Kinesis = KinesisActions
 
 
-__all__ = [
-    "Action",
-    "Actions"
-]
+__all__ = ["Action", "Actions"]

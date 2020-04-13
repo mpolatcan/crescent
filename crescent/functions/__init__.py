@@ -16,56 +16,40 @@ from typing import Union
 
 class FnFactory:
     @staticmethod
-    def Base64(value: Union[str, AnyFn]):
-        return FnBase64().Value(value)
+    def Base64(value: Union[str, AnyFn]): return FnBase64().Value(value)
 
     @staticmethod
-    def Cidr():
-        return FnCidr()
+    def Cidr(): return FnCidr()
 
     @staticmethod
-    def GetAtt():
-        return FnGetAtt()
+    def GetAtt(): return FnGetAtt()
 
     @staticmethod
-    def GetAZs(region: Union[str, FnRef]):
-        return FnGetAZs().Value(region)
+    def GetAZs(region: Union[str, FnRef]): return FnGetAZs().Value(region)
 
     @staticmethod
-    def ImportValue(import_value: str):
-        return FnImportValue().Value(import_value)
+    def ImportValue(import_value: str): return FnImportValue().Value(import_value)
 
     @staticmethod
-    def Join():
-        return FnJoin()
+    def Join(): return FnJoin()
 
     @staticmethod
-    def Select():
-        return FnSelect()
+    def Select(): return FnSelect()
 
     @staticmethod
-    def Split():
-        return FnSplit()
+    def Split(): return FnSplit()
 
     @staticmethod
-    def Ref(id: str):
-        return FnRef().Value(id)
+    def Ref(id: str): return FnRef().Value(id)
 
     @staticmethod
-    def Sub():
-        return FnSub()
+    def Sub(): return FnSub()
 
     @staticmethod
-    def FindInMap():
-        return FnFindInMap()
+    def FindInMap(): return FnFindInMap()
 
     @staticmethod
-    def Equals(val1: Union[str, FnRef], val2: Union[str, FnRef]):
-        return FnEquals().ValueFirst(val1).ValueSecond(val2)
+    def Equals(val1: Union[str, FnRef], val2: Union[str, FnRef]): return FnEquals().ValueFirst(val1).ValueSecond(val2)
 
 
-__all__ = [
-    "FnFactory",
-    "AnyFn",
-    "FnRef"
-]
+__all__ = ["FnFactory", "AnyFn", "FnRef"]

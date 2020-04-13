@@ -202,5 +202,4 @@ class ParameterTypes:
             Name = Name()
 
             @staticmethod
-            def Value(_type: ParameterType):
-                return Value(_type)
+            def Value(_type: ParameterType): return Value(_type)

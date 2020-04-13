@@ -27,17 +27,9 @@ from .schema_configuration import SchemaConfiguration
 from .serializer import Serializer
 from .splunk_destination_configuration import SplunkDestinationConfiguration
 from .splunk_retry_options import SplunkRetryOptions
-from .constants import (
-    DeliveryStreamType,
-    S3BackupMode,
-    CompressionFormat,
-    ProcessorParameterName,
-    ProcessorType,
-    OrcSerDeFormatVersion,
-    ParquetSerDeWriterVersion,
-    ElasticsearchDestinationIndexRotationPeriod,
-    SplunkDestinationHECEndpointType
-)
+from .constants import (DeliveryStreamType, S3BackupMode, CompressionFormat, ProcessorParameterName,
+                        ProcessorType, OrcSerDeFormatVersion, ParquetSerDeWriterVersion,
+                        ElasticsearchDestinationIndexRotationPeriod, SplunkDestinationHECEndpointType)
 from .arn import DeliveryStreamArn
 
 
@@ -53,132 +45,98 @@ class Firehose:
         ProcessorType = ProcessorType
 
         @staticmethod
-        def Create(id: str):
-            return DeliveryStream(id)
+        def Create(id: str): return DeliveryStream(id)
 
         @staticmethod
-        def BufferingHints():
-            return BufferingHints()
+        def BufferingHints(): return BufferingHints()
 
         @staticmethod
-        def CloudWatchLoggingOptions():
-            return CloudWatchLoggingOptions()
+        def CloudWatchLoggingOptions(): return CloudWatchLoggingOptions()
 
         @staticmethod
-        def CopyCommand():
-            return CopyCommand()
+        def CopyCommand(): return CopyCommand()
 
         @staticmethod
-        def DataFormatConversionConfiguration():
-            return DataFormatConversionConfiguration()
+        def DataFormatConversionConfiguration(): return DataFormatConversionConfiguration()
 
         @staticmethod
-        def Deserializer():
-            return Deserializer()
+        def Deserializer(): return Deserializer()
 
         @staticmethod
-        def ElasticsearchBufferingHints():
-            return ElasticsearchBufferingHints()
+        def ElasticsearchBufferingHints(): return ElasticsearchBufferingHints()
 
         @staticmethod
-        def ElasticsearchDestinationConfiguration():
-            return ElasticsearchDestinationConfiguration()
+        def ElasticsearchDestinationConfiguration(): return ElasticsearchDestinationConfiguration()
 
         @staticmethod
-        def ElasticsearchRetryOptions():
-            return ElasticsearchRetryOptions()
+        def ElasticsearchRetryOptions(): return ElasticsearchRetryOptions()
 
         @staticmethod
-        def EncryptionConfiguration():
-            return EncryptionConfiguration()
+        def EncryptionConfiguration(): return EncryptionConfiguration()
 
         @staticmethod
-        def ExtendedS3DestinationConfiguration():
-            return ExtendedS3DestinationConfiguration()
+        def ExtendedS3DestinationConfiguration(): return ExtendedS3DestinationConfiguration()
 
         @staticmethod
-        def HiveJsonSerDe():
-            return HiveJsonSerDe()
+        def HiveJsonSerDe(): return HiveJsonSerDe()
 
         @staticmethod
-        def InputFormatConfiguration():
-            return InputFormatConfiguration()
+        def InputFormatConfiguration(): return InputFormatConfiguration()
 
         @staticmethod
-        def KinesisStreamSourceConfiguration():
-            return KinesisStreamSourceConfiguration()
+        def KinesisStreamSourceConfiguration(): return KinesisStreamSourceConfiguration()
 
         @staticmethod
-        def KMSEncryptionConfig():
-            return KMSEncryptionConfig()
+        def KMSEncryptionConfig(): return KMSEncryptionConfig()
 
         @staticmethod
-        def OpenXJsonSerDe():
-            return OpenXJsonSerDe()
+        def OpenXJsonSerDe(): return OpenXJsonSerDe()
 
         @staticmethod
-        def OrcSerDe():
-            return OrcSerDe()
+        def OrcSerDe(): return OrcSerDe()
 
         @staticmethod
-        def OutputFormatConfiguration():
-            return OutputFormatConfiguration()
+        def OutputFormatConfiguration(): return OutputFormatConfiguration()
 
         @staticmethod
-        def ParquetSerDe():
-            return ParquetSerDe()
+        def ParquetSerDe(): return ParquetSerDe()
 
         @staticmethod
-        def ProcessingConfiguration():
-            return ProcessingConfiguration()
+        def ProcessingConfiguration(): return ProcessingConfiguration()
 
         @staticmethod
-        def Processor():
-            return Processor()
+        def Processor(): return Processor()
 
         @staticmethod
-        def LambdaProcessor():
-            return LambdaProcessor()
+        def LambdaProcessor(): return LambdaProcessor()
 
         @staticmethod
-        def ProcessorParameter():
-            return ProcessorParameter()
+        def ProcessorParameter(): return ProcessorParameter()
 
         @staticmethod
-        def RedshiftDestinationConfiguration():
-            return RedshiftDestinationConfiguration()
+        def RedshiftDestinationConfiguration(): return RedshiftDestinationConfiguration()
 
         @staticmethod
-        def S3DestinationConfiguration():
-            return S3DestinationConfiguration()
+        def S3DestinationConfiguration(): return S3DestinationConfiguration()
 
         @staticmethod
-        def SchemaConfiguration():
-            return SchemaConfiguration()
+        def SchemaConfiguration(): return SchemaConfiguration()
 
         @staticmethod
-        def Serializer():
-            return Serializer()
+        def Serializer(): return Serializer()
 
         @staticmethod
-        def SplunkDestinationConfiguration():
-            return SplunkDestinationConfiguration()
+        def SplunkDestinationConfiguration(): return SplunkDestinationConfiguration()
 
         @staticmethod
-        def SplunkRetryOptions():
-            return SplunkRetryOptions()
+        def SplunkRetryOptions(): return SplunkRetryOptions()
 
     @staticmethod
-    def DeliveryStreamArn(delivery_stream_name: str,
-                          partition: str = "aws",
-                          region: str = "",
-                          account_id: str = ""):
-        return DeliveryStreamArn(
-            delivery_stream_name=delivery_stream_name,
-            partition=partition,
-            region=region,
-            account_id=account_id
-        )
+    def DeliveryStreamArn(delivery_stream_name: str, partition: str = "aws", region: str = "", account_id: str = ""):
+        return DeliveryStreamArn(delivery_stream_name=delivery_stream_name,
+                                 partition=partition,
+                                 region=region,
+                                 account_id=account_id)
 
 
 __all__ = [

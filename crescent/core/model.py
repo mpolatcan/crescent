@@ -51,7 +51,9 @@ class Model:
                 else list(get_type_hints(property_fn).values())[0]
             for property_name, property_fn in [
                 (class_attr, getattr(self, class_attr)) for class_attr in dir(self)
-                if hasattr(getattr(self, class_attr), "__call__") and not re.match(r"[\s]?_[^\s]*|\s?(.*?)\s+?", class_attr)
+                if hasattr(getattr(self, class_attr), "__call__")
+                and not re.match(r"[\s]?_[^\s]*|\s?(.*?)\s+?", class_attr)
+                and len(get_type_hints(getattr(self, class_attr))) > 0
             ]
         }
 

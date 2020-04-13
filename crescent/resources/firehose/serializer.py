@@ -9,4 +9,3 @@ class Serializer(Model):
 
     def ParquetSerDe(self, parquet_ser_de: ParquetSerDe):
         return self._set_field(self.ParquetSerDe.__name__, parquet_ser_de)
-

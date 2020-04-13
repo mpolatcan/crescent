@@ -6,16 +6,13 @@ from .bucket_policy import *
 class S3:
     class AccessPoint:
         @staticmethod
-        def Create(id: str):
-            return AccessPoint(id)
+        def Create(id: str): return AccessPoint(id)
 
         @staticmethod
-        def PublicAccessBlockConfiguration():
-            return PublicAccessBlockConfiguration()
+        def PublicAccessBlockConfiguration(): return PublicAccessBlockConfiguration()
 
         @staticmethod
-        def VpcConfiguration():
-            return VpcConfiguration()
+        def VpcConfiguration(): return VpcConfiguration()
 
     class Bucket:
         AccelerationStatus = StatusEnabledSuspended
@@ -36,187 +33,140 @@ class S3:
         FilterRuleName = FilterRuleName
 
         @staticmethod
-        def Create(id: str):
-            return Bucket(id)
+        def Create(id: str): return Bucket(id)
 
         @staticmethod
-        def AbortIncompleteMultipartUpload():
-            return AbortIncompleteMultipartUpload()
+        def AbortIncompleteMultipartUpload(): return AbortIncompleteMultipartUpload()
 
         @staticmethod
-        def AccelerateConfiguration():
-            return AccelerateConfiguration()
+        def AccelerateConfiguration(): return AccelerateConfiguration()
 
         @staticmethod
-        def AccessControlTranslation():
-            return AccessControlTranslation()
+        def AccessControlTranslation(): return AccessControlTranslation()
 
         @staticmethod
-        def AnalyticsConfiguration():
-            return AnalyticsConfiguration()
+        def AnalyticsConfiguration(): return AnalyticsConfiguration()
 
         @staticmethod
-        def BucketEncryption():
-            return BucketEncryption()
+        def BucketEncryption(): return BucketEncryption()
 
         @staticmethod
-        def CorsConfiguration():
-            return CorsConfiguration()
+        def CorsConfiguration(): return CorsConfiguration()
 
         @staticmethod
-        def CorsRule():
-            return CorsRule()
+        def CorsRule(): return CorsRule()
 
         @staticmethod
-        def DataExport():
-            return DataExport()
+        def DataExport(): return DataExport()
 
         @staticmethod
-        def DefaultRetention():
-            return DefaultRetention()
+        def DefaultRetention(): return DefaultRetention()
 
         @staticmethod
-        def Destination():
-            return Destination()
+        def Destination(): return Destination()
 
         @staticmethod
-        def EncryptionConfiguration():
-            return EncryptionConfiguration()
+        def EncryptionConfiguration(): return EncryptionConfiguration()
 
         @staticmethod
-        def FilterRule():
-            return FilterRule()
+        def FilterRule(): return FilterRule()
 
         @staticmethod
-        def InventoryConfiguration():
-            return InventoryConfiguration()
+        def InventoryConfiguration(): return InventoryConfiguration()
 
         @staticmethod
-        def LambdaConfiguration():
-            return LambdaConfiguration()
+        def LambdaConfiguration(): return LambdaConfiguration()
 
         @staticmethod
-        def LifecycleConfiguration():
-            return LifecycleConfiguration()
+        def LifecycleConfiguration(): return LifecycleConfiguration()
 
         @staticmethod
-        def LoggingConfiguration():
-            return LoggingConfiguration()
+        def LoggingConfiguration(): return LoggingConfiguration()
 
         @staticmethod
-        def MetricsConfiguration():
-            return MetricsConfiguration()
+        def MetricsConfiguration(): return MetricsConfiguration()
 
         @staticmethod
-        def NoncurrentVersionTransition():
-            return NoncurrentVersionTransition()
+        def NoncurrentVersionTransition(): return NoncurrentVersionTransition()
 
         @staticmethod
-        def NotificationConfiguration():
-            return NotificationConfiguration()
+        def NotificationConfiguration(): return NotificationConfiguration()
 
         @staticmethod
-        def NotificationFilter():
-            return NotificationFilter()
+        def NotificationFilter(): return NotificationFilter()
 
         @staticmethod
-        def ObjectLockConfiguration():
-            return ObjectLockConfiguration()
+        def ObjectLockConfiguration(): return ObjectLockConfiguration()
 
         @staticmethod
-        def ObjectLockRule():
-            return ObjectLockRule()
+        def ObjectLockRule(): return ObjectLockRule()
 
         @staticmethod
-        def QueueConfiguration():
-            return QueueConfiguration()
+        def QueueConfiguration(): return QueueConfiguration()
 
         @staticmethod
-        def PublicAccessBlockConfiguration():
-            return PublicAccessBlockConfiguration()
+        def PublicAccessBlockConfiguration(): return PublicAccessBlockConfiguration()
 
         @staticmethod
-        def RedirectAllRequestTo():
-            return RedirectAllRequestTo()
+        def RedirectAllRequestTo(): return RedirectAllRequestTo()
 
         @staticmethod
-        def RedirectRule():
-            return RedirectRule()
+        def RedirectRule(): return RedirectRule()
 
         @staticmethod
-        def ReplicationConfiguration():
-            return ReplicationConfiguration()
+        def ReplicationConfiguration(): return ReplicationConfiguration()
 
         @staticmethod
-        def ReplicationDestination():
-            return ReplicationDestination()
+        def ReplicationDestination(): return ReplicationDestination()
 
         @staticmethod
-        def ReplicationRule():
-            return ReplicationRule()
+        def ReplicationRule(): return ReplicationRule()
 
         @staticmethod
-        def RoutingRule():
-            return RoutingRule()
+        def RoutingRule(): return RoutingRule()
 
         @staticmethod
-        def RoutingRuleCondition():
-            return RoutingRuleCondition()
+        def RoutingRuleCondition(): return RoutingRuleCondition()
 
         @staticmethod
-        def Rule():
-            return Rule()
+        def Rule(): return Rule()
 
         @staticmethod
-        def S3KeyFilter():
-            return S3KeyFilter()
+        def S3KeyFilter(): return S3KeyFilter()
 
         @staticmethod
-        def ServerSideEncryptionByDefault():
-            return ServerSideEncryptionByDefault()
+        def ServerSideEncryptionByDefault(): return ServerSideEncryptionByDefault()
 
         @staticmethod
-        def ServerSideEncryptionRule():
-            return ServerSideEncryptionRule()
+        def ServerSideEncryptionRule(): return ServerSideEncryptionRule()
 
         @staticmethod
-        def SourceSelectionCriteria():
-            return SourceSelectionCriteria()
+        def SourceSelectionCriteria(): return SourceSelectionCriteria()
 
         @staticmethod
-        def SseKmsEncryptedObjects():
-            return SseKmsEncryptedObjects()
+        def SseKmsEncryptedObjects(): return SseKmsEncryptedObjects()
 
         @staticmethod
-        def StorageClassAnalysis():
-            return StorageClassAnalysis()
+        def StorageClassAnalysis(): return StorageClassAnalysis()
 
         @staticmethod
-        def TagFilter():
-            return TagFilter()
+        def TagFilter(): return TagFilter()
 
         @staticmethod
-        def TopicConfiguration():
-            return TopicConfiguration()
+        def TopicConfiguration(): return TopicConfiguration()
 
         @staticmethod
-        def Transition():
-            return Transition()
+        def Transition(): return Transition()
 
         @staticmethod
-        def VersioningConfiguration():
-            return VersioningConfiguration()
+        def VersioningConfiguration(): return VersioningConfiguration()
 
         @staticmethod
-        def WebsiteConfiguration():
-            return WebsiteConfiguration()
+        def WebsiteConfiguration(): return WebsiteConfiguration()
 
     class BucketPolicy:
         @staticmethod
-        def Create(id: str):
-            return BucketPolicy(id)
+        def Create(id: str): return BucketPolicy(id)
 
 
-__all__ = [
-    "S3"
-]
+__all__ = ["S3"]
