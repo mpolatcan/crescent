@@ -17,7 +17,7 @@ cf.Template().Resources(
             rds.OptionGroup.OptionConfiguration()
                .OptionName("test")
        ).OptionGroupDescription("test-description")
-        .DependsOn("test")
+       .DependsOn("test")
 ).Parameters(
     cf.Parameter.Create("TestParameter", cf.Parameter.Type.Aws.Ec2.SecurityGroupIdList)
       .AllowedValues("test1", "test2", "test3")

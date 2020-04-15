@@ -24,7 +24,7 @@ from itertools import chain
 class PolicyBuilder:
     __KEY_VERSION = "Version"
     __KEY_ID = "Id"
-    __KEY_STATEMENTS = "Statements"
+    __KEY_STATEMENT = "Statement"
     __KEY_SID = "Sid"
     __KEY_ACTION = "Action"
     __KEY_RESOURCE = "Resource"
@@ -36,7 +36,7 @@ class PolicyBuilder:
         self.__policy = {
             self.__KEY_VERSION: version,
             self.__KEY_ID: id,
-            self.__KEY_STATEMENTS: []
+            self.__KEY_STATEMENT: []
         }
         self.__action_groups = {}
 
@@ -86,7 +86,7 @@ class PolicyBuilder:
             # Validation for required resources
             action.__validate__()
 
-            action_resource = action.__get_resource__()
+            action_resource = action.__get_resources__()
             action_svc = action.__get_service__()
 
             self.__delete_previous_duplicate_actions(action)
@@ -113,7 +113,7 @@ class PolicyBuilder:
         self.__action_grouping(effect, actions)
 
         # Clear old statements
-        self.__policy[self.__KEY_STATEMENTS].clear()
+        self.__policy[self.__KEY_STATEMENT].clear()
 
         statement_no = 0
 
@@ -121,7 +121,7 @@ class PolicyBuilder:
         for effect, effect_resources in self.__action_groups.items():
             for effect_svc, effect_svc_resources_or_actions in effect_resources.items():
                 if effect_svc == "*":
-                    self.__policy[self.__KEY_STATEMENTS].append({
+                    self.__policy[self.__KEY_STATEMENT].append({
                         self.__KEY_SID: "CrescentStatement{}".format(statement_no),
                         self.__KEY_EFFECT: effect,
                         self.__KEY_ACTION: effect_svc_resources_or_actions,
@@ -131,11 +131,13 @@ class PolicyBuilder:
                     statement_no += 1
                 else:
                     for effect_svc_resource, effect_svc_resource_actions in effect_svc_resources_or_actions.items():
-                        self.__policy[self.__KEY_STATEMENTS].append({
+                        self.__policy[self.__KEY_STATEMENT].append({
                             self.__KEY_SID: "CrescentStatement{}".format(statement_no),
                             self.__KEY_EFFECT: effect,
                             self.__KEY_ACTION: effect_svc_resource_actions,
-                            self.__KEY_RESOURCE: effect_svc_resource
+                            self.__KEY_RESOURCE: (
+                                list(effect_svc_resource) if len(effect_svc_resource) > 1 else effect_svc_resource[0]
+                            ) if isinstance(effect_svc_resource, list) else effect_svc_resource
                         })
 
                         statement_no += 1

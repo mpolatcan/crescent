@@ -1,47 +1,53 @@
 class Action:
-    def __init__(self, service, action_name, required_resource=None):
+    __KEY_REQUIRED = "required"
+    __KEY_OPTIONAL = "optional"
+
+    def __init__(self, service, action_name, **definable_resources):
         self.__service = service
         self.__action_name = "{}:{}".format(service, action_name)
-        self.__required_resource = required_resource
-        self.__resource = "*" if required_resource is None else None
+        self.__required_resources = definable_resources.get(self.__KEY_REQUIRED, [])
+        self.__optional_resources = definable_resources.get(self.__KEY_OPTIONAL, [])
+
+        self.__resources = {}
+
+        self.__all_resources = self.__required_resources + self.__optional_resources
 
     def AllResources(self):
-        self.__resource = "*"
+        self.__resources = "*"
         return self
+
+    def _set_resource(self, resource, value):
+        if len(self.__all_resources) == 0:
+            self.__resources = "*"
+
+        if isinstance(self.__resources, dict):
+            self.__resources[resource] = value
+
+        return self
+
+    def __get_resources__(self):
+        return tuple(self.__resources.values()) if isinstance(self.__resources, dict) else self.__resources
 
     def __validate__(self):
-        if self.__resource is None:
+        if self.__resources is None:
             raise Exception(
                 (
-                    "Required resource \"{required_resource}\" must be filled or use \"*\" "
+                    "Required resources \"{required_resources}\" must be filled or use \"*\" "
                     "define policy for all resources of action {action}!"
-                ).format(required_resource=self.__required_resource, action=self.__action_name)
+                ).format(required_resource=",".join(self.__required_resources), action=self.__action_name)
             )
         else:
+            if self.__resources != "*":
+                for required_resource in self.__required_resources:
+                    if required_resource not in self.__resources.keys():
+                        raise Exception(
+                            (
+                                "Required resource \"{required_resource}\" must be filled or use \"*\" "
+                                "define policy for all resources of action {action}!"
+                            ).format(required_resource=required_resource, action=self.__action_name)
+                        )
+
             return True
-
-    def _set_resource(self, resource_key, value):
-        if self.__required_resource is None:
-            raise Exception("You can't set resource \"{resource}\" which it is not required for action {action}!".format(
-                resource=resource_key, action=self.__action_name)
-            )
-
-        if resource_key != self.__required_resource:
-            raise Exception(
-                (
-                    "Expecting required resource \"{required_resource}\" but given \"{given_resource}\" for "
-                    "action {action}!"
-                ).format(required_resource=self.__required_resource, given_resource=resource_key, action=self.__action_name))
-
-        self.__resource = value
-
-        return self
-
-    def __get_resource__(self):
-        return self.__resource
-
-    def __get_required_resource_name__(self):
-        return self.__required_resource
 
     def __get_service__(self):
         return self.__service
@@ -58,12 +64,19 @@ class Action:
 __IGNORED_DICT_KEYS__ = ['__module__', '__dict__', '__weakref__', '__doc__']
 
 
-class AccessLevelAllActions:
+class AccessLevelAllActions(list):
     def __init__(self, access_level):
-        self._actions = [
+        super(AccessLevelAllActions, self).__init__()
+        self.extend([
             getattr(access_level, fn)()
             for fn in [fn for fn in access_level.__dict__.keys() if fn not in __IGNORED_DICT_KEYS__]
-        ]
+        ])
+
+    def _set_all_actions_resources(self, resource, *value):
+        for action in self:
+            getattr(action, resource)(*value)
+
+        return self
 
     def AllResources(self):
-        return [action.AllResources() for action in self._actions]
+        return self._set_all_actions_resources(self.AllResources.__name__)
