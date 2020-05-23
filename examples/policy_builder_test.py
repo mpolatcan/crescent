@@ -1,8 +1,8 @@
-from crescent.policy_builder import PolicyBuilder, Actions
+from crescent.policy import Policy, Actions
 from crescent import Rds as rds
 
 
-print(PolicyBuilder("test").AllowActions(
+print(Policy("test").AllowActions(
     Actions.Rds.WriteAll()
     .Cluster(rds.Arn.ClusterArn("*", region="*", account_id="*"))
     .DBInstance(rds.Arn.DBArn("*", region="*", account_id="*"))

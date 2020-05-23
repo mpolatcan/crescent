@@ -15,13 +15,11 @@
         }
     }
 """
-
-
 from .actions import Action
 from itertools import chain
 
 
-class PolicyBuilder:
+class Policy:
     __KEY_VERSION = "Version"
     __KEY_ID = "Id"
     __KEY_STATEMENT = "Statement"

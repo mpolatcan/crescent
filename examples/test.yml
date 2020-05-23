@@ -29,7 +29,7 @@ Parameters:
     - test2
     - test3
 Mappings:
-  test: {}
+  '2': {}
 Metadata:
   MetadataTest:
     crescent: formation
