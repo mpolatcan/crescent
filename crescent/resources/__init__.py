@@ -5,6 +5,6 @@ from .iam import *
 from .kinesis import *
 from .s3 import *
 from .rds import *
+from .dynamodb import *
 
-
-__all__ = ["Ecr", "Efs", "Firehose", "Iam", "Kinesis", "Rds", "S3"]
+__all__ = ["Ecr", "Efs", "Firehose", "Iam", "Kinesis", "Rds", "S3", "DynamoDB"]

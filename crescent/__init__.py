@@ -41,4 +41,4 @@ class CrescentFactory:
     def Tag(key: str, value: str): return Tag(key, value)
 
 
-__all__ = ["CrescentFactory", "Ecr", "Efs", "Firehose", "Iam", "Kinesis", "Rds", "S3"]
+__all__ = ["CrescentFactory", "Ecr", "Efs", "Firehose", "Iam", "Kinesis", "Rds", "S3", "DynamoDB"]

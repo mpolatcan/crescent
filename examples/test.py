@@ -1,4 +1,4 @@
-from crescent import CrescentFactory as cf, Rds as rds
+from crescent import CrescentFactory as cf, Rds as rds, DynamoDB as ddb
 
 cf.Template().Resources(
     rds.DBCluster.Create("TestDBCluster")
@@ -17,7 +17,15 @@ cf.Template().Resources(
             rds.OptionGroup.OptionConfiguration()
                .OptionName("test")
        ).OptionGroupDescription("test-description")
-       .DependsOn("test")
+       .DependsOn("test"),
+    ddb.Table.Create("test")
+       .KeySchema()
+       .BillingMode(ddb.Table.BillingMode.PROVISIONED)
+       .LocalSecondaryIndexes(ddb.Table.LocalSecondaryIndex().Projection(
+            ddb.Table.Projection().ProjectionType(ddb.Table.ProjectionType.ALL)
+       ).IndexName("test").KeySchema(
+            ddb.Table.KeySchema().KeyType(ddb.Table.KeyType.HASH)
+       ))
 ).Parameters(
     cf.Parameter.Create("TestParameter", cf.Parameter.Type.Aws.Ec2.SecurityGroupIdList)
       .AllowedValues("test1", "test2", "test3")
