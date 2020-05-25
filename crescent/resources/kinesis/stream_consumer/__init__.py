@@ -1,5 +1,9 @@
 from .stream_consumer import StreamConsumer
 
-__all__ = [
-    "StreamConsumer"
-]
+
+class StreamConsumerFactory:
+    @staticmethod
+    def Create(id: str): return StreamConsumer(id)
+
+
+__all__ = ["StreamConsumerFactory"]

@@ -12,3 +12,12 @@ class RepositoryArn(Arn):
                                                  partition=partition,
                                                  region=region,
                                                  account_id=account_id)
+
+# --------------------------
+
+
+class ArnFactory:
+    @staticmethod
+    def RepositoryArn(repository_name: str, partition: str = "aws", region: str = "", account_id: str = ""):
+        return RepositoryArn(repository_name=repository_name, partition=partition,
+                             region=region, account_id=account_id)

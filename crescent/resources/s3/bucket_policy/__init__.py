@@ -1,3 +1,9 @@
 from .bucket_policy import BucketPolicy
 
-__all__ = ["BucketPolicy"]
+
+class BucketPolicyFactory:
+    @staticmethod
+    def Create(id: str): return BucketPolicy(id)
+
+
+__all__ = ["BucketPolicyFactory"]

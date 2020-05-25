@@ -22,16 +22,9 @@ Resources:
     DependsOn:
     - test
   test:
-    Type: AWS::DynamoDB::Table
+    Type: AWS::ApiGatewayV2::Api
     Properties:
-      KeySchema: []
-      BillingMode: PROVISIONED
-      LocalSecondaryIndexes:
-      - Projection:
-          ProjectionType: ALL
-        IndexName: test
-        KeySchema:
-        - KeyType: HASH
+      BasePath: prepend
 Parameters:
   TestParameter:
     Type: List<AWS::EC2::SecurityGroup::Id>

@@ -1,5 +1,9 @@
 from .mount_target import MountTarget
 
-__all__ = [
-    "MountTarget"
-]
+
+class MountTargetFactory:
+    @staticmethod
+    def Create(id: str): return MountTarget(id)
+
+
+__all__ = ["MountTargetFactory"]

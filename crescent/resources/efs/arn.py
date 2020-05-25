@@ -37,3 +37,17 @@ class AccessPointArn(EfsArn):
                                                   partition=partition,
                                                   region=region,
                                                   account_id=account_id)
+
+
+# --------------------------------------
+
+class ArnFactory:
+    @staticmethod
+    def AccessPointArn(access_point_id: str, region: str = "", account_id: str = "", partition: str = "aws"):
+        return AccessPointArn(access_point_id=access_point_id, region=region,
+                              account_id=account_id, partition=partition)
+
+    @staticmethod
+    def FileSystemArn(file_system_id: str, region: str = "", account_id: str = "", partition: str = "aws"):
+        return FileSystemArn(file_system_id=file_system_id, region=region,
+                             account_id=account_id, partition=partition)

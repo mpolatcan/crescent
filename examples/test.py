@@ -1,4 +1,9 @@
-from crescent import CrescentFactory as cf, Rds as rds, DynamoDB as ddb
+from crescent import (
+    CrescentFactory as cf,
+    Rds as rds,
+    DynamoDB as ddb,
+    ApiGatewayV2 as api_gw_v2
+)
 
 cf.Template().Resources(
     rds.DBCluster.Create("TestDBCluster")
@@ -25,7 +30,10 @@ cf.Template().Resources(
             ddb.Table.Projection().ProjectionType(ddb.Table.ProjectionType.ALL)
        ).IndexName("test").KeySchema(
             ddb.Table.KeySchema().KeyType(ddb.Table.KeyType.HASH)
-       ))
+       )),
+    api_gw_v2.Api.Create("test").BasePath(
+        api_gw_v2.Api.BasePath.PREPEND
+    )
 ).Parameters(
     cf.Parameter.Create("TestParameter", cf.Parameter.Type.Aws.Ec2.SecurityGroupIdList)
       .AllowedValues("test1", "test2", "test3")

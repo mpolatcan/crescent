@@ -1,5 +1,9 @@
 from .db_subnet_group import DBSubnetGroup
 
-__all__ = [
-    "DBSubnetGroup"
-]
+
+class DBSubnetGroupFactory:
+    @staticmethod
+    def Create(id: str): return DBSubnetGroup(id)
+
+
+__all__ = ["DBSubnetGroupFactory"]

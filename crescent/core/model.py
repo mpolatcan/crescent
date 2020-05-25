@@ -219,7 +219,7 @@ class Model:
                                                  ValidationFailureMessages.ALLOWED_VALUES_VALIDATION,
                                                  prop_name=property_name,
                                                  prop_value=property_value,
-                                                 allowed_values=",".join(property_allowed_values))
+                                                 allowed_values="\", \"".join(property_allowed_values))
         else:
             return dict(is_valid=True)
 

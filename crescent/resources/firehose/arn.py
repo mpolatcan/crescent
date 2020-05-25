@@ -12,3 +12,13 @@ class DeliveryStreamArn(Arn):
                                                      region=region,
                                                      account_id=account_id,
                                                      partition=partition)
+
+# --------------------------------
+
+
+class ArnFactory:
+    @staticmethod
+    def DeliveryStreamArn(delivery_stream_name: str, region: str = "", account_id: str = "", partition: str = "aws"):
+        return DeliveryStreamArn(delivery_stream_name=delivery_stream_name, region=region,
+                                 account_id=account_id, partition=partition)
+
